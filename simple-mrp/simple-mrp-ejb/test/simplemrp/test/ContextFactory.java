@@ -29,7 +29,7 @@ public class ContextFactory {
         try {
             return new InitialContext(props);
         } catch (Exception e) {
-            System.out.println("Exception = " + e.getMessage());
+            e.printStackTrace(System.out);
             return null;
         }
     }

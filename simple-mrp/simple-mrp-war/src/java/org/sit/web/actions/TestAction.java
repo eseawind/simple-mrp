@@ -5,12 +5,12 @@
 
 package org.sit.web.actions;
 
-import org.sit.jpa.entities.TestUnit;
+//import org.sit.jpa.entities.TestUnit;
 
 /**
  *
  * @author wisaruthkea
  */
 public class TestAction {
-    private TestUnit t;
+//    private TestUnit t;
 }

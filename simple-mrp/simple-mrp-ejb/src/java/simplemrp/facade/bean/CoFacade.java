@@ -15,7 +15,7 @@ import simplemrp.facade.CoFacadeRemote;
  *
  * @author Golf
  */
-@Stateless (mappedName = "simplemrp.CoFacadeRemote")
+@Stateless (mappedName = "CoFacadeRemote")
 public class CoFacade implements CoFacadeRemote {
     @EJB
     private InfBankBo bankBo;
