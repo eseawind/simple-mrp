@@ -6,12 +6,19 @@
     xmlns="http://java.sun.com/xml/ns/javaee" 
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
+
+    <managed-bean>
+        <managed-bean-name>richFacesBean</managed-bean-name>
+        <managed-bean-class>org.my.richfaces.RichFacesBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
     <application>
         <locale-config>
             <default-locale>en</default-locale>
         </locale-config>
         <view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
     </application>
+    
     <managed-bean>
         <description>UserName Bean</description>
         <managed-bean-name>user</managed-bean-name>
@@ -23,4 +30,9 @@
             <value/>
         </managed-property>
     </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>customerBean</managed-bean-name>
+        <managed-bean-class>simplemrp.mbean.co.CustomerBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope></managed-bean>
 </faces-config>
