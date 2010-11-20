@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+
+    <ui:define name="content">
+        <f:view>
+            <h:form>
+                <h:inputHidden value="#{customerBean.mode}"/>
+                <h:panelGrid columns="2">
+                    <h:panelGrid columns="2">
+                        <h:commandButton value="New" actionListener="#{customerBean.doNew}"/>
+                        <h:commandButton value="Save" actionListener="#{customerBean.doSave}"/>
+                        <h:outputLabel value="Customer ID"/>
+                        <h:inputText value="#{customerBean.cust_id}"/>
+                        <h:outputLabel value="Prefix name"/>
+                        <h:inputText value="#{customerBean.prefixname}"/>
+                        <h:outputLabel value="Name"/>
+                        <h:inputText value="#{customerBean.name}"/>
+                        <h:outputLabel value="Address 1"/>
+                        <h:inputText value="#{customerBean.addr1}"/>
+                        <h:outputLabel value="Address 2"/>
+                        <h:inputText value="#{customerBean.addr2}"/>
+                        <h:outputLabel value="Road"/>
+                        <h:inputText value="#{customerBean.road}"/>
+                        <h:outputLabel value="Soi"/>
+                        <h:inputText value="#{customerBean.soi}"/>
+                        <h:outputLabel value="Coutry"/>
+                        <h:inputText value="#{customerBean.country_id}"/>
+                        <h:outputLabel value="Province"/>
+                        <h:inputText value="#{customerBean.province_id}"/>
+                        <h:outputLabel value="District"/>
+                        <h:inputText value="#{customerBean.district_id}"/>
+                        <h:outputLabel value="Sub district"/>
+                        <h:inputText value="#{customerBean.subdist_id}"/>
+                        <h:outputLabel value="Zipcode"/>
+                        <h:inputText value="#{customerBean.zipcode}"/>
+                        <h:outputLabel value="Phone"/>
+                        <h:inputText value="#{customerBean.phone}"/>
+                        <h:outputLabel value="Fax"/>
+                        <h:inputText value="#{customerBean.fax}"/>
+                        <h:outputLabel value="e-mail"/>
+                        <h:inputText value="#{customerBean.email}"/>
+
+                    </h:panelGrid>
+                    <h:panelGrid columns="1">
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="Customer Name"/>
+                            <h:inputText value="#{customerBean.keyword}" />
+                            <h:commandButton value="Search" actionListener="#{customerBean.doSearch}"/>
+                        </h:panelGrid>
+                        <h:dataTable value="#{customerBean.lsCustomer}" var="dataItem">
+                            <h:column>
+                                <f:facet name="header" >
+                                    <h:outputText value="Customer ID"/>
+                                </f:facet>
+                                <h:outputText value="#{dataItem.custId}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header" >
+                                    <h:outputText value="Customer Name"/>
+                                </f:facet>
+                                <h:outputText value="#{dataItem.name}"/>
+                            </h:column>
+                        </h:dataTable>
+                    </h:panelGrid>
+                </h:panelGrid>
+            </h:form>
+        </f:view>
+    </ui:define>
+</ui:composition>
