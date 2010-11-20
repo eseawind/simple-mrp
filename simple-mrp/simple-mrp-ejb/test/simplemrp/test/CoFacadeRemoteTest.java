@@ -5,8 +5,9 @@
 
 package simplemrp.test;
 
-import javax.naming.InitialContext;
-import simplemrp.entity.Bank;
+import simplemrp.entity.Customer;
+import java.util.List;
+import simplemrp.util.BindingName;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import simplemrp.facade.CoFacadeRemote;
@@ -29,7 +30,7 @@ public class CoFacadeRemoteTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
-        coFacade = (CoFacadeRemote) ContextFactory.getContext().lookup("CoFacadeRemote");
+        coFacade = (CoFacadeRemote) ContextFactory.getContext().lookup(BindingName.CoFacadeRemote);
     }
 
     @AfterClass
@@ -47,12 +48,8 @@ public class CoFacadeRemoteTest {
     @Test
     public void testCoFacadeRemote() {
         try {
-            Bank bank = coFacade.getBank("TEST");
-            if(bank != null) {
-                System.out.println(bank.getBankId() + ":" + bank.getDescription());
-            } else {
-                System.out.println("Find not found");
-            }
+            List<Customer> lsCustomer = coFacade.searchCustomer("");
+            System.out.println(lsCustomer.size());
         } catch (Exception ex) {
             Logger.getLogger(CoFacadeRemoteTest.class.getName()).log(Level.SEVERE, null, ex);
             fail();

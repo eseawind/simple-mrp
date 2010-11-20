@@ -30,4 +30,6 @@ public interface InfCustomerDao {
 
     int count();
 
+    List<Customer> findByName(String name);
+
 }

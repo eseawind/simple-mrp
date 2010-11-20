@@ -5,24 +5,26 @@
 
 package simplemrp.facade.bean;
 
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import simplemrp.bo.bean.InfBankBo;
-import simplemrp.entity.Bank;
+import simplemrp.bo.InfCustomerBo;
+import simplemrp.entity.Customer;
 import simplemrp.facade.CoFacadeRemote;
+import simplemrp.util.BindingName;
 
 /**
  *
  * @author Golf
  */
-@Stateless (mappedName = "CoFacadeRemote")
+
+@Stateless (mappedName=BindingName.CoFacadeRemote)
 public class CoFacade implements CoFacadeRemote {
     @EJB
-    private InfBankBo bankBo;
-
+    private InfCustomerBo customerBo;
 
     @Override
-    public Bank getBank(String bank_id) throws Exception {
-        return bankBo.find(bank_id);
+    public List<Customer> searchCustomer(String p_strKeyword) throws Exception {
+        return customerBo.searchCustomer(p_strKeyword);
     }
 }

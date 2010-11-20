@@ -5,8 +5,9 @@
 
 package simplemrp.facade;
 
+import java.util.List;
 import javax.ejb.Remote;
-import simplemrp.entity.Bank;
+import simplemrp.entity.Customer;
 
 /**
  *
@@ -14,5 +15,5 @@ import simplemrp.entity.Bank;
  */
 @Remote
 public interface CoFacadeRemote {
-    public Bank getBank(String bank_id) throws Exception;
+    public List<Customer> searchCustomer(String p_strKeyword) throws Exception;
 }
