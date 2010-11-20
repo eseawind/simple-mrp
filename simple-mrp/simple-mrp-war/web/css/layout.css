@@ -1,0 +1,56 @@
+#container{
+	background-color:white;
+	border-color:white;
+	border-left:20px solid white;
+	border-right:20px solid white;
+	border-style:solid;
+	border-width:15px 20px;
+	margin-left:auto;
+	margin-right:auto;
+	/*max-width:1000px;*/
+	width:90%; 
+}
+#header{
+	background-image:url(../assets/image/header-bg.gif);
+	background-repeat:repeat-x;
+	height:90px;
+	margin-bottom:8px;
+	width:100%; 
+}
+#webname{
+	padding: 5 5 5 5;
+	float:left;
+	width:258px;
+	height:90px; 
+}
+#loginbox{
+	color:white;
+	background-image:url(../assets/image/loginbg.gif);
+	background-repeat: no-repeat;
+	background-color:white;
+	float:right;
+	height:90px;
+	width:258px; 
+	padding-right: 5px;
+	text-align: right;
+}
+#loginbox a{
+	color:white;
+	font-style:oblique;
+}
+#subheader{
+}
+#navbar{
+}
+#content{
+}
+#footer{
+	color:white;
+	background-image:url(../assets/image/header-bg.gif);
+	background-repeat:repeat-x;
+	height:20px;
+	margin-bottom:8px;
+	padding:2px;
+	text-align: right;
+}
+

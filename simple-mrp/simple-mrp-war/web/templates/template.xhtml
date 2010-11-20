@@ -3,24 +3,34 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html">
-    
+
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link href="./../css/default.css" rel="stylesheet" type="text/css" />
-        <link href="./../css/cssLayout.css" rel="stylesheet" type="text/css" />
+        <link href="./css/default.css" rel="stylesheet" type="text/css" />
+        <link href="./css/cssLayout.css" rel="stylesheet" type="text/css" />
         <title>Simple MRP</title>
     </head>
-    
+
     <body>
+        <div id="header">
+            <div id="webname">
+                <h2 style="color: white;">Simple<br />
+                    MRP
+                </h2>
+            </div>
+        </div>
         <div id="top">
             <ui:insert name="top">Header</ui:insert>
         </div>
+
         <div id="content" class="center_content">
             <ui:insert name="content">Content</ui:insert>
         </div>
+
         <div id="bottom">
             <ui:insert name="bottom">Footer</ui:insert>
         </div>
+        <div id="footer"></div>
     </body>
-    
+
 </html>
