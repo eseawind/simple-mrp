@@ -2,23 +2,28 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package simplemrp.mbean.co;
 
-import java.sql.Date;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.faces.event.ActionEvent;
+import simplemrp.entity.Country;
 import simplemrp.entity.Customer;
+import simplemrp.entity.District;
+import simplemrp.entity.Province;
+import simplemrp.entity.Subdist;
+import simplemrp.entity.Tax;
+import simplemrp.entity.Term;
 import simplemrp.facade.CoFacadeRemote;
 import simplemrp.util.EJBLookup;
-
+import simplemrp.util.FacesUtils;
 
 /**
  *
  * @author Golf
  */
 public class CustomerBean {
+
     private String mode;
     private String cust_id;
     private String prefixname;
@@ -35,14 +40,12 @@ public class CustomerBean {
     private String cuser;
     private Date udate;
     private String uuser;
-
     private String term_id;
     private String tax_id;
     private Integer subdist_id;
     private Integer province_id;
     private Integer district_id;
     private Integer country_id;
-
     private String keyword;
     private List<Customer> lsCustomer;
 
@@ -245,13 +248,40 @@ public class CustomerBean {
 
     public void doSearch(ActionEvent e) throws Exception {
         CoFacadeRemote coFacade = EJBLookup.getCoFacade();
-        List<Customer>ls = coFacade.searchCustomer(getKeyword());
+        List<Customer> ls = coFacade.searchCustomer(getKeyword());
 
         setLsCustomer(ls);
     }
-    
-    public void doShow(ActionEvent e) throws Exception {
-//        CoFacadeRemote coFacade = EJBLookup.getCoFacade();
+
+    public void doSelect(ActionEvent e) throws Exception {
+        String strCust_id = FacesUtils.getRequestParameter("p_cust_id");
+
+        CoFacadeRemote coFacade = EJBLookup.getCoFacade();
+        Customer customer = coFacade.getCustomer(strCust_id);
+
+        setMode("EDIT");
+
+        addr1 = customer.getAddr1();
+        addr2 = customer.getAddr2();
+        cdate = customer.getCdate();
+        country_id = customer.getCountry().getCountryId();
+        cuser = customer.getCuser();
+        cust_id = customer.getCustId();
+        district_id = customer.getDistrict().getDistrictId();
+        email = customer.getEmail();
+        fax = customer.getFax();
+        name = customer.getName();
+        phone = customer.getPhone();
+        prefixname = customer.getPrefixname();
+        province_id = customer.getProvince().getProvinceId();
+        road = customer.getRoad();
+        soi = customer.getSoi();
+        subdist_id = customer.getSubdist().getSubdistId();
+        tax_id = customer.getTax().getTaxId();
+        term_id = customer.getTerm().getTermId();
+        udate = customer.getUdate();
+        uuser = customer.getUuser();
+        zipcode = customer.getZipcode();
     }
 
     public void doNew(ActionEvent e) throws Exception {
@@ -259,10 +289,42 @@ public class CustomerBean {
     }
 
     public void doSave(ActionEvent e) throws Exception {
-        Customer c = new Customer();
-        c.setAddr1(getAddr1());
-        c.setAddr2(getAddr2());
-//        c.setCdate(get);
-//        CoFacadeRemote coFacade = EJBLookup.getCoFacade();
+        Customer customer = new Customer();
+        customer.setCustId(cust_id);
+        customer.setPrefixname(prefixname);
+        customer.setName(name);
+        customer.setAddr1(addr1);
+        customer.setAddr2(addr2);
+        customer.setRoad(road);
+        customer.setSoi(soi);
+        customer.setZipcode(zipcode);
+        customer.setPhone(phone);
+        customer.setFax(fax);
+        customer.setEmail(email);
+        customer.setCdate(cdate);
+        customer.setCuser(cuser);
+        customer.setUdate(udate);
+        customer.setUuser(uuser);
+
+        Term term = new Term(term_id);
+        customer.setTerm(term);
+
+        Tax tax = new Tax(tax_id);
+        customer.setTax(tax);
+
+        Subdist subdist = new Subdist(subdist_id);
+        customer.setSubdist(subdist);
+        
+        Province province = new Province(province_id);
+        customer.setProvince(province);
+
+        District district = new District(district_id);
+        customer.setDistrict(district);
+
+        Country country = new Country(country_id);
+        customer.setCountry(country);
+
+        CoFacadeRemote coFacade = EJBLookup.getCoFacade();
+        coFacade.editCustomer(customer);
     }
 }

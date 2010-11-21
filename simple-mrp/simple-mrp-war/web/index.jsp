@@ -1,1 +1,0 @@
-<% response.sendRedirect("./index_2.jsf"); %>

@@ -50,27 +50,50 @@
                         <h:outputLabel value="e-mail"/>
                         <h:inputText value="#{customerBean.email}"/>
 
+                        <h:outputLabel value="Create Date"/>
+                        <rich:calendar value="#{customerBean.cdate}" disabled="true"/>
+                        <h:outputLabel value="Create By"/>
+                        <h:inputText value="#{customerBean.cuser}"/>
+
+                        <h:outputLabel value="Update"/>
+                        <rich:calendar value="#{customerBean.udate}" disabled="true"/>
+                        <h:outputLabel value="Update By"/>
+                        <h:inputText value="#{customerBean.uuser}"/>
+
                     </h:panelGrid>
+
                     <h:panelGrid columns="1">
                         <h:panelGrid columns="2">
                             <h:outputLabel value="Customer Name"/>
                             <h:inputText value="#{customerBean.keyword}" />
                             <h:commandButton value="Search" actionListener="#{customerBean.doSearch}"/>
                         </h:panelGrid>
-                        <h:dataTable value="#{customerBean.lsCustomer}" var="dataItem">
-                            <h:column>
-                                <f:facet name="header" >
-                                    <h:outputText value="Customer ID"/>
+
+
+                        <rich:dataTable value="#{customerBean.lsCustomer}" var="item">
+                            <rich:column sortBy="#{item.custId}">
+                                <f:facet name="header">
+                                    <h:outputText value="custId"/>
                                 </f:facet>
-                                <h:outputText value="#{dataItem.custId}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header" >
-                                    <h:outputText value="Customer Name"/>
+                                <h:outputText value="#{item.custId}"/>
+                            </rich:column>
+
+                            <rich:column sortBy="#{item.name}">
+                                <f:facet name="header">
+                                    <h:outputText value="Name"/>
                                 </f:facet>
-                                <h:outputText value="#{dataItem.name}"/>
-                            </h:column>
-                        </h:dataTable>
+                                <h:outputText value="#{item.name}" />
+                            </rich:column>
+
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                                <h:commandLink value="edit" actionListener="#{customerBean.doSelect}">
+                                <f:param name="p_cust_id" value="#{item.custId}"/>
+                                </h:commandLink>
+                            </rich:column>
+                        </rich:dataTable>
                     </h:panelGrid>
                 </h:panelGrid>
             </h:form>
