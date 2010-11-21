@@ -16,4 +16,8 @@ import simplemrp.entity.Customer;
 @Remote
 public interface CoFacadeRemote {
     public List<Customer> searchCustomer(String p_strKeyword) throws Exception;
+
+    public Customer getCustomer(String p_strCust_id) throws Exception;
+
+    public void editCustomer(Customer p_customer) throws Exception;
 }

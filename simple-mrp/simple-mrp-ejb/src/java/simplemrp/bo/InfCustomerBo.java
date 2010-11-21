@@ -16,4 +16,8 @@ import simplemrp.entity.Customer;
 @Local
 public interface InfCustomerBo {
     public List<Customer> searchCustomer(String p_strName) throws Exception;
+
+    public Customer findCustomer(String p_strCust_id) throws Exception;
+
+    public void editCustomer(Customer p_customer) throws Exception;
 }

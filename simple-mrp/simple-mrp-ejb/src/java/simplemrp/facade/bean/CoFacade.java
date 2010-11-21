@@ -27,4 +27,14 @@ public class CoFacade implements CoFacadeRemote {
     public List<Customer> searchCustomer(String p_strKeyword) throws Exception {
         return customerBo.searchCustomer(p_strKeyword);
     }
+
+    @Override
+    public Customer getCustomer(String p_strCust_id) throws Exception {
+        return customerBo.findCustomer(p_strCust_id);
+    }
+
+    @Override
+    public void editCustomer(Customer p_customer) throws Exception {
+        customerBo.editCustomer(p_customer);
+    }
 }

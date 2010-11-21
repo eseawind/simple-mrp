@@ -82,7 +82,7 @@ public class Customer implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private District district;
     @JoinColumn(name = "COUNTRY_ID", referencedColumnName = "COUNTRY_ID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Country country;
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
     private Collection<Co> coCollection;

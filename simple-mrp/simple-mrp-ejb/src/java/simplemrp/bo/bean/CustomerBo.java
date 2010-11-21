@@ -26,4 +26,22 @@ public class CustomerBo implements InfCustomerBo {
     public List<Customer> searchCustomer(String p_strName) throws Exception {
         return customerDao.findByName(p_strName);
     }
+
+    @Override
+    public Customer findCustomer(String p_strCust_id) throws Exception {
+        Customer customer = customerDao.find(p_strCust_id);
+        customer.getCountry().toString();
+        customer.getDistrict().toString();
+        customer.getProvince().toString();
+        customer.getSubdist().toString();
+        customer.getTax().toString();
+        customer.getTerm().toString();
+        
+        return customer;
+    }
+
+    @Override
+    public void editCustomer(Customer p_customer) throws Exception {
+        customerDao.edit(p_customer);
+    }
 }
