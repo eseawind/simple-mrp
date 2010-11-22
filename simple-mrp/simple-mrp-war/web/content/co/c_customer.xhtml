@@ -14,55 +14,65 @@
         <h:messages></h:messages>
         <f:view>
             <h:form>
+                <a4j:keepAlive beanName="customerBean" />
                 <h:inputHidden value="#{customerBean.mode}"/>
+
                 <h:panelGrid columns="2">
-                    <h:panelGrid columns="2">
-                        <h:commandButton value="New" actionListener="#{customerBean.doNew}"/>
-                        <h:commandButton value="Save" actionListener="#{customerBean.doSave}"/>
-                        <h:outputLabel value="Customer ID"/>
-                        <h:inputText value="#{customerBean.cust_id}"/>
-                        <h:outputLabel value="Prefix name"/>
-                        <h:inputText value="#{customerBean.prefixname}"/>
-                        <h:outputLabel value="Name"/>
-                        <h:inputText value="#{customerBean.name}"/>
-                        <h:outputLabel value="Address 1"/>
-                        <h:inputText value="#{customerBean.addr1}"/>
-                        <h:outputLabel value="Address 2"/>
-                        <h:inputText value="#{customerBean.addr2}"/>
-                        <h:outputLabel value="Road"/>
-                        <h:inputText value="#{customerBean.road}"/>
-                        <h:outputLabel value="Soi"/>
-                        <h:inputText value="#{customerBean.soi}"/>
-                        <h:outputLabel value="Coutry"/>
-                        <h:inputText value="#{customerBean.country_id}"/>
-                        <h:outputLabel value="Province"/>
-                        <h:inputText value="#{customerBean.province_id}"/>
-                        <h:outputLabel value="District"/>
-                        <h:inputText value="#{customerBean.district_id}"/>
-                        <h:outputLabel value="Sub district"/>
-                        <h:inputText value="#{customerBean.subdist_id}"/>
-                        <h:outputLabel value="Zipcode"/>
-                        <h:inputText value="#{customerBean.zipcode}"/>
-                        <h:outputLabel value="Phone"/>
-                        <h:inputText value="#{customerBean.phone}"/>
-                        <h:outputLabel value="Fax"/>
-                        <h:inputText value="#{customerBean.fax}"/>
-                        <h:outputLabel value="e-mail"/>
-                        <h:inputText value="#{customerBean.email}"/>
+                    <rich:panel id="editPane" header="Customer Info">
+                        <a4j:commandButton value="New" actionListener="#{customerBean.doNew}"/>
+                        <rich:spacer width="4"/>
+                        <a4j:commandButton value="Save" actionListener="#{customerBean.doSave}"/>
+                        <rich:spacer width="4"/>
+                        <a4j:commandButton value="Delete" actionListener="#{customerBean.doDelete}"/>
+                        <rich:spacer width="4"/>
+                        <a4j:commandButton value="Clear" actionListener="#{customerBean.doClear}"/>
 
-                        <h:outputLabel value="Create Date"/>
-                        <rich:calendar value="#{customerBean.cdate}" disabled="true"/>
-                        <h:outputLabel value="Create By"/>
-                        <h:inputText value="#{customerBean.cuser}"/>
+                        <h:panelGrid columns="2" width="350px">
+                            <h:outputLabel value="Customer ID"/>
+                            <h:inputText value="#{customerBean.cust_id}"/>
+                            <h:outputLabel value="Prefix name"/>
+                            <h:inputText value="#{customerBean.prefixname}"/>
+                            <h:outputLabel value="Name"/>
+                            <h:inputText value="#{customerBean.name}"/>
+                            <h:outputLabel value="Address 1"/>
+                            <h:inputText value="#{customerBean.addr1}" size="50" maxlength="50"/>
+                            <h:outputLabel value="Address 2"/>
+                            <h:inputText value="#{customerBean.addr2}"/>
+                            <h:outputLabel value="Road"/>
+                            <h:inputText value="#{customerBean.road}"/>
+                            <h:outputLabel value="Soi"/>
+                            <h:inputText value="#{customerBean.soi}"/>
+                            <h:outputLabel value="Coutry"/>
+                            <h:inputText value="#{customerBean.country_id}"/>
+                            <h:outputLabel value="Province"/>
+                            <h:inputText value="#{customerBean.province_id}"/>
+                            <h:outputLabel value="District"/>
+                            <h:inputText value="#{customerBean.district_id}"/>
+                            <h:outputLabel value="Sub district"/>
+                            <h:inputText value="#{customerBean.subdist_id}"/>
+                            <h:outputLabel value="Zipcode"/>
+                            <h:inputText value="#{customerBean.zipcode}"/>
+                            <h:outputLabel value="Phone"/>
+                            <h:inputText value="#{customerBean.phone}"/>
+                            <h:outputLabel value="Fax"/>
+                            <h:inputText value="#{customerBean.fax}"/>
+                            <h:outputLabel value="e-mail"/>
+                            <h:inputText value="#{customerBean.email}"/>
 
-                        <h:outputLabel value="Update"/>
-                        <rich:calendar value="#{customerBean.udate}" disabled="true"/>
-                        <h:outputLabel value="Update By"/>
-                        <h:inputText value="#{customerBean.uuser}"/>
+                            <h:outputLabel value="Create Date"/>
+                            <h:outputText value="#{customerBean.cdate}"/>
+                            <h:outputLabel value="Create By"/>
+                            <h:outputText value="#{customerBean.cuser}"/>
 
-                    </h:panelGrid>
+                            <h:outputLabel value="Update"/>
+                            <h:outputText value="#{customerBean.udate}"/>
+                            <h:outputLabel value="Update By"/>
+                            <h:outputText value="#{customerBean.uuser}"/>
 
-                    <h:panelGrid columns="1">
+                        </h:panelGrid>
+                    </rich:panel>
+
+                    <rich:panel header="Search Customer">
                         <h:panelGrid columns="2">
                             <h:outputLabel value="Customer Name"/>
                             <h:inputText value="#{customerBean.keyword}" />
@@ -70,7 +80,7 @@
                         </h:panelGrid>
 
 
-                        <rich:dataTable value="#{customerBean.lsCustomer}" var="item">
+                        <rich:dataTable value="#{customerBean.lsCustomer}" var="item" width="400px">
                             <rich:column sortBy="#{item.custId}">
                                 <f:facet name="header">
                                     <h:outputText value="custId"/>
@@ -82,7 +92,7 @@
                                 <f:facet name="header">
                                     <h:outputText value="Name"/>
                                 </f:facet>
-                                <h:outputText value="#{item.name}" />
+                                <h:outputText value="#{item.name}"/>
                             </rich:column>
 
                             <rich:column>
@@ -90,11 +100,11 @@
                                     <h:outputText value=""/>
                                 </f:facet>
                                 <h:commandLink value="edit" actionListener="#{customerBean.doSelect}">
-                                <f:param name="p_cust_id" value="#{item.custId}"/>
+                                    <f:param name="p_cust_id" value="#{item.custId}"/>
                                 </h:commandLink>
                             </rich:column>
                         </rich:dataTable>
-                    </h:panelGrid>
+                    </rich:panel>
                 </h:panelGrid>
             </h:form>
         </f:view>

@@ -20,4 +20,6 @@ public interface InfCustomerBo {
     public Customer findCustomer(String p_strCust_id) throws Exception;
 
     public void editCustomer(Customer p_customer) throws Exception;
+
+    public void removeCustomer(Customer p_customer) throws Exception;
 }

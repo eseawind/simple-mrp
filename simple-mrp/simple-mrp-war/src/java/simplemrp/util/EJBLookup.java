@@ -8,6 +8,10 @@ package simplemrp.util;
 import java.util.Properties;
 import javax.naming.InitialContext;
 import simplemrp.facade.CoFacadeRemote;
+import simplemrp.facade.IcFacadeRemote;
+import simplemrp.facade.MaFacadeRemote;
+import simplemrp.facade.PoFacadeRemote;
+import simplemrp.facade.PpFacadeRemote;
 
 /**
  *
@@ -36,5 +40,33 @@ public class EJBLookup {
             initContext();
         }
         return (CoFacadeRemote) ctx.lookup(BindingName.CoFacadeRemote);
+    }
+
+    public static PoFacadeRemote getPoFacade() throws Exception {
+        if(ctx == null) {
+            initContext();
+        }
+        return (PoFacadeRemote) ctx.lookup(BindingName.PoFacadeRemote);
+    }
+
+    public static MaFacadeRemote getMaFacade() throws Exception {
+        if(ctx == null) {
+            initContext();
+        }
+        return (MaFacadeRemote) ctx.lookup(BindingName.MaFacadeRemote);
+    }
+
+    public static IcFacadeRemote getIcFacade() throws Exception {
+        if(ctx == null) {
+            initContext();
+        }
+        return (IcFacadeRemote) ctx.lookup(BindingName.IcFacadeRemote);
+    }
+
+    public static PpFacadeRemote getPpFacade() throws Exception {
+        if(ctx == null) {
+            initContext();
+        }
+        return (PpFacadeRemote) ctx.lookup(BindingName.PpFacadeRemote);
     }
 }

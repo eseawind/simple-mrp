@@ -44,4 +44,9 @@ public class CustomerBo implements InfCustomerBo {
     public void editCustomer(Customer p_customer) throws Exception {
         customerDao.edit(p_customer);
     }
+
+    @Override
+    public void removeCustomer(Customer p_customer) throws Exception {
+        customerDao.remove(p_customer);
+    }
 }

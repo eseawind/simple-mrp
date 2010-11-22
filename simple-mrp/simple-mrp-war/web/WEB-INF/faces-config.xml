@@ -29,10 +29,6 @@
     <managed-bean>
         <managed-bean-name>customerBean</managed-bean-name>
         <managed-bean-class>simplemrp.mbean.co.CustomerBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope></managed-bean>
-    <managed-bean>
-        <managed-bean-name>customer2Bean</managed-bean-name>
-        <managed-bean-class>simplemrp.mbean.co.Customer2Bean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
+        <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 </faces-config>

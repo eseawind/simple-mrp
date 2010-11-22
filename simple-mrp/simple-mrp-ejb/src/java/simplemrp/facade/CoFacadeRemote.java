@@ -20,4 +20,6 @@ public interface CoFacadeRemote {
     public Customer getCustomer(String p_strCust_id) throws Exception;
 
     public void editCustomer(Customer p_customer) throws Exception;
+
+    public void deleteCustomer(Customer p_customer) throws Exception;
 }

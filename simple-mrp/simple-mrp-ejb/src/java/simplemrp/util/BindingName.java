@@ -11,4 +11,8 @@ package simplemrp.util;
  */
 public class BindingName {
     public static final String CoFacadeRemote = "simplemrp.CoFacadeRemote";
+    public static final String PoFacadeRemote = "simplemrp.PoFacadeRemote";
+    public static final String MaFacadeRemote = "simplemrp.MaFacadeRemote";
+    public static final String IcFacadeRemote = "simplemrp.IcFacadeRemote";
+    public static final String PpFacadeRemote = "simplemrp.PpFacadeRemote";
 }

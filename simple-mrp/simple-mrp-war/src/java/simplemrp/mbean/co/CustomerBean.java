@@ -23,6 +23,9 @@ import simplemrp.util.FacesUtils;
  * @author Golf
  */
 public class CustomerBean {
+    private String MODE_NEW = "NEW";
+    private String MODE_EDIT = "EDIT";
+
 
     private String mode;
     private String cust_id;
@@ -259,33 +262,63 @@ public class CustomerBean {
         CoFacadeRemote coFacade = EJBLookup.getCoFacade();
         Customer customer = coFacade.getCustomer(strCust_id);
 
-        setMode("EDIT");
+        setMode(MODE_EDIT);
 
-        addr1 = customer.getAddr1();
-        addr2 = customer.getAddr2();
-        cdate = customer.getCdate();
-        country_id = customer.getCountry().getCountryId();
-        cuser = customer.getCuser();
-        cust_id = customer.getCustId();
-        district_id = customer.getDistrict().getDistrictId();
-        email = customer.getEmail();
-        fax = customer.getFax();
-        name = customer.getName();
-        phone = customer.getPhone();
-        prefixname = customer.getPrefixname();
-        province_id = customer.getProvince().getProvinceId();
-        road = customer.getRoad();
-        soi = customer.getSoi();
-        subdist_id = customer.getSubdist().getSubdistId();
-        tax_id = customer.getTax().getTaxId();
-        term_id = customer.getTerm().getTermId();
-        udate = customer.getUdate();
-        uuser = customer.getUuser();
-        zipcode = customer.getZipcode();
+        setAddr1(customer.getAddr1());
+        setAddr2(customer.getAddr2());
+        setCdate(customer.getCdate());
+        setCountry_id(customer.getCountry().getCountryId());
+        setCuser(customer.getCuser());
+        setCust_id(customer.getCustId());
+        setDistrict_id(customer.getDistrict().getDistrictId());
+        setEmail(customer.getEmail());
+        setFax(customer.getFax());
+        setName(customer.getName());
+        setPhone(customer.getPhone());
+        setPrefixname(customer.getPrefixname());
+        setProvince_id(customer.getProvince().getProvinceId());
+        setRoad(customer.getRoad());
+        setSoi(customer.getSoi());
+        setSubdist_id(customer.getSubdist().getSubdistId());
+        setTax_id(customer.getTax().getTaxId());
+        setTerm_id(customer.getTerm().getTermId());
+        setUdate(customer.getUdate());
+        setUuser(customer.getUuser());
+        setZipcode(customer.getZipcode());
     }
 
     public void doNew(ActionEvent e) throws Exception {
-//        CoFacadeRemote coFacade = EJBLookup.getCoFacade();
+        setMode(MODE_NEW);
+        clearEditScreen();
+    }
+
+    public void doClear(ActionEvent e) throws Exception {
+        setMode(MODE_EDIT);
+        clearEditScreen();
+    }
+
+    public void clearEditScreen() {
+        setCust_id(null);
+        setPrefixname(null);
+        setName(null);
+        setAddr1(null);
+        setAddr2(null);
+        setRoad(null);
+        setSoi(null);
+        setZipcode(null);
+        setPhone(null);
+        setFax(null);
+        setEmail(null);
+        setCdate(null);
+        setCuser(null);
+        setUdate(null);
+        setUuser(null);
+        setTerm_id(null);
+        setTax_id(null);
+        setSubdist_id(null);
+        setProvince_id(null);
+        setDistrict_id(null);
+        setCountry_id(null);
     }
 
     public void doSave(ActionEvent e) throws Exception {
@@ -314,7 +347,7 @@ public class CustomerBean {
 
         Subdist subdist = new Subdist(subdist_id);
         customer.setSubdist(subdist);
-        
+
         Province province = new Province(province_id);
         customer.setProvince(province);
 
@@ -326,5 +359,12 @@ public class CustomerBean {
 
         CoFacadeRemote coFacade = EJBLookup.getCoFacade();
         coFacade.editCustomer(customer);
+    }
+
+    public void doDelete() throws Exception {
+        Customer customer = new Customer();
+        customer.setCustId(getCust_id());
+        CoFacadeRemote coFacade = EJBLookup.getCoFacade();
+        coFacade.deleteCustomer(customer);
     }
 }

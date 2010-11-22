@@ -37,4 +37,9 @@ public class CoFacade implements CoFacadeRemote {
     public void editCustomer(Customer p_customer) throws Exception {
         customerBo.editCustomer(p_customer);
     }
+
+    @Override
+    public void deleteCustomer(Customer p_customer) throws Exception {
+        customerBo.removeCustomer(p_customer);
+    }
 }
