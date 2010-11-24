@@ -3,6 +3,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Untitled Document</title>
+<LINK href="tree-menu/dtree.css" type=text/css rel=StyleSheet>
+<SCRIPT src="tree-menu/dtree.js" type=text/javascript></SCRIPT>
 </head>
 
 <body>
@@ -14,6 +16,76 @@
 
 
 ============ Real menu on System ==================================================
+<DIV class=dtree>
+<P>
+	<A href="javascript:d.openAll();">open all</A> 
+	| 
+	<A href="javascript:d.closeAll();">close all</A>
+</P>
+<SCRIPT language=javascript  type=text/javascript charset=TIS-620>
+var d = new dTree('d');
+d.add(0,-1,'Menu');
+	d.add(10, 0, 'Master', 'null');
+		d.add(1000, 10, 'Product Code', 'null');
+		d.add(1005, 10, 'Unit of Measurement', 'null');
+		d.add(1010, 10, 'Item', 'null');
+			d.add(101000, 1010, 'Item Source', 'null');
+			d.add(101005, 1010, 'Item Status', 'null');
+			d.add(101010, 1010, 'Item', 'null');
+		d.add(1015, 10, 'Address', 'null');
+		d.add(1020, 10, 'Tax Code', 'null');
+		d.add(1025, 10, 'Term Code', 'null');
+	d.add(20, 0, 'Customer Order ', 'null');
+		d.add(2000, 20, 'Master', 'null');
+			d.add(200000, 2000, 'Customer', 'null');
+			d.add(200005, 2000, 'Sales Person', 'null');
+			d.add(200010, 2000, 'Customer Order Status', 'null');
+			d.add(200015, 2000, 'Item Price', 'null');
+		d.add(2005, 20, 'Activities', 'null');
+			d.add(200500, 2005, 'Customer Order', 'null');
+		d.add(2010, 20, 'Report', 'null');
+			d.add(201000, 2010, 'Print Customer Order', 'null');
+	d.add(30, 0, 'Purchase Order ', 'null');
+		d.add(3000, 30, 'Master', 'null');
+			d.add(300000, 3000, 'Vendor', 'null');
+			d.add(300005, 3000, 'Bank', 'null');
+			d.add(300010, 3000, 'Payment Type', 'null');
+			d.add(300015, 3000, 'Purchase Requisition Status', 'null');
+			d.add(300020, 3000, 'Purchase Order Status', 'null');
+		d.add(3005, 30, 'Activities', 'null');
+			d.add(300500, 3005, 'Purchase Requisition', 'null');
+			d.add(300505, 3005, 'Purchase Order', 'null');
+		d.add(3010, 30, 'Report', 'null');
+			d.add(301000, 3010, 'Print Purchase Order', 'null');
+	d.add(40, 0, 'Planning and Production ', 'null');
+		d.add(4000, 40, 'Master', 'null');
+			d.add(400000, 4000, 'Master Plan Type', 'null');
+			d.add(400005, 4000, 'Master Plan Status', 'null');
+			d.add(400010, 4000, 'Job Status', 'null');
+			d.add(400015, 4000, 'Work Center', 'null');
+		d.add(4005, 40, 'Activities', 'null');
+			d.add(400500, 4005, 'Item Demand Forecast', 'null');
+			d.add(400505, 4005, 'Bill of Materials', 'null');
+			d.add(400510, 4005, 'Master Plan Schedule', 'null');
+			d.add(400515, 4005, 'Job Order', 'null');
+		d.add(4010, 40, 'Report', 'null');
+			d.add(401000, 4010, 'Print Job Order', 'null');
+	d.add(50, 0, 'Inventory Control', 'null');
+		d.add(5000, 50, 'Master', 'null');
+			d.add(500000, 5000, 'Warehouse and Locatione', 'null');
+			d.add(500005, 5000, 'Transaction type', 'null');
+		d.add(5005, 50, 'Activities', 'null');
+			d.add(500500, 5005, 'Item Location', 'null');
+			d.add(500505, 5005, 'Customer Order Shipping', 'null');
+			d.add(500510, 5005, 'Purchase Order Receive', 'null');
+			d.add(500515, 5005, 'Material to Job', 'null');
+		d.add(5010, 50, 'Report', 'null');
+			d.add(501000, 5010, 'Print Transaction', 'null');
+
+document.write(d);
+</SCRIPT>
+</DIV>
+<!--
 <ul>
   <li>Master 
     <ul>
@@ -28,7 +100,6 @@
         </ul>
       </li>
       <li>Address</li>
-
       <li>Tax Code</li>
       <li>Term Code</li>
     </ul>
@@ -140,7 +211,7 @@
     </ul>
   </li>
 </ul>
-
+-->
 </body>
 
 </html>
