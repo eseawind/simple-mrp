@@ -8,14 +8,7 @@
 </head>
 
 <body>
-============ Temporary wait for mapping with real menu ============================
-<p><a href="contents/customer_order.html">Customer Order (CO) </a></p>
-<p><a href="contents/forecast_demand.html">Forecast Demand</a></p>
-<p><a href="contents/purchase_requisition.html">Purchase Requisition (PR)</a></p>
-<p>Production Managment (PO)</p>
 
-
-============ Real menu on System ==================================================
 <DIV class=dtree>
 <P>
 	<A href="javascript:d.openAll();">open all</A> 
@@ -42,7 +35,7 @@ d.add(0,-1,'Menu');
 			d.add(200010, 2000, 'Customer Order Status', 'null');
 			d.add(200015, 2000, 'Item Price', 'null');
 		d.add(2005, 20, 'Activities', 'null');
-			d.add(200500, 2005, 'Customer Order', 'null');
+			d.add(200500, 2005, 'Customer Order', 'contents/customer_order.html',null,'mainFrame','tree-menu/img/page2.png');
 		d.add(2010, 20, 'Report', 'null');
 			d.add(201000, 2010, 'Print Customer Order', 'null');
 	d.add(30, 0, 'Purchase Order ', 'null');
@@ -53,8 +46,8 @@ d.add(0,-1,'Menu');
 			d.add(300015, 3000, 'Purchase Requisition Status', 'null');
 			d.add(300020, 3000, 'Purchase Order Status', 'null');
 		d.add(3005, 30, 'Activities', 'null');
-			d.add(300500, 3005, 'Purchase Requisition', 'null');
-			d.add(300505, 3005, 'Purchase Order', 'null');
+			d.add(300500, 3005, 'Purchase Requisition', 'contents/purchase_requisition.html',null,'mainFrame','tree-menu/img/page2.png');
+			d.add(300505, 3005, 'Purchase Order', 'contents/purchase_order.html',null,'mainFrame','tree-menu/img/page2.png');
 		d.add(3010, 30, 'Report', 'null');
 			d.add(301000, 3010, 'Print Purchase Order', 'null');
 	d.add(40, 0, 'Planning and Production ', 'null');
@@ -64,10 +57,10 @@ d.add(0,-1,'Menu');
 			d.add(400010, 4000, 'Job Status', 'null');
 			d.add(400015, 4000, 'Work Center', 'null');
 		d.add(4005, 40, 'Activities', 'null');
-			d.add(400500, 4005, 'Item Demand Forecast', 'null');
-			d.add(400505, 4005, 'Bill of Materials', 'null');
-			d.add(400510, 4005, 'Master Plan Schedule', 'null');
-			d.add(400515, 4005, 'Job Order', 'null');
+			d.add(400500, 4005, 'Item Demand Forecast', 'contents/forecast_demand.html',null,'mainFrame','tree-menu/img/page2.png');
+			d.add(400505, 4005, 'Bill of Materials', 'contents/bom.html',null,'mainFrame','tree-menu/img/page2.png');
+			d.add(400510, 4005, 'Master Plan Schedule', 'contents/master_plan_schedule.html',null,'mainFrame','tree-menu/img/page2.png');
+			d.add(400515, 4005, 'Job Order', 'contents/job_order.html',null,'mainFrame','tree-menu/img/page2.png');
 		d.add(4010, 40, 'Report', 'null');
 			d.add(401000, 4010, 'Print Job Order', 'null');
 	d.add(50, 0, 'Inventory Control', 'null');
@@ -75,10 +68,10 @@ d.add(0,-1,'Menu');
 			d.add(500000, 5000, 'Warehouse and Locatione', 'null');
 			d.add(500005, 5000, 'Transaction type', 'null');
 		d.add(5005, 50, 'Activities', 'null');
-			d.add(500500, 5005, 'Item Location', 'null');
-			d.add(500505, 5005, 'Customer Order Shipping', 'null');
-			d.add(500510, 5005, 'Purchase Order Receive', 'null');
-			d.add(500515, 5005, 'Material to Job', 'null');
+			d.add(500500, 5005, 'Item Location', 'contents/item_location.html',null,'mainFrame','tree-menu/img/page2.png');
+			d.add(500505, 5005, 'Customer Order Shipping', 'contents/cust_order_shipping.html',null,'mainFrame','tree-menu/img/page2.png');
+			d.add(500510, 5005, 'Purchase Order Receive', 'contents/purchase_order_rcv.html',null,'mainFrame','tree-menu/img/page2.png');
+			d.add(500515, 5005, 'Material to Job', 'contents/matl_to_job.html',null,'mainFrame','tree-menu/img/page2.png');
 		d.add(5010, 50, 'Report', 'null');
 			d.add(501000, 5010, 'Print Transaction', 'null');
 
