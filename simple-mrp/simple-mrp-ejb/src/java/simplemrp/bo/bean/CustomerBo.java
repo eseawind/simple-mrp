@@ -30,12 +30,27 @@ public class CustomerBo implements InfCustomerBo {
     @Override
     public Customer findCustomer(String p_strCust_id) throws Exception {
         Customer customer = customerDao.find(p_strCust_id);
-        customer.getCountry().toString();
-        customer.getDistrict().toString();
-        customer.getProvince().toString();
-        customer.getSubdist().toString();
-        customer.getTax().toString();
-        customer.getTerm().toString();
+        if (customer.getCountry() != null) {
+            customer.getCountry().toString();
+        }
+        if (customer.getDistrict() != null) {
+            customer.getDistrict().toString();
+        }
+        if (customer.getProvince() != null) {
+            customer.getProvince().toString();
+        }
+        if (customer.getSubdist() != null) {
+            customer.getSubdist().toString();
+        }
+        if (customer.getTax() != null) {
+            customer.getTax().toString();
+        }
+        if (customer.getTerm() != null) {
+            customer.getTerm().toString();
+        }
+        if (customer.getPrefixname() != null) {
+            customer.getPrefixname().toString();
+        }
         
         return customer;
     }

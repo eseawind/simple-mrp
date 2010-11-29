@@ -22,4 +22,6 @@ public interface CoFacadeRemote {
     public void editCustomer(Customer p_customer) throws Exception;
 
     public void deleteCustomer(Customer p_customer) throws Exception;
+
+    public List getListPrefixname() throws Exception;
 }

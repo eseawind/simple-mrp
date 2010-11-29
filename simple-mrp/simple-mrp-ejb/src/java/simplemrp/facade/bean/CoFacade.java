@@ -9,6 +9,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import simplemrp.bo.InfCustomerBo;
+import simplemrp.bo.InfPrefixnamBo;
 import simplemrp.entity.Customer;
 import simplemrp.facade.CoFacadeRemote;
 import simplemrp.util.BindingName;
@@ -20,6 +21,8 @@ import simplemrp.util.BindingName;
 
 @Stateless (mappedName=BindingName.CoFacadeRemote)
 public class CoFacade implements CoFacadeRemote {
+    @EJB
+    private InfPrefixnamBo prefixnameBo;
     @EJB
     private InfCustomerBo customerBo;
 
@@ -41,5 +44,10 @@ public class CoFacade implements CoFacadeRemote {
     @Override
     public void deleteCustomer(Customer p_customer) throws Exception {
         customerBo.removeCustomer(p_customer);
+    }
+
+    @Override
+    public List getListPrefixname() throws Exception {
+        return prefixnameBo.getListPrefixname();
     }
 }

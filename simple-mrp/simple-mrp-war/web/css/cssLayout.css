@@ -72,3 +72,9 @@
 	padding:2px;
 	text-align: right;
 }
+.alignTop {
+	vertical-align: top;
+}
+.alignCenter {
+	text-align: center;
+}

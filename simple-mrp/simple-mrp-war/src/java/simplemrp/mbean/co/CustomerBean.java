@@ -4,12 +4,15 @@
  */
 package simplemrp.mbean.co;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 import simplemrp.entity.Country;
 import simplemrp.entity.Customer;
 import simplemrp.entity.District;
+import simplemrp.entity.Prefixname;
 import simplemrp.entity.Province;
 import simplemrp.entity.Subdist;
 import simplemrp.entity.Tax;
@@ -23,13 +26,12 @@ import simplemrp.util.FacesUtils;
  * @author Golf
  */
 public class CustomerBean {
+
     private String MODE_NEW = "NEW";
     private String MODE_EDIT = "EDIT";
-
-
     private String mode;
     private String cust_id;
-    private String prefixname;
+    private Integer prefix_id;
     private String name;
     private String addr1;
     private String addr2;
@@ -51,6 +53,19 @@ public class CustomerBean {
     private Integer country_id;
     private String keyword;
     private List<Customer> lsCustomer;
+
+    private List<SelectItem> lsPrefixname;
+
+    public List<SelectItem> getLsPrefixname() {
+        if(lsPrefixname == null) {
+            lsPrefixname = new ArrayList();
+        }
+        return lsPrefixname;
+    }
+
+    public void setLsPrefixname(List<SelectItem> lsPrefixname) {
+        this.lsPrefixname = lsPrefixname;
+    }
 
     /** Creates a new instance of CustomerBean */
     public CustomerBean() throws Exception {
@@ -152,12 +167,12 @@ public class CustomerBean {
         this.phone = phone;
     }
 
-    public String getPrefixname() {
-        return prefixname;
+    public Integer getPrefix_id() {
+        return prefix_id;
     }
 
-    public void setPrefixname(String prefixname) {
-        this.prefixname = prefixname;
+    public void setPrefix_id(Integer prefixname) {
+        this.prefix_id = prefixname;
     }
 
     public Integer getProvince_id() {
@@ -275,7 +290,7 @@ public class CustomerBean {
         setFax(customer.getFax());
         setName(customer.getName());
         setPhone(customer.getPhone());
-        setPrefixname(customer.getPrefixname());
+        setPrefix_id(customer.getPrefixname().getPrefixId());
         setProvince_id(customer.getProvince().getProvinceId());
         setRoad(customer.getRoad());
         setSoi(customer.getSoi());
@@ -285,6 +300,23 @@ public class CustomerBean {
         setUdate(customer.getUdate());
         setUuser(customer.getUuser());
         setZipcode(customer.getZipcode());
+
+        if(lsPrefixname == null) {
+            loadPrefixname();
+        }
+    }
+
+    private void loadPrefixname() throws Exception {
+        CoFacadeRemote coFacade = EJBLookup.getCoFacade();
+        List<Prefixname> lsAllPrefixname = coFacade.getListPrefixname();
+        
+        lsPrefixname = new ArrayList();
+        for (int i = 0; i < lsAllPrefixname.size(); i++) {
+            Prefixname prefixname = lsAllPrefixname.get(i);
+            SelectItem selectItem = new SelectItem(prefixname.getPrefixId(), prefixname.getPrefixname());
+
+            lsPrefixname.add(selectItem);
+        }
     }
 
     public void doNew(ActionEvent e) throws Exception {
@@ -299,7 +331,7 @@ public class CustomerBean {
 
     public void clearEditScreen() {
         setCust_id(null);
-        setPrefixname(null);
+        setPrefix_id(null);
         setName(null);
         setAddr1(null);
         setAddr2(null);
@@ -321,10 +353,9 @@ public class CustomerBean {
         setCountry_id(null);
     }
 
-    public void doSave(ActionEvent e) throws Exception {
+    public String doSave(ActionEvent e) throws Exception {
         Customer customer = new Customer();
         customer.setCustId(cust_id);
-        customer.setPrefixname(prefixname);
         customer.setName(name);
         customer.setAddr1(addr1);
         customer.setAddr2(addr2);
@@ -338,6 +369,9 @@ public class CustomerBean {
         customer.setCuser(cuser);
         customer.setUdate(udate);
         customer.setUuser(uuser);
+
+        Prefixname prefixname = new Prefixname(prefix_id);
+        customer.setPrefixname(prefixname);
 
         Term term = new Term(term_id);
         customer.setTerm(term);
@@ -358,7 +392,12 @@ public class CustomerBean {
         customer.setCountry(country);
 
         CoFacadeRemote coFacade = EJBLookup.getCoFacade();
+
         coFacade.editCustomer(customer);
+
+        FacesUtils.addInfoMessage("Save Complete");
+        return "Save Comlpete";
+
     }
 
     public void doDelete() throws Exception {

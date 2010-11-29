@@ -36,8 +36,6 @@ public class Customer implements Serializable {
     @Basic(optional = false)
     @Column(name = "CUST_ID")
     private String custId;
-    @Column(name = "PREFIXNAME")
-    private String prefixname;
     @Column(name = "NAME")
     private String name;
     @Column(name = "ADDR1")
@@ -66,6 +64,9 @@ public class Customer implements Serializable {
     private Date udate;
     @Column(name = "UUSER")
     private String uuser;
+    @JoinColumn(name = "PREFIXNAME", referencedColumnName = "prefix_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Prefixname prefixname;
     @JoinColumn(name = "TERM_ID", referencedColumnName = "TERM_ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private Term term;
@@ -82,7 +83,7 @@ public class Customer implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private District district;
     @JoinColumn(name = "COUNTRY_ID", referencedColumnName = "COUNTRY_ID")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Country country;
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
     private Collection<Co> coCollection;
@@ -102,11 +103,11 @@ public class Customer implements Serializable {
         this.custId = custId;
     }
 
-    public String getPrefixname() {
+    public Prefixname getPrefixname() {
         return prefixname;
     }
 
-    public void setPrefixname(String prefixname) {
+    public void setPrefixname(Prefixname prefixname) {
         this.prefixname = prefixname;
     }
 
