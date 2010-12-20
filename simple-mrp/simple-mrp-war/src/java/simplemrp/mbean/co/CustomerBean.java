@@ -322,6 +322,7 @@ public class CustomerBean {
     public void doNew(ActionEvent e) throws Exception {
         setMode(MODE_NEW);
         clearEditScreen();
+        loadPrefixname();
     }
 
     public void doClear(ActionEvent e) throws Exception {
@@ -373,11 +374,15 @@ public class CustomerBean {
         Prefixname prefixname = new Prefixname(prefix_id);
         customer.setPrefixname(prefixname);
 
-        Term term = new Term(term_id);
-        customer.setTerm(term);
+        if ((term_id != null) && (term_id.length() > 0)) {
+            Term term = new Term(term_id);
+            customer.setTerm(term);
+        }
 
-        Tax tax = new Tax(tax_id);
-        customer.setTax(tax);
+        if((tax_id != null) && (tax_id.length() > 0)) {
+            Tax tax = new Tax(tax_id);
+            customer.setTax(tax);
+        }
 
         Subdist subdist = new Subdist(subdist_id);
         customer.setSubdist(subdist);

@@ -57,7 +57,11 @@ public class CustomerBo implements InfCustomerBo {
 
     @Override
     public void editCustomer(Customer p_customer) throws Exception {
+        try {
         customerDao.edit(p_customer);
+        } catch(Exception ex) {
+            throw new Exception(ex.getMessage(), ex);
+        }
     }
 
     @Override
