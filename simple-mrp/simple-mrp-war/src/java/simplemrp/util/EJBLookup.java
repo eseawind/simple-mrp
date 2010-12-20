@@ -2,11 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package simplemrp.util;
 
 import java.util.Properties;
+import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import simplemrp.facade.CoFacadeRemote;
 import simplemrp.facade.IcFacadeRemote;
 import simplemrp.facade.MaFacadeRemote;
@@ -18,6 +19,7 @@ import simplemrp.facade.PpFacadeRemote;
  * @author Golf
  */
 public class EJBLookup {
+
     private static InitialContext ctx;
 
     public static void initContext() throws Exception {
@@ -35,36 +37,48 @@ public class EJBLookup {
         }
     }
 
+    public static Object getEJBInstance(String classname) {
+        Object o = null;
+        try {
+
+            Context context = new InitialContext();
+            o = context.lookup(classname);
+        } catch (NamingException e) {
+            e.printStackTrace();
+        }
+        return o;
+    }
+
     public static CoFacadeRemote getCoFacade() throws Exception {
-        if(ctx == null) {
+        if (ctx == null) {
             initContext();
         }
         return (CoFacadeRemote) ctx.lookup(BindingName.CoFacadeRemote);
     }
 
     public static PoFacadeRemote getPoFacade() throws Exception {
-        if(ctx == null) {
+        if (ctx == null) {
             initContext();
         }
         return (PoFacadeRemote) ctx.lookup(BindingName.PoFacadeRemote);
     }
 
     public static MaFacadeRemote getMaFacade() throws Exception {
-        if(ctx == null) {
+        if (ctx == null) {
             initContext();
         }
         return (MaFacadeRemote) ctx.lookup(BindingName.MaFacadeRemote);
     }
 
     public static IcFacadeRemote getIcFacade() throws Exception {
-        if(ctx == null) {
+        if (ctx == null) {
             initContext();
         }
         return (IcFacadeRemote) ctx.lookup(BindingName.IcFacadeRemote);
     }
 
     public static PpFacadeRemote getPpFacade() throws Exception {
-        if(ctx == null) {
+        if (ctx == null) {
             initContext();
         }
         return (PpFacadeRemote) ctx.lookup(BindingName.PpFacadeRemote);
