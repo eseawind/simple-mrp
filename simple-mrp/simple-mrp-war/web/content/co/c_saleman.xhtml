@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+    <ui:define name="content">
+        <f:view id="salemanViewId">
+            <h:form id="salemanFormId">
+                 <rich:messages></rich:messages>
+                <a4j:keepAlive beanName="salemanBean"></a4j:keepAlive>
+
+                <h:panelGrid columns="2" columnClasses="alignTop,alignTop">
+                    <rich:panel id="editPanel" header="Saleman">
+                        
+                        <a4j:commandLink value="testCallEJB" actionListener="#{salemanBean.doTest}" reRender="editPanel">
+                            
+                        </a4j:commandLink>
+                    </rich:panel>
+                    <rich:panel id="searchPanel" header="Search Saleman">
+                        <h:panelGrid columns="2">
+
+                            <h:outputLabel value="Saleman Name"/>
+                            <h:inputText value="#{salemanBean.keyword}" />
+                            <a4j:commandButton value="Search" actionListener="#{salemanBean.doSearch}" reRender="salemanTable"/>
+                        </h:panelGrid>
+                        <rich:dataTable id="salemanTable" value="#{salemanBean.lsSaleman}" var="item" width="400px">
+                            <rich:column sortBy="#{item.slsman}" styleClass="alignCenter">
+                                <f:facet name="header">
+                                    <h:outputText value="saleId"/>
+                                </f:facet>
+                                <a4j:commandLink value="#{item.slsman}" actionListener="#{salemanBean.doSelect}" reRender="editPane">
+                                    <f:param name="p_sale_id" value="#{item.slsman}"/>
+                                </a4j:commandLink>
+                            </rich:column>
+
+                            <rich:column sortBy="#{item.fname}">
+                                <f:facet name="header">
+                                    <h:outputText value="Name"/>
+                                </f:facet>
+                                <h:outputText value="#{item.fname}"/>
+                            </rich:column>
+                        </rich:dataTable>
+                    </rich:panel>
+                </h:panelGrid>
+            </h:form>
+        </f:view>
+    </ui:define>
+</ui:composition>
