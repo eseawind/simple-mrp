@@ -30,4 +30,6 @@ public interface InfSlsmanDao {
 
     int count();
 
+    public List<Slsman> findByName(String p_strKeyword);
+
 }

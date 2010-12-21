@@ -5,9 +5,11 @@
 
 package simplemrp.dao.bean;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import simplemrp.dao.InfSlsmanDao;
 import simplemrp.entity.Slsman;
 
@@ -26,6 +28,13 @@ public class SlsmanDao extends AbstractDao<Slsman> implements InfSlsmanDao {
 
     public SlsmanDao() {
         super(Slsman.class);
+    }
+    @Override
+    public List<Slsman> findByName(String name){
+        String sql = "select distinct o from Slsman as o where o.fname like ?1";
+        Query q = em.createQuery(sql);
+        q.setParameter(1, name+"%");
+        return q.getResultList();
     }
 
 }

@@ -10,7 +10,9 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import simplemrp.bo.InfCustomerBo;
 import simplemrp.bo.InfPrefixnamBo;
+import simplemrp.bo.InfSalemanBo;
 import simplemrp.entity.Customer;
+import simplemrp.entity.Slsman;
 import simplemrp.facade.CoFacadeRemote;
 import simplemrp.util.BindingName;
 
@@ -25,6 +27,8 @@ public class CoFacade implements CoFacadeRemote {
     private InfPrefixnamBo prefixnameBo;
     @EJB
     private InfCustomerBo customerBo;
+    @EJB
+    private InfSalemanBo salemanBo;
 
     @Override
     public List<Customer> searchCustomer(String p_strKeyword) throws Exception {
@@ -49,5 +53,15 @@ public class CoFacade implements CoFacadeRemote {
     @Override
     public List getListPrefixname() throws Exception {
         return prefixnameBo.getListPrefixname();
+    }
+
+    @Override
+    public List<Slsman> searchSaleman(String p_strKeyword) {
+        return salemanBo.searchSaleman(p_strKeyword);
+    }
+
+    @Override
+    public Slsman getSaleman(String strSale_id) {
+        return salemanBo.getSaleman(strSale_id);
     }
 }
