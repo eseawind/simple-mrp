@@ -36,6 +36,7 @@ public class SalemanBean {
         System.out.println("doSelect");
     }
     public void doSearch(ActionEvent e){
+        FacesUtils.addErrorMessage("hello message");
         System.out.println("doSearch Saleman");
         CoFacadeRemote coFacade = (CoFacadeRemote)EJBLookup.getEJBInstance(BindingName.CoFacadeRemote);
         List<Slsman> ls = coFacade.searchSaleman(getKeyword());

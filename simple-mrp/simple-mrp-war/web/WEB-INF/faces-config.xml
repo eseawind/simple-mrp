@@ -31,9 +31,14 @@
         <managed-bean-class>simplemrp.mbean.co.CustomerBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
-      <managed-bean>
+    <managed-bean>
         <managed-bean-name>salemanBean</managed-bean-name>
         <managed-bean-class>simplemrp.mbean.co.SalemanBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>coBean</managed-bean-name>
+        <managed-bean-class>simplemrp.mbean.co.CustomerOrderBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 </faces-config>
