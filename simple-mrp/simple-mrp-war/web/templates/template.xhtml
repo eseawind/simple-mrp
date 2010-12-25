@@ -12,25 +12,30 @@
     </head>
 
     <body>
-        <div id="header">
-            <div id="webname">
-                <h2 style="color: white;">Simple<br />
-                    MRP
-                </h2>
+        <div id="wrapper">
+            <div id="header">
+                <div id="businesslogo">
+                    <img alt="" src="/simple-mrp-war/images/business-logo.png"/>
+                </div>
+                <div id="userinfo">
+                    <b>username_lastname</b> | <u>Logout</u>
+                </div>
+            </div>
+            <div id="mainmenubar">
+                Menu
+            </div>
+            <div id="programname">
+                <ui:insert name="programname">Program Name</ui:insert>
+            </div>
+            <div id="content" class="center_content">
+                <ui:insert name="content">Content</ui:insert>
+            </div>
+            <div id="push"></div>
+        </div>
+        <div id="footer">
+            <div id="footerlabel">
+                Designed by KMUTT SWE7 Students Group 5.
             </div>
         </div>
-        <div id="top">
-            <ui:insert name="top">Header</ui:insert>
-        </div>
-
-        <div id="content" class="center_content">
-            <ui:insert name="content">Content</ui:insert>
-        </div>
-
-        <div id="bottom">
-            <ui:insert name="bottom">Footer</ui:insert>
-        </div>
-        <div id="footer"></div>
     </body>
-
 </html>

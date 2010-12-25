@@ -14,12 +14,12 @@
                     <file>${libs.Facelets.classpath}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
-                <library dirs="100">
-                    <file>${reference.simple-mrp-ejb.dist}</file>
+                <library dirs="200">
+                    <file>${reference.simple-mrp-lib.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${reference.simple-mrp-lib.jar}</file>
+                    <file>${file.reference.simple-ejb-itnf.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>
@@ -35,14 +35,6 @@
             <definitions>.\lib\nblibraries.properties</definitions>
         </libraries>
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
-            <reference>
-                <foreign-project>simple-mrp-ejb</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>dist</target>
-                <clean-target>clean</clean-target>
-                <id>dist</id>
-            </reference>
             <reference>
                 <foreign-project>simple-mrp-lib</foreign-project>
                 <artifact-type>jar</artifact-type>

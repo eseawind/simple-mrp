@@ -301,9 +301,7 @@ public class CustomerBean {
         setUuser(customer.getUuser());
         setZipcode(customer.getZipcode());
 
-        if(lsPrefixname == null) {
-            loadPrefixname();
-        }
+        loadPrefixname();
     }
 
     private void loadPrefixname() throws Exception {
@@ -383,6 +381,7 @@ public class CustomerBean {
             Tax tax = new Tax(tax_id);
             customer.setTax(tax);
         }
+        
 
         Subdist subdist = new Subdist(subdist_id);
         customer.setSubdist(subdist);

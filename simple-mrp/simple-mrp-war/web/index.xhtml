@@ -7,35 +7,7 @@
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html">
-
-    <ui:define name="top">
-        top
-    </ui:define>
-
     <ui:define name="content">
-        <f:view>
-            <a4j:form>
-                <rich:panel header="RichFaces Greeter" style="width:315px">
-                    <h:outputText value="Your name:"/>
-                    <h:inputText value="#{user.name}">
-                        <f:validateLength minimum="1" maximum="30"/>
-                    </h:inputText>
-                    <a4j:commandButton value="Get greeting" reRender="greeting"></a4j:commandButton>
-                    <br/>
-                    <h:panelGroup id="greeting" >
-                        <h:outputText value="Hello, " rendered="#{not empty user.name}" />
-                        <h:outputText value="#{user.name}" />
-                        <h:outputText value="!" rendered="#{not empty user.name}" />
-                    </h:panelGroup>
-                </rich:panel>
-
-                <a href="./content/co/c_customer.xhtml">content/co/c_customer.xhtml</a>
-            </a4j:form>
-        </f:view>
+        <a href="./content/co/c_customer.jsf">co/c_customer.jsf</a>
     </ui:define>
-
-    <ui:define name="bottom">
-        bottom
-    </ui:define>
-
 </ui:composition>

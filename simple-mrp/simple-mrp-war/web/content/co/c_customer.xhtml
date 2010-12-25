@@ -9,9 +9,9 @@
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html">
-
+    <ui:define name="programname">Customer</ui:define>
     <ui:define name="content">
-        <h:messages></h:messages>
+        <rich:message></rich:message>
         <f:view>
             <h:form>
                 <a4j:keepAlive beanName="customerBean" />
@@ -60,6 +60,8 @@
                             <h:inputText value="#{customerBean.fax}"/>
                             <h:outputLabel value="e-mail"/>
                             <h:inputText value="#{customerBean.email}"/>
+                            <h:outputLabel value="Tax"/>
+                            <h:inputText value="#{customerBean.tax_id}"/>
 
                             <h:outputLabel value="Create Date"/>
                             <h:outputText value="#{customerBean.cdate}"/>
