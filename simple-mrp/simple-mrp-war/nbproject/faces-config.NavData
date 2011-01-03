@@ -6,8 +6,8 @@
         <Node id="index.xhtml" x="400" y="300" zoom="true"/>
         <Node id="content/co/c_customer_order.xhtml" x="400" y="150" zoom="true"/>
         <Node id="templates/template.xhtml" x="150" y="150" zoom="true"/>
-        <Node id="content/co/c_saleman.xhtml" x="150" y="300" zoom="true"/>
         <Node id="content/co/c_customer.xhtml" x="650" y="150" zoom="false"/>
+        <Node id="content/co/c_saleman.xhtml" x="150" y="300" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>

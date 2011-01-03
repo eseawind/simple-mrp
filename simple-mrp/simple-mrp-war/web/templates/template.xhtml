@@ -2,40 +2,74 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich">
+    <f:view contentType="text/html">
+        <head>
+            <meta http-equiv="Content-Type" content="text/xhtml; charset=UTF-8" />
 
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link href="/simple-mrp-war/css/default.css" rel="stylesheet" type="text/css" />
-        <link href="/simple-mrp-war/css/cssLayout.css" rel="stylesheet" type="text/css" />
-        <title>Simple MRP</title>
-    </head>
+            <link href="/simple-mrp-war/css/default.css" rel="stylesheet" type="text/css" />
+            <link href="/simple-mrp-war/css/cssLayout.css" rel="stylesheet" type="text/css" />
+            <link href="/simple-mrp-war/menu/ddsmoothmenu.css" rel="stylesheet" type="text/css"/>
 
-    <body>
-        <div id="wrapper">
-            <div id="header">
-                <div id="businesslogo">
-                    <img alt="" src="/simple-mrp-war/images/business-logo.png"/>
+            <a4j:loadScript src="resource:///org/richfaces/renderkit/html/scripts/jquery/jquery.js" />
+            <script type="text/javascript" src="/simple-mrp-war/menu/ddsmoothmenu.js"></script>
+            <title>Simple MRP</title>
+
+            <script type="text/javascript" language="JavaScript">
+                function initMenu() {
+                    ddsmoothmenu.init({
+                        mainmenuid: "smoothmenu-ajax",
+                        customtheme: ["#036fab", "#18374a"], //override default menu CSS background values? Uncomment: ["normal_background", "hover_background"]
+                        contentsource: ["smoothcontainer", "/simple-mrp-war/menu/menu_items.html"] //"markup" or ["container_id", "path_to_menu_file"]
+                    });
+                }
+            </script>
+        </head>
+
+        <body>
+            <div id="wrapper">
+                <div id="header">
+                    <div id="businesslogo">
+                        <img alt="" src="/simple-mrp-war/images/business-logo.png"/>
+                    </div>
+                    <div id="userinfo">
+                        <b>username_lastname</b> | <u>Logout</u>
+                    </div>
                 </div>
-                <div id="userinfo">
-                    <b>username_lastname</b> | <u>Logout</u>
+                <div id="mainmenubar">
+                    <div id="smoothcontainer"></div>
+                </div>
+                <!-- Start -->
+                <a4j:outputPanel ajaxRendered="true">
+                    <rich:modalPanel id="messagePanel" zindex="2000" resizeable="true" showWhenRendered="#{!empty facesContext.maximumSeverity}">
+                        <f:facet name="header">Message</f:facet>
+                        <f:facet name="controls">
+                            <h:graphicImage value="../../../simple-mrp-war/images/close.png" style="cursor:pointer" onclick="Richfaces.hideModalPanel('messagePanel');" />
+                        </f:facet>
+                        <rich:messages></rich:messages>
+                    </rich:modalPanel>
+                </a4j:outputPanel>
+                <!-- End -->
+                <div id="programnamebar">
+                    <div id="programname">
+                        <ui:insert name="programname">Program Name</ui:insert>
+                    </div>
+                </div>
+                <div id="content" class="center_content">
+                    <ui:insert name="content">Content</ui:insert>
+                </div>
+                <div id="push"></div>
+            </div>
+            <div id="footer">
+                <div id="footerlabel">
+                    Designed by KMUTT SWE7 Students Group 5.
                 </div>
             </div>
-            <div id="mainmenubar">
-                Menu
-            </div>
-            <div id="programname">
-                <ui:insert name="programname">Program Name</ui:insert>
-            </div>
-            <div id="content" class="center_content">
-                <ui:insert name="content">Content</ui:insert>
-            </div>
-            <div id="push"></div>
-        </div>
-        <div id="footer">
-            <div id="footerlabel">
-                Designed by KMUTT SWE7 Students Group 5.
-            </div>
-        </div>
-    </body>
+        </body>
+        <script type="text/javascript" language="JavaScript">initMenu();</script>
+    </f:view>
 </html>
+

@@ -269,6 +269,8 @@ public class CustomerBean {
         List<Customer> ls = coFacade.searchCustomer(getKeyword());
 
         setLsCustomer(ls);
+
+        FacesUtils.addInfoMessage("Found " + ls.size() + " records.");
     }
 
     public void doSelect(ActionEvent e) throws Exception {
