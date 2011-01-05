@@ -7,23 +7,23 @@ package simplemrp.bo.bean;
 
 import java.util.List;
 import javax.ejb.EJB;
-import simplemrp.bo.InfPrefixnamBo;
 import javax.ejb.Stateless;
-import simplemrp.dao.InfPrefixnameDao;
-import simplemrp.entity.Prefixname;
+import simplemrp.bo.InfTaxBo;
+import simplemrp.dao.InfTaxDao;
+import simplemrp.entity.Tax;
 
 /**
  *
  * @author Golf
  */
 @Stateless
-public class PrefixnameBo implements InfPrefixnamBo {
+public class TaxBo implements InfTaxBo {
     @EJB
-    private InfPrefixnameDao prefixnameDao;
+    private InfTaxDao taxDao;
 
     @Override
-    public List<Prefixname> getListPrefixname() {
-        return prefixnameDao.findAll();
+    public List<Tax> getListTax() {
+        return taxDao.findAll();
     }
     
     // Add business logic below. (Right-click in editor and choose

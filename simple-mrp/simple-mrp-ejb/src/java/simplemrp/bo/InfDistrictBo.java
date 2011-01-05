@@ -7,15 +7,14 @@ package simplemrp.bo;
 
 import java.util.List;
 import javax.ejb.Local;
-import simplemrp.entity.Prefixname;
+import simplemrp.entity.District;
 
 /**
  *
  * @author Golf
  */
 @Local
-public interface InfPrefixnamBo {
+public interface InfDistrictBo {
 
-    public List<Prefixname> getListPrefixname();
-    
+    public List<District> getDistrictInProvince(Integer p_intProvince) throws Exception;
 }

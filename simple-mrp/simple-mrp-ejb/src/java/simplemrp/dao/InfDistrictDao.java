@@ -30,4 +30,5 @@ public interface InfDistrictDao {
 
     int count();
 
+    List<District> findByProvince(Integer p_intProvince_id) throws Exception;
 }

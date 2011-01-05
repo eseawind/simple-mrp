@@ -30,4 +30,6 @@ public interface InfSubdistDao {
 
     int count();
 
+    List<Subdist> findByDistrict(Integer p_intDistrict_id) throws Exception;
+
 }

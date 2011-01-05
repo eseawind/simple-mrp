@@ -7,15 +7,13 @@ package simplemrp.bo;
 
 import java.util.List;
 import javax.ejb.Local;
-import simplemrp.entity.Prefixname;
+import simplemrp.entity.Country;
 
 /**
  *
  * @author Golf
  */
 @Local
-public interface InfPrefixnamBo {
-
-    public List<Prefixname> getListPrefixname();
-    
+public interface InfCountryBo {
+    public List<Country> getListCountry();
 }

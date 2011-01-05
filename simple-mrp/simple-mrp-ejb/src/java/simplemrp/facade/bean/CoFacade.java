@@ -12,6 +12,7 @@ import simplemrp.bo.InfCustomerBo;
 import simplemrp.bo.InfPrefixnamBo;
 import simplemrp.bo.InfSalemanBo;
 import simplemrp.entity.Customer;
+import simplemrp.entity.Prefixname;
 import simplemrp.entity.Slsman;
 import simplemrp.facade.CoFacadeRemote;
 import simplemrp.util.BindingName;
@@ -51,7 +52,7 @@ public class CoFacade implements CoFacadeRemote {
     }
 
     @Override
-    public List getListPrefixname() throws Exception {
+    public List<Prefixname> getListPrefixname() throws Exception {
         return prefixnameBo.getListPrefixname();
     }
 
@@ -63,5 +64,10 @@ public class CoFacade implements CoFacadeRemote {
     @Override
     public Slsman getSaleman(String strSale_id) {
         return salemanBo.getSaleman(strSale_id);
+    }
+
+    @Override
+    public String createCustomer(Customer p_customer) throws Exception {
+        return customerBo.createCustomer(p_customer);
     }
 }

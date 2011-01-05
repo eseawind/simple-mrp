@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package simplemrp.bo.bean;
 
 import java.util.ArrayList;
@@ -12,6 +11,7 @@ import simplemrp.bo.InfCustomerBo;
 import javax.ejb.Stateless;
 import simplemrp.dao.InfCustomerDao;
 import simplemrp.entity.Customer;
+import org.sit.common.utils.DateUtil;
 
 /**
  *
@@ -19,6 +19,7 @@ import simplemrp.entity.Customer;
  */
 @Stateless
 public class CustomerBo implements InfCustomerBo {
+
     @EJB
     private InfCustomerDao customerDao;
 
@@ -45,21 +46,19 @@ public class CustomerBo implements InfCustomerBo {
         if (customer.getTax() != null) {
             customer.getTax().toString();
         }
-        if (customer.getTerm() != null) {
-            customer.getTerm().toString();
-        }
         if (customer.getPrefixname() != null) {
             customer.getPrefixname().toString();
         }
-        
+
         return customer;
     }
 
     @Override
     public void editCustomer(Customer p_customer) throws Exception {
         try {
-        customerDao.edit(p_customer);
-        } catch(Exception ex) {
+            p_customer.setUdate(DateUtil.getDate());
+            customerDao.edit(p_customer);
+        } catch (Exception ex) {
             throw new Exception(ex.getMessage(), ex);
         }
     }
@@ -67,5 +66,17 @@ public class CustomerBo implements InfCustomerBo {
     @Override
     public void removeCustomer(Customer p_customer) throws Exception {
         customerDao.remove(p_customer);
+    }
+
+    @Override
+    public String createCustomer(Customer p_customer) throws Exception {
+        String strNextCust_id = customerDao.getNextCust_id();
+        p_customer.setCustId(strNextCust_id);
+        p_customer.setCdate(DateUtil.getDate());
+        p_customer.setUdate(DateUtil.getDate());
+
+        customerDao.create(p_customer);
+
+        return p_customer.getCustId();
     }
 }

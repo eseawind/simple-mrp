@@ -38,8 +38,6 @@ public class Term implements Serializable {
     @Column(name = "CASH_ONLY")
     private String cashOnly;
     @OneToMany(mappedBy = "term", fetch = FetchType.LAZY)
-    private Collection<Customer> customerCollection;
-    @OneToMany(mappedBy = "term", fetch = FetchType.LAZY)
     private Collection<Vendor> vendorCollection;
     @OneToMany(mappedBy = "term", fetch = FetchType.LAZY)
     private Collection<Co> coCollection;
@@ -81,14 +79,6 @@ public class Term implements Serializable {
 
     public void setCashOnly(String cashOnly) {
         this.cashOnly = cashOnly;
-    }
-
-    public Collection<Customer> getCustomerCollection() {
-        return customerCollection;
-    }
-
-    public void setCustomerCollection(Collection<Customer> customerCollection) {
-        this.customerCollection = customerCollection;
     }
 
     public Collection<Vendor> getVendorCollection() {

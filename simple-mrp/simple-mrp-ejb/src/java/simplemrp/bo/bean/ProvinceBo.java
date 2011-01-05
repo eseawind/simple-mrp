@@ -7,23 +7,23 @@ package simplemrp.bo.bean;
 
 import java.util.List;
 import javax.ejb.EJB;
-import simplemrp.bo.InfPrefixnamBo;
 import javax.ejb.Stateless;
-import simplemrp.dao.InfPrefixnameDao;
-import simplemrp.entity.Prefixname;
+import simplemrp.bo.InfProvinceBo;
+import simplemrp.dao.InfProvinceDao;
+import simplemrp.entity.Province;
 
 /**
  *
  * @author Golf
  */
 @Stateless
-public class PrefixnameBo implements InfPrefixnamBo {
+public class ProvinceBo implements InfProvinceBo {
     @EJB
-    private InfPrefixnameDao prefixnameDao;
+    private InfProvinceDao provinceDao;
 
     @Override
-    public List<Prefixname> getListPrefixname() {
-        return prefixnameDao.findAll();
+    public List<Province> getProvinceInCountry(Integer p_intCountry) throws Exception {
+        return provinceDao.findByCountry(p_intCountry);
     }
     
     // Add business logic below. (Right-click in editor and choose

@@ -22,4 +22,6 @@ public interface InfCustomerBo {
     public void editCustomer(Customer p_customer) throws Exception;
 
     public void removeCustomer(Customer p_customer) throws Exception;
+
+    public String createCustomer(Customer p_customer) throws Exception;
 }

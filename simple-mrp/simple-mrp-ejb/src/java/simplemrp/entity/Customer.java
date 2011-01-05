@@ -67,9 +67,6 @@ public class Customer implements Serializable {
     @JoinColumn(name = "PREFIXNAME", referencedColumnName = "prefix_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Prefixname prefixname;
-    @JoinColumn(name = "TERM_ID", referencedColumnName = "TERM_ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Term term;
     @JoinColumn(name = "TAX_ID", referencedColumnName = "TAX_ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private Tax tax;
@@ -213,14 +210,6 @@ public class Customer implements Serializable {
 
     public void setUuser(String uuser) {
         this.uuser = uuser;
-    }
-
-    public Term getTerm() {
-        return term;
-    }
-
-    public void setTerm(Term term) {
-        this.term = term;
     }
 
     public Tax getTax() {

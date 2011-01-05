@@ -38,4 +38,18 @@ public class CustomerDao extends AbstractDao<Customer> implements InfCustomerDao
         q.setParameter(1, name + "%");
         return q.getResultList();
     }
+
+    @Override
+    public String getNextCust_id() {
+        String sql = "select max(c.custId) from Customer as c";
+        Query q = em.createQuery(sql);
+        String strLastCust_id = (String)q.getSingleResult();
+
+        Integer intNext = new Integer(strLastCust_id).intValue() + 1;
+
+        String strNextCust_id = "0000000" + intNext;
+        strNextCust_id = strNextCust_id.substring(strNextCust_id.length() - 7, strNextCust_id.length());
+
+        return strNextCust_id;
+    }
 }

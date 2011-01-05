@@ -32,4 +32,5 @@ public interface InfCustomerDao {
 
     List<Customer> findByName(String name);
 
+    String getNextCust_id();
 }
