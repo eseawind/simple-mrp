@@ -41,4 +41,9 @@
         <managed-bean-class>simplemrp.mbean.co.CustomerOrderBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>poBean</managed-bean-name>
+        <managed-bean-class>simplemrp.mbean.co.PurchaseOrderBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
 </faces-config>
