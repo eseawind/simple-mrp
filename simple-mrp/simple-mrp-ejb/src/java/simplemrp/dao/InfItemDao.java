@@ -30,4 +30,6 @@ public interface InfItemDao {
 
     int count();
 
+    public List<Item> findByItemDesc(String item, String description) throws Exception;
+
 }

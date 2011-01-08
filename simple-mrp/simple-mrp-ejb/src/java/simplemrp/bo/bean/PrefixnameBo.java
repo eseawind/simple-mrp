@@ -25,8 +25,4 @@ public class PrefixnameBo implements InfPrefixnamBo {
     public List<Prefixname> getListPrefixname() {
         return prefixnameDao.findAll();
     }
-    
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
- 
 }
