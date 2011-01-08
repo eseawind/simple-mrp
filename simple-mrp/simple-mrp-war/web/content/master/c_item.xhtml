@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+    <ui:define name="programname">Item</ui:define>
+    <ui:define name="content">
+        <h:form>
+            <a4j:keepAlive beanName="itemBean" />
+
+            <h:panelGrid columns="2" columnClasses="left_panel,right_panel" width="100%">
+                <rich:panel id="searchPanel" styleClass="noborder">
+                    <h:panelGrid columns="3">
+                        <h:outputLabel value="Item"/>
+                        <h:inputText value="#{itemBean.searchItem}" size="25" />
+                        <rich:spacer style="display:block;"></rich:spacer>
+                        <h:outputLabel value="Description"/>
+                        <h:inputText value="#{itemBean.searchDesc}" size="25" />
+                        <a4j:commandButton value="Search" actionListener="#{itemBean.doSearch}" reRender="itemTable"/>
+                    </h:panelGrid>
+                    <rich:dataTable id="itemTable" value="#{itemBean.lsItem}" var="item" width="400px">
+                        <rich:column sortBy="#{item.item}" styleClass="alignCenter">
+                            <f:facet name="header">
+                                <h:outputText value="Item"/>
+                            </f:facet>
+                            <a4j:commandLink value="#{item.item}" actionListener="#{itemBean.doSelect}" reRender="editPanel">
+                                <f:param name="p_item" value="#{item.item}"/>
+                            </a4j:commandLink>
+                        </rich:column>
+
+                        <rich:column sortBy="#{item.description}">
+                            <f:facet name="header">
+                                <h:outputText value="Description"/>
+                            </f:facet>
+                            <h:outputText value="#{item.description}"/>
+                        </rich:column>
+                    </rich:dataTable>
+                </rich:panel>
+
+                <rich:panel id="editPanel" styleClass="noborder">
+                    <h:inputHidden value="#{itemBean.mode}"/>
+                    <a4j:commandButton value="New" actionListener="#{itemBean.doNew}" reRender="editPanel,searchPanel"/>
+                    <rich:spacer width="4"/>
+                    <a4j:commandButton value="Save" actionListener="#{itemBean.doSave}" reRender="editPanel,searchPanel"/>
+                    <rich:spacer width="4"/>
+                    <a4j:commandButton value="Delete" actionListener="#{itemBean.doDelete}" reRender="editPanel,searchPanel"/>
+                    <rich:spacer width="4"/>
+                    <a4j:commandButton value="Clear" actionListener="#{itemBean.doClear}" reRender="editPanel"/>
+
+                    <h:panelGrid columns="2" width="350px">
+                        <h:outputLabel value="Item"/>
+                        <h:inputText value="#{itemBean.item}" size="35" maxlength="35"/>
+
+                        <h:outputLabel value="Description"/>
+                        <h:inputText value="#{itemBean.description}" size="70" maxlength="70"/>
+
+                        <h:outputLabel value="Status"/>
+                        <h:selectOneMenu value="#{itemBean.stat}">
+                            <f:selectItems value="#{itemBean.lsStat}" />
+                        </h:selectOneMenu>
+                        
+                        <h:outputLabel value="Unit of Measurement"/>
+                        <h:selectOneMenu value="#{itemBean.uom}">
+                            <f:selectItems value="#{itemBean.lsUom}" />
+                        </h:selectOneMenu>
+
+                        <h:outputLabel value="Product Code"/>
+                        <h:selectOneMenu value="#{itemBean.product}">
+                            <f:selectItems value="#{itemBean.lsProduct}" />
+                        </h:selectOneMenu>
+
+                        <h:outputLabel value="Source"/>
+                        <h:selectOneMenu value="#{itemBean.source}">
+                            <f:selectItems value="#{itemBean.lsSource}" />
+                        </h:selectOneMenu>
+
+                        <h:outputLabel value="Warranty"/>
+                        <h:inputText value="#{itemBean.warranty}" size="5" maxlength="5"/>
+
+                        <h:outputLabel value="Lead Time"/>
+                        <h:inputText value="#{itemBean.leadtime}" size="5" maxlength="5"/>
+
+                        <h:outputLabel value="Safety Stock"/>
+                        <h:inputText value="#{itemBean.safetystock}" size="15" maxlength="15"/>
+
+                        <h:outputLabel value="Create Date"/>
+                        <h:outputText value="#{itemBean.cdate}">
+                            <f:convertDateTime pattern="#{constantBean.PATTREN_DATE}" timeZone="#{constantBean.TIMEZONE}"/>
+                        </h:outputText>
+                        <h:outputLabel value="Create By"/>
+                        <h:outputText value="#{itemBean.cuser}"/>
+
+                        <h:outputLabel value="Update"/>
+                        <h:outputText value="#{itemBean.udate}">
+                            <f:convertDateTime pattern="#{constantBean.PATTREN_DATE}" timeZone="#{constantBean.TIMEZONE}"/>
+                        </h:outputText>
+                        <h:outputLabel value="Update By"/>
+                        <h:outputText value="#{itemBean.uuser}"/>
+
+                    </h:panelGrid>
+                </rich:panel>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

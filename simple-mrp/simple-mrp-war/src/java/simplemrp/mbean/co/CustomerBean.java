@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.List;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
+import org.sit.common.utils.DateUtil;
+import org.sit.common.utils.StringUtil;
 import simplemrp.entity.Country;
 import simplemrp.entity.Customer;
 import simplemrp.entity.District;
@@ -16,9 +18,9 @@ import simplemrp.entity.Prefixname;
 import simplemrp.entity.Province;
 import simplemrp.entity.Subdist;
 import simplemrp.entity.Tax;
-import simplemrp.entity.Term;
 import simplemrp.facade.CoFacadeRemote;
 import simplemrp.facade.MaFacadeRemote;
+import simplemrp.mbean.AbstractManageBean;
 import simplemrp.util.CoConstant;
 import simplemrp.util.EJBLookup;
 import simplemrp.util.FacesUtils;
@@ -27,7 +29,7 @@ import simplemrp.util.FacesUtils;
  *
  * @author Golf
  */
-public class CustomerBean {
+public class CustomerBean extends AbstractManageBean {
 
     private String MODE_NEW = "NEW";
     private String MODE_EDIT = "EDIT";
@@ -61,8 +63,15 @@ public class CustomerBean {
     private List<SelectItem> lsPrefixname;
     private List<SelectItem> lsTax;
 
+    private boolean disbSave;
+    private boolean disbDel;
+    private boolean disbNew;
+
     /** Creates a new instance of CustomerBean */
     public CustomerBean() throws Exception {
+        setDisbNew(false);
+        setDisbSave(true);
+        setDisbDel(true);
     }
 
     public String getMode() {
@@ -305,15 +314,40 @@ public class CustomerBean {
         this.lsDistrict = lsDistrict;
     }
 
-    public List<SelectItem> getLsSubDistrict() {
+    public List<SelectItem> getLsSubDist() {
         if (lsSubdist == null) {
             lsSubdist = new ArrayList<SelectItem>();
         }
         return lsSubdist;
     }
 
-    public void setLsSubdistrict(List<SelectItem> lsSubDistrict) {
-        this.lsSubdist = lsSubDistrict;
+    public void setLsSubdist(List<SelectItem> lsSubDist) {
+        this.lsSubdist = lsSubDist;
+    }
+
+
+    public boolean isDisbDel() {
+        return disbDel;
+    }
+
+    public void setDisbDel(boolean disbDel) {
+        this.disbDel = disbDel;
+    }
+
+    public boolean isDisbNew() {
+        return disbNew;
+    }
+
+    public void setDisbNew(boolean disbNew) {
+        this.disbNew = disbNew;
+    }
+
+    public boolean isDisbSave() {
+        return disbSave;
+    }
+
+    public void setDisbSave(boolean disbSave) {
+        this.disbSave = disbSave;
     }
 
     public void doSearch(ActionEvent e) throws Exception {
@@ -337,6 +371,10 @@ public class CustomerBean {
     public void doSelect(ActionEvent e) throws Exception {
         String strCust_id = FacesUtils.getRequestParameter("p_cust_id");
         checkCust_id(strCust_id);
+    }
+
+    public void doCheckCust_id(ActionEvent e) throws Exception {
+        checkCust_id(StringUtil.zeroLeading(getCust_id(), 7));
     }
 
     private void checkCust_id(String p_strCust_id) throws Exception {
@@ -365,6 +403,14 @@ public class CustomerBean {
         setUdate(customer.getUdate());
         setUuser(customer.getUuser());
         setZipcode(customer.getZipcode());
+
+        Date dt = DateUtil.getDate();
+
+        setCdate(dt);
+
+        setDisbNew(false);
+        setDisbSave(false);
+        setDisbDel(false);
 
         loadPrefixname();
         loadCountry();
@@ -570,6 +616,10 @@ public class CustomerBean {
         clearEditScreen();
         setMode(MODE_NEW);
 
+        setDisbNew(true);
+        setDisbSave(false);
+        setDisbDel(true);
+
         loadPrefixname();
         loadTax();
         loadCountry();
@@ -595,8 +645,8 @@ public class CustomerBean {
     }
 
     public void doClear(ActionEvent e) throws Exception {
-        setMode(MODE_EDIT);
         clearEditScreen();
+        setMode(MODE_EDIT);
     }
 
     public void clearEditScreen() {
@@ -621,6 +671,10 @@ public class CustomerBean {
         setDistrict_id(null);
         setCountry_id(null);
 
+        setDisbNew(false);
+        setDisbSave(true);
+        setDisbDel(true);
+        
         setMode(MODE_EDIT);
         lsPrefixname = null;
         lsCountry = null;
@@ -695,16 +749,20 @@ public class CustomerBean {
     }
 
     public void doDelete(ActionEvent e) throws Exception {
-        Customer customer = new Customer();
-        customer.setCustId(getCust_id());
-        CoFacadeRemote coFacade = EJBLookup.getCoFacade();
-        coFacade.deleteCustomer(customer);
+        if (getCust_id().length() == 7) {
+            Customer customer = new Customer();
+            customer.setCustId(getCust_id());
+            CoFacadeRemote coFacade = EJBLookup.getCoFacade();
+            coFacade.deleteCustomer(customer);
 
-        clearEditScreen();
-        if (getKeyword().trim().length() > 0) {
-            checkKeyword(getKeyword().trim());
+            clearEditScreen();
+            if (getKeyword().trim().length() > 0) {
+                checkKeyword(getKeyword().trim());
+            }
+
+            FacesUtils.addInfoMessage("Delete Complete");
+        } else {
+            FacesUtils.addInfoMessage("Please Enter Customer ID");
         }
-
-        FacesUtils.addInfoMessage("Delete Complete");
     }
 }
