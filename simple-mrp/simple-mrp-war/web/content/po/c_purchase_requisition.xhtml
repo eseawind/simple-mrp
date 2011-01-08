@@ -4,14 +4,113 @@ To change this template, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <title>TODO supply a title</title>
-    </head>
-    <body>
-        <p>
-            TODO write content
-        </p>
-    </body>
-</html>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+    <ui:define name="programname">Purchase Requisition</ui:define>
+    <ui:define name="content">
+        <f:view id="coViewId">
+            <h:form id="coFormId">
+                <rich:messages></rich:messages>
+                <a4j:keepAlive beanName="prBean"></a4j:keepAlive>
+                <h:panelGrid columns="2" columnClasses="alignTop,alignTop">
+                    <rich:panel id="editPanel" header="Purchase Requisition">
+                        <a4j:commandButton value="New" actionListener="#{prBean.doNew}" reRender="editPanel"/>
+                        <rich:spacer width="4"/>
+                        <a4j:commandButton value="Save" actionListener="#{prBean.doSave}" reRender="editPanel"/>
+                        <rich:spacer width="4"/>
+                        <a4j:commandButton value="Delete" actionListener="#{prBean.doDelete}" reRender="editPanel"/>
+                        <rich:spacer width="4"/>
+                        <a4j:commandButton value="Clear" actionListener="#{prBean.doClear}" reRender="editPanel"/>
+
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="P/R"/>
+                            <h:inputText value="#{prBean.pr}"/>
+                           
+                            <h:outputText value="P/R Status"/>
+                            <h:selectOneMenu value="#{prBean.prStat}" >
+                                <f:selectItems value="#{prBean.lsPrStat}"
+                                               var="postat"
+                                               itemValue="#{prstat.stat}"
+                                               itemLabel="#{prstat.description}">
+                                </f:selectItems>
+                            </h:selectOneMenu>
+                            <h:outputText value="Requester"/>
+                            <h:inputText value="#{prBean.requester}"/>
+                            <h:outputText value="Description"/>
+                            <h:inputText value="#{prBean.note}"/>
+                        </h:panelGrid>
+                        <br></br>
+                        Purchase Requisition Items
+                        <rich:dataTable id="prItemTable" value="#{prBean.lsPritem}" var="item" stateVar="status">
+                              <rich:column styleClass="alignCenter">
+                                  <f:facet name="header">
+                                      <h:outputText value="No."/>
+                                  </f:facet>
+                                  <h:outputText value="#{status}"/>
+                              </rich:column>
+                              <rich:column sortBy="#{item.item.description}">
+                                  <f:facet name="header">
+                                      <h:outputText value="Item"/>
+                                  </f:facet>
+                                  <h:outputText value="#{item.item.description}"/>
+                              </rich:column>
+                            <rich:column sortBy="#{item.qty}">
+                                <f:facet name="header">
+                                    <h:outputText value="Quantity"/>
+                                </f:facet>
+                                <h:outputText value="#{item.qty}"/>
+                            </rich:column>
+                            
+                            <rich:column sortBy="#{item.vendor}">
+                                <f:facet name="header">
+                                    <h:outputText value="Vender"/>
+                                </f:facet>
+                                <h:outputText value="#{item.vendor}"/>
+                            </rich:column>
+                        </rich:dataTable>
+                    </rich:panel>
+                    <rich:panel id="searchPanel" header="Search P/R">
+                        <h:panelGrid columns="2">
+
+                            <h:outputLabel value="P/R ID"/>
+                            <h:inputText value="#{prBean.searchPrId}" />
+                            <h:outputLabel value="P/R Stat"/>
+                            <h:selectOneMenu value="#{prBean.searchPrStat}" >
+                                <f:selectItems value="#{prBean.lsPrStat}"
+                                               var="prstat"
+                                               itemValue="#{prstat.stat}"
+                                               itemLabel="#{prstat.description}">
+                                </f:selectItems>
+                            </h:selectOneMenu>
+                            <a4j:commandButton value="Search" actionListener="#{prBean.doSearch}" reRender="coTable"/>
+                        </h:panelGrid>
+                        <rich:dataTable id="prTable" value="#{prBean.lsPr}" var="item" width="400px">
+                            <rich:column sortBy="#{item.prId}" styleClass="alignCenter">
+                                <f:facet name="header">
+                                    <h:outputText value="P/R Id"/>
+                                </f:facet>
+                                <a4j:commandLink value="#{item.prId}" actionListener="#{prBean.doSelect}" reRender="editPane">
+                                    <f:param name="p_pr_id" value="#{item.prId}"/>
+                                </a4j:commandLink>
+                            </rich:column>
+                            <rich:column sortBy="#{item.prstat}">
+                                <f:facet name="header">
+                                    <h:outputText value="P/R STATUS"/>
+                                </f:facet>
+                                <h:outputText value="#{item.prstat}"/>
+                            </rich:column>
+
+                        </rich:dataTable>
+
+
+                    </rich:panel>
+                </h:panelGrid>
+            </h:form>
+        </f:view>
+    </ui:define>
+</ui:composition>
