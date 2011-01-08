@@ -207,7 +207,13 @@ CREATE TABLE `customer` (
 
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
 INSERT INTO `customer` (`CUST_ID`,`TERM_ID`,`TAX_ID`,`PREFIXNAME`,`NAME`,`ADDR1`,`ADDR2`,`ROAD`,`SOI`,`SUBDIST_ID`,`DISTRICT_ID`,`PROVINCE_ID`,`ZIPCODE`,`COUNTRY_ID`,`PHONE`,`FAX`,`EMAIL`,`CDATE`,`CUSER`,`UDATE`,`UUSER`) VALUES 
- ('000001','CSH','V07',1,'Sopon','Sirichote',NULL,NULL,NULL,100103,1001,10,'10200',66,NULL,NULL,NULL,'2010-12-20','golf','2010-12-20','golf');
+ ('0000002',NULL,'V07',1,'โสภณ ศิริโชติ','1234','4321','RD1','S1',103401,1034,10,'10250',66,'08-5810-8022','02-722-8150','email@domain.com','2011-01-01',NULL,'2011-01-07',NULL),
+ ('0000003',NULL,'V07',1,'โภชนา ภาษีสุข','Flora Tower','1999','RD1','SOI1',101804,1018,10,'10600',66,'01-2222-2222','','','2011-01-07',NULL,'2011-01-07',NULL),
+ ('0000004',NULL,'V07',1,'test','','','','',101804,1018,10,'10600',66,'','','','2011-01-08',NULL,'2011-01-08',NULL),
+ ('0000005',NULL,'V07',1,'Sopon','','','','',101804,1018,10,'10600',66,'','','','2011-01-08',NULL,'2011-01-08',NULL),
+ ('0000006',NULL,'V07',1,'ทดสอบ','','','','',101804,1018,10,'10600',66,'','','','2011-01-08',NULL,'2011-01-08',NULL),
+ ('0000007',NULL,'V07',1,'Simple','','','','',101804,1018,10,'10600',66,'','','','2011-01-08',NULL,'2011-01-08',NULL),
+ ('0000008',NULL,'V07',1,'Stage','','','','',101804,1018,10,'10600',66,'','','','2011-01-08',NULL,'2011-01-08',NULL);
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 
 
@@ -1275,6 +1281,9 @@ CREATE TABLE `item_source` (
 --
 
 /*!40000 ALTER TABLE `item_source` DISABLE KEYS */;
+INSERT INTO `item_source` (`SOURCE`,`DESCRIPTION`) VALUES 
+ ('M','Manufacturing'),
+ ('P','Purchasing');
 /*!40000 ALTER TABLE `item_source` ENABLE KEYS */;
 
 
@@ -1294,6 +1303,9 @@ CREATE TABLE `item_stat` (
 --
 
 /*!40000 ALTER TABLE `item_stat` DISABLE KEYS */;
+INSERT INTO `item_stat` (`STAT`,`DESCRIPTION`) VALUES 
+ ('A','Active'),
+ ('O','Obsolete');
 /*!40000 ALTER TABLE `item_stat` ENABLE KEYS */;
 
 
@@ -1829,6 +1841,12 @@ CREATE TABLE `product` (
 --
 
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
+INSERT INTO `product` (`PRODUCT`,`DESCRIPTION`) VALUES 
+ ('CHAIR-LOF','Leather Office Chair'),
+ ('CHAIR-PVC-OD','PVC Outdoor Chair'),
+ ('CHAIR-WDR','Wood Dining Room Chair'),
+ ('DESK-OFC','Office Desk'),
+ ('DESK-WDN','Wood Dining Room Desk');
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 
 
@@ -1982,6 +2000,8 @@ CREATE TABLE `slsman` (
 --
 
 /*!40000 ALTER TABLE `slsman` DISABLE KEYS */;
+INSERT INTO `slsman` (`SLSMAN`,`FNAME`,`LNAME`) VALUES 
+ ('S000001','Sopon','Sirichote');
 /*!40000 ALTER TABLE `slsman` ENABLE KEYS */;
 
 
@@ -9880,6 +9900,11 @@ CREATE TABLE `uom` (
 --
 
 /*!40000 ALTER TABLE `uom` DISABLE KEYS */;
+INSERT INTO `uom` (`UOM`,`DESCRIPTION`) VALUES 
+ ('EA','Each'),
+ ('ROL','Role'),
+ ('SET','Set'),
+ ('SHT','Sheet');
 /*!40000 ALTER TABLE `uom` ENABLE KEYS */;
 
 
