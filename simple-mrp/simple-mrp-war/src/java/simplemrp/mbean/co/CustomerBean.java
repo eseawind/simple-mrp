@@ -383,41 +383,46 @@ public class CustomerBean extends AbstractManageBean {
 
         setMode(MODE_EDIT);
 
-        setAddr1(customer.getAddr1());
-        setAddr2(customer.getAddr2());
-        setCdate(customer.getCdate());
-        setCountry_id(customer.getCountry().getCountryId());
-        setCuser(customer.getCuser());
-        setCust_id(customer.getCustId());
-        setDistrict_id(customer.getDistrict().getDistrictId());
-        setEmail(customer.getEmail());
-        setFax(customer.getFax());
-        setName(customer.getName());
-        setPhone(customer.getPhone());
-        setPrefix_id(customer.getPrefixname().getPrefixId());
-        setProvince_id(customer.getProvince().getProvinceId());
-        setRoad(customer.getRoad());
-        setSoi(customer.getSoi());
-        setSubdist_id(customer.getSubdist().getSubdistId());
-        setTax_id(customer.getTax().getTaxId());
-        setUdate(customer.getUdate());
-        setUuser(customer.getUuser());
-        setZipcode(customer.getZipcode());
+        if(customer != null) {
+            setAddr1(customer.getAddr1());
+            setAddr2(customer.getAddr2());
+            setCdate(customer.getCdate());
+            setCountry_id(customer.getCountry().getCountryId());
+            setCuser(customer.getCuser());
+            setCust_id(customer.getCustId());
+            setDistrict_id(customer.getDistrict().getDistrictId());
+            setEmail(customer.getEmail());
+            setFax(customer.getFax());
+            setName(customer.getName());
+            setPhone(customer.getPhone());
+            setPrefix_id(customer.getPrefixname().getPrefixId());
+            setProvince_id(customer.getProvince().getProvinceId());
+            setRoad(customer.getRoad());
+            setSoi(customer.getSoi());
+            setSubdist_id(customer.getSubdist().getSubdistId());
+            setTax_id(customer.getTax().getTaxId());
+            setUdate(customer.getUdate());
+            setUuser(customer.getUuser());
+            setZipcode(customer.getZipcode());
 
-        Date dt = DateUtil.getDate();
+            Date dt = DateUtil.getDate();
 
-        setCdate(dt);
+            setCdate(dt);
 
-        setDisbNew(false);
-        setDisbSave(false);
-        setDisbDel(false);
+            setDisbNew(false);
+            setDisbSave(false);
+            setDisbDel(false);
 
-        loadPrefixname();
-        loadCountry();
-        loadProvince(customer.getCountry());
-        loadDistrict(customer.getProvince());
-        loadSubdist(customer.getDistrict());
-        loadTax();
+            loadPrefixname();
+            loadCountry();
+            loadProvince(customer.getCountry());
+            loadDistrict(customer.getProvince());
+            loadSubdist(customer.getDistrict());
+            loadTax();
+        } else {
+            clearEditScreen();
+            message("Find Not Found");
+        }
     }
 
     public void doCheckCountry(ActionEvent e) throws Exception {
