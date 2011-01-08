@@ -6,7 +6,7 @@
 
 <link rel="stylesheet" type="text/css" href="ddsmoothmenu.css" />
 
-<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="jquery-1.4.4.min.js"></script>
 <script type="text/javascript" src="ddsmoothmenu.js">
 
 /***********************************************
@@ -18,7 +18,7 @@
 </script>
 
 <script type="text/javascript">
-
+/*
 ddsmoothmenu.init({
 	mainmenuid: "smoothmenu1", //menu DIV id
 	orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
@@ -26,6 +26,14 @@ ddsmoothmenu.init({
 	customtheme: ["#1c5a80", "#18374a"],
 	contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
 })
+*/
+
+ddsmoothmenu.init({
+mainmenuid: "smoothmenu-ajax",
+customtheme: ["#1c5a80", "#18374a"], //override default menu CSS background values? Uncomment: ["normal_background", "hover_background"]
+//contentsource: ["smoothcontainer", "smoothmenu.htm"] //"markup" or ["container_id", "path_to_menu_file"]
+contentsource: ["smoothcontainer", "menuitems.htm"] //"markup" or ["container_id", "path_to_menu_file"]
+});
 
 </script>
 </HEAD>
@@ -83,6 +91,11 @@ ddsmoothmenu.init({
 </ul>
 <br style="clear: left" />
 </div>
-<h2>Example 1</h2>
+<h2>Example 2</h2>
+<div id="smoothcontainer">
+	<noscript>
+	<a href="link to site map for search engines and user with JS disabled">Site map</a>
+	</noscript>
+</div>
 </BODY>
 </HTML>
