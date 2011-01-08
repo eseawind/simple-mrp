@@ -11,14 +11,14 @@ and open the template in the editor.
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html">
-    <ui:define name="programname">Customer Order</ui:define>
+    <ui:define name="programname">Purchase Order</ui:define>
     <ui:define name="content">
         <f:view id="coViewId">
             <h:form id="coFormId">
                 <rich:messages></rich:messages>
                 <a4j:keepAlive beanName="poBean"></a4j:keepAlive>
                 <h:panelGrid columns="2" columnClasses="alignTop,alignTop">
-                    <rich:panel id="editPanel" header="Customer Order">
+                    <rich:panel id="editPanel" header="Purchase Order">
                         <a4j:commandButton value="New" actionListener="#{poBean.doNew}" reRender="editPanel"/>
                         <rich:spacer width="4"/>
                         <a4j:commandButton value="Save" actionListener="#{poBean.doSave}" reRender="editPanel"/>

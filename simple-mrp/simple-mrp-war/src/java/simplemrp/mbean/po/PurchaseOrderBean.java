@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package simplemrp.mbean.co;
+package simplemrp.mbean.po;
 
 import java.util.ArrayList;
 import java.util.List;
