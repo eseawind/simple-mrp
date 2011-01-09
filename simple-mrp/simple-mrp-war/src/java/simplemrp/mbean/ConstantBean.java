@@ -5,12 +5,14 @@
 
 package simplemrp.mbean;
 
+import java.io.Serializable;
+
 
 /**
  *
  * @author Golf
  */
-public class ConstantBean {
+public class ConstantBean implements Serializable {
     public final String PATTERN_DATE = "dd/MM/yyyy";
     public final String TIMEZONE = "Asia/Bangkok";
 

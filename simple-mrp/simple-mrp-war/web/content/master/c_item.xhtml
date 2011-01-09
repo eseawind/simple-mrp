@@ -18,14 +18,22 @@
                 <rich:panel id="searchPanel" styleClass="noborder">
                     <h:panelGrid columns="3">
                         <h:outputLabel value="Item"/>
-                        <h:inputText value="#{itemBean.searchItem}" size="25" />
+                        <h:inputText value="#{itemBean.searchItem}" size="25">
+                            <a4j:support event="onkeyup" actionListener="#{itemBean.doSearch}"
+                                         reRender="itemTable"
+                                         onsubmit="if(notEnter(event))return false"/>
+                        </h:inputText>
                         <rich:spacer style="display:block;"></rich:spacer>
                         <h:outputLabel value="Description"/>
-                        <h:inputText value="#{itemBean.searchDesc}" size="25" />
+                        <h:inputText value="#{itemBean.searchDesc}" size="25">
+                            <a4j:support event="onkeyup" actionListener="#{itemBean.doSearch}"
+                                         reRender="itemTable"
+                                         onsubmit="if(notEnter(event))return false"/>
+                        </h:inputText>
                         <a4j:commandButton value="Search" actionListener="#{itemBean.doSearch}" reRender="itemTable"/>
                     </h:panelGrid>
                     <rich:dataTable id="itemTable" value="#{itemBean.lsItem}" var="item" width="400px">
-                        <rich:column sortBy="#{item.item}" styleClass="alignCenter">
+                        <rich:column sortBy="#{item.item}">
                             <f:facet name="header">
                                 <h:outputText value="Item"/>
                             </f:facet>
@@ -45,17 +53,24 @@
 
                 <rich:panel id="editPanel" styleClass="noborder">
                     <h:inputHidden value="#{itemBean.mode}"/>
-                    <a4j:commandButton value="New" actionListener="#{itemBean.doNew}" reRender="editPanel,searchPanel"/>
+                    <a4j:commandButton value="New" actionListener="#{itemBean.doNew}" reRender="editPanel,searchPanel"
+                                       disabled="#{itemBean.disbNew}"/>
                     <rich:spacer width="4"/>
-                    <a4j:commandButton value="Save" actionListener="#{itemBean.doSave}" reRender="editPanel,searchPanel"/>
+                    <a4j:commandButton value="Save" actionListener="#{itemBean.doSave}" reRender="editPanel,searchPanel"
+                                       disabled="#{itemBean.disbSave}"/>
                     <rich:spacer width="4"/>
-                    <a4j:commandButton value="Delete" actionListener="#{itemBean.doDelete}" reRender="editPanel,searchPanel"/>
+                    <a4j:commandButton value="Delete" actionListener="#{itemBean.doDelete}" reRender="editPanel,searchPanel"
+                                       disabled="#{itemBean.disbDel}"/>
                     <rich:spacer width="4"/>
                     <a4j:commandButton value="Clear" actionListener="#{itemBean.doClear}" reRender="editPanel"/>
 
                     <h:panelGrid columns="2" width="350px">
                         <h:outputLabel value="Item"/>
-                        <h:inputText value="#{itemBean.item}" size="35" maxlength="35"/>
+                        <h:inputText value="#{itemBean.item}" size="35" maxlength="35">
+                            <a4j:support event="onkeyup" actionListener="#{customerBean.doCheckCust_id}"
+                                         reRender="editPanel"
+                                         onsubmit="if(notEnter(event))return false"/>
+                        </h:inputText>
 
                         <h:outputLabel value="Description"/>
                         <h:inputText value="#{itemBean.description}" size="70" maxlength="70"/>

@@ -33,8 +33,8 @@ public abstract class ItemAttr extends AbstractManageBean {
     private String item;
     private String description;
     private String product;
-    private String source;
-    private String stat;
+    private Character source;
+    private Character stat;
     private Integer warranty;
     private String uom;
     private Integer leadtime;
@@ -126,19 +126,19 @@ public abstract class ItemAttr extends AbstractManageBean {
         this.searchItem = searchItem;
     }
 
-    public String getSource() {
+    public Character getSource() {
         return source;
     }
 
-    public void setSource(String source) {
+    public void setSource(Character source) {
         this.source = source;
     }
 
-    public String getStat() {
+    public Character getStat() {
         return stat;
     }
 
-    public void setStat(String stat) {
+    public void setStat(Character stat) {
         this.stat = stat;
     }
 

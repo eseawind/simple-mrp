@@ -118,4 +118,22 @@ public class MaFacade implements MaFacadeRemote {
     public Item getItem(String p_strItem) throws Exception {
         return itemBo.getItem(p_strItem);
     }
+
+    @Override
+    public void deleteItem(Item p_item) throws Exception {
+        itemBo.removeItem(p_item);
+    }
+
+    @Override
+    public void editItem(Item p_item) throws Exception {
+        itemBo.editItem(p_item);
+    }
+
+    @Override
+    public String createItem(Item p_item) throws Exception {
+        String strItem = itemBo.createItem(p_item);
+
+        return strItem;
+    }
+
 }

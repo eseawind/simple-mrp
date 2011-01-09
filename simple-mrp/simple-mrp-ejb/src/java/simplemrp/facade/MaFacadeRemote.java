@@ -47,4 +47,10 @@ public interface MaFacadeRemote {
     public List<Uom> getListUom() throws Exception;
 
     public Item getItem(String p_strItem) throws Exception;
+
+    public void deleteItem(Item p_item) throws Exception;
+
+    public void editItem(Item p_item) throws Exception;
+
+    public String createItem(Item p_item) throws Exception;
 }

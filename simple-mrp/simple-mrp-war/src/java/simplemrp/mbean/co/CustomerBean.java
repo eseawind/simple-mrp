@@ -20,7 +20,6 @@ import simplemrp.entity.Subdist;
 import simplemrp.entity.Tax;
 import simplemrp.facade.CoFacadeRemote;
 import simplemrp.facade.MaFacadeRemote;
-import simplemrp.mbean.AbstractManageBean;
 import simplemrp.util.CoConstant;
 import simplemrp.util.EJBLookup;
 import simplemrp.util.FacesUtils;
@@ -29,32 +28,7 @@ import simplemrp.util.FacesUtils;
  *
  * @author Golf
  */
-public class CustomerBean extends AbstractManageBean {
-
-    private String MODE_NEW = "NEW";
-    private String MODE_EDIT = "EDIT";
-    private String mode;
-    private String cust_id;
-    private Integer prefix_id;
-    private String name;
-    private String addr1;
-    private String addr2;
-    private String road;
-    private String soi;
-    private String zipcode;
-    private String phone;
-    private String fax;
-    private String email;
-    private Date cdate;
-    private String cuser;
-    private Date udate;
-    private String uuser;
-    private String tax_id;
-    private Integer subdist_id;
-    private Integer province_id;
-    private Integer district_id;
-    private Integer country_id;
-    private String keyword;
+public class CustomerBean extends CustomerAttr {
     private List<Customer> lsCustomer;
     private List<SelectItem> lsCountry;
     private List<SelectItem> lsProvince;
@@ -66,188 +40,14 @@ public class CustomerBean extends AbstractManageBean {
     private boolean disbSave;
     private boolean disbDel;
     private boolean disbNew;
+    private boolean disbCust_id;
 
     /** Creates a new instance of CustomerBean */
     public CustomerBean() throws Exception {
         setDisbNew(false);
         setDisbSave(true);
         setDisbDel(true);
-    }
-
-    public String getMode() {
-        return mode;
-    }
-
-    public void setMode(String mode) {
-        this.mode = mode;
-    }
-
-    public String getAddr1() {
-        return addr1;
-    }
-
-    public void setAddr1(String addr1) {
-        this.addr1 = addr1;
-    }
-
-    public String getAddr2() {
-        return addr2;
-    }
-
-    public void setAddr2(String addr2) {
-        this.addr2 = addr2;
-    }
-
-    public Date getCdate() {
-        return cdate;
-    }
-
-    public void setCdate(Date cdate) {
-        this.cdate = cdate;
-    }
-
-    public Integer getCountry_id() {
-        return country_id;
-    }
-
-    public void setCountry_id(Integer country_id) {
-        this.country_id = country_id;
-    }
-
-    public String getCuser() {
-        return cuser;
-    }
-
-    public void setCuser(String cuser) {
-        this.cuser = cuser;
-    }
-
-    public String getCust_id() {
-        return cust_id;
-    }
-
-    public void setCust_id(String custId) {
-        this.cust_id = custId;
-    }
-
-    public Integer getDistrict_id() {
-        return district_id;
-    }
-
-    public void setDistrict_id(Integer district_id) {
-        this.district_id = district_id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getFax() {
-        return fax;
-    }
-
-    public void setFax(String fax) {
-        this.fax = fax;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public Integer getPrefix_id() {
-        return prefix_id;
-    }
-
-    public void setPrefix_id(Integer prefixname) {
-        this.prefix_id = prefixname;
-    }
-
-    public Integer getProvince_id() {
-        return province_id;
-    }
-
-    public void setProvince_id(Integer province_id) {
-        this.province_id = province_id;
-    }
-
-    public String getRoad() {
-        return road;
-    }
-
-    public void setRoad(String road) {
-        this.road = road;
-    }
-
-    public String getSoi() {
-        return soi;
-    }
-
-    public void setSoi(String soi) {
-        this.soi = soi;
-    }
-
-    public Integer getSubdist_id() {
-        return subdist_id;
-    }
-
-    public void setSubdist_id(Integer subdist_id) {
-        this.subdist_id = subdist_id;
-    }
-
-    public String getTax_id() {
-        return tax_id;
-    }
-
-    public void setTax_id(String tax_id) {
-        this.tax_id = tax_id;
-    }
-
-    public Date getUdate() {
-        return udate;
-    }
-
-    public void setUdate(Date udate) {
-        this.udate = udate;
-    }
-
-    public String getUuser() {
-        return uuser;
-    }
-
-    public void setUuser(String uuser) {
-        this.uuser = uuser;
-    }
-
-    public String getZipcode() {
-        return zipcode;
-    }
-
-    public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
-    }
-
-    public String getKeyword() {
-        return keyword;
-    }
-
-    public void setKeyword(String keyword) {
-        this.keyword = keyword;
+        setDisbCust_id(false);
     }
 
     public List<Customer> getLsCustomer() {
@@ -325,7 +125,6 @@ public class CustomerBean extends AbstractManageBean {
         this.lsSubdist = lsSubDist;
     }
 
-
     public boolean isDisbDel() {
         return disbDel;
     }
@@ -350,10 +149,18 @@ public class CustomerBean extends AbstractManageBean {
         this.disbSave = disbSave;
     }
 
+    public boolean isDisbCust_id() {
+        return disbCust_id;
+    }
+
+    public void setDisbCust_id(boolean disbCust_id) {
+        this.disbNew = disbCust_id;
+    }
+
     public void doSearch(ActionEvent e) throws Exception {
         String strKeyword = getKeyword().trim();
         if (strKeyword.length() == 0) {
-            FacesUtils.addInfoMessage("Please Enter Customer Name");
+            message("Please Enter Customer Name");
         } else {
             checkKeyword(strKeyword);
         }
@@ -378,10 +185,11 @@ public class CustomerBean extends AbstractManageBean {
     }
 
     private void checkCust_id(String p_strCust_id) throws Exception {
+        setMode(MODE_EDIT);
+        setDisbCust_id(false);
+
         CoFacadeRemote coFacade = EJBLookup.getCoFacade();
         Customer customer = coFacade.getCustomer(p_strCust_id);
-
-        setMode(MODE_EDIT);
 
         if(customer != null) {
             setAddr1(customer.getAddr1());
@@ -439,7 +247,7 @@ public class CustomerBean extends AbstractManageBean {
         Subdist subdistFirst = loadSubdist(districtFirst);
 
         if (subdistFirst != null) {
-            zipcode = subdistFirst.getZipcode();
+            setZipcode(subdistFirst.getZipcode());
         }
     }
 
@@ -455,7 +263,7 @@ public class CustomerBean extends AbstractManageBean {
         Subdist subdistFirst = loadSubdist(districtFirst);
 
         if (subdistFirst != null) {
-            zipcode = subdistFirst.getZipcode();
+            setZipcode(subdistFirst.getZipcode());
         }
     }
 
@@ -470,7 +278,7 @@ public class CustomerBean extends AbstractManageBean {
         Subdist subdistFirst = loadSubdist(district);
 
         if (subdistFirst != null) {
-            zipcode = subdistFirst.getZipcode();
+            setZipcode(subdistFirst.getZipcode());
         }
     }
 
@@ -483,7 +291,7 @@ public class CustomerBean extends AbstractManageBean {
         Subdist subdist = maFacade.getSubdist(p_intSubdist_id);
 
         if (subdist != null) {
-            zipcode = subdist.getZipcode();
+            setZipcode(subdist.getZipcode());
         }
     }
 
@@ -624,28 +432,29 @@ public class CustomerBean extends AbstractManageBean {
         setDisbNew(true);
         setDisbSave(false);
         setDisbDel(true);
+        setDisbCust_id(true);
 
         loadPrefixname();
         loadTax();
         loadCountry();
 
-        country_id = CoConstant.COUNTRY_ID_THAILAND;
+        setCountry_id(CoConstant.COUNTRY_ID_THAILAND);
         Country thailand = new Country();
-        thailand.setCountryId(country_id);
+        thailand.setCountryId(getCountry_id());
 
         loadProvince(thailand);
 
-        province_id = CoConstant.PROVINCE_ID_BANGKOK;
+        setProvince_id(CoConstant.PROVINCE_ID_BANGKOK);
 
         Province bangkok = new Province();
-        bangkok.setProvinceId(province_id);
+        bangkok.setProvinceId(getProvince_id());
 
         District districtFirst = loadDistrict(bangkok);
 
         Subdist subdistFirst = loadSubdist(districtFirst);
 
         if (subdistFirst != null) {
-            zipcode = subdistFirst.getZipcode();
+            setZipcode(subdistFirst.getZipcode());
         }
     }
 
@@ -679,6 +488,7 @@ public class CustomerBean extends AbstractManageBean {
         setDisbNew(false);
         setDisbSave(true);
         setDisbDel(true);
+        setDisbCust_id(false);
         
         setMode(MODE_EDIT);
         lsPrefixname = null;
@@ -692,64 +502,64 @@ public class CustomerBean extends AbstractManageBean {
     public void doSave(ActionEvent e) throws Exception {
         try {
             Customer customer = new Customer();
-            customer.setCustId(cust_id);
-            customer.setName(name);
-            customer.setAddr1(addr1);
-            customer.setAddr2(addr2);
-            customer.setRoad(road);
-            customer.setSoi(soi);
-            customer.setZipcode(zipcode);
-            customer.setPhone(phone);
-            customer.setFax(fax);
-            customer.setEmail(email);
+            customer.setCustId(getCust_id());
+            customer.setName(getName());
+            customer.setAddr1(getAddr1());
+            customer.setAddr2(getAddr2());
+            customer.setRoad(getRoad());
+            customer.setSoi(getSoi());
+            customer.setZipcode(getZipcode());
+            customer.setPhone(getPhone());
+            customer.setFax(getFax());
+            customer.setEmail(getEmail());
 
-            Prefixname prefixname = new Prefixname(prefix_id);
+            Prefixname prefixname = new Prefixname(getPrefix_id());
             customer.setPrefixname(prefixname);
 
-            if ((tax_id != null) && (tax_id.length() > 0)) {
-                Tax tax = new Tax(tax_id);
+            if ((getTax_id() != null) && (getTax_id().length() > 0)) {
+                Tax tax = new Tax(getTax_id());
                 customer.setTax(tax);
             }
 
-            Subdist subdist = new Subdist(subdist_id);
+            Subdist subdist = new Subdist(getSubdist_id());
             customer.setSubdist(subdist);
 
-            Province province = new Province(province_id);
+            Province province = new Province(getProvince_id());
             customer.setProvince(province);
 
-            District district = new District(district_id);
+            District district = new District(getDistrict_id());
             customer.setDistrict(district);
 
-            Country country = new Country(country_id);
+            Country country = new Country(getCountry_id());
             customer.setCountry(country);
 
             CoFacadeRemote coFacade = EJBLookup.getCoFacade();
 
             if (getMode().equals(MODE_EDIT)) {
-                customer.setUuser(uuser);
+                customer.setUuser(getUuser());
 
                 coFacade.editCustomer(customer);
                 if (getKeyword().trim().length() > 0) {
                     checkKeyword(getKeyword().trim());
                 }
                 checkCust_id(customer.getCustId());
-                FacesUtils.addInfoMessage("Save Complete");
+                message("Save Complete");
 
             } else if (getMode().equals(MODE_NEW)) {
-                customer.setCuser(cuser);
+                customer.setCuser(getCuser());
 
                 String strNewCust_id = coFacade.createCustomer(customer);
                 checkCust_id(strNewCust_id);
                 if (getKeyword().trim().length() > 0) {
                     checkKeyword(getKeyword().trim());
                 }
-                FacesUtils.addInfoMessage("Create Complete");
+                message("Create Complete");
 
             } else {
-                FacesUtils.addInfoMessage("Unknown Operation Mode");
+                message("Unknown Operation Mode");
             }
         } catch (Exception ex) {
-            FacesUtils.addInfoMessage(ex.getMessage());
+            message(ex.getMessage());
         }
     }
 
@@ -765,9 +575,9 @@ public class CustomerBean extends AbstractManageBean {
                 checkKeyword(getKeyword().trim());
             }
 
-            FacesUtils.addInfoMessage("Delete Complete");
+            message("Delete Complete");
         } else {
-            FacesUtils.addInfoMessage("Please Enter Customer ID");
+            message("Please Enter Customer ID");
         }
     }
 }

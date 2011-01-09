@@ -22,11 +22,16 @@ import simplemrp.util.FacesUtils;
  * @author Golf
  */
 public class ItemBean extends ItemAttr {
-    private String MODE_NEW = "NEW";
-    private String MODE_EDIT = "EDIT";
+
+    private boolean disbSave;
+    private boolean disbDel;
+    private boolean disbNew;
 
     /** Creates a new instance of ItemBean */
     public ItemBean() throws Exception {
+        setDisbNew(false);
+        setDisbSave(true);
+        setDisbDel(true);
     }
 
     public void doSearch(ActionEvent e) throws Exception {
@@ -63,8 +68,8 @@ public class ItemBean extends ItemAttr {
         setItem(item.getItem());
         setDescription(item.getDescription());
         setProduct(item.getProduct().getProduct());
-        setSource(item.getItemsource().getSource().toString());
-        setStat(item.getItemstat().getStat().toString());
+        setSource(item.getItemsource().getSource());
+        setStat(item.getItemstat().getStat());
         setWarranty(item.getWarranty());
         setUom(item.getUom().getUom());
         setLeadtime(item.getLeadtime());
@@ -73,6 +78,10 @@ public class ItemBean extends ItemAttr {
         setCuser(item.getCuser());
         setUdate(item.getUdate());
         setUuser(item.getUuser());
+
+        setDisbNew(false);
+        setDisbSave(false);
+        setDisbDel(false);
 
         loadProduct();
         loadSource();
@@ -140,9 +149,37 @@ public class ItemBean extends ItemAttr {
         setLsUom(lsUom);
     }
 
+    public boolean isDisbDel() {
+        return disbDel;
+    }
+
+    public void setDisbDel(boolean disbDel) {
+        this.disbDel = disbDel;
+    }
+
+    public boolean isDisbNew() {
+        return disbNew;
+    }
+
+    public void setDisbNew(boolean disbNew) {
+        this.disbNew = disbNew;
+    }
+
+    public boolean isDisbSave() {
+        return disbSave;
+    }
+
+    public void setDisbSave(boolean disbSave) {
+        this.disbSave = disbSave;
+    }
+
     public void doNew(ActionEvent e) throws Exception {
         clearEditScreen();
         setMode(MODE_NEW);
+
+        setDisbNew(true);
+        setDisbSave(false);
+        setDisbDel(true);
 
         loadProduct();
         loadSource();
@@ -171,6 +208,11 @@ public class ItemBean extends ItemAttr {
         setUuser(null);
 
         setMode(MODE_EDIT);
+
+        setDisbNew(false);
+        setDisbSave(true);
+        setDisbDel(true);
+
         setLsProduct(null);
         setLsSource(null);
         setLsStat(null);
@@ -178,80 +220,79 @@ public class ItemBean extends ItemAttr {
     }
 
     public void doSave(ActionEvent e) throws Exception {
-//        try {
-//            Customer customer = new Customer();
-//            customer.setCustId(cust_id);
-//            customer.setName(name);
-//            customer.setAddr1(addr1);
-//            customer.setAddr2(addr2);
-//            customer.setRoad(road);
-//            customer.setSoi(soi);
-//            customer.setZipcode(zipcode);
-//            customer.setPhone(phone);
-//            customer.setFax(fax);
-//            customer.setEmail(email);
-//
-//            Prefixname prefixname = new Prefixname(prefix_id);
-//            customer.setPrefixname(prefixname);
-//
-//            if ((tax_id != null) && (tax_id.length() > 0)) {
-//                Tax tax = new Tax(tax_id);
-//                customer.setTax(tax);
-//            }
-//
-//            Subdist subdist = new Subdist(subdist_id);
-//            customer.setSubdist(subdist);
-//
-//            Province province = new Province(province_id);
-//            customer.setProvince(province);
-//
-//            District district = new District(district_id);
-//            customer.setDistrict(district);
-//
-//            Country country = new Country(country_id);
-//            customer.setCountry(country);
-//
-//            CoFacadeRemote coFacade = EJBLookup.getCoFacade();
-//
-//            if (getMode().equals(MODE_EDIT)) {
-//                customer.setUuser(uuser);
-//
-//                coFacade.editCustomer(customer);
-//                if (getKeyword().trim().length() > 0) {
-//                    checkKeyword(getKeyword().trim());
-//                }
-//                checkCust_id(customer.getCustId());
-//                message("Save Complete");
-//
-//            } else if (getMode().equals(MODE_NEW)) {
-//                customer.setCuser(cuser);
-//
-//                String strNewCust_id = coFacade.createCustomer(customer);
-//                checkCust_id(strNewCust_id);
-//                if (getKeyword().trim().length() > 0) {
-//                    checkKeyword(getKeyword().trim());
-//                }
-//                message("Create Complete");
-//
-//            } else {
-//                message("Unknown Operation Mode");
-//            }
-//        } catch (Exception ex) {
-//            message(ex.getMessage());
-//        }
+        try {
+            Item item = new Item();
+            item.setItem(getItem().trim().toUpperCase());
+            item.setDescription(getDescription().trim());
+            item.setWarranty(getWarranty());
+            item.setLeadtime(getLeadtime());
+            item.setSafetystock(getSafetystock());
+
+            Product product = new Product();
+            product.setProduct(getProduct());
+            item.setProduct(product);
+
+            Item_source item_source = new Item_source();
+            item_source.setSource(getSource());
+            item.setItemsource(item_source);
+
+            Item_stat item_stat = new Item_stat();
+            item_stat.setStat(getStat());
+            item.setItemstat(item_stat);
+
+            Uom uom = new Uom();
+            uom.setUom(getUom());
+            item.setUom(uom);
+
+            //Dummy code for set create user
+            item.setUuser("developer");
+
+            MaFacadeRemote maFacade = EJBLookup.getMaFacade();
+
+            if (getMode().equals(MODE_EDIT)) {
+                maFacade.editItem(item);
+                if (getSearchItem().trim().length() > 0 || getSearchDesc().trim().length() > 0) {
+                    searchItem(getSearchItem(), getSearchDesc());
+                }
+                checkItem(item.getItem());
+                message("Save Complete");
+
+            } else if (getMode().equals(MODE_NEW)) {
+//                item.setCuser(getCuser());
+                //Dummy code for set create user
+                item.setCuser("developer");
+
+                String strItem = maFacade.createItem(item);
+                checkItem(strItem);
+                if (getSearchItem().trim().length() > 0 || getSearchDesc().trim().length() > 0) {
+                    searchItem(getSearchItem(), getSearchDesc());
+                }
+                message("Create Complete");
+
+            } else {
+                message("Unknown Operation Mode");
+            }
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+            message(ex.getMessage());
+        }
     }
 
     public void doDelete(ActionEvent e) throws Exception {
-//        Customer customer = new Customer();
-//        customer.setCustId(getCust_id());
-//        CoFacadeRemote coFacade = EJBLookup.getCoFacade();
-//        coFacade.deleteCustomer(customer);
-//
-//        clearEditScreen();
-//        if (getKeyword().trim().length() > 0) {
-//            checkKeyword(getKeyword().trim());
-//        }
-//
-//        message("Delete Complete");
+        try {
+            Item item = new Item();
+            item.setItem(getItem());
+            MaFacadeRemote maFacade = EJBLookup.getMaFacade();
+            maFacade.deleteItem(item);
+
+            clearEditScreen();
+            if (getSearchItem().trim().length() > 0 || getSearchDesc().trim().length() > 0) {
+                searchItem(getSearchItem(), getSearchDesc());
+            }
+
+            message("Delete Complete");
+        } catch (Exception ex) {
+            message(ex.getMessage());
+        }
     }
 }

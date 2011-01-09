@@ -9,8 +9,7 @@
     <f:view contentType="text/html">
         <head>
             <meta http-equiv="Content-Type" content="text/xhtml; charset=UTF-8" />
-
-            <link href="/simple-mrp-war/css/default.css" rel="stylesheet" type="text/css" />
+            <link href="/simple-mrp-war/css/default.css" rel="stylesheet" type="text/css"/>
             <link href="/simple-mrp-war/css/cssLayout.css" rel="stylesheet" type="text/css" />
             <link href="/simple-mrp-war/menu/ddsmoothmenu.css" rel="stylesheet" type="text/css"/>
 
@@ -49,7 +48,7 @@
                 </div>
                 <!-- Start -->
                 <a4j:outputPanel ajaxRendered="true">
-                    <rich:modalPanel id="messagePanel" zindex="2000" resizeable="true" showWhenRendered="#{!empty facesContext.maximumSeverity}">
+                    <rich:modalPanel id="messagePanel" height="100" zindex="2000" resizeable="true" showWhenRendered="#{!empty facesContext.maximumSeverity}">
                         <f:facet name="header">Message</f:facet>
                         <f:facet name="controls">
                             <h:graphicImage value="../../../simple-mrp-war/images/close.png" style="cursor:pointer" onclick="Richfaces.hideModalPanel('messagePanel');" />
