@@ -30,20 +30,23 @@ public class ItemBo implements InfItemBo {
     @Override
     public Item getItem(String p_strItem) throws Exception {
         Item item = itemDao.find(p_strItem);
+
         
         if(item != null) {
             if(item.getItemstat() != null) {
                 item.getItemstat().toString();
+            }
 
-            } else if(item.getItemsource() != null) {
+            if(item.getItemsource() != null) {
                 item.getItemsource().toString();
+            }
 
-            } else if(item.getProduct() != null) {
+            if(item.getProduct() != null) {
                 item.getProduct().toString();
+            }
 
-            } else if(item.getUom() != null) {
+            if(item.getUom() != null) {
                 item.getUom().toString();
-
             }
         }
         
@@ -53,7 +56,11 @@ public class ItemBo implements InfItemBo {
     @Override
     public void editItem(Item p_item) throws Exception {
         try {
+            Item item = itemDao.find(p_item.getItem());
+            p_item.setCdate(item.getCdate());
+            p_item.setCuser(item.getCuser());
             p_item.setUdate(DateUtil.getDate());
+
             itemDao.edit(p_item);
         } catch(Exception ex) {
             throw new Exception(ex.getMessage(), ex);

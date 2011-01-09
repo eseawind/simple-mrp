@@ -14,7 +14,7 @@ import simplemrp.util.FacesUtils;
  * @author Golf
  */
 public abstract class AbstractManageBean implements Serializable {
-    protected Logger log = Logger.getLogger(this.getClass());
+    protected transient Logger log = Logger.getLogger(this.getClass());
     protected String MODE_NEW = "NEW";
     protected String MODE_EDIT = "EDIT";
     
