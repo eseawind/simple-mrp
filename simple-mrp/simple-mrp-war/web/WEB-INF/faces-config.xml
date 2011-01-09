@@ -41,7 +41,7 @@
         <managed-bean-class>simplemrp.mbean.co.CustomerOrderBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
-<managed-bean>
+    <managed-bean>
         <managed-bean-name>itemBean</managed-bean-name>
         <managed-bean-class>simplemrp.mbean.master.ItemBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -55,10 +55,27 @@
         <managed-bean-name>poBean</managed-bean-name>
         <managed-bean-class>simplemrp.mbean.po.PurchaseOrderBean</managed-bean-class>
 
-        <managed-bean-scope>request</managed-bean-scope></managed-bean>
-     <managed-bean>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
         <managed-bean-name>prBean</managed-bean-name>
         <managed-bean-class>simplemrp.mbean.po.PurchaseRequisitionBean</managed-bean-class>
 
-        <managed-bean-scope>request</managed-bean-scope></managed-bean>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>coShipBean</managed-bean-name>
+        <managed-bean-class>simplemrp.mbean.ic.CustOrderShippingBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>poRecvBean</managed-bean-name>
+        <managed-bean-class>simplemrp.mbean.ic.PoReceiveBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>itemLocBean</managed-bean-name>
+        <managed-bean-class>simplemrp.mbean.ic.ItemLocationBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
 </faces-config>

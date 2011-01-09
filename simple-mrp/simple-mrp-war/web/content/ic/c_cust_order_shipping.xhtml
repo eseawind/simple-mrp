@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+    <ui:define name="programname">Customer Order Shipping</ui:define>
+    <ui:define name="content">
+        <f:view id="coShipViewId">
+            <h:form id="coShipFormId">
+                <rich:messages></rich:messages>
+                <a4j:keepAlive beanName="coShipBean"></a4j:keepAlive>
+                <h:panelGrid columns="2" columnClasses="alignTop,alignTop" width="480">
+                    <rich:panel id="editPanel" header="Customer Order Shipping">
+
+                        <rich:spacer width="4"/>
+                        <a4j:commandButton value="Save" actionListener="#{coShipBean.doSave}" reRender="editPanel"/>
+
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="Customer Order"/>
+                            <h:panelGrid columns="2">
+                            <h:inputText value="#{coShipBean.searchCo}"/>
+                            <a4j:commandButton value="Search" actionListener="#{coShipBean.doSearch}" reRender="editPanel"/>
+                            </h:panelGrid>
+                            <h:outputText value="Customer"/>
+                            <h:inputText value="#{coShipBean.cust}"/>
+                            <h:outputText value="Transaction Date"/>
+                            <rich:calendar value="#{coShipBean.transactionDate}" datePattern="#{constantBean.PATTREN_DATE}"></rich:calendar>
+                        </h:panelGrid>
+                        <br></br>
+                        Customer Order Items
+                        <rich:dataTable id="coItemTable" value="#{coShipBean.lsCoShipItemBean}" var="item" stateVar="status">
+                            <rich:column styleClass="alignCenter">
+                                <f:facet name="header">
+                                    <h:outputText value="No."/>
+                                </f:facet>
+                                <h:outputText value="#{status}"/>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Item Desc."/>
+                                </f:facet>
+                                <h:outputText value="#{item.item.description}"/>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Warehouse"/>
+                                </f:facet>
+                                <h:selectOneMenu value="#{item.selectedWarehouse}" >
+                                    <f:selectItems value="#{coShipBean.lsWarehouse}"
+                                                   var="warehouse"
+                                                   itemValue="#{warehouse.whse}"
+                                                   itemLabel="#{warehouse.description}">
+                                    </f:selectItems>
+                                </h:selectOneMenu>
+                                
+                            </rich:column>
+
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Location"/>
+                                </f:facet>
+                                <h:selectOneMenu value="#{item.selectedLocation}" >
+                                    <f:selectItems value="#{coShipBean.lsLocation}"
+                                                   var="location"
+                                                   itemValue="#{location.locPK}"
+                                                   itemLabel="#{location.description}">
+                                    </f:selectItems>
+                                </h:selectOneMenu>
+                            </rich:column>
+                             <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Qty. Order"/>
+                                </f:facet>
+                                 <h:outputText value="#{item.qty}"/>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Qty. Shipped"/>
+                                </f:facet>
+                                <h:outputText value="#{item.qtyship}"/>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="To Be Ship"/>
+                                </f:facet>
+                                <h:inputText value="#{item.toBeShip}"/>
+                            </rich:column>
+                        </rich:dataTable>
+                    </rich:panel>
+
+                </h:panelGrid>
+            </h:form>
+        </f:view>
+    </ui:define>
+</ui:composition>

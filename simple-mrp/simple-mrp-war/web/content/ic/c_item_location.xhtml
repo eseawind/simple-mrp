@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+    <ui:define name="programname">Item Location</ui:define>
+    <ui:define name="content">
+        
+            <h:form id="itemLocFormId">
+                <rich:messages></rich:messages>
+                <a4j:keepAlive beanName="itemLocBean"></a4j:keepAlive>
+                <h:panelGrid columns="2" columnClasses="alignTop,alignTop">
+                    <rich:panel id="editPanel" header="Item Location">
+                        <rich:spacer width="4"/>
+                        <a4j:commandButton value="Search" actionListener="#{coShipBean.doSearch}" reRender="editPanel"/>
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="Warehouse"/>
+                            <h:inputText value="#{itemLocBean.searchWarehouse}"/>
+                            <h:outputText value="Location"/>
+                            <h:inputText value="#{itemLocBean.searchLocation}"/>
+                        </h:panelGrid>
+                        <br></br>
+                        Item Location Result
+                        <rich:dataTable id="itemLocTable" value="#{itemLocBean.lsItemLoc}" var="item" stateVar="status">
+                              <rich:column styleClass="alignCenter">
+                                  <f:facet name="header">
+                                      <h:outputText value="No."/>
+                                  </f:facet>
+                                  <h:outputText value="#{status}"/>
+                              </rich:column>
+                              <rich:column >
+                                  <f:facet name="header">
+                                      <h:outputText value="Item Desc."/>
+                                  </f:facet>
+                                  <h:outputText value="รหัสสินค้า"/>
+                              </rich:column>
+                            <rich:column sortBy="#{item.onhand}" >
+                                <f:facet name="header">
+                                    <h:outputText value="On Hand Qty."/>
+                                </f:facet>
+                                <h:outputText value="#{item.onhand}"/>
+                            </rich:column>
+
+                            <rich:column sortBy="#{item.uuser}">
+                                <f:facet name="header">
+                                    <h:outputText value="Edit User"/>
+                                </f:facet>
+                                <h:outputText value="#{item.uuser}"/>
+                            </rich:column>
+                            <rich:column sortBy="#{item.udate}">
+                                <f:facet name="header">
+                                    <h:outputText value="Edit Date"/>
+                                </f:facet>
+                                <h:outputText value="#{item.udate}"/>
+                            </rich:column>
+                        </rich:dataTable>
+                    </rich:panel>
+
+                </h:panelGrid>
+            </h:form>
+        
+    </ui:define>
+</ui:composition>
