@@ -78,4 +78,14 @@
         <managed-bean-class>simplemrp.mbean.ic.ItemLocationBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>matlToJobBean</managed-bean-name>
+        <managed-bean-class>simplemrp.mbean.ic.MatlToJobBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>forecastDemandBean</managed-bean-name>
+        <managed-bean-class>simplemrp.mbean.pp.ForecastDemandBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
 </faces-config>

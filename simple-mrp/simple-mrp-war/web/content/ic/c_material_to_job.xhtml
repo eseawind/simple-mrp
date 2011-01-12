@@ -4,14 +4,87 @@ To change this template, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <title>TODO supply a title</title>
-    </head>
-    <body>
-        <p>
-            TODO write content
-        </p>
-    </body>
-</html>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+    <ui:define name="programname">Material To Job</ui:define>
+    <ui:define name="content">
+
+            <h:form id="matlToJobFormId">
+                <rich:messages></rich:messages>
+                <a4j:keepAlive beanName="matlToJobBean"></a4j:keepAlive>
+                <h:panelGrid columns="2" columnClasses="alignTop,alignTop">
+                    <rich:panel id="editPanel" header="Material To Job">
+                        <rich:spacer width="4"/>
+                        <a4j:commandButton value="Save" actionListener="#{matlToJobBean.doSave}" reRender="editPanel"/>
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="Job ID"/>
+                            <h:panelGrid columns="2">
+                                <h:inputText value="#{matlToJobBean.jobId}"/>
+                                <a4j:commandButton value="Search" actionListener="#{matlToJobBean.doSearch}" reRender="editPanel"/>
+                            </h:panelGrid>
+                            <h:outputText value="Item"/>
+                            <h:inputText value="#{matlToJobBean.jobItem}"/>
+                            <h:outputText value="Quantity"/>
+                            <h:inputText value="#{matlToJobBean.qty}"/>
+                            <h:outputText value="Transaction Date"/>
+                            <rich:calendar value="#{matlToJobBean.transactionDate}" datePattern="#{constantBean.PATTREN_DATE}"></rich:calendar>
+                        </h:panelGrid>
+                        <br></br>
+                        Item
+                        <rich:dataTable id="matlToJobTable" value="#{matlToJobBean.lsMatlToJobItem}" var="item" stateVar="status">
+                              <rich:column styleClass="alignCenter">
+                                  <f:facet name="header">
+                                      <h:outputText value="No."/>
+                                  </f:facet>
+                                  <h:outputText value="#{status}"/>
+                              </rich:column>
+                              <rich:column >
+                                  <f:facet name="header">
+                                      <h:outputText value="Material"/>
+                                  </f:facet>
+                                  <h:outputText value="#{item.itemmatlPK}"/>
+                              </rich:column>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Warehouse"/>
+                                </f:facet>
+                                <h:outputText value="warehouse"/>
+                            </rich:column>
+
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Location"/>
+                                </f:facet>
+                                <h:outputText value="location"/>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Qty Request"/>
+                                </f:facet>
+                                <h:outputText value="จำนวนที่ขอเบิก=JobQtyxjobMatlQty"/>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Qty Issued"/>
+                                </f:facet>
+                                <h:outputText value="จำนวนที่จ่ายแล้ว"/>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="To Be Issue"/>
+                                </f:facet>
+                                <h:outputText value="#{item.toBeIssue}"/>
+                            </rich:column>
+                        </rich:dataTable>
+                    </rich:panel>
+
+                </h:panelGrid>
+            </h:form>
+
+    </ui:define>
+</ui:composition>

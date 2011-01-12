@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+    <ui:define name="programname">Forecast Demand</ui:define>
+    <ui:define name="content">
+        <h:form id="forecastDemandFormId">
+            <rich:messages></rich:messages>
+            <a4j:keepAlive beanName="forecastDemandBean"></a4j:keepAlive>
+            <h:panelGrid columns="1" columnClasses="alignTop,alignTop">
+                <rich:panel id="editPanel" header="Forecast Demand">
+                    <a4j:commandButton value="New" actionListener="#{forecastDemandBean.doAdd}" reRender="editPanel"/>
+                    <rich:spacer width="4"/>
+                    <a4j:commandButton value="Delete" actionListener="#{forecastDemandBean.doDelete}" reRender="editPanel"/>
+                    <rich:spacer width="4"/>
+
+                    <rich:dataTable id="forecastItemTable" value="#{forecastDemandBean.lsForecast}" var="item" stateVar="status">
+                        <rich:column styleClass="alignCenter">
+                            <f:facet name="header">
+                                <h:outputText value=""/>
+                            </f:facet>
+                            <h:outputText value="#{item.isSelected}"/>
+                        </rich:column>
+                        <rich:column styleClass="alignCenter">
+                            <f:facet name="header">
+                                <h:outputText value="No."/>
+                            </f:facet>
+                            <h:outputText value="#{status}"/>
+                        </rich:column>
+                        <rich:column sortBy="#{item.item.description}">
+                            <f:facet name="header">
+                                <h:outputText value="Item"/>
+                            </f:facet>
+                            <h:outputText value="#{item.item.description}"/>
+                        </rich:column>
+                        <rich:column>
+                            <f:facet name="header">
+                                <h:outputText value="Qty."/>
+                            </f:facet>
+                            <h:outputText value="#{item.qty}"/>
+                        </rich:column>
+                        <rich:column sortBy="#{item.fcstdate}">
+                            <f:facet name="header">
+                                <h:outputText value="Forecast Date"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fcstdate}"/>
+                        </rich:column>
+                    </rich:dataTable>
+                </rich:panel>
+
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>
