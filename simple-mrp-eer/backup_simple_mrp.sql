@@ -49,18 +49,18 @@ INSERT INTO `bank` (`BANK_ID`,`DESCRIPTION`) VALUES
 DROP TABLE IF EXISTS `co`;
 CREATE TABLE `co` (
   `CO_ID` varchar(7) NOT NULL,
-  `CUST_ID` varchar(7) DEFAULT NULL,
+  `CUST_ID` varchar(7) NOT NULL,
   `CUST_PO` varchar(40) DEFAULT NULL,
-  `ORDERDATE` date DEFAULT NULL,
-  `DUEDATE` date DEFAULT NULL,
-  `TERM_ID` varchar(3) DEFAULT NULL,
-  `STAT` varchar(1) DEFAULT NULL,
-  `SLSMAN` varchar(8) DEFAULT NULL,
+  `ORDERDATE` date NOT NULL,
+  `DUEDATE` date NOT NULL,
+  `TERM_ID` varchar(3) NOT NULL,
+  `STAT` varchar(1) NOT NULL,
+  `SLSMAN` varchar(8) NOT NULL,
   `TAX_ID` varchar(6) DEFAULT NULL,
-  `UUSER` varchar(20) DEFAULT NULL,
-  `UDATE` date DEFAULT NULL,
-  `CDATE` date DEFAULT NULL,
-  `CUSER` varchar(20) DEFAULT NULL,
+  `UUSER` varchar(20) NOT NULL,
+  `UDATE` date NOT NULL,
+  `CDATE` date NOT NULL,
+  `CUSER` varchar(20) NOT NULL,
   PRIMARY KEY (`CO_ID`),
   KEY `FK_CO_CUSTOMER` (`CUST_ID`),
   KEY `FK_CO_TERM` (`TERM_ID`),
@@ -209,11 +209,14 @@ CREATE TABLE `customer` (
 INSERT INTO `customer` (`CUST_ID`,`TERM_ID`,`TAX_ID`,`PREFIXNAME`,`NAME`,`ADDR1`,`ADDR2`,`ROAD`,`SOI`,`SUBDIST_ID`,`DISTRICT_ID`,`PROVINCE_ID`,`ZIPCODE`,`COUNTRY_ID`,`PHONE`,`FAX`,`EMAIL`,`CDATE`,`CUSER`,`UDATE`,`UUSER`) VALUES 
  ('0000002',NULL,'V07',1,'โสภณ ศิริโชติ','1234','4321','RD1','S1',103401,1034,10,'10250',66,'08-5810-8022','02-722-8150','email@domain.com','2011-01-01',NULL,'2011-01-07',NULL),
  ('0000003',NULL,'V07',1,'โภชนา ภาษีสุข','Flora Tower','1999','RD1','SOI1',101804,1018,10,'10600',66,'01-2222-2222','','','2011-01-07',NULL,'2011-01-07',NULL),
- ('0000004',NULL,'V07',1,'test','','','','',101804,1018,10,'10600',66,'','','','2011-01-08',NULL,'2011-01-08',NULL),
- ('0000005',NULL,'V07',1,'Sopon','','','','',101804,1018,10,'10600',66,'','','','2011-01-08',NULL,'2011-01-08',NULL),
+ ('0000004',NULL,'V07',1,'test','','','','',101804,1018,10,'10600',66,'','','',NULL,NULL,'2011-01-08',NULL),
+ ('0000005',NULL,'V07',1,'Sopon','','','','',101804,1018,10,'10600',66,'','','',NULL,NULL,'2011-01-08',NULL),
  ('0000006',NULL,'V07',1,'ทดสอบ','','','','',101804,1018,10,'10600',66,'','','','2011-01-08',NULL,'2011-01-08',NULL),
  ('0000007',NULL,'V07',1,'Simple','','','','',101804,1018,10,'10600',66,'','','','2011-01-08',NULL,'2011-01-08',NULL),
  ('0000008',NULL,'V07',1,'Stage','','','','',101804,1018,10,'10600',66,'','','','2011-01-08',NULL,'2011-01-08',NULL);
+INSERT INTO `customer` (`CUST_ID`,`TERM_ID`,`TAX_ID`,`PREFIXNAME`,`NAME`,`ADDR1`,`ADDR2`,`ROAD`,`SOI`,`SUBDIST_ID`,`DISTRICT_ID`,`PROVINCE_ID`,`ZIPCODE`,`COUNTRY_ID`,`PHONE`,`FAX`,`EMAIL`,`CDATE`,`CUSER`,`UDATE`,`UUSER`) VALUES 
+ ('0000009',NULL,'V07',1,'Sopon Sirichote',' This is test','','','',101804,1018,10,'10600',66,'','','','2011-01-08',NULL,'2011-01-08',NULL),
+ ('0000010',NULL,'V07',1,'Sopon Test','','','','',101804,1018,10,'10600',66,'','','',NULL,NULL,'2011-01-08',NULL);
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 
 
@@ -1262,6 +1265,23 @@ CREATE TABLE `item` (
 --
 
 /*!40000 ALTER TABLE `item` DISABLE KEYS */;
+INSERT INTO `item` (`ITEM`,`DESCRIPTION`,`PRODUCT`,`SOURCE`,`STAT`,`WARRANTY`,`UOM`,`LEADTIME`,`SAFETYSTOCK`,`CDATE`,`CUSER`,`UDATE`,`UUSER`) VALUES 
+ ('TEST','test desc','CHAIR-LOF','M','O',1,'ROL',2,3.00,'2011-01-09','developer','2011-01-09','developer'),
+ ('TEST-0001','Test create item','CHAIR-LOF','M','A',NULL,'EA',NULL,NULL,'2011-01-09','developer','2011-01-09','developer'),
+ ('TEST-0002','Test Create Item','CHAIR-LOF','P','A',3,'ROL',NULL,NULL,'2011-01-09','developer','2011-01-09','developer'),
+ ('TEST-0003','Test create item 03','CHAIR-LOF','M','A',1,'EA',2,3.00,'2011-01-09','developer','2011-01-09','developer'),
+ ('TEST-0004','Test create item 04','CHAIR-LOF','M','A',NULL,'EA',NULL,NULL,'2011-01-09','developer','2011-01-09','developer'),
+ ('TEST-1','Description','CHAIR-LOF','M','A',NULL,'EA',NULL,NULL,'2011-01-09','developer','2011-01-09','developer'),
+ ('TEST-10','test','CHAIR-LOF','M','A',NULL,'EA',NULL,NULL,'2011-01-09','developer','2011-01-09','developer'),
+ ('TEST-11','test','CHAIR-LOF','M','A',NULL,'EA',NULL,NULL,'2011-01-09','developer','2011-01-09','developer'),
+ ('TEST-2','test','CHAIR-LOF','M','A',NULL,'EA',NULL,NULL,'2011-01-09','developer','2011-01-09','developer');
+INSERT INTO `item` (`ITEM`,`DESCRIPTION`,`PRODUCT`,`SOURCE`,`STAT`,`WARRANTY`,`UOM`,`LEADTIME`,`SAFETYSTOCK`,`CDATE`,`CUSER`,`UDATE`,`UUSER`) VALUES 
+ ('TEST-3','test description','CHAIR-LOF','M','A',NULL,'EA',NULL,NULL,'2011-01-09','developer','2011-01-09','developer'),
+ ('TEST-5','Test','CHAIR-LOF','M','A',NULL,'EA',NULL,NULL,'2011-01-09','developer','2011-01-09','developer'),
+ ('TEST-6','Test','CHAIR-LOF','M','A',1,'EA',2,3.00,'2011-01-09','developer','2011-01-09','developer'),
+ ('TEST-7','test','CHAIR-LOF','M','A',NULL,'EA',NULL,NULL,'2011-01-09','developer','2011-01-09','developer'),
+ ('TEST-8','test','CHAIR-LOF','M','A',NULL,'EA',NULL,NULL,'2011-01-09','developer','2011-01-09','developer'),
+ ('TEST-9','ทดสอบแก้ไข Item','CHAIR-LOF','M','A',NULL,'EA',NULL,NULL,'2011-01-09','developer','2011-01-09','developer');
 /*!40000 ALTER TABLE `item` ENABLE KEYS */;
 
 
@@ -1476,11 +1496,13 @@ CREATE TABLE `jobmatl` (
   `OPR` int(11) NOT NULL,
   `SEQ` int(11) NOT NULL,
   `MATL` varchar(35) NOT NULL,
-  `QTY` double(10,2) DEFAULT '0.00',
-  `CUSER` varchar(20) DEFAULT NULL,
-  `CDATE` date DEFAULT NULL,
-  `UUSER` varchar(20) DEFAULT NULL,
-  `UDATE` date DEFAULT NULL,
+  `QTY` double(10,2) NOT NULL DEFAULT '0.00',
+  `CUSER` varchar(20) NOT NULL,
+  `CDATE` date NOT NULL,
+  `UUSER` varchar(20) NOT NULL,
+  `UDATE` date NOT NULL,
+  `QTY_REQ` double DEFAULT '0',
+  `QTY_SHIP` double DEFAULT NULL,
   PRIMARY KEY (`JOB_ID`,`OPR`,`SEQ`),
   KEY `FK_JOBMATL_ITEM` (`MATL`),
   CONSTRAINT `FK_JOBMATL_ITEM` FOREIGN KEY (`MATL`) REFERENCES `item` (`ITEM`),
@@ -1513,8 +1535,8 @@ CREATE TABLE `jobopr` (
   KEY `FK_JOBOPR_WORKCENTER` (`WC`),
   KEY `FK_JOBOPR_ITEM` (`ITEM`),
   KEY `FK_JOBOPR_JOB` (`JOB_ID`),
-  CONSTRAINT `FK_JOBOPR_ITEM` FOREIGN KEY (`ITEM`) REFERENCES `item` (`ITEM`),
   CONSTRAINT `FK_JOBOPR_JOB` FOREIGN KEY (`JOB_ID`) REFERENCES `job` (`JOB_ID`),
+  CONSTRAINT `FK_JOBOPR_ITEM` FOREIGN KEY (`ITEM`) REFERENCES `item` (`ITEM`),
   CONSTRAINT `FK_JOBOPR_WORKCENTER` FOREIGN KEY (`WC`) REFERENCES `workcenter` (`WC`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
