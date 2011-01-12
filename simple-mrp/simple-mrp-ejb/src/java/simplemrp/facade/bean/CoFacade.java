@@ -9,7 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import simplemrp.bo.InfCoBo;
+import simplemrp.bo.InfCo_statBo;
+import simplemrp.bo.InfCoitemBo;
 import simplemrp.bo.InfCustomerBo;
+import simplemrp.bo.InfItempriceBo;
 import simplemrp.bo.InfPrefixnamBo;
 import simplemrp.bo.InfSlsmanBo;
 import simplemrp.bo.bean.CoBo;
@@ -42,13 +46,13 @@ public class CoFacade implements CoFacadeRemote {
     @EJB
     private InfSlsmanBo slsmanBo;
     @EJB
-    private CoBo coBo;
+    private InfCoBo coBo;
     @EJB
-    private CoitemBo coitemBo;
+    private InfCoitemBo coitemBo;
     @EJB
-    private Co_statBo co_statBo;
+    private InfCo_statBo co_statBo;
     @EJB
-    private ItempriceBo itempriceBo;
+    private InfItempriceBo itempriceBo;
 
     @Override
     public List<Customer> searchCustomer(String p_strKeyword) throws Exception {
