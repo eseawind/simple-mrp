@@ -154,7 +154,7 @@ public class CustomerBean extends CustomerAttr {
     }
 
     public void setDisbCust_id(boolean disbCust_id) {
-        this.disbNew = disbCust_id;
+        this.disbCust_id = disbCust_id;
     }
 
     public void doSearch(ActionEvent e) throws Exception {

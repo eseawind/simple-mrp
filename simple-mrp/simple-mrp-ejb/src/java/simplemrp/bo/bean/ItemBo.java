@@ -76,8 +76,6 @@ public class ItemBo implements InfItemBo {
     public String createItem(Item p_item) throws Exception {
         p_item.setItem(p_item.getItem().toUpperCase());
 
-        String strItem = p_item.getItem();
-
         Item itemCheck = itemDao.find(p_item.getItem());
 
         if(itemCheck == null) {
@@ -89,6 +87,6 @@ public class ItemBo implements InfItemBo {
             throw new Exception("Duplicated Item " + p_item.getItem());
         }
 
-        return strItem;
+        return p_item.getItem();
     }
 }

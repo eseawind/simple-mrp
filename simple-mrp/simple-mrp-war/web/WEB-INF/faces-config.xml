@@ -38,14 +38,13 @@
     </managed-bean>
     <managed-bean>
         <managed-bean-name>coBean</managed-bean-name>
-        <managed-bean-class>simplemrp.mbean.co.CustomerOrderBean</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
+        <managed-bean-class>simplemrp.mbean.co.CoBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope></managed-bean>
     <managed-bean>
         <managed-bean-name>itemBean</managed-bean-name>
         <managed-bean-class>simplemrp.mbean.master.ItemBean</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
+
+        <managed-bean-scope>request</managed-bean-scope></managed-bean>
     <managed-bean>
         <managed-bean-name>constantBean</managed-bean-name>
         <managed-bean-class>simplemrp.mbean.ConstantBean</managed-bean-class>

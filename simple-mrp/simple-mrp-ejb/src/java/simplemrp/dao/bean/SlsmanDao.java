@@ -37,4 +37,20 @@ public class SlsmanDao extends AbstractDao<Slsman> implements InfSlsmanDao {
         return q.getResultList();
     }
 
+    @Override
+    public String getNextSlsman() {
+        String strPrefix = "S";
+
+        String sql = "select max(s.slsman) from Slsman as s";
+        Query q = em.createQuery(sql);
+        String strLastSlsman = (String)q.getSingleResult();
+        strLastSlsman = strLastSlsman.replaceFirst(strPrefix, "");
+
+        Integer intNext = new Integer(strLastSlsman).intValue() + 1;
+
+        String strNextSlsman = "000000" + intNext;
+        strNextSlsman = strPrefix + strNextSlsman.substring(strNextSlsman.length() - 6, strNextSlsman.length());
+
+        return strNextSlsman;
+    }
 }

@@ -32,4 +32,6 @@ public interface InfSlsmanDao {
 
     public List<Slsman> findByName(String p_strKeyword);
 
+    public String getNextSlsman();
+
 }

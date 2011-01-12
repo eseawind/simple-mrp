@@ -30,4 +30,8 @@ public interface InfCoDao {
 
     int count();
 
+    public String getNextCo_id();
+
+    public List<Co> findByCustomerId(String p_strCustomerId);
+
 }

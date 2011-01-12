@@ -3,19 +3,19 @@
     <Scope Scope="Faces Configuration Only"/>
     <Scope Scope="Project">
         <Node id="index.jsp" x="150" y="450" zoom="true"/>
-        <Node id="content/co/c_customer_order.xhtml" x="400" y="150" zoom="true"/>
         <Node id="content/po/c_purchase_requisition.xhtml" x="400" y="450" zoom="true"/>
-        <Node id="content/co/c_saleman.xhtml" x="150" y="300" zoom="true"/>
         <Node id="content/co/c_customer.xhtml" x="650" y="150" zoom="false"/>
         <Node id="content/po/c_purchase_order.xhtml" x="150" y="600" zoom="true"/>
         <Node id="menu/menu_items.html" x="650" y="300" zoom="true"/>
         <Node id="content/master/c_item.xhtml" x="900" y="150" zoom="true"/>
-        <Node id="content/ic/c_purchase_order_receive.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="content/co/c_salesman.xhtml" x="150" y="300" zoom="true"/>
         <Node id="index.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="content/ic/c_purchase_order_receive.xhtml" x="1150" y="150" zoom="true"/>
         <Node id="content/ic/c_item_location.xhtml" x="400" y="600" zoom="true"/>
+        <Node id="content/co/c_co.xhtml" x="400" y="150" zoom="true"/>
         <Node id="content/ic/c_material_to_job.xhtml" x="900" y="300" zoom="true"/>
-        <Node id="templates/template.xhtml" x="150" y="150" zoom="true"/>
         <Node id="content/ic/c_cust_order_shipping.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="templates/template.xhtml" x="150" y="150" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>

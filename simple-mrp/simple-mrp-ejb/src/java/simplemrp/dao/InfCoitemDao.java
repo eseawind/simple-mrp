@@ -30,4 +30,8 @@ public interface InfCoitemDao {
 
     int count();
 
+    public List<Coitem> findByCo(String p_strCoId);
+
+    public Integer getNextCo_seq();
+
 }

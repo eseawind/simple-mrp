@@ -40,7 +40,7 @@ public class SalemanBean {
         System.out.println("doSearch Saleman");
         CoFacadeRemote coFacade = (CoFacadeRemote)EJBLookup.getEJBInstance(BindingName.CoFacadeRemote);
         //CoFacadeRemote coFacade = EJBLookup.getCoFacade();
-        List<Slsman> ls = coFacade.searchSaleman(getKeyword());
+        List<Slsman> ls = coFacade.searchSlsman(getKeyword());
         setLsSaleman(ls);
     }
     public void doEdit(ActionEvent e){
