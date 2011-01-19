@@ -87,4 +87,14 @@
         <managed-bean-class>simplemrp.mbean.pp.ForecastDemandBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>mpsBean</managed-bean-name>
+        <managed-bean-class>simplemrp.mbean.pp.MasterPlanScheduleBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>jobOrderBean</managed-bean-name>
+        <managed-bean-class>simplemrp.mbean.pp.JobOrderBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
 </faces-config>
