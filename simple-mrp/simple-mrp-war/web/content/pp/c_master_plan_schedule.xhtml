@@ -4,14 +4,67 @@ To change this template, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <title>TODO supply a title</title>
-    </head>
-    <body>
-        <p>
-            TODO write content
-        </p>
-    </body>
-</html>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+    <ui:define name="programname">Master Plan Schedule</ui:define>
+    <ui:define name="content">
+        <h:form id="mpsFormId">
+            <rich:messages></rich:messages>
+            <a4j:keepAlive beanName="mpsBean"></a4j:keepAlive>
+            <h:panelGrid columns="1" columnClasses="alignTop,alignTop">
+                <rich:panel id="editPanel" header="Master Plan Schedule">
+                    <a4j:commandButton value="New" actionListener="#{mpsBean.doNew}" reRender="editPanel"/>
+                    <rich:spacer width="4"/>
+                    <a4j:commandButton value="Save" actionListener="#{mpsBean.doSave}" reRender="editPanel"/>
+                    <rich:spacer width="4"/>
+                    <a4j:commandButton value="Delete" actionListener="#{mpsBean.doDelete}" reRender="editPanel"/>
+                    <rich:spacer width="4"/>
+
+                    <h:panelGrid columns="2" columnClasses="alignTop,alignTop">
+                    <h:outputLabel value="รหัสแผนการผลิต"></h:outputLabel>
+                    <h:inputText value="#{mpsBean.mpsId}"></h:inputText>
+                    <h:outputLabel value="รหัสสินค้า"></h:outputLabel>
+                    <h:inputText value="#{mpsBean.itemName}"></h:inputText>
+                    <h:outputLabel value="ชนิดของเอกสารอ้างอิง"></h:outputLabel>
+                    <h:selectOneMenu value="#{mpsBean.mpsType}">
+                        <f:selectItems value="#{mpsBean.lsMpsType}"
+                                       var="mpsType"
+                                       itemValue="#{mpsType.mpsType}"
+                                       itemLabel="#{mpsType.description}">
+                        </f:selectItems>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="รหัสเอกสาร"></h:outputLabel>
+                    <h:inputText value="#{mpsBean.refId}"></h:inputText>
+                    <h:outputLabel value="ลำดับเอกสาร"></h:outputLabel>
+                    <h:inputText value="#{mpsBean.refSeqInt}"></h:inputText>
+                    <h:outputLabel value="วันที่ส่งของ"></h:outputLabel>
+                    <h:inputText value="#{mpsBean.dueDate}"></h:inputText>
+                    <h:outputLabel value="จำนวนที่ต้องการ"></h:outputLabel>
+                    <h:inputText value="#{mpsBean.qty}"></h:inputText>
+                    <h:outputLabel value="สถานะ"></h:outputLabel>
+                    <h:selectOneMenu value="#{mpsBean.mpsStat}">
+                        <f:selectItems value="#{mpsBean.lsMpsStat}"
+                                       var="mpsStat"
+                                       itemValue="#{mpsStat.stat}"
+                                       itemLabel="#{mpsStat.description}">
+                        </f:selectItems>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="Create User"></h:outputLabel>
+                    <h:inputText value="#{mpsBean.cUser}"></h:inputText>
+                    <h:outputLabel value="Create Date"></h:outputLabel>
+                    <h:inputText value="#{mpsBean.cDate}"></h:inputText>
+                    <h:outputLabel value="Update User"></h:outputLabel>
+                    <h:inputText value="#{mpsBean.uUser}"></h:inputText>
+                    <h:outputLabel value="Update Date"></h:outputLabel>
+                    <h:inputText value="#{mpsBean.uDate}"></h:inputText>
+                </h:panelGrid>
+                </rich:panel>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>
