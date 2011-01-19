@@ -56,6 +56,8 @@ public class SlsmanBo implements InfSlsmanBo {
     @Override
     public String createSlsman(Slsman p_slsman) throws Exception {
         String strNextSlsman = slsmanDao.getNextSlsman();
+        p_slsman.setSlsman(strNextSlsman);
+        
         slsmanDao.create(p_slsman);
 
         return p_slsman.getSlsman();
