@@ -16,6 +16,7 @@ import simplemrp.entity.Product;
 import simplemrp.entity.Province;
 import simplemrp.entity.Subdist;
 import simplemrp.entity.Tax;
+import simplemrp.entity.Term;
 import simplemrp.entity.Uom;
 
 /**
@@ -53,4 +54,6 @@ public interface MaFacadeRemote {
     public void editItem(Item p_item) throws Exception;
 
     public String createItem(Item p_item) throws Exception;
+
+    public List<Term> getListTerm() throws Exception;
 }

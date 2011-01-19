@@ -17,6 +17,7 @@ import simplemrp.bo.InfProductBo;
 import simplemrp.bo.InfProvinceBo;
 import simplemrp.bo.InfSubdistBo;
 import simplemrp.bo.InfTaxBo;
+import simplemrp.bo.InfTermBo;
 import simplemrp.bo.InfUomBo;
 import simplemrp.entity.Country;
 import simplemrp.entity.District;
@@ -27,6 +28,7 @@ import simplemrp.entity.Product;
 import simplemrp.entity.Province;
 import simplemrp.entity.Subdist;
 import simplemrp.entity.Tax;
+import simplemrp.entity.Term;
 import simplemrp.entity.Uom;
 import simplemrp.facade.MaFacadeRemote;
 import simplemrp.util.BindingName;
@@ -57,6 +59,8 @@ public class MaFacade implements MaFacadeRemote {
     private InfItem_statBo item_statBo;
     @EJB
     private InfUomBo uomBo;
+    @EJB
+    private InfTermBo termBo;
 
 
     @Override
@@ -136,4 +140,8 @@ public class MaFacade implements MaFacadeRemote {
         return strItem;
     }
 
+    @Override
+    public List<Term> getListTerm() throws Exception {
+        return termBo.getListTerm();
+    }
 }
