@@ -30,4 +30,8 @@ public interface InfVendorDao {
 
     int count();
 
+    List<Vendor> findByName(String name);
+
+    String getNextVendor_id();
+
 }
