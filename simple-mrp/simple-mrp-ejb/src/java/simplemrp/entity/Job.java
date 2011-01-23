@@ -41,9 +41,9 @@ public class Job implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date jobdate;
     @Column(name = "QTY")
-    private Double qty;
+    private Integer qty;
     @Column(name = "QTYCOMPLETE")
-    private Double qtycomplete;
+    private Integer qtycomplete;
     @Column(name = "NOTE")
     private String note;
     @Column(name = "CUSER")
@@ -88,19 +88,19 @@ public class Job implements Serializable {
         this.jobdate = jobdate;
     }
 
-    public Double getQty() {
+    public Integer getQty() {
         return qty;
     }
 
-    public void setQty(Double qty) {
+    public void setQty(Integer qty) {
         this.qty = qty;
     }
 
-    public Double getQtycomplete() {
+    public Integer getQtycomplete() {
         return qtycomplete;
     }
 
-    public void setQtycomplete(Double qtycomplete) {
+    public void setQtycomplete(Integer qtycomplete) {
         this.qtycomplete = qtycomplete;
     }
 

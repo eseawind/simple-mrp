@@ -32,7 +32,7 @@ public class CoitemDao extends AbstractDao<Coitem> implements InfCoitemDao {
 
     @Override
     public List<Coitem> findByCo(String p_strCoId) {
-        String sql = "select distinct c from Coitem as ci where ci.coitemPK.coSeq = :coId order by ci.";
+        String sql = "select distinct ci from Coitem as ci where ci.coitemPK.coId = :coId order by ci.coitemPK.coSeq";
         Query q = em.createQuery(sql);
         q.setParameter("coId", p_strCoId);
         return q.getResultList();

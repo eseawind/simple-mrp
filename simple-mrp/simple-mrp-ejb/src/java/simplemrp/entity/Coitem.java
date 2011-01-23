@@ -35,8 +35,6 @@ public class Coitem implements Serializable {
     private Double qty;
     @Column(name = "QTYSHIP")
     private Double qtyship;
-    @Column(name = "QTYINV")
-    private Double qtyinv;
     @Column(name = "PRICE")
     private Double price;
     @Column(name = "UUSER")
@@ -92,14 +90,6 @@ public class Coitem implements Serializable {
 
     public void setQtyship(Double qtyship) {
         this.qtyship = qtyship;
-    }
-
-    public Double getQtyinv() {
-        return qtyinv;
-    }
-
-    public void setQtyinv(Double qtyinv) {
-        this.qtyinv = qtyinv;
     }
 
     public Double getPrice() {

@@ -9,6 +9,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import simplemrp.bo.InfCoitemBo;
 import javax.ejb.Stateless;
+import simplemrp.dao.InfCoitemDao;
 import simplemrp.dao.bean.CoitemDao;
 import simplemrp.entity.Coitem;
 import simplemrp.entity.CoitemPK;
@@ -20,7 +21,7 @@ import simplemrp.entity.CoitemPK;
 @Stateless
 public class CoitemBo implements InfCoitemBo {
     @EJB
-    private CoitemDao coitemDao;
+    private InfCoitemDao coitemDao;
 
 
     @Override

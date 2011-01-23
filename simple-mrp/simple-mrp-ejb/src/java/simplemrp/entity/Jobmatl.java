@@ -34,6 +34,10 @@ public class Jobmatl implements Serializable {
     protected JobmatlPK jobmatlPK;
     @Column(name = "QTY")
     private Double qty;
+    @Column(name = "QTY_REQ")
+    private Double qtyReq;
+    @Column(name = "QTY_SHIP")
+    private Double qtyShip;
     @Column(name = "CUSER")
     private String cuser;
     @Column(name = "CDATE")
