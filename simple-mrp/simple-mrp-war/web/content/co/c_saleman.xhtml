@@ -62,6 +62,13 @@ and open the template in the editor.
 
                     <h:panelGrid columns="2" width="350px">
 
+                    <h:outputLabel value="SaleMan ID"/>
+                        <h:inputText value="#{salemanBean.slsman}" size="7" maxlength="7" disabled="#{salemanBean.disbSlsman_id}">
+                            <a4j:support event="onkeyup" actionListener="#{salemanBean.doCheckSlsman_id}"
+                                         reRender="editPanel"
+                                         onsubmit="if(notEnter(event))return false"
+                                         disabled="#{salemanBean.disbSlsman_id}"/>
+                        </h:inputText>
 
                         <h:outputLabel value="First Name"/>
                         <h:inputText value="#{salemanBean.fname}" size="50" maxlength="100"/>

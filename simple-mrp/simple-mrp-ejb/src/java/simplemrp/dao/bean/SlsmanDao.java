@@ -45,7 +45,7 @@ public class SlsmanDao extends AbstractDao<Slsman> implements InfSlsmanDao {
         Query q = em.createQuery(sql);
         String strLastSlsman = (String)q.getSingleResult();
         if((strLastSlsman == null) || (strLastSlsman.length() == 0)) {
-            strLastSlsman = "S0000000";
+            strLastSlsman = "S000000";
         }
         strLastSlsman = strLastSlsman.replaceFirst(strPrefix, "");
 
