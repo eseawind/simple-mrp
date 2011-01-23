@@ -119,7 +119,6 @@ CREATE TABLE `coitem` (
   `ITEM` varchar(35) NOT NULL,
   `QTY` double(10,2) DEFAULT '0.00',
   `QTYSHIP` double(10,2) DEFAULT '0.00',
-  `QTYINV` double(10,2) DEFAULT '0.00',
   `PRICE` double(13,2) DEFAULT '0.00',
   `STAT` varchar(1) NOT NULL,
   `UUSER` varchar(20) DEFAULT NULL,
@@ -140,6 +139,8 @@ CREATE TABLE `coitem` (
 --
 
 /*!40000 ALTER TABLE `coitem` DISABLE KEYS */;
+INSERT INTO `coitem` (`CO_ID`,`CO_SEQ`,`ITEM`,`QTY`,`QTYSHIP`,`PRICE`,`STAT`,`UUSER`,`UDATE`,`CDATE`,`CUSER`) VALUES 
+ ('C000001',1,'TEST',5.00,0.00,2000.00,'O','golf','2011-01-23','2011-01-23','golf');
 /*!40000 ALTER TABLE `coitem` ENABLE KEYS */;
 
 
@@ -1451,8 +1452,8 @@ CREATE TABLE `job` (
   `JOB_ID` varchar(7) NOT NULL,
   `ITEM` varchar(35) DEFAULT NULL,
   `JOBDATE` date DEFAULT NULL,
-  `QTY` double(10,2) DEFAULT NULL,
-  `QTYCOMPLETE` double(10,2) DEFAULT '0.00',
+  `QTY` int(10) unsigned DEFAULT NULL,
+  `QTYCOMPLETE` int(10) unsigned DEFAULT '0',
   `STAT` varchar(1) NOT NULL,
   `NOTE` varchar(100) DEFAULT NULL,
   `CUSER` varchar(20) DEFAULT NULL,
