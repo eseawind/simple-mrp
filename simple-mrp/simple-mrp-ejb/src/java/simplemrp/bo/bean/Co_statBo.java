@@ -5,8 +5,12 @@
 
 package simplemrp.bo.bean;
 
+import java.util.List;
+import javax.ejb.EJB;
 import simplemrp.bo.InfCo_statBo;
 import javax.ejb.Stateless;
+import simplemrp.dao.InfCo_statDao;
+import simplemrp.entity.Co_stat;
 
 /**
  *
@@ -14,8 +18,11 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class Co_statBo implements InfCo_statBo {
-    
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
- 
+    @EJB
+    private InfCo_statDao co_statDao;
+
+    @Override
+    public List<Co_stat> getListCo_stat() {
+        return co_statDao.findAll();
+    }
 }

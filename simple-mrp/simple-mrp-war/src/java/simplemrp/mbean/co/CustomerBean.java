@@ -29,132 +29,13 @@ import simplemrp.util.FacesUtils;
  * @author Golf
  */
 public class CustomerBean extends CustomerAttr {
-    private List<Customer> lsCustomer;
-    private List<SelectItem> lsCountry;
-    private List<SelectItem> lsProvince;
-    private List<SelectItem> lsDistrict;
-    private List<SelectItem> lsSubdist;
-    private List<SelectItem> lsPrefixname;
-    private List<SelectItem> lsTax;
-
-    private boolean disbSave;
-    private boolean disbDel;
-    private boolean disbNew;
-    private boolean disbCust_id;
-
+    
     /** Creates a new instance of CustomerBean */
     public CustomerBean() throws Exception {
         setDisbNew(false);
         setDisbSave(true);
         setDisbDel(true);
         setDisbCust_id(false);
-    }
-
-    public List<Customer> getLsCustomer() {
-
-        return lsCustomer;
-    }
-
-    public void setLsCustomer(List<Customer> lsCustomer) {
-        this.lsCustomer = lsCustomer;
-    }
-
-    public List<SelectItem> getLsPrefixname() {
-        if (lsPrefixname == null) {
-            lsPrefixname = new ArrayList<SelectItem>();
-        }
-        return lsPrefixname;
-    }
-
-    public void setLsPrefixname(List<SelectItem> lsPrefixname) {
-        this.lsPrefixname = lsPrefixname;
-    }
-
-    public List<SelectItem> getLsTax() {
-        if (lsTax == null) {
-            lsTax = new ArrayList<SelectItem>();
-        }
-        return lsTax;
-    }
-
-    public void setLsTax(List<SelectItem> lsTax) {
-        this.lsTax = lsTax;
-    }
-
-    public List<SelectItem> getLsCountry() {
-        if (lsCountry == null) {
-            lsCountry = new ArrayList<SelectItem>();
-        }
-        return lsCountry;
-    }
-
-    public void setLsCountry(List<SelectItem> lsCountry) {
-        this.lsCountry = lsCountry;
-    }
-
-    public List<SelectItem> getLsProvince() {
-        if (lsProvince == null) {
-            lsProvince = new ArrayList<SelectItem>();
-        }
-        return lsProvince;
-    }
-
-    public void setLsProvince(List<SelectItem> lsProvince) {
-        this.lsProvince = lsProvince;
-    }
-
-    public List<SelectItem> getLsDistrict() {
-        if (lsDistrict == null) {
-            lsDistrict = new ArrayList<SelectItem>();
-        }
-        return lsDistrict;
-    }
-
-    public void setLsDistrict(List<SelectItem> lsDistrict) {
-        this.lsDistrict = lsDistrict;
-    }
-
-    public List<SelectItem> getLsSubDist() {
-        if (lsSubdist == null) {
-            lsSubdist = new ArrayList<SelectItem>();
-        }
-        return lsSubdist;
-    }
-
-    public void setLsSubdist(List<SelectItem> lsSubDist) {
-        this.lsSubdist = lsSubDist;
-    }
-
-    public boolean isDisbDel() {
-        return disbDel;
-    }
-
-    public void setDisbDel(boolean disbDel) {
-        this.disbDel = disbDel;
-    }
-
-    public boolean isDisbNew() {
-        return disbNew;
-    }
-
-    public void setDisbNew(boolean disbNew) {
-        this.disbNew = disbNew;
-    }
-
-    public boolean isDisbSave() {
-        return disbSave;
-    }
-
-    public void setDisbSave(boolean disbSave) {
-        this.disbSave = disbSave;
-    }
-
-    public boolean isDisbCust_id() {
-        return disbCust_id;
-    }
-
-    public void setDisbCust_id(boolean disbCust_id) {
-        this.disbCust_id = disbCust_id;
     }
 
     public void doSearch(ActionEvent e) throws Exception {
@@ -194,9 +75,7 @@ public class CustomerBean extends CustomerAttr {
         if(customer != null) {
             setAddr1(customer.getAddr1());
             setAddr2(customer.getAddr2());
-            setCdate(customer.getCdate());
             setCountry_id(customer.getCountry().getCountryId());
-            setCuser(customer.getCuser());
             setCust_id(customer.getCustId());
             setDistrict_id(customer.getDistrict().getDistrictId());
             setEmail(customer.getEmail());
@@ -209,13 +88,14 @@ public class CustomerBean extends CustomerAttr {
             setSoi(customer.getSoi());
             setSubdist_id(customer.getSubdist().getSubdistId());
             setTax_id(customer.getTax().getTaxId());
-            setUdate(customer.getUdate());
-            setUuser(customer.getUuser());
+            
             setZipcode(customer.getZipcode());
 
-            Date dt = DateUtil.getDate();
+            setCdate(customer.getCdate());
+            setCuser(customer.getCuser());
 
-            setCdate(dt);
+            setUdate(customer.getUdate());
+            setUuser(customer.getUuser());
 
             setDisbNew(false);
             setDisbSave(false);
@@ -299,32 +179,36 @@ public class CustomerBean extends CustomerAttr {
         CoFacadeRemote coFacade = EJBLookup.getCoFacade();
         List<Prefixname> lsAllPrefixname = coFacade.getListPrefixname();
 
-        lsPrefixname = new ArrayList<SelectItem>();
+        List lsPrefixname = new ArrayList<SelectItem>();
         for (int i = 0; i < lsAllPrefixname.size(); i++) {
             Prefixname prefixname = lsAllPrefixname.get(i);
             SelectItem selectItem = new SelectItem(prefixname.getPrefixId(), prefixname.getPrefixname());
 
             lsPrefixname.add(selectItem);
         }
+
+        setLsPrefixname(lsPrefixname);
     }
 
     private void loadTax() throws Exception {
         MaFacadeRemote maFacade = EJBLookup.getMaFacade();
         List<Tax> lsAllTax = maFacade.getListTax();
 
-        lsTax = new ArrayList<SelectItem>();
+        List lsTax = new ArrayList<SelectItem>();
         for (int i = 0; i < lsAllTax.size(); i++) {
             Tax tax = lsAllTax.get(i);
             SelectItem selectItem = new SelectItem(tax.getTaxId(), tax.getDescription());
 
             lsTax.add(selectItem);
         }
+
+        setLsTax(lsTax);
     }
 
     private Country loadCountry() throws Exception {
         Country countryFirst = null;
 
-        lsCountry = new ArrayList<SelectItem>();
+        List lsCountry = new ArrayList<SelectItem>();
 
         MaFacadeRemote maFacade = EJBLookup.getMaFacade();
         List<Country> lsAllCountry = maFacade.getListCountry();
@@ -341,6 +225,8 @@ public class CustomerBean extends CustomerAttr {
             lsCountry.add(selectItem);
         }
 
+        setLsCountry(lsCountry);
+
         return countryFirst;
     }
 
@@ -351,7 +237,7 @@ public class CustomerBean extends CustomerAttr {
         }
         Province provinceFirst = null;
 
-        lsProvince = new ArrayList<SelectItem>();
+        List lsProvince = new ArrayList<SelectItem>();
 
         MaFacadeRemote maFacade = EJBLookup.getMaFacade();
         List<Province> lsProvinceInCountry = maFacade.getListProvince(intCountry_id);
@@ -368,6 +254,8 @@ public class CustomerBean extends CustomerAttr {
             lsProvince.add(selectItem);
         }
 
+        setLsProvince(lsProvince);
+
         return provinceFirst;
     }
 
@@ -378,7 +266,7 @@ public class CustomerBean extends CustomerAttr {
         }
         District districtFirst = null;
 
-        lsDistrict = new ArrayList<SelectItem>();
+        List lsDistrict = new ArrayList<SelectItem>();
 
         MaFacadeRemote maFacade = EJBLookup.getMaFacade();
         List<District> lsDistrictInProvince = maFacade.getListDistrict(intProvince_id);
@@ -395,6 +283,8 @@ public class CustomerBean extends CustomerAttr {
             lsDistrict.add(selectItem);
         }
 
+        setLsDistrict(lsDistrict);
+
         return districtFirst;
     }
 
@@ -405,7 +295,7 @@ public class CustomerBean extends CustomerAttr {
         }
         Subdist subdistFirst = null;
 
-        lsSubdist = new ArrayList<SelectItem>();
+        List lsSubdist = new ArrayList<SelectItem>();
 
         MaFacadeRemote maFacade = EJBLookup.getMaFacade();
         List<Subdist> lsAllSubdist = maFacade.getListSubdist(intDistrict_id);
@@ -421,6 +311,8 @@ public class CustomerBean extends CustomerAttr {
 
             lsSubdist.add(selectItem);
         }
+
+        setLsSubdist(lsSubdist);
 
         return subdistFirst;
     }
@@ -491,12 +383,12 @@ public class CustomerBean extends CustomerAttr {
         setDisbCust_id(false);
         
         setMode(MODE_EDIT);
-        lsPrefixname = null;
-        lsCountry = null;
-        lsProvince = null;
-        lsDistrict = null;
-        lsSubdist = null;
-        lsTax = null;
+        setLsPrefixname(null);
+        setLsCountry(null);
+        setLsProvince(null);
+        setLsDistrict(null);
+        setLsSubdist(null);
+        setLsTax(null);
     }
 
     public void doSave(ActionEvent e) throws Exception {
@@ -533,21 +425,19 @@ public class CustomerBean extends CustomerAttr {
             Country country = new Country(getCountry_id());
             customer.setCountry(country);
 
+            customer.setUuser(getUuser());
+
             CoFacadeRemote coFacade = EJBLookup.getCoFacade();
 
             if (getMode().equals(MODE_EDIT)) {
-                customer.setUuser(getUuser());
-
                 coFacade.editCustomer(customer);
+                checkCust_id(customer.getCustId());
                 if (getKeyword().trim().length() > 0) {
                     checkKeyword(getKeyword().trim());
                 }
-                checkCust_id(customer.getCustId());
                 message("Save Complete");
 
             } else if (getMode().equals(MODE_NEW)) {
-                customer.setCuser(getCuser());
-
                 String strNewCust_id = coFacade.createCustomer(customer);
                 checkCust_id(strNewCust_id);
                 if (getKeyword().trim().length() > 0) {

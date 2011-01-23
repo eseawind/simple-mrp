@@ -2,101 +2,330 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package simplemrp.mbean.co;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
+import org.sit.common.utils.StringUtil;
 import simplemrp.entity.Co;
 import simplemrp.entity.Co_stat;
 import simplemrp.entity.Coitem;
 import simplemrp.entity.Customer;
+import simplemrp.entity.Slsman;
+import simplemrp.entity.Tax;
 import simplemrp.entity.Term;
+import simplemrp.facade.CoFacadeRemote;
+import simplemrp.facade.MaFacadeRemote;
+import simplemrp.util.CoConstant;
+import simplemrp.util.EJBLookup;
+import simplemrp.util.FacesUtils;
+import simplemrp.util.MasterConstant;
 
 /**
  *
  * @author wisaruthkea
  */
 public class CoBean extends CoAttr {
-    private List<Coitem> lsCoItem;
-
-    //search
-    
-    private String p_co_id;
-    private List<Co> lsCo;
 
     //select resource
-    
+    public CoBean() {
+        setDisbNew(false);
+        setDisbSave(true);
+        setDisbDel(true);
+        setDisbCoID(false);
+    }
 
-    
-    public CoBean(){
-    }
-    
     //operation
-    public void doNewCo(ActionEvent e){
-        
-        System.out.println("New CO");
+    public void doNewCo(ActionEvent e) throws Exception {
+        clearEditScreen();
+        setMode(MODE_NEW);
+
+        setDisbNew(true);
+        setDisbSave(false);
+        setDisbDel(true);
+        setDisbCoID(true);
+
+        loadCoStat();
+        loadTerm();
+        loadTax();
+
+        setCostat(CoConstant.CO_STAT_ORDER);
+        setTerm(MasterConstant.TERM_CASH);
     }
-    public void doSaveCo(ActionEvent e){
-        
-        System.out.println("Save CO");
+
+    public void doSaveCo(ActionEvent e) throws Exception {
+        try {
+            Co co = new Co();
+            co.setCoId(getCoId());
+            co.setCustPo(getCustPo());
+            co.setOrderdate(getOrderdate());
+            co.setDuedate(getDuedate());
+
+            Term term = new Term();
+            term.setTermId(getTerm());
+            co.setTerm(term);
+
+            Tax tax = new Tax();
+            tax.setTaxId(getTax());
+            co.setTax(tax);
+
+            Co_stat co_stat = new Co_stat();
+            co_stat.setStat(getCostat());
+            co.setCostat(co_stat);
+
+            Slsman slsman = new Slsman();
+            slsman.setSlsman(getSlsman());
+            co.setSlsman(slsman);
+
+            Customer customer = new Customer();
+            customer.setCustId(getCustId());
+            co.setCustomer(customer);
+
+            co.setUuser(getSessionUserId());
+
+            CoFacadeRemote coFacade = EJBLookup.getCoFacade();
+
+            if(getMode().equals(MODE_EDIT)) {
+                coFacade.editCo(co);
+
+                checkCoId(co.getCoId());
+
+                if(getSearchCustId().trim().length() > 0) {
+                    searchCO(getSearchCustId().trim());
+                }
+
+                message("Save Complete");
+
+            } else if(getMode().equals(MODE_NEW)) {
+                String strNewCoId = coFacade.createCo(co);
+
+                checkCoId(strNewCoId);
+
+                if(getSearchCustId().trim().length() > 0) {
+                    searchCO(getSearchCustId().trim());
+                }
+
+                message("Create Complete");
+
+            } else {
+                message("Unknown Operation Mode");
+            }
+        } catch(Exception ex) {
+            message(ex.getMessage());
+        }
     }
-    public void doDeleteCo(ActionEvent e){
-        
+
+    public void doCheckCoId(ActionEvent e) throws Exception {
+        checkCoId(getCoId().trim().toUpperCase());
+    }
+
+    private void checkCoId(String p_strCoId) throws Exception {
+        try {
+            setMode(MODE_EDIT);
+            setDisbCoID(false);
+
+            CoFacadeRemote coFacade = EJBLookup.getCoFacade();
+            Co co = coFacade.getCo(p_strCoId);
+
+            if(co != null) {
+                setCoId(co.getCoId());
+                setCustId(co.getCustomer().getCustId());
+                setCustName(co.getCustomer().getName());
+                setCustPo(co.getCustPo());
+                setOrderdate(co.getOrderdate());
+                setDuedate(co.getDuedate());
+                setTerm(co.getTerm().getTermId());
+                setCostat(getCostat());
+                setSlsman(co.getSlsman().getSlsman());
+                setTax(co.getTax().getTaxId());
+                setUuser(co.getUuser());
+                setCuser(co.getCuser());
+                setCdate(co.getCdate());
+                setUdate(co.getUdate());
+
+                setDisbNew(false);
+                setDisbSave(false);
+                setDisbDel(false);
+
+                loadCoStat();
+                loadTerm();
+                loadTax();
+            } else {
+                clearEditScreen();
+                message("Find Not Found");
+            }
+        } catch(Exception e) {
+            message(e.getMessage());
+        }
+    }
+
+    public void doCheckCusId(ActionEvent e) throws Exception {
+        checkCustId(getCustId().trim());
+    }
+
+    private void checkCustId(String p_strCustId) {
+        try {
+            p_strCustId = StringUtil.zeroLeading(p_strCustId, 7);
+            CoFacadeRemote coFacade = EJBLookup.getCoFacade();
+            Customer customer = coFacade.getCustomer(p_strCustId);
+
+            if(customer == null) {
+                setCustId(null);
+                setCustName(null);
+
+                message("Find Not Found");
+
+            } else {
+                setCustId(customer.getCustId());
+                setCustName(customer.getName());
+            }
+        } catch(Exception ex) {
+            message(ex.getMessage());
+        }
+    }
+
+    public void doCheckSlsman(ActionEvent e) throws Exception {
+        checkSlsman(getSlsman().trim().toUpperCase());
+    }
+
+    private void checkSlsman(String p_strSlsman) {
+        try {
+            CoFacadeRemote coFacade = EJBLookup.getCoFacade();
+            Slsman slsman = coFacade.getSlsman(p_strSlsman);
+
+            if(slsman == null) {
+                setSlsman(null);
+                message("Find Not Found");
+            } else {
+                setSlsman(slsman.getSlsman());
+            }
+        } catch(Exception ex) {
+            message(ex.getMessage());
+        }
+    }
+
+    public void doDeleteCo(ActionEvent e) throws Exception {
+
         System.out.println("Delete CO");
     }
 
     public void doSearchCo(ActionEvent e) throws Exception {
-        String strSearchCustomerName = getSearchCustName().trim();
+        String strSearchCustId = getSearchCustId().trim();
 
-        if ((strSearchCustomerName.length() == 0)) {
-            message("Please Enter Search Condition");
+        strSearchCustId = StringUtil.zeroLeading(strSearchCustId, 7);
+
+        setSearchCustId(strSearchCustId);
+
+        if((strSearchCustId.length() == 0)) {
+            message("Please Enter Customer ID");
         } else {
-            searchCO(strSearchCustomerName);
+            searchCO(strSearchCustId);
         }
     }
 
-    private void searchCO(String p_strSearchCustomer) throws Exception {
-//        if (p_strSearchCustomer.length() > 0) {
-//            MaFacadeRemote maFacade = EJBLookup.getMaFacade();
-//            List<Item> ls = maFacade.searchItem(p_strSearchItem, p_strSearchDesc);
-//
-//            setLsItem(ls);
-//        }
+    private void searchCO(String p_strCustId) throws Exception {
+        if(p_strCustId.length() > 0) {
+            CoFacadeRemote coFacade = EJBLookup.getCoFacade();
+            List<Co> lsCo = coFacade.searchCo(p_strCustId);
+
+            setLsCo(lsCo);
+        }
     }
 
-    public void doClearCo(ActionEvent e){
-        System.out.println("Clear co");
+    private void searchCoitem(String p_strCoId) throws Exception {
+        CoFacadeRemote coFacade = EJBLookup.getCoFacade();
+        List<Coitem> lsCoitem = coFacade.getCoitemByCo(p_strCoId);
+
+        setLsCoItem(lsCoitem);
+    }
+
+    public void doClear(ActionEvent e) {
+        clearEditScreen();
     }
 
     //table operation
-    public void doSelectCo(ActionEvent e){
-        System.out.println("Select CO");
+    public void doSelectCo(ActionEvent e) {
+        try {
+            String strCo_id = FacesUtils.getRequestParameter("p_co_id");
+            checkCoId(strCo_id);
+        } catch(Exception ex) {
+            message(ex.getMessage());
+        }
+
     }
 
-    public List<Coitem> getLsCoItem() {
-        return this.lsCoItem;
+    private void loadTerm() throws Exception {
+        MaFacadeRemote maFacade = EJBLookup.getMaFacade();
+        List<Term> lsAllTerm = maFacade.getListTerm();
+
+        List lsTerm = new ArrayList<SelectItem>();
+        for(int i = 0; i < lsAllTerm.size(); i++) {
+            Term term = lsAllTerm.get(i);
+            SelectItem selectItem = new SelectItem(term.getTermId(), term.getDescription());
+
+            lsTerm.add(selectItem);
+        }
+
+        setLsTerm(lsTerm);
     }
 
-    public void setLsCoItem(List<Coitem> lsCoItem) {
-        this.lsCoItem = lsCoItem;
+    private void loadTax() throws Exception {
+        MaFacadeRemote maFacade = EJBLookup.getMaFacade();
+        List<Tax> lsAllTax = maFacade.getListTax();
+
+        List lsTax = new ArrayList<SelectItem>();
+        for(int i = 0; i < lsAllTax.size(); i++) {
+            Tax tax = lsAllTax.get(i);
+            SelectItem selectItem = new SelectItem(tax.getTaxId(), tax.getDescription());
+
+            lsTax.add(selectItem);
+        }
+
+        setLsTax(lsTax);
     }
 
-    public List<Co> getLsCo() {
-        return lsCo;
+    private void loadCoStat() throws Exception {
+        CoFacadeRemote coFacade = EJBLookup.getCoFacade();
+        List<Co_stat> lsAllCoStat = coFacade.getListCo_stat();
+
+        List lsCoStat = new ArrayList<SelectItem>();
+        for(int i = 0; i < lsAllCoStat.size(); i++) {
+            Co_stat coStat = lsAllCoStat.get(i);
+            SelectItem selectItem = new SelectItem(coStat.getStat(), coStat.getDescription());
+
+            lsCoStat.add(selectItem);
+        }
+
+        setLsCoStat(lsCoStat);
     }
 
-    public void setLsCo(List<Co> lsCo) {
-        this.lsCo = lsCo;
-    }
+    private void clearEditScreen() {
+        setCoId(null);
+        setCustId(null);
+        setCustName(null);
+        setCustPo(null);
+        setOrderdate(null);
+        setDuedate(null);
+        setTerm(null);
+        setCostat(null);
+        setSlsman(null);
+        setTax(null);
+        setUuser(null);
+        setCuser(null);
+        setCdate(null);
+        setUdate(null);
 
-    public String getP_co_id() {
-        return p_co_id;
-    }
+        setDisbNew(false);
+        setDisbSave(true);
+        setDisbDel(true);
+        setDisbCoID(false);
 
-    public void setP_co_id(String p_co_id) {
-        this.p_co_id = p_co_id;
+        setMode(MODE_EDIT);
+        setLsCoItem(null);
+        setLsCoStat(null);
+        setLsTerm(null);
+        setLsTax(null);
     }
 }

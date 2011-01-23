@@ -74,8 +74,10 @@ public class CustomerBo implements InfCustomerBo {
     public String createCustomer(Customer p_customer) throws Exception {
         String strNextCust_id = customerDao.getNextCust_id();
         p_customer.setCustId(strNextCust_id);
-        p_customer.setCdate(DateUtil.getDate());
+
         p_customer.setUdate(DateUtil.getDate());
+        p_customer.setCdate(p_customer.getUdate());
+        p_customer.setCuser(p_customer.getUuser());
 
         customerDao.create(p_customer);
 

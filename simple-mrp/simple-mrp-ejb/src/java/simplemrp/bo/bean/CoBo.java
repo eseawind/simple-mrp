@@ -44,7 +44,12 @@ public class CoBo implements InfCoBo {
     @Override
     public void editCo(Co p_co) throws Exception {
         try {
+            Co co = findCo(p_co.getCoId());
+
+            p_co.setCdate(co.getCdate());
+            p_co.setCuser(co.getCuser());
             p_co.setUdate(DateUtil.getDate());
+
             coDao.edit(p_co);
         } catch (Exception ex) {
             throw new Exception(ex.getMessage(), ex);
@@ -59,9 +64,13 @@ public class CoBo implements InfCoBo {
     @Override
     public String createCo(Co p_co) throws Exception {
         String strNextCo_id = coDao.getNextCo_id();
+
         p_co.setCoId(strNextCo_id);
-        p_co.setCdate(DateUtil.getDate());
+
         p_co.setUdate(DateUtil.getDate());
+
+        p_co.setCdate(p_co.getUdate());
+        p_co.setCuser(p_co.getUuser());
 
         coDao.create(p_co);
 

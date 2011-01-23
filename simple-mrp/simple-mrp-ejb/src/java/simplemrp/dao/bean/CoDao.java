@@ -46,6 +46,10 @@ public class CoDao extends AbstractDao<Co> implements InfCoDao {
         String sql = "select max(c.coId) from Co as c";
         Query q = em.createQuery(sql);
         String strLastCo_id = (String)q.getSingleResult();
+
+        if(strLastCo_id == null) {
+            strLastCo_id = "000000";
+        }
         strLastCo_id = strLastCo_id.replaceFirst(strPrefix, "");
 
         Integer intNext = new Integer(strLastCo_id).intValue() + 1;

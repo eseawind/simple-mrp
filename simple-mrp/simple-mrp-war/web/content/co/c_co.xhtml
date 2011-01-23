@@ -12,87 +12,117 @@
         <h:form id="coFormId">
             <a4j:keepAlive beanName="coBean"></a4j:keepAlive>
             <h:panelGrid columns="2" columnClasses="left_panel,right_panel" width="100%">
-                <rich:panel id="searchPanel" header="Search Saleman">
+                <rich:panel id="searchPanel" styleClass="noborder">
                     <h:panelGrid columns="3">
-                        <h:outputLabel value="Customer Name"/>
-                        <h:inputText value="#{coBean.searchCustName}" >
+                        <h:outputLabel value="Customer ID"/>
+                        <h:inputText value="#{coBean.searchCustId}" size="7" maxlength="7">
                             <a4j:support event="onkeyup" actionListener="#{coBean.doSearchCo}"
-                                         reRender="customerTable"
+                                         reRender="searchPanel"
                                          onsubmit="if(notEnter(event))return false"/>
                         </h:inputText>
                         <a4j:commandButton value="Search" actionListener="#{coBean.doSearchCo}" reRender="coTable"/>
                     </h:panelGrid>
+
                     <rich:dataTable id="coTable" value="#{coBean.lsCo}" var="item" width="400px">
-                        <rich:column sortBy="#{item.slsman}" styleClass="alignCenter">
+                        <rich:column sortBy="#{item.coId}" styleClass="alignCenter">
                             <f:facet name="header">
                                 <h:outputText value="Customer Order Id"/>
                             </f:facet>
-                            <a4j:commandLink value="#{item.coId}" actionListener="#{coBean.doSelectCo}" reRender="editPane">
+                            <a4j:commandLink value="#{item.coId}" actionListener="#{coBean.doSelectCo}" reRender="editPanel">
                                 <f:param name="p_co_id" value="#{item.coId}"/>
                             </a4j:commandLink>
                         </rich:column>
-                        <rich:column sortBy="#{item.customer.name}">
+                        <rich:column sortBy="#{item.orderdate}">
                             <f:facet name="header">
-                                <h:outputText value="Customer Name"/>
+                                <h:outputText value="Order Date"/>
                             </f:facet>
-                            <h:outputText value="#{item.customer.name}"/>
+                            <h:outputText value="#{item.orderdate}">
+                                <f:convertDateTime pattern="#{constantBean.PATTREN_DATE}" timeZone="#{constantBean.TIMEZONE}"/>
+                            </h:outputText>
                         </rich:column>
-
                     </rich:dataTable>
-
-
                 </rich:panel>
-                <rich:panel id="editPanel" header="Customer Order">
-                    <a4j:commandButton value="New" actionListener="#{coBean.doNewCo}" reRender="editPanel"/>
-                    <rich:spacer width="4"/>
-                    <a4j:commandButton value="Save" actionListener="#{coBean.doSaveCo}" reRender="editPanel"/>
-                    <rich:spacer width="4"/>
-                    <a4j:commandButton value="Delete" actionListener="#{coBean.doDeleteCo}" reRender="editPanel"/>
-                    <rich:spacer width="4"/>
-                    <a4j:commandButton value="Clear" actionListener="#{coBean.doClearCo}" reRender="editPanel"/>
 
+                <rich:panel id="editPanel" styleClass="noborder">
+                    <h:inputHidden value="#{coBean.mode}"/>
+                    <a4j:commandButton value="New" actionListener="#{coBean.doNewCo}" reRender="editPanel,searchPanel"
+                                       disabled="#{coBean.disbNew}"/>
+                    <rich:spacer width="4"/>
+                    <a4j:commandButton value="Save" actionListener="#{coBean.doSaveCo}" reRender="editPanel,searchPanel"
+                                       disabled="#{coBean.disbSave}"/>
+                    <rich:spacer width="4"/>
+                    <a4j:commandButton value="Delete" actionListener="#{coBean.doDeleteCo}" reRender="editPanel,searchPanel"
+                                       disabled="#{coBean.disbDel}"/>
+                    <rich:spacer width="4"/>
+                    <a4j:commandButton value="Clear" actionListener="#{coBean.doClear}" reRender="editPanel"/>
                     <h:panelGrid columns="2">
                         <h:outputLabel value="C/O"/>
-                        <h:inputText value="#{coBean.coId}"/>
-                        <h:outputLabel value="Customer Id"/>
-                        <h:inputText value="#{coBean.custId}"/>
+                        <h:inputText value="#{coBean.coId}" size="7" maxlength="7" disabled="#{coBean.disbCoId}">
+                            <a4j:support event="onkeyup" actionListener="#{coBean.doCheckCoId}"
+                                         reRender="editPanel,coItemTable"
+                                         onsubmit="if(notEnter(event))return false"/>
+                            <a4j:support event="onchange" actionListener="#{coBean.doCheckCoId}"
+                                         reRender="editPanel,coItemTable"/>
+                        </h:inputText>
+
+
+                        <h:outputLabel value="Customer ID"/>
+                        <h:inputText id="custId" value="#{coBean.custId}" size="7" maxlength="7">
+                            <a4j:support event="onkeyup" actionListener="#{coBean.doCheckCusId}"
+                                         reRender="custId,custName"
+                                         onsubmit="if(notEnter(event))return false"/>
+                            <a4j:support event="onchange" actionListener="#{coBean.doCheckCusId}"
+                                         reRender="custId,custName"/>
+                        </h:inputText>
                         <h:outputLabel value="Customer Name"/>
-                        <h:inputText value="#{coBean.custName}"/>
+                        <h:inputText id="custName" value="#{coBean.custName}" size="50" maxlength="100"/>
                         <h:outputLabel value="Customer P/O"/>
-                        <h:inputText value="#{coBean.custPo}"/>
+                        <h:inputText value="#{coBean.custPo}" size="40" maxlength="40"/>
+                        <h:outputLabel value="Order Date"/>
+                        <rich:calendar value="#{coBean.orderdate}"
+                                       datePattern="#{constantBean.PATTREN_DATE}"
+                                       popup="true"
+                                       inputSize="10"/>
+
                         <h:outputLabel value="Due Date"/>
                         <rich:calendar value="#{coBean.duedate}"
-                                       datePattern="MMM d, yyyy"
-                                       popup="true"/>
+                                       datePattern="#{constantBean.PATTREN_DATE}"
+                                       popup="true"
+                                       inputSize="10"/>
+                        
                         <h:outputLabel value="Term"/>
                         <h:selectOneMenu value="#{coBean.term}">
-                            <f:selectItems value="#{coBean.lsTerm}"
-                                           var="term"
-                                           itemValue="#{term.termId}"
-                                           itemLabel="#{term.description}">
-                            </f:selectItems>
+                            <f:selectItems value="#{coBean.lsTerm}"/>
                         </h:selectOneMenu>
                         <h:outputText value="C/O Status"/>
                         <h:selectOneMenu value="#{coBean.costat}" >
-                            <f:selectItems value="#{coBean.lsCoStat}"
-                                           var="costat"
-                                           itemValue="#{costat.stat}"
-                                           itemLabel="#{costat.description}">
-                            </f:selectItems>
+                            <f:selectItems value="#{coBean.lsCoStat}"/>
                         </h:selectOneMenu>
 
                         <h:outputText value="Saleman"/>
-                        <h:inputText value="#{coBean.slsman}"/>
+                        <h:inputText id="slsman" value="#{coBean.slsman}" size="7" maxlength="7">
+                            <a4j:support event="onkeyup" actionListener="#{coBean.doCheckSlsman}"
+                                         reRender="slsman"
+                                         onsubmit="if(notEnter(event))return false"/>
+                        </h:inputText>
                         <h:outputText value="Tax"/>
-                        <h:outputText value="#{coBean.tax}"/>
+                        <h:selectOneMenu value="#{coBean.tax}">
+                            <f:selectItems value="#{coBean.lsTax}"/>
+                        </h:selectOneMenu>
+                        
                         <h:outputText value="Create User"/>
                         <h:outputText value="#{coBean.cuser}"/>
+                        <h:outputText value="Create Date"/>
+                        <h:outputText value="#{coBean.cdate}">
+                            <f:convertDateTime pattern="#{constantBean.PATTREN_DATE}" timeZone="#{constantBean.TIMEZONE}"/>
+                        </h:outputText>
+
                         <h:outputText value="Edit User"/>
                         <h:outputText value="#{coBean.uuser}"/>
-                        <h:outputText value="Create Date"/>
-                        <h:outputText value="#{coBean.cdate}"/>
                         <h:outputText value="Edit Date"/>
-                        <h:outputText value="#{coBean.udate}"/>
+                        <h:outputText value="#{coBean.udate}">
+                            <f:convertDateTime pattern="#{constantBean.PATTREN_DATE}" timeZone="#{constantBean.TIMEZONE}"/>
+                        </h:outputText>
                     </h:panelGrid>
                     <br></br>
                     Customer Order Items

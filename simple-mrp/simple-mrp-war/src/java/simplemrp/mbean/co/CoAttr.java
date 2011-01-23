@@ -2,12 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package simplemrp.mbean.co;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import simplemrp.entity.Co_stat;
-import simplemrp.entity.Term;
+import javax.faces.model.SelectItem;
+import simplemrp.entity.Co;
+import simplemrp.entity.Coitem;
 import simplemrp.mbean.AbstractManageBean;
 
 /**
@@ -15,38 +17,67 @@ import simplemrp.mbean.AbstractManageBean;
  * @author Golf
  */
 public class CoAttr extends AbstractManageBean {
-    private String searchCustName;
+    private String mode;
 
-    protected String coId;
-    protected String custId;
-    protected String custName;
-    protected String custPo;
-    protected String duedate;
-    protected String term;
-    protected String costat;
-    protected String slsman;
-    protected String tax;
-    protected String uuser;
-    protected String cuser;
-    protected String cdate;
-    protected String udate;
-    private List<Term> lsTerm;
-    private List<Co_stat> lsCoStat;
+    private String p_co_id;
 
-    public String getSearchCustName() {
-        return searchCustName;
+    private String searchCustId;
+    private String coId;
+    private String custId;
+    private String custName;
+    private String custPo;
+    private Date orderdate;
+    private Date duedate;
+    private String term;
+    private Character costat;
+    private String slsman;
+    private String tax;
+    private String uuser;
+    private String cuser;
+    private Date cdate;
+    private Date udate;
+
+    private List<SelectItem> lsTerm;
+    private List<SelectItem> lsTax;
+    private List<SelectItem> lsCoStat;
+    private List<Co> lsCo;
+    private List<Coitem> lsCoItem;
+
+    private boolean disbSave;
+    private boolean disbDel;
+    private boolean disbNew;
+    private boolean disbCoId;
+
+    public String getP_co_id() {
+        return p_co_id;
     }
 
-    public void setSearchCustName(String searchCustName) {
-        this.searchCustName = searchCustName;
+    public void setP_co_id(String p_co_id) {
+        this.p_co_id = p_co_id;
     }
 
-    public String getCdate() {
+    public String getSearchCustId() {
+        return searchCustId;
+    }
+
+    public void setSearchCustId(String searchCustId) {
+        this.searchCustId = searchCustId;
+    }
+
+    public Date getCdate() {
         return cdate;
     }
 
-    public void setCdate(String cdate) {
+    public void setCdate(Date cdate) {
         this.cdate = cdate;
+    }
+
+    public Date getOrderdate() {
+        return orderdate;
+    }
+
+    public void setOrderdate(Date orderdate) {
+        this.orderdate = orderdate;
     }
 
     public String getCoId() {
@@ -57,11 +88,11 @@ public class CoAttr extends AbstractManageBean {
         this.coId = coId;
     }
 
-    public String getCostat() {
+    public Character getCostat() {
         return costat;
     }
 
-    public void setCostat(String costat) {
+    public void setCostat(Character costat) {
         this.costat = costat;
     }
 
@@ -97,11 +128,11 @@ public class CoAttr extends AbstractManageBean {
         this.custPo = custPo;
     }
 
-    public String getDuedate() {
+    public Date getDuedate() {
         return duedate;
     }
 
-    public void setDuedate(String duedate) {
+    public void setDuedate(Date duedate) {
         this.duedate = duedate;
     }
 
@@ -129,11 +160,11 @@ public class CoAttr extends AbstractManageBean {
         this.term = term;
     }
 
-    public String getUdate() {
+    public Date getUdate() {
         return udate;
     }
 
-    public void setUdate(String udate) {
+    public void setUdate(Date udate) {
         this.udate = udate;
     }
 
@@ -145,19 +176,103 @@ public class CoAttr extends AbstractManageBean {
         this.uuser = uuser;
     }
 
-    public List<Co_stat> getLsCoStat() {
+    public List<SelectItem> getLsCoStat() {
+        if(lsCoStat == null) {
+            lsCoStat = new ArrayList<SelectItem>();
+        }
+
         return lsCoStat;
     }
 
-    public void setLsCoStat(List<Co_stat> lsCoStat) {
+    public void setLsCoStat(List<SelectItem> lsCoStat) {
         this.lsCoStat = lsCoStat;
     }
 
-    public List<Term> getLsTerm() {
+    public List<SelectItem> getLsTerm() {
+        if(lsTerm == null) {
+            lsTerm = new ArrayList<SelectItem>();
+        }
+
         return lsTerm;
     }
 
-    public void setLsTerm(List<Term> lsTerm) {
+    public void setLsTerm(List<SelectItem> lsTerm) {
         this.lsTerm = lsTerm;
     }
+
+    public List<SelectItem> getLsTax() {
+        if(lsTax == null) {
+            lsTax = new ArrayList<SelectItem>();
+        }
+
+        return lsTax;
+    }
+
+    public void setLsTax(List<SelectItem> lsTax) {
+        this.lsTax = lsTax;
+    }
+
+    public List<Co> getLsCo() {
+        if(lsCo == null) {
+            lsCo = new ArrayList<Co>();
+        }
+        return lsCo;
+    }
+
+    public void setLsCo(List<Co> lsCo) {
+        this.lsCo = lsCo;
+    }
+
+    public List<Coitem> getLsCoItem() {
+        return this.lsCoItem;
+    }
+
+    public void setLsCoItem(List<Coitem> lsCoItem) {
+        if(lsCoItem == null) {
+            lsCoItem = new ArrayList<Coitem>();
+        }
+        this.lsCoItem = lsCoItem;
+    }
+
+    public boolean isDisbDel() {
+        return disbDel;
+    }
+
+    public void setDisbDel(boolean disbDel) {
+        this.disbDel = disbDel;
+    }
+
+    public boolean isDisbNew() {
+        return disbNew;
+    }
+
+    public void setDisbNew(boolean disbNew) {
+        this.disbNew = disbNew;
+    }
+
+    public boolean isDisbSave() {
+        return disbSave;
+    }
+
+    public void setDisbSave(boolean disbSave) {
+        this.disbSave = disbSave;
+    }
+
+    public boolean isDisbCoId() {
+        return disbCoId;
+    }
+
+    public void setDisbCoID(boolean disbCoId) {
+        this.disbCoId = disbCoId;
+    }
+
+    public String getMode() {
+        return mode;
+    }
+
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
+
+    
 }

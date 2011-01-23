@@ -161,7 +161,7 @@ public class CoFacade implements CoFacadeRemote {
 
     @Override
     public List<Co_stat> getListCo_stat() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return co_statBo.getListCo_stat();
     }
 
     @Override

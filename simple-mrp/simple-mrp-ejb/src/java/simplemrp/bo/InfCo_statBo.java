@@ -5,7 +5,9 @@
 
 package simplemrp.bo;
 
+import java.util.List;
 import javax.ejb.Local;
+import simplemrp.entity.Co_stat;
 
 /**
  *
@@ -13,5 +15,5 @@ import javax.ejb.Local;
  */
 @Local
 public interface InfCo_statBo {
-    
+    public List<Co_stat> getListCo_stat();
 }

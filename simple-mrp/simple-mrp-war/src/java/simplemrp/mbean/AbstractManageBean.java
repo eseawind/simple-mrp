@@ -21,4 +21,8 @@ public abstract class AbstractManageBean implements Serializable {
     protected final void message(String p_strMsg) {
         FacesUtils.addInfoMessage(p_strMsg);
     }
+
+    protected final String getSessionUserId() {
+        return "dummy_user";
+    }
 }

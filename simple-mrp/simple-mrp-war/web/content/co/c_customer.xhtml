@@ -121,14 +121,14 @@
                         <h:outputText value="#{customerBean.cdate}">
                             <f:convertDateTime pattern="#{constantBean.PATTREN_DATE}" timeZone="#{constantBean.TIMEZONE}"/>
                         </h:outputText>
-                        <h:outputLabel value="Create By"/>
+                        <h:outputLabel value="Create User"/>
                         <h:outputText value="#{customerBean.cuser}"/>
 
-                        <h:outputLabel value="Update"/>
+                        <h:outputLabel value="Edit Date"/>
                         <h:outputText value="#{customerBean.udate}">
                             <f:convertDateTime pattern="#{constantBean.PATTREN_DATE}" timeZone="#{constantBean.TIMEZONE}"/>
                         </h:outputText>
-                        <h:outputLabel value="Update By"/>
+                        <h:outputLabel value="Edit User"/>
                         <h:outputText value="#{customerBean.uuser}"/>
 
                     </h:panelGrid>

@@ -4,7 +4,11 @@
  */
 package simplemrp.mbean.co;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import javax.faces.model.SelectItem;
+import simplemrp.entity.Customer;
 import simplemrp.mbean.AbstractManageBean;
 
 /**
@@ -34,6 +38,19 @@ public class CustomerAttr extends AbstractManageBean {
     private Integer district_id;
     private Integer country_id;
     private String keyword;
+
+    private List<Customer> lsCustomer;
+    private List<SelectItem> lsCountry;
+    private List<SelectItem> lsProvince;
+    private List<SelectItem> lsDistrict;
+    private List<SelectItem> lsSubdist;
+    private List<SelectItem> lsPrefixname;
+    private List<SelectItem> lsTax;
+
+    private boolean disbSave;
+    private boolean disbDel;
+    private boolean disbNew;
+    private boolean disbCust_id;
 
     public String getAddr1() {
         return addr1;
@@ -209,5 +226,111 @@ public class CustomerAttr extends AbstractManageBean {
 
     public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
+    }
+
+    public List<Customer> getLsCustomer() {
+        return lsCustomer;
+    }
+
+    public void setLsCustomer(List<Customer> lsCustomer) {
+        this.lsCustomer = lsCustomer;
+    }
+
+    public List<SelectItem> getLsPrefixname() {
+        if (lsPrefixname == null) {
+            lsPrefixname = new ArrayList<SelectItem>();
+        }
+        return lsPrefixname;
+    }
+
+    public void setLsPrefixname(List<SelectItem> lsPrefixname) {
+        this.lsPrefixname = lsPrefixname;
+    }
+
+    public List<SelectItem> getLsTax() {
+        if (lsTax == null) {
+            lsTax = new ArrayList<SelectItem>();
+        }
+        return lsTax;
+    }
+
+    public void setLsTax(List<SelectItem> lsTax) {
+        this.lsTax = lsTax;
+    }
+
+    public List<SelectItem> getLsCountry() {
+        if (lsCountry == null) {
+            lsCountry = new ArrayList<SelectItem>();
+        }
+        return lsCountry;
+    }
+
+    public void setLsCountry(List<SelectItem> lsCountry) {
+        this.lsCountry = lsCountry;
+    }
+
+    public List<SelectItem> getLsProvince() {
+        if (lsProvince == null) {
+            lsProvince = new ArrayList<SelectItem>();
+        }
+        return lsProvince;
+    }
+
+    public void setLsProvince(List<SelectItem> lsProvince) {
+        this.lsProvince = lsProvince;
+    }
+
+    public List<SelectItem> getLsDistrict() {
+        if (lsDistrict == null) {
+            lsDistrict = new ArrayList<SelectItem>();
+        }
+        return lsDistrict;
+    }
+
+    public void setLsDistrict(List<SelectItem> lsDistrict) {
+        this.lsDistrict = lsDistrict;
+    }
+
+    public List<SelectItem> getLsSubDist() {
+        if (lsSubdist == null) {
+            lsSubdist = new ArrayList<SelectItem>();
+        }
+        return lsSubdist;
+    }
+
+    public void setLsSubdist(List<SelectItem> lsSubDist) {
+        this.lsSubdist = lsSubDist;
+    }
+
+    public boolean isDisbDel() {
+        return disbDel;
+    }
+
+    public void setDisbDel(boolean disbDel) {
+        this.disbDel = disbDel;
+    }
+
+    public boolean isDisbNew() {
+        return disbNew;
+    }
+
+    public void setDisbNew(boolean disbNew) {
+        this.disbNew = disbNew;
+    }
+
+    public boolean isDisbSave() {
+        return disbSave;
+    }
+
+    public void setDisbSave(boolean disbSave) {
+        this.disbSave = disbSave;
+    }
+
+    public boolean isDisbCust_id() {
+        return disbCust_id;
+    }
+
+    public void setDisbCust_id(boolean disbCust_id) {
+        this.disbCust_id = disbCust_id;
     }
 }
