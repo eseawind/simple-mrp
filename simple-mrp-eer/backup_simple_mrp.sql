@@ -53,7 +53,7 @@ CREATE TABLE `co` (
   `CUST_PO` varchar(40) DEFAULT NULL,
   `ORDERDATE` date NOT NULL,
   `DUEDATE` date NOT NULL,
-  `TERM_ID` varchar(3) NOT NULL,
+  `TERM_ID` varchar(5) NOT NULL,
   `STAT` varchar(1) NOT NULL,
   `SLSMAN` varchar(8) NOT NULL,
   `TAX_ID` varchar(6) DEFAULT NULL,
@@ -79,6 +79,9 @@ CREATE TABLE `co` (
 --
 
 /*!40000 ALTER TABLE `co` DISABLE KEYS */;
+INSERT INTO `co` (`CO_ID`,`CUST_ID`,`CUST_PO`,`ORDERDATE`,`DUEDATE`,`TERM_ID`,`STAT`,`SLSMAN`,`TAX_ID`,`UUSER`,`UDATE`,`CDATE`,`CUSER`) VALUES 
+ ('C000001','0000002','test-customer-po','2011-01-21','2011-01-21','CSH','C','S000001','V07','dummy_user','2011-01-22','2011-01-22','dummy_user'),
+ ('C000002','0000002','TEST','2011-01-02','2011-01-02','CR30','C','S000001','V07','dummy_user','2011-01-22','2011-01-02','test');
 /*!40000 ALTER TABLE `co` ENABLE KEYS */;
 
 
@@ -9893,7 +9896,7 @@ INSERT INTO `tax` (`TAX_ID`,`DESCRIPTION`,`RATE`) VALUES
 
 DROP TABLE IF EXISTS `term`;
 CREATE TABLE `term` (
-  `TERM_ID` varchar(3) NOT NULL,
+  `TERM_ID` varchar(5) NOT NULL,
   `DESCRIPTION` varchar(100) DEFAULT NULL,
   `DUE_DAYS` int(11) DEFAULT NULL,
   `CASH_ONLY` varchar(1) DEFAULT NULL,
@@ -9906,6 +9909,8 @@ CREATE TABLE `term` (
 
 /*!40000 ALTER TABLE `term` DISABLE KEYS */;
 INSERT INTO `term` (`TERM_ID`,`DESCRIPTION`,`DUE_DAYS`,`CASH_ONLY`) VALUES 
+ ('CR15','Credit 15 วัน',15,NULL),
+ ('CR30','Credit 30 วัน',30,NULL),
  ('CSH','เงินสด',NULL,'Y');
 /*!40000 ALTER TABLE `term` ENABLE KEYS */;
 
