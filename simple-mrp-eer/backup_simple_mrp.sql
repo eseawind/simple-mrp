@@ -27,7 +27,7 @@ USE simplemrp;
 
 DROP TABLE IF EXISTS `bank`;
 CREATE TABLE `bank` (
-  `BANK_ID` varchar(4) NOT NULL,
+  `BANK_ID` varchar(10) NOT NULL,
   `DESCRIPTION` varchar(35) DEFAULT NULL,
   PRIMARY KEY (`BANK_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -38,7 +38,9 @@ CREATE TABLE `bank` (
 
 /*!40000 ALTER TABLE `bank` DISABLE KEYS */;
 INSERT INTO `bank` (`BANK_ID`,`DESCRIPTION`) VALUES 
- ('TES','ทดสอบ Bank');
+ ('BBL','Bangkok Bank'),
+ ('KBANK','Kasikorn Bank'),
+ ('SCB','Siam Commercial Bank');
 /*!40000 ALTER TABLE `bank` ENABLE KEYS */;
 
 
@@ -1491,6 +1493,11 @@ CREATE TABLE `job_stat` (
 --
 
 /*!40000 ALTER TABLE `job_stat` DISABLE KEYS */;
+INSERT INTO `job_stat` (`STAT`,`DESCRIPTION`) VALUES 
+ ('C','Complete'),
+ ('F','Firm'),
+ ('R','Release'),
+ ('Z','Cancel');
 /*!40000 ALTER TABLE `job_stat` ENABLE KEYS */;
 
 
@@ -1628,6 +1635,9 @@ CREATE TABLE `mps_stat` (
 --
 
 /*!40000 ALTER TABLE `mps_stat` DISABLE KEYS */;
+INSERT INTO `mps_stat` (`STAT`,`DESCRIPTION`) VALUES 
+ ('P','Plan'),
+ ('R','Release');
 /*!40000 ALTER TABLE `mps_stat` ENABLE KEYS */;
 
 
@@ -1647,26 +1657,10 @@ CREATE TABLE `mps_type` (
 --
 
 /*!40000 ALTER TABLE `mps_type` DISABLE KEYS */;
+INSERT INTO `mps_type` (`MPS_TYPE`,`DESCRIPTION`) VALUES 
+ ('M','Manufacture'),
+ ('P','Purchase');
 /*!40000 ALTER TABLE `mps_type` ENABLE KEYS */;
-
-
---
--- Definition of table `payment_type`
---
-
-DROP TABLE IF EXISTS `payment_type`;
-CREATE TABLE `payment_type` (
-  `PAY_TYPE` varchar(15) NOT NULL,
-  `DESCRIPTION` varchar(35) DEFAULT NULL,
-  PRIMARY KEY (`PAY_TYPE`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `payment_type`
---
-
-/*!40000 ALTER TABLE `payment_type` DISABLE KEYS */;
-/*!40000 ALTER TABLE `payment_type` ENABLE KEYS */;
 
 
 --
@@ -1717,6 +1711,10 @@ CREATE TABLE `po_stat` (
 --
 
 /*!40000 ALTER TABLE `po_stat` DISABLE KEYS */;
+INSERT INTO `po_stat` (`STAT`,`DESCRIPTION`) VALUES 
+ ('C','Complete'),
+ ('O','Order'),
+ ('Z','Cancel');
 /*!40000 ALTER TABLE `po_stat` ENABLE KEYS */;
 
 
@@ -1800,6 +1798,9 @@ CREATE TABLE `pr_stat` (
 --
 
 /*!40000 ALTER TABLE `pr_stat` DISABLE KEYS */;
+INSERT INTO `pr_stat` (`STAT`,`DESCRIPTION`) VALUES 
+ ('A','Approve'),
+ ('R','Request');
 /*!40000 ALTER TABLE `pr_stat` ENABLE KEYS */;
 
 
@@ -9951,7 +9952,6 @@ CREATE TABLE `vendor` (
   `TERM_ID` varchar(3) DEFAULT NULL,
   `TAX_ID` varchar(6) DEFAULT NULL,
   `TAX_NO` varchar(25) DEFAULT NULL,
-  `PAY_TYPE` varchar(15) DEFAULT NULL,
   `BANK_ID` varchar(4) DEFAULT NULL,
   `BANK_ACCT` varchar(12) DEFAULT NULL,
   `NOTE` varchar(100) DEFAULT NULL,
@@ -9970,7 +9970,6 @@ CREATE TABLE `vendor` (
   PRIMARY KEY (`VEND_ID`),
   KEY `FK_VENDOR_TERM` (`TERM_ID`),
   KEY `FK_VENDOR_TAX` (`TAX_ID`),
-  KEY `FK_VENDOR_PAYMENT_TYPE` (`PAY_TYPE`),
   KEY `FK_VENDOR_BANK` (`BANK_ID`),
   KEY `FK_VENDOR_SUBDIST` (`SUBDIST_ID`),
   KEY `FK_VENDOR_DISTRICT` (`DISTRICT_ID`),
@@ -9979,7 +9978,6 @@ CREATE TABLE `vendor` (
   CONSTRAINT `FK_VENDOR_BANK` FOREIGN KEY (`BANK_ID`) REFERENCES `bank` (`BANK_ID`),
   CONSTRAINT `FK_VENDOR_COUNTRY` FOREIGN KEY (`COUNTRY_ID`) REFERENCES `country` (`COUNTRY_ID`),
   CONSTRAINT `FK_VENDOR_DISTRICT` FOREIGN KEY (`DISTRICT_ID`) REFERENCES `district` (`DISTRICT_ID`),
-  CONSTRAINT `FK_VENDOR_PAYMENT_TYPE` FOREIGN KEY (`PAY_TYPE`) REFERENCES `payment_type` (`PAY_TYPE`),
   CONSTRAINT `FK_VENDOR_PROVINCE` FOREIGN KEY (`PROVINCE_ID`) REFERENCES `province` (`PROVINCE_ID`),
   CONSTRAINT `FK_VENDOR_SUBDIST` FOREIGN KEY (`SUBDIST_ID`) REFERENCES `subdist` (`SUBDIST_ID`),
   CONSTRAINT `FK_VENDOR_TAX` FOREIGN KEY (`TAX_ID`) REFERENCES `tax` (`TAX_ID`),
@@ -10010,6 +10008,9 @@ CREATE TABLE `whse` (
 --
 
 /*!40000 ALTER TABLE `whse` DISABLE KEYS */;
+INSERT INTO `whse` (`WHSE`,`DESCRIPTION`) VALUES 
+ ('MAIN','Main Stock'),
+ ('SHW','Showroom Stock');
 /*!40000 ALTER TABLE `whse` ENABLE KEYS */;
 
 
@@ -10029,6 +10030,9 @@ CREATE TABLE `workcenter` (
 --
 
 /*!40000 ALTER TABLE `workcenter` DISABLE KEYS */;
+INSERT INTO `workcenter` (`WC`,`DESCRIPTION`) VALUES 
+ ('ASMB-01','Assembly-01'),
+ ('CUT-01','Cutting-01');
 /*!40000 ALTER TABLE `workcenter` ENABLE KEYS */;
 
 
