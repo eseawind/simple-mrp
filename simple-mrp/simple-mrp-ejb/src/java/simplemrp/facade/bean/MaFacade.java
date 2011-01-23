@@ -144,4 +144,28 @@ public class MaFacade implements MaFacadeRemote {
     public List<Term> getListTerm() throws Exception {
         return termBo.getListTerm();
     }
+
+     @Override
+    public List<Uom> searchUom(String p_strUom) {
+        return uomBo.searchUom(p_strUom);
+    }
+
+    @Override
+    public Uom getUom(String p_strUom) throws Exception {
+        return uomBo.getUom(p_strUom);
+    }
+ @Override
+    public String createUom(Uom p_uom) throws Exception {
+        return uomBo.createUom(p_uom);
+    }
+
+    @Override
+    public void editUom(Uom p_uom) throws Exception {
+       uomBo.editUom(p_uom);
+    }
+
+    @Override
+    public void deleteUom(Uom p_uom) throws Exception {
+        uomBo.removeUom(p_uom);
+    }
 }

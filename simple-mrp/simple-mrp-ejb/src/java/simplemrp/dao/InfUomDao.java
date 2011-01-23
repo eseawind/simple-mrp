@@ -29,5 +29,8 @@ public interface InfUomDao {
     List<Uom> findRange(int[] range);
 
     int count();
+     public List<Uom> findByName(String p_strKeyword);
+
+    public String getNextUom();
 
 }

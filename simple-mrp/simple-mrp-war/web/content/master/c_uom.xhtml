@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+    <ui:define name="programname">Uom</ui:define>
+   <ui:define name="content">
+        <h:form>
+
+            <a4j:keepAlive beanName="uomBean" />
+
+            <h:panelGrid columns="2" columnClasses="left_panel,right_panel" width="100%">
+                <rich:panel id="searchPanel" styleClass="noborder">
+                    <h:panelGrid columns="3">
+                        <h:outputLabel value="uom Name"/>
+                        <h:inputText value="#{uomBean.keyword}">
+                            <a4j:support event="onkeyup" actionListener="#{uomBean}"
+                                         reRender="uomTable"
+                                         onsubmit="if(notEnter(event))return false"/>
+                        </h:inputText>
+                        <a4j:commandButton value="Search" actionListener="#{uomBean.doSearch}" reRender="uomTable"/>
+                    </h:panelGrid>
+                    <rich:dataTable id="uomTable" value="#{uomBean.lsUom}" var="item" width="400px">
+                        <rich:column sortBy="#{item.uom}" styleClass="alignCenter">
+                            <f:facet name="header">
+                                <h:outputText value="uom ID"/>
+                            </f:facet>
+                            <a4j:commandLink value="#{item.uom}" actionListener="#{uomBean.doSelect}" reRender="editPanel">
+                                <f:param name="p_uom" value="#{item.uom}"/>
+                            </a4j:commandLink>
+                        </rich:column>
+
+                        <rich:column sortBy="#{item.description}">
+                            <f:facet name="header">
+                                <h:outputText value="description"/>
+                            </f:facet>
+                            <h:outputText value="#{item.description}"/>
+                        </rich:column>
+                    </rich:dataTable>
+                </rich:panel>
+
+                <rich:panel id="editPanel" styleClass="noborder">
+                    <h:inputHidden value="#{uomBean.mode}"/>
+                    <a4j:commandButton value="New" actionListener="#{uomBean.doNew}" reRender="editPanel,searchPanel"
+                                       disabled="#{uomBean.disbNew}"/>
+                    <rich:spacer width="4"/>
+                    <a4j:commandButton value="Save" actionListener="#{uomBean.doSave}" reRender="editPanel,searchPanel"
+                                       disabled="#{uomBean.disbSave}"/>
+                    <rich:spacer width="4"/>
+                    <a4j:commandButton value="Delete" actionListener="#{uomBean.doDelete}" reRender="editPanel,searchPanel"
+                                       disabled="#{uomBean.disbDel}"/>
+                    <rich:spacer width="4"/>
+                    <a4j:commandButton value="Clear" actionListener="#{uomBean.doClear}" reRender="editPanel"/>
+
+                    <h:panelGrid columns="2" width="350px">
+
+                    <h:outputLabel value="UOM"/>
+                        <h:inputText value="#{uomBean.uom}" size="7" maxlength="7" >
+                        
+                        </h:inputText>
+
+                        <h:outputLabel value="DESCRIPTION"/>
+                        <h:inputText value="#{uomBean.description}" size="50" maxlength="100"/>
+
+
+                    </h:panelGrid>
+                </rich:panel>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

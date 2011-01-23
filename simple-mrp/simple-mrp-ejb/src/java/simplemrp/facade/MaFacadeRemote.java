@@ -56,4 +56,11 @@ public interface MaFacadeRemote {
     public String createItem(Item p_item) throws Exception;
 
     public List<Term> getListTerm() throws Exception;
+     //Uom manage
+    public List<Uom> searchUom(String p_strKeyword) throws Exception;
+    public Uom getUom(String p_strUom) throws Exception;
+    public String createUom(Uom p_uom) throws Exception;
+    public void editUom(Uom p_uom) throws Exception;
+    public void deleteUom(Uom p_uom) throws Exception;
+
 }
