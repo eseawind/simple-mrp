@@ -70,9 +70,6 @@ public class Vendor implements Serializable {
     @JoinColumn(name = "PROVINCE_ID", referencedColumnName = "PROVINCE_ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private Province province;
-    @JoinColumn(name = "PAY_TYPE", referencedColumnName = "PAY_TYPE")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Payment_type paymenttype;
     @JoinColumn(name = "DISTRICT_ID", referencedColumnName = "DISTRICT_ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private District district;
@@ -228,14 +225,6 @@ public class Vendor implements Serializable {
 
     public void setProvince(Province province) {
         this.province = province;
-    }
-
-    public Payment_type getPaymenttype() {
-        return paymenttype;
-    }
-
-    public void setPaymenttype(Payment_type paymenttype) {
-        this.paymenttype = paymenttype;
     }
 
     public District getDistrict() {

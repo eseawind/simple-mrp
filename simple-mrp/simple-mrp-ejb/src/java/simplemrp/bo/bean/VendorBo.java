@@ -39,9 +39,6 @@ public class VendorBo implements InfVendorBo {
             if (vendor.getTax().getTaxId() != null) {
                 vendor.getTax().getTaxId().toString();
             }
-            if (vendor.getPaymenttype() != null) {
-                vendor.getPaymenttype().toString();
-            }
             if (vendor.getBank().getBankId() != null) {
                 vendor.getBank().getBankId().toString();
             }
