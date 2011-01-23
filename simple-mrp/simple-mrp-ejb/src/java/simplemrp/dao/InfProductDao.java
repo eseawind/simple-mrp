@@ -28,6 +28,9 @@ public interface InfProductDao {
 
     List<Product> findRange(int[] range);
 
-    int count();
+     int count();
+     public List<Product> findByName(String p_strKeyword);
+
+    public String getNextProduct();
 
 }

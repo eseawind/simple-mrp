@@ -27,5 +27,47 @@ public class ProductBo implements InfProductBo {
     public List<Product> getListProduct() {
         return productDao.findAll();
     }
+
+     @Override
+    public Product getProduct(String strProduct) {
+        return productDao.find(strProduct);
+    }
+
+    @Override
+    public List<Product> searchProduct(String p_strKeyword) {
+        List lsProduct = productDao.findByName(p_strKeyword);
+        return lsProduct;
+    }
+
+    @Override
+    public Product findProduct(String p_strProduct) throws Exception {
+        Product product = productDao.find(p_strProduct);
+
+        return product;
+    }
+
+    @Override
+    public void editProduct(Product p_product) throws Exception {
+        try {
+            productDao.edit(p_product);
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage(), ex);
+        }
+    }
+
+    @Override
+    public void removeProduct(Product p_product) throws Exception {
+        productDao.remove(p_product);
+    }
+
+    @Override
+    public String createProduct(Product p_product) throws Exception {
+      //  String strNextUom = uomDao.getNextUom();
+       // p_uom.setUom(strNextUom);
+
+       productDao.create(p_product);
+
+        return p_product.getProduct();
+    }
  
 }

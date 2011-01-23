@@ -102,4 +102,9 @@
         <managed-bean-class>simplemrp.mbean.master.UomBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+     <managed-bean>
+        <managed-bean-name>productBean</managed-bean-name>
+        <managed-bean-class>simplemrp.mbean.master.ProductBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
 </faces-config>

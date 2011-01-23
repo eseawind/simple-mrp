@@ -168,4 +168,28 @@ public class MaFacade implements MaFacadeRemote {
     public void deleteUom(Uom p_uom) throws Exception {
         uomBo.removeUom(p_uom);
     }
+
+      @Override
+    public List<Product> searchProduct(String p_strProduct) {
+        return productBo.searchProduct(p_strProduct);
+    }
+
+    @Override
+    public Product getProduct(String p_strProduct) throws Exception {
+        return productBo.getProduct(p_strProduct);
+    }
+ @Override
+    public String createProduct(Product p_product) throws Exception {
+        return productBo.createProduct(p_product);
+    }
+
+    @Override
+    public void editProduct(Product p_product) throws Exception {
+       productBo.editProduct(p_product);
+    }
+
+    @Override
+    public void deleteProduct(Product p_product) throws Exception {
+        productBo.removeProduct(p_product);
+    }
 }

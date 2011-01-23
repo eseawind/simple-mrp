@@ -17,5 +17,16 @@ import simplemrp.entity.Product;
 public interface InfProductBo {
 
     public List<Product> getListProduct();
+     public Product getProduct(String strProduct);
+
+    public List<Product> searchProduct(String p_strKeyword);
+
+    public void removeProduct(Product p_product) throws Exception;
+
+    public String createProduct(Product p_product) throws Exception;
+
+    public void editProduct(Product p_product) throws Exception;
+
+    public Product findProduct(String p_strProduct) throws Exception;
     
 }

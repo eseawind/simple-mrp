@@ -62,5 +62,11 @@ public interface MaFacadeRemote {
     public String createUom(Uom p_uom) throws Exception;
     public void editUom(Uom p_uom) throws Exception;
     public void deleteUom(Uom p_uom) throws Exception;
+     //Product manage
+    public List<Product> searchProduct(String p_strKeyword) throws Exception;
+    public Product getProduct(String p_strProduct) throws Exception;
+    public String createProduct(Product p_product) throws Exception;
+    public void editProduct(Product p_product) throws Exception;
+    public void deleteProduct(Product p_product) throws Exception;
 
 }
