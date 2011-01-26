@@ -16,18 +16,52 @@ and open the template in the editor.
         <h:form id="jobOrderFormId">
             <rich:messages></rich:messages>
             <a4j:keepAlive beanName="jobOrderBean"></a4j:keepAlive>
-            <h:panelGrid columns="1" columnClasses="alignTop,alignTop">
+            <h:panelGrid columns="2" columnClasses="left_panel,right_panel" width="100%">
+                <rich:panel id="searchPanel" header="Job Order Table">
+
+                    <a4j:commandButton value="Search" actionListener="#{jobOrderBean.doSearch}" reRender="searchPanel"/>
+                    <rich:spacer width="4"/>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Job ID"/>
+                        <h:inputText value="#{jobOrderBean.searchJobId}"/>
+                    </h:panelGrid>
+                    <rich:dataTable id="jobsTable" value="#{jobOrderBean.lsJob}" var="item" stateVar="status">
+                        <rich:column styleClass="alignCenter">
+                            <f:facet name="header">
+                                <h:outputText value="No."/>
+                            </f:facet>
+                            <h:outputText value=""/>
+                        </rich:column>
+                        <rich:column styleClass="alignCenter">
+                            <f:facet name="header">
+                                <h:outputText value="Job ID"/>
+                            </f:facet>
+                            <a4j:commandLink value="#{item.jobId}"
+                                             actionListener="#{jobOrderBean.doSelectJob}"
+                                             reRender="editPanel">
+                                             <f:param name="p_job_id" value="#{item.jobId}"/>
+                        </a4j:commandLink>
+                            
+                        </rich:column>
+                        <rich:column styleClass="alignCenter">
+                            <f:facet name="header">
+                                <h:outputText value="Job Date"/>
+                            </f:facet>
+                            <h:outputText value="#{item.jobdate}"/>
+                        </rich:column>
+                    </rich:dataTable>
+                </rich:panel>
                 <rich:panel id="editPanel" header="Job Order">
-                    <a4j:commandButton value="New" actionListener="#{mpsBean.doNew}" reRender="editPanel"/>
+                    <a4j:commandButton value="New" actionListener="#{jobOrderBean.doNew}" disabled="#{jobOrderBean.disbNew}" reRender="editPanel"/>
                     <rich:spacer width="4"/>
-                    <a4j:commandButton value="Save" actionListener="#{mpsBean.doSave}" reRender="editPanel"/>
+                    <a4j:commandButton value="Save" actionListener="#{jobOrderBean.doSave}" disabled="#{jobOrderBean.disbSave}" reRender="editPanel"/>
                     <rich:spacer width="4"/>
-                    <a4j:commandButton value="Delete" actionListener="#{mpsBean.doDelete}" reRender="editPanel"/>
+                    <a4j:commandButton value="Delete" actionListener="#{jobOrderBean.doDelete}" disabled="#{jobOrderBean.disbDel}" reRender="editPanel"/>
                     <rich:spacer width="4"/>
 
                     <h:panelGrid columns="2" columnClasses="alignTop,alignTop">
                     <h:outputLabel value="รหัสใบสั่งผลิต"></h:outputLabel>
-                    <h:inputText value="#{jobOrderBean.jobId}"></h:inputText>
+                    <h:inputText value="#{jobOrderBean.jobId}" disabled="#{jobOrderBean.disbJobId}"></h:inputText>
                     <h:outputLabel value="รหัสสินค้า"></h:outputLabel>
                     <h:inputText value="#{jobOrderBean.itemCode}"></h:inputText>
                     <h:outputLabel value="วันที่สั่งผลิต"></h:outputLabel>
@@ -37,25 +71,26 @@ and open the template in the editor.
                     <h:outputLabel value="จำนวนที่ผลิตเสร็จแล้ว"></h:outputLabel>
                     <h:inputText value="#{jobOrderBean.qtyComplete}"></h:inputText>
                     <h:outputLabel value="สถานะการสั่งผลิต"></h:outputLabel>
-                    <h:selectOneMenu value="#{jobOrderBean.jobStat}">
+                    <h:selectOneMenu id="select_job_stat" value="#{jobOrderBean.jobStat}">
                         <f:selectItems value="#{jobOrderBean.lsJobStat}"
-                                       var="jobStat"
-                                       itemValue="#{jobStat.stat}"
-                                       itemLabel="#{jobStat.description}">
+                                       var="jobStatItem"
+                                       itemValue="#{jobStatItem.stat}"
+                                       itemLabel="#{jobStatItem.description}">
                         </f:selectItems>
                     </h:selectOneMenu>
                     <h:outputLabel value="หมายเหตุ"></h:outputLabel>
                     <h:inputText value="#{jobOrderBean.note}"></h:inputText>
                     <h:outputLabel value="Create User"></h:outputLabel>
-                    <h:inputText value="#{jobOrderBean.cUser}"></h:inputText>
+                    <h:outputText value="#{jobOrderBean.cUser}"></h:outputText>
                     <h:outputLabel value="Create Date"></h:outputLabel>
-                    <h:inputText value="#{jobOrderBean.cDate}"></h:inputText>
+                    <h:outputText value="#{jobOrderBean.cDate}"></h:outputText>
                     <h:outputLabel value="Update User"></h:outputLabel>
-                    <h:inputText value="#{jobOrderBean.uUser}"></h:inputText>
+                    <h:outputText value="#{jobOrderBean.uUser}"></h:outputText>
                     <h:outputLabel value="Update Date"></h:outputLabel>
-                    <h:inputText value="#{jobOrderBean.uDate}"></h:inputText>
+                    <h:outputText value="#{jobOrderBean.uDate}"></h:outputText>
                 </h:panelGrid>
                 </rich:panel>
+                
             </h:panelGrid>
         </h:form>
     </ui:define>
