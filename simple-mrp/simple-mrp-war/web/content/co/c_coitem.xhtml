@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../templates/template_dialog.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ajax="https://ajax4jsf.dev.java.net/ajax">
+    <ui:define name="programname">Customer Order Item</ui:define>
+    <ui:define name="content">
+        <script type="text/javascript">
+            function doClose() {
+                if(opener.doCheckCoid) {
+                    opener.doCheckCoid();
+                }
+                window.close();
+            }
+        </script>
+        <h:form >
+            <a4j:jsFunction name="loadDetail" actionListener="#{coitemBean.loadDetail}" reRender="detailPanel"></a4j:jsFunction>
+            <a4j:keepAlive beanName="coitemBean"></a4j:keepAlive>
+            <rich:panel id="detailPanel" styleClass="noborder">
+                <h:panelGroup>
+                    <h:inputHidden value="#{coitemBean.p_coId}"/>
+                    <h:inputHidden value="#{coitemBean.p_coSeq}"/>
+                    <h:inputHidden value="#{coitemBean.p_mode}"/>
+
+                    <h:inputHidden value="#{coitemBean.mode}"/>
+
+                    <a4j:commandButton value="Save" actionListener="#{coitemBean.doSave}" reRender="detailPanel"/>
+                    <rich:spacer width="4"/>
+                    <a4j:commandButton value="Close" onclick="doClose()" />
+                </h:panelGroup>
+                <h:panelGrid columns="2" width="400">
+                    <h:outputLabel value="C/O"/>
+                    <h:inputText size="7" maxlength="7" disabled="true" value="#{coitemBean.coId}"/>
+
+                    <h:outputLabel value="Seq"/>
+                    <h:inputText size="5" maxlength="5" disabled="true" value="#{coitemBean.coSeq}"/>
+
+                    <h:outputLabel value="Item" />
+                    <h:inputText id="item" size="35" maxlength="35" value="#{coitemBean.item}">
+                        <a4j:support event="onkeyup" actionListener="#{coitemBean.doCheckItem}"
+                                     reRender="detailPanel"
+                                     onsubmit="if(notEnter(event))return false"/>
+                        <a4j:support event="onchange" actionListener="#{coitemBean.doCheckItem}"
+                                     reRender="detailPanel"/>
+                    </h:inputText>
+                    
+                    <h:outputLabel value="Description" />
+                    <h:outputText id="itemDesc" value="#{coitemBean.itemDesc}"/>
+
+                    <h:outputLabel value="Qty"/>
+                    <h:inputText size="5" maxlength="5" value="#{coitemBean.qty}"/>
+
+                    <h:outputLabel value="Qty-ship"/>
+                    <h:outputText value="#{coitemBean.qtyShip}"/>
+
+                    <h:outputLabel value="Price"/>
+                    <h:inputText size="15" maxlength="15" value="#{coitemBean.price}"/>
+
+                    <h:outputText value="Status"/>
+                    <h:selectOneMenu value="#{coitemBean.stat}" >
+                        <f:selectItems value="#{coitemBean.lsCoitemStat}"/>
+                    </h:selectOneMenu>
+                    
+                    <h:outputText value="Create User"/>
+                    <h:outputText value="#{coitemBean.cuser}"/>
+                    <h:outputText value="Create Date"/>
+                    <h:outputText value="#{coitemBean.cdate}">
+                        <f:convertDateTime pattern="#{constantBean.PATTREN_DATE}" timeZone="#{constantBean.TIMEZONE}"/>
+                    </h:outputText>
+
+                    <h:outputText value="Edit User"/>
+                    <h:outputText value="#{coitemBean.uuser}"/>
+                    <h:outputText value="Edit Date"/>
+                    <h:outputText value="#{coitemBean.udate}">
+                        <f:convertDateTime pattern="#{constantBean.PATTREN_DATE}" timeZone="#{constantBean.TIMEZONE}"/>
+                    </h:outputText>
+                </h:panelGrid>
+            </rich:panel>
+        </h:form>
+        <script type="text/javascript">
+            window.onload = loadDetail;
+            window.onunload = doClose;
+        </script>
+    </ui:define>
+</ui:composition>

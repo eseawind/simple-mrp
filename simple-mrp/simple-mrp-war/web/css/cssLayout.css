@@ -70,7 +70,15 @@
     padding-bottom: 4px;
     padding-left: 5px;
 }
+#ajax_animate {
+    position: relative;
+    float: right;
+    width: 20px;
+    padding-bottom: 4px;
+    padding-right: 5px;
+}
 #programname {
+    float: left;
     font-size: 12px;
     font-weight: bold;
 }

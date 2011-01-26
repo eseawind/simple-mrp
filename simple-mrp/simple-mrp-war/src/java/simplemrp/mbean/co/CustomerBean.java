@@ -62,7 +62,7 @@ public class CustomerBean extends CustomerAttr {
     }
 
     public void doCheckCust_id(ActionEvent e) throws Exception {
-        checkCust_id(StringUtil.zeroLeading(getCust_id(), 7));
+        checkCust_id(StringUtil.prefixZero(getCust_id(), 7));
     }
 
     private void checkCust_id(String p_strCust_id) throws Exception {

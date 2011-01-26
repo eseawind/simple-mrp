@@ -105,7 +105,7 @@ public class SalemanBean extends SalemanAttr {
         checkSlsman_id(strSlsman_id);
     }
      public void doCheckSlsman_id(ActionEvent e) throws Exception {
-          checkSlsman_id(StringUtil.zeroLeading(getSlsman(), 7));
+          checkSlsman_id(StringUtil.prefixZero(getSlsman(), 7));
 
     }
       private void checkSlsman_id(String p_strSlsman_id) throws Exception {

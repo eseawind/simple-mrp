@@ -39,12 +39,14 @@
     <managed-bean>
         <managed-bean-name>coBean</managed-bean-name>
         <managed-bean-class>simplemrp.mbean.co.CoBean</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope></managed-bean>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
     <managed-bean>
         <managed-bean-name>itemBean</managed-bean-name>
         <managed-bean-class>simplemrp.mbean.master.ItemBean</managed-bean-class>
 
-        <managed-bean-scope>request</managed-bean-scope></managed-bean>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
     <managed-bean>
         <managed-bean-name>constantBean</managed-bean-name>
         <managed-bean-class>simplemrp.mbean.ConstantBean</managed-bean-class>
@@ -96,6 +98,23 @@
         <managed-bean-name>jobOrderBean</managed-bean-name>
         <managed-bean-class>simplemrp.mbean.pp.JobOrderBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>coitemBean</managed-bean-name>
+        <managed-bean-class>simplemrp.mbean.co.CoitemBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>p_coId</property-name>
+            <value>#{param.p_coId}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>p_coSeq</property-name>
+            <value>#{param.p_coSeq}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>p_mode</property-name>
+            <value>#{param.p_mode}</value>
+        </managed-property>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>uomBean</managed-bean-name>

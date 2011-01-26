@@ -106,7 +106,7 @@ public class UomBean extends UomAttr{
         checkUom(strUom);
     }
      public void doCheckUom(ActionEvent e) throws Exception {
-          checkUom(StringUtil.zeroLeading(getUom(), 7));
+          checkUom(StringUtil.prefixZero(getUom(), 7));
 
     }
       private void checkUom(String p_strUom) throws Exception {

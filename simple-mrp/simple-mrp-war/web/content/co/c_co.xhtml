@@ -9,7 +9,18 @@
                 xmlns:h="http://java.sun.com/jsf/html">
     <ui:define name="programname">Customer Order</ui:define>
     <ui:define name="content">
+        <script type="text/javascript">
+            function selectCoitem(p_coId, p_coSeq) {
+                var url = "c_coitem.jsf?p_mode=EDIT&amp;p_coId="+p_coId+"&amp;p_coSeq="+p_coSeq;
+                popup(url);
+            }
+            function addCoitem(p_coId, p_coSeq) {
+                var url = "c_coitem.jsf?p_mode=NEW&amp;p_coId="+p_coId;
+                popup(url);
+            }
+        </script>
         <h:form id="coFormId">
+            <a4j:jsFunction name="doCheckCoid" actionListener="#{coBean.doCheckCoId}" reRender="editPanel"></a4j:jsFunction>
             <a4j:keepAlive beanName="coBean"></a4j:keepAlive>
             <h:panelGrid columns="2" columnClasses="left_panel,right_panel" width="100%">
                 <rich:panel id="searchPanel" styleClass="noborder">
@@ -23,16 +34,16 @@
                         <a4j:commandButton value="Search" actionListener="#{coBean.doSearchCo}" reRender="coTable"/>
                     </h:panelGrid>
 
-                    <rich:dataTable id="coTable" value="#{coBean.lsCo}" var="item" width="400px">
-                        <rich:column sortBy="#{item.coId}" styleClass="alignCenter">
+                    <rich:dataTable id="coTable" value="#{coBean.lsCo}" var="co" width="400px">
+                        <rich:column sortBy="#{co.coId}" styleClass="alignCenter">
                             <f:facet name="header">
                                 <h:outputText value="Customer Order Id"/>
                             </f:facet>
-                            <a4j:commandLink value="#{item.coId}" actionListener="#{coBean.doSelectCo}" reRender="editPanel">
-                                <f:param name="p_co_id" value="#{item.coId}"/>
+                            <a4j:commandLink value="#{co.coId}" actionListener="#{coBean.doSelectCo}" reRender="editPanel">
+                                <f:param name="p_co_id" value="#{co.coId}"/>
                             </a4j:commandLink>
                         </rich:column>
-                        <rich:column sortBy="#{item.orderdate}">
+                        <rich:column sortBy="#{co.orderdate}">
                             <f:facet name="header">
                                 <h:outputText value="Order Date"/>
                             </f:facet>
@@ -54,8 +65,10 @@
                     <a4j:commandButton value="Delete" actionListener="#{coBean.doDeleteCo}" reRender="editPanel,searchPanel"
                                        disabled="#{coBean.disbDel}"/>
                     <rich:spacer width="4"/>
+                    <a4j:commandButton value="Add Detail" onclick="addCoitem('#{coBean.coId}')" />
+                    <rich:spacer width="4"/>
                     <a4j:commandButton value="Clear" actionListener="#{coBean.doClear}" reRender="editPanel"/>
-                    <h:panelGrid columns="2">
+                    <h:panelGrid columns="2" width="500px">
                         <h:outputLabel value="C/O"/>
                         <h:inputText value="#{coBean.coId}" size="7" maxlength="7" disabled="#{coBean.disbCoId}">
                             <a4j:support event="onkeyup" actionListener="#{coBean.doCheckCoId}"
@@ -75,9 +88,11 @@
                                          reRender="custId,custName"/>
                         </h:inputText>
                         <h:outputLabel value="Customer Name"/>
-                        <h:inputText id="custName" value="#{coBean.custName}" size="50" maxlength="100"/>
+                        <h:outputText id="custName" value="#{coBean.custName}"/>
+
                         <h:outputLabel value="Customer P/O"/>
                         <h:inputText value="#{coBean.custPo}" size="40" maxlength="40"/>
+
                         <h:outputLabel value="Order Date"/>
                         <rich:calendar value="#{coBean.orderdate}"
                                        datePattern="#{constantBean.PATTREN_DATE}"
@@ -94,7 +109,7 @@
                         <h:selectOneMenu value="#{coBean.term}">
                             <f:selectItems value="#{coBean.lsTerm}"/>
                         </h:selectOneMenu>
-                        <h:outputText value="C/O Status"/>
+                        <h:outputText value="Status"/>
                         <h:selectOneMenu value="#{coBean.costat}" >
                             <f:selectItems value="#{coBean.lsCoStat}"/>
                         </h:selectOneMenu>
@@ -125,31 +140,49 @@
                         </h:outputText>
                     </h:panelGrid>
                     <br></br>
+
                     Customer Order Items
-                    <rich:dataTable id="coItemTable" value="#{coBean.lsCoItem}" var="item" stateVar="status">
-                        <rich:column styleClass="alignCenter">
+                    <rich:dataTable id="coItemTable" value="#{coBean.lsCoItem}" var="coitem" width="500px">
+                        <rich:column styleClass="alignCenter" width="10%">
                             <f:facet name="header">
-                                <h:outputText value="No"/>
+                                <h:outputText value="Seq"/>
                             </f:facet>
-                            <h:outputText value="#{status}"/>
+                            <h:outputText value="#{coitem.coitemPK.coSeq}"/>
                         </rich:column>
-                        <rich:column sortBy="#{item.item.description}">
+                        <rich:column width="30%">
                             <f:facet name="header">
                                 <h:outputText value="Item"/>
                             </f:facet>
-                            <h:outputText value="#{item.item.description}"/>
+                            <h:outputText value="#{coitem.item.item}"/>
+                            <br/><rich:spacer width="10px"/>
+                            <h:outputText value="#{coitem.item.description}"/>
                         </rich:column>
-                        <rich:column sortBy="#{item.qty}">
+                        <rich:column width="20%">
+                            <f:facet name="header">
+                                <h:outputText value="Price"/>
+                            </f:facet>
+                            <h:outputText value="#{coitem.price}"/>
+                        </rich:column>
+                        <rich:column width="15%">
                             <f:facet name="header">
                                 <h:outputText value="Qty"/>
                             </f:facet>
-                            <h:outputText value="#{item.qty}"/>
+                            <h:outputText value="#{coitem.qty}"/>
                         </rich:column>
-                        <rich:column sortBy="#{item.qtyship}">
+                        <rich:column width="15%">
                             <f:facet name="header">
                                 <h:outputText value="Qty shipped"/>
                             </f:facet>
-                            <h:outputText value="#{item.qtyship}"/>
+                            <h:outputText value="#{coitem.qtyship}"/>
+                        </rich:column>
+                        <rich:column width="5%">
+                            <a4j:commandButton value="Edit" onclick="selectCoitem('#{coitem.coitemPK.coId}', #{coitem.coitemPK.coSeq})"></a4j:commandButton>
+                        </rich:column>
+                        <rich:column width="5%">
+                            <a4j:commandButton value="Del." actionListener="#{coBean.doDeleteCoitem}" reRender="coItemTable">
+                                <f:param name="p_co_id" value="#{coitem.coitemPK.coId}"/>
+                                <f:param name="p_co_seq" value="#{coitem.coitemPK.coSeq}"/>
+                            </a4j:commandButton>
                         </rich:column>
                     </rich:dataTable>
                 </rich:panel>

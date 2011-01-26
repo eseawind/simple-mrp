@@ -12,6 +12,7 @@ import org.sit.common.utils.StringUtil;
 import simplemrp.entity.Co;
 import simplemrp.entity.Co_stat;
 import simplemrp.entity.Coitem;
+import simplemrp.entity.CoitemPK;
 import simplemrp.entity.Customer;
 import simplemrp.entity.Slsman;
 import simplemrp.entity.Tax;
@@ -118,7 +119,7 @@ public class CoBean extends CoAttr {
     }
 
     public void doCheckCoId(ActionEvent e) throws Exception {
-        checkCoId(getCoId().trim().toUpperCase());
+        checkCoId(StringUtil.prefixString(getCoId().trim(), 7));
     }
 
     private void checkCoId(String p_strCoId) throws Exception {
@@ -149,6 +150,7 @@ public class CoBean extends CoAttr {
                 setDisbSave(false);
                 setDisbDel(false);
 
+                loadCoitem(co.getCoId());
                 loadCoStat();
                 loadTerm();
                 loadTax();
@@ -167,7 +169,7 @@ public class CoBean extends CoAttr {
 
     private void checkCustId(String p_strCustId) {
         try {
-            p_strCustId = StringUtil.zeroLeading(p_strCustId, 7);
+            p_strCustId = StringUtil.prefixZero(p_strCustId, 7);
             CoFacadeRemote coFacade = EJBLookup.getCoFacade();
             Customer customer = coFacade.getCustomer(p_strCustId);
 
@@ -214,7 +216,7 @@ public class CoBean extends CoAttr {
     public void doSearchCo(ActionEvent e) throws Exception {
         String strSearchCustId = getSearchCustId().trim();
 
-        strSearchCustId = StringUtil.zeroLeading(strSearchCustId, 7);
+        strSearchCustId = StringUtil.prefixZero(strSearchCustId, 7);
 
         setSearchCustId(strSearchCustId);
 
@@ -253,7 +255,6 @@ public class CoBean extends CoAttr {
         } catch(Exception ex) {
             message(ex.getMessage());
         }
-
     }
 
     private void loadTerm() throws Exception {
@@ -301,6 +302,13 @@ public class CoBean extends CoAttr {
         setLsCoStat(lsCoStat);
     }
 
+    private void loadCoitem(String p_strCoId) throws Exception {
+        CoFacadeRemote coFacade = EJBLookup.getCoFacade();
+        List<Coitem> lsCoitem = coFacade.getCoitemByCo(p_strCoId);
+
+        setLsCoItem(lsCoitem);
+    }
+
     private void clearEditScreen() {
         setCoId(null);
         setCustId(null);
@@ -327,5 +335,25 @@ public class CoBean extends CoAttr {
         setLsCoStat(null);
         setLsTerm(null);
         setLsTax(null);
+    }
+
+    public void doDeleteCoitem(ActionEvent e) {
+        try {
+            String strP_co_id = FacesUtils.getRequestParameter("p_co_id");
+            Integer intP_co_seq = StringUtil.toInteger(FacesUtils.getRequestParameter("p_co_seq"));
+
+            CoitemPK coitemPK = new CoitemPK(strP_co_id, intP_co_seq);
+            Coitem coitem = new Coitem();
+            coitem.setCoitemPK(coitemPK);
+
+            CoFacadeRemote coFacade = EJBLookup.getCoFacade();
+            coFacade.deleteCoitem(coitem);
+
+            loadCoitem(coitemPK.getCoId());
+
+            message("Delete Comlete");
+        } catch(Exception ex) {
+            message(ex.getMessage());
+        }
     }
 }

@@ -108,7 +108,7 @@ public class ProductBean extends ProductAttr{
         checkProduct(strProduct);
     }
      public void doCheckProduct(ActionEvent e) throws Exception {
-          checkProduct(StringUtil.zeroLeading(getProduct(), 7));
+          checkProduct(StringUtil.prefixZero(getProduct(), 7));
 
     }
       private void checkProduct(String p_strProduct) throws Exception {

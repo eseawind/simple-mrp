@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich">
+    <f:view contentType="text/html">
+        <head>
+            <meta http-equiv="Content-Type" content="text/xhtml; charset=UTF-8" />
+            <link href="/simple-mrp-war/css/default.css" rel="stylesheet" type="text/css"/>
+            <link href="/simple-mrp-war/css/cssLayout.css" rel="stylesheet" type="text/css" />
+
+            <a4j:loadScript src="resource:///org/richfaces/renderkit/html/scripts/jquery/jquery.js" />
+            <title>Simple MRP</title>
+
+            <script type="text/javascript" language="JavaScript">
+                function notEnter(evt) {
+                    if (evt.keyCode != 13) {
+                        return true;
+                    }
+                }
+            </script>
+        </head>
+
+        <body>
+            <div id="wrapper">
+                <!-- Start -->
+                <a4j:outputPanel ajaxRendered="true">
+                    <rich:modalPanel id="messagePanel" height="100" zindex="2000" resizeable="true" showWhenRendered="#{!empty facesContext.maximumSeverity}">
+                        <f:facet name="header">Message</f:facet>
+                        <f:facet name="controls">
+                            <h:graphicImage value="../../../simple-mrp-war/images/close.png" style="cursor:pointer" onclick="Richfaces.hideModalPanel('messagePanel');" />
+                        </f:facet>
+                        <rich:messages></rich:messages>
+                    </rich:modalPanel>
+                </a4j:outputPanel>
+                <!-- End -->
+                <div id="programnamebar">
+                    <div id="programname">
+                        <ui:insert name="programname">Program Name</ui:insert>
+                    </div>
+                    <div id="ajax_animate">
+                        <a4j:status>
+                            <f:facet name="start">
+                                <h:graphicImage value="/images/ajaxSpinner.gif"/>
+                            </f:facet>
+                        </a4j:status>
+                    </div>
+                </div>
+                <div id="content" class="center_content">
+                    <ui:insert name="content">Content</ui:insert>
+                </div>
+                <div id="push"></div>
+            </div>
+            <div id="footer">
+                <div id="footerlabel">
+                    Designed by KMUTT SWE7 Students Group 5.
+                </div>
+            </div>
+        </body>
+        <script type="text/javascript" language="JavaScript">initMenu();</script>
+    </f:view>
+</html>

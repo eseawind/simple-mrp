@@ -19,8 +19,6 @@ import simplemrp.mbean.AbstractManageBean;
 public class CoAttr extends AbstractManageBean {
     private String mode;
 
-    private String p_co_id;
-
     private String searchCustId;
     private String coId;
     private String custId;
@@ -47,14 +45,9 @@ public class CoAttr extends AbstractManageBean {
     private boolean disbDel;
     private boolean disbNew;
     private boolean disbCoId;
+    private boolean disbAddDtl;
 
-    public String getP_co_id() {
-        return p_co_id;
-    }
-
-    public void setP_co_id(String p_co_id) {
-        this.p_co_id = p_co_id;
-    }
+    private boolean showCoitem;
 
     public String getSearchCustId() {
         return searchCustId;
@@ -224,13 +217,13 @@ public class CoAttr extends AbstractManageBean {
     }
 
     public List<Coitem> getLsCoItem() {
+        if(lsCoItem == null) {
+            lsCoItem = new ArrayList<Coitem>();
+        }
         return this.lsCoItem;
     }
 
     public void setLsCoItem(List<Coitem> lsCoItem) {
-        if(lsCoItem == null) {
-            lsCoItem = new ArrayList<Coitem>();
-        }
         this.lsCoItem = lsCoItem;
     }
 
@@ -266,6 +259,14 @@ public class CoAttr extends AbstractManageBean {
         this.disbCoId = disbCoId;
     }
 
+    public boolean isDisbAddDtl() {
+        return disbAddDtl;
+    }
+
+    public void setDisbAddDtl(boolean disbAddDtl) {
+        this.disbAddDtl = disbAddDtl;
+    }
+    
     public String getMode() {
         return mode;
     }
@@ -274,5 +275,11 @@ public class CoAttr extends AbstractManageBean {
         this.mode = mode;
     }
 
-    
+    public boolean isShowCoitem() {
+        return showCoitem;
+    }
+
+    public void setShowCoitem(boolean showCoitem) {
+        this.showCoitem = showCoitem;
+    }
 }

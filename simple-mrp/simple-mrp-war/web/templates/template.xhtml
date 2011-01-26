@@ -15,6 +15,7 @@
 
             <a4j:loadScript src="resource:///org/richfaces/renderkit/html/scripts/jquery/jquery.js" />
             <script type="text/javascript" src="/simple-mrp-war/menu/ddsmoothmenu.js"></script>
+            <script type="text/javascript" src="/simple-mrp-war/js/util.js"></script>
             <title>Simple MRP</title>
 
             <script type="text/javascript" language="JavaScript">
@@ -60,6 +61,13 @@
                 <div id="programnamebar">
                     <div id="programname">
                         <ui:insert name="programname">Program Name</ui:insert>
+                    </div>
+                    <div id="ajax_animate">
+                        <a4j:status>
+                            <f:facet name="start">
+                                <h:graphicImage value="/images/ajaxSpinner.gif"/>
+                            </f:facet>
+                        </a4j:status>
                     </div>
                 </div>
                 <div id="content" class="center_content">
