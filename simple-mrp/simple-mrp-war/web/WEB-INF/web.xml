@@ -59,7 +59,7 @@
             <param-name>log4j-init-file</param-name>
             <param-value>WEB-INF/log4j.conf</param-value>
         </init-param>
-        <load-on-startup>1</load-on-startup>
+        <load-on-startup>0</load-on-startup>
     </servlet>
     <session-config>
         <session-timeout>
