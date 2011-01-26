@@ -18,6 +18,8 @@ import simplemrp.entity.Subdist;
 import simplemrp.entity.Tax;
 import simplemrp.entity.Term;
 import simplemrp.entity.Uom;
+import simplemrp.entity.Whse;
+import simplemrp.entity.Workcenter;
 
 /**
  *
@@ -69,4 +71,19 @@ public interface MaFacadeRemote {
     public void editProduct(Product p_product) throws Exception;
     public void deleteProduct(Product p_product) throws Exception;
 
+      //Whse manage
+    public List<Whse> searchWhse(String p_strKeyword) throws Exception;
+    public Whse getWhse(String p_strWhse) throws Exception;
+    public String createWhse(Whse p_whse) throws Exception;
+    public void editWhse(Whse p_whse) throws Exception;
+    public void deleteWhse(Whse p_whse) throws Exception;
+     public List<Whse> getListWhse() throws Exception;
+
+      //Workcenter manage
+    public List<Workcenter> searchWorkcenter(String p_strKeyword) throws Exception;
+    public Workcenter getWorkcenter(String p_strWorkcenter) throws Exception;
+    public String createWorkcenter(Workcenter p_workcenter) throws Exception;
+    public void editWorkcenter(Workcenter p_workcenter) throws Exception;
+    public void deleteWorkcenter(Workcenter p_workcenter) throws Exception;
+     public List<Workcenter> getListWorkcenter() throws Exception;
 }

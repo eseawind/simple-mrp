@@ -19,6 +19,8 @@ import simplemrp.bo.InfSubdistBo;
 import simplemrp.bo.InfTaxBo;
 import simplemrp.bo.InfTermBo;
 import simplemrp.bo.InfUomBo;
+import simplemrp.bo.InfWhseBo;
+import simplemrp.bo.InfWorkcenterBo;
 import simplemrp.entity.Country;
 import simplemrp.entity.District;
 import simplemrp.entity.Item;
@@ -30,6 +32,8 @@ import simplemrp.entity.Subdist;
 import simplemrp.entity.Tax;
 import simplemrp.entity.Term;
 import simplemrp.entity.Uom;
+import simplemrp.entity.Workcenter;
+import simplemrp.entity.Whse;
 import simplemrp.facade.MaFacadeRemote;
 import simplemrp.util.BindingName;
 
@@ -58,10 +62,14 @@ public class MaFacade implements MaFacadeRemote {
     @EJB
     private InfItem_statBo item_statBo;
     @EJB
-    private InfUomBo uomBo;
+    private InfWorkcenterBo workcenterBo;
     @EJB
     private InfTermBo termBo;
 
+     @EJB
+    private InfWhseBo whseBo;
+    @EJB
+    private InfUomBo uomBo;
 
     @Override
     public List<Country> getListCountry() throws Exception {
@@ -191,5 +199,64 @@ public class MaFacade implements MaFacadeRemote {
     @Override
     public void deleteProduct(Product p_product) throws Exception {
         productBo.removeProduct(p_product);
+    }
+     @Override
+    public List<Whse> getListWhse() throws Exception {
+        return whseBo.getListWhse();
+    }
+
+
+   @Override
+    public List<Whse> searchWhse(String p_strWhse) {
+        return whseBo.searchWhse(p_strWhse);
+    }
+
+    @Override
+    public Whse getWhse(String p_strWhse) throws Exception {
+        return whseBo.getWhse(p_strWhse);
+    }
+ @Override
+    public String createWhse(Whse p_whse) throws Exception {
+        return whseBo.createWhse(p_whse);
+    }
+
+    @Override
+    public void editWhse(Whse p_whse) throws Exception {
+       whseBo.editWhse(p_whse);
+    }
+
+    @Override
+    public void deleteWhse(Whse p_whse) throws Exception {
+        whseBo.removeWhse(p_whse);
+    }
+
+      @Override
+    public List<Workcenter> getListWorkcenter() throws Exception {
+        return workcenterBo.getListWorkcenter();
+    }
+
+
+   @Override
+    public List<Workcenter> searchWorkcenter(String p_strWorkcenter) {
+        return workcenterBo.searchWorkcenter(p_strWorkcenter);
+    }
+
+    @Override
+    public Workcenter getWorkcenter(String p_strWorkcenter) throws Exception {
+        return workcenterBo.getWorkcenter(p_strWorkcenter);
+    }
+ @Override
+    public String createWorkcenter(Workcenter p_workcenter) throws Exception {
+        return workcenterBo.createWorkcenter(p_workcenter);
+    }
+
+    @Override
+    public void editWorkcenter(Workcenter p_workcenter) throws Exception {
+       workcenterBo.editWorkcenter(p_workcenter);
+    }
+
+    @Override
+    public void deleteWorkcenter(Workcenter p_workcenter) throws Exception {
+        workcenterBo.removeWorkcenter(p_workcenter);
     }
 }

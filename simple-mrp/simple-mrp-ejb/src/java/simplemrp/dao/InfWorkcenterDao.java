@@ -29,5 +29,8 @@ public interface InfWorkcenterDao {
     List<Workcenter> findRange(int[] range);
 
     int count();
+    public List<Workcenter> findByName(String p_strKeyword);
+
+    public String getNextWorkcenter();
 
 }

@@ -126,4 +126,14 @@
         <managed-bean-class>simplemrp.mbean.master.ProductBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+     <managed-bean>
+        <managed-bean-name>whseBean</managed-bean-name>
+        <managed-bean-class>simplemrp.mbean.master.WhseBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+     <managed-bean>
+        <managed-bean-name>workcenterBean</managed-bean-name>
+        <managed-bean-class>simplemrp.mbean.master.WorkcenterBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
 </faces-config>

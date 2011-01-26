@@ -29,5 +29,8 @@ public interface InfWhseDao {
     List<Whse> findRange(int[] range);
 
     int count();
+       public List<Whse> findByName(String p_strKeyword);
+
+    public String getNextWhse();
 
 }
