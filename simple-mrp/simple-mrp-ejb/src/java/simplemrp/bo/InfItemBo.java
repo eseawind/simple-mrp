@@ -8,6 +8,7 @@ package simplemrp.bo;
 import java.util.List;
 import javax.ejb.Local;
 import simplemrp.entity.Item;
+import simplemrp.entity.Itemloc;
 
 /**
  *
@@ -24,4 +25,7 @@ public interface InfItemBo {
     public void editItem(Item p_item) throws Exception;
 
     public String createItem(Item p_item) throws Exception;
+
+    //ITEM LOCATION //////////////////////////////////////
+    public List<Itemloc> searchItemLocation(String warehouse, String location);
 }

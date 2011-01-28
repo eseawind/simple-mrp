@@ -10,7 +10,9 @@ import javax.ejb.Stateless;
 import org.sit.common.utils.DateUtil;
 import simplemrp.bo.InfItemBo;
 import simplemrp.dao.InfItemDao;
+import simplemrp.dao.InfItemlocDao;
 import simplemrp.entity.Item;
+import simplemrp.entity.Itemloc;
 
 /**
  *
@@ -21,6 +23,8 @@ public class ItemBo implements InfItemBo {
 
     @EJB
     private InfItemDao itemDao;
+    @EJB
+    private InfItemlocDao itemLocDao;
 
     @Override
     public List<Item> searchItem(String p_strItem, String p_strDesc) throws Exception {
@@ -88,5 +92,10 @@ public class ItemBo implements InfItemBo {
         }
 
         return p_item.getItem();
+    }
+
+    @Override
+    public List<Itemloc> searchItemLocation(String warehouse, String location) {
+        return itemLocDao.findByParam(warehouse,location);
     }
 }

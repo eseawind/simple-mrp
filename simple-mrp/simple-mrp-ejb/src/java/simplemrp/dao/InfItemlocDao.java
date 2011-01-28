@@ -30,4 +30,6 @@ public interface InfItemlocDao {
 
     int count();
 
+    public List<Itemloc> findByParam(String warehouse, String location);
+
 }

@@ -5,7 +5,9 @@
 
 package simplemrp.facade;
 
+import java.util.List;
 import javax.ejb.Remote;
+import simplemrp.entity.Itemloc;
 
 /**
  *
@@ -13,5 +15,5 @@ import javax.ejb.Remote;
  */
 @Remote
 public interface IcFacadeRemote {
-    
+    public List<Itemloc> searchItemLocation(String warehouse,String location);
 }
