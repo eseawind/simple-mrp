@@ -30,29 +30,6 @@ public static String convert(String p_string) {
     }
   }
 
-public static String convert(Date p_date) {
-    StringBuilder buffer = new StringBuilder();
-
-    if(p_date == null) {
-      buffer.append("''");
-    } else {
-      GregorianCalendar c = new GregorianCalendar();
-      c.setTime(p_date);
-
-      String strMonth = "00" + (c.get(GregorianCalendar.MONTH) + 1);
-      strMonth = strMonth.substring(strMonth.length() - 2, strMonth.length());
-
-      String strDay = "00" + c.get(GregorianCalendar.DAY_OF_MONTH);
-      strDay = strDay.substring(strDay.length() - 2, strDay.length());
-
-      buffer.append(c.get(GregorianCalendar.YEAR));
-      buffer.append("-").append(strMonth);
-      buffer.append("-").append(strDay);
-    }
-
-    return buffer.toString();
-  }
-
   public static String convert(Timestamp p_timestamp) {
     StringBuffer buffer = new StringBuffer();
 
