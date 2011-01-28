@@ -142,7 +142,9 @@ CREATE TABLE `coitem` (
 
 /*!40000 ALTER TABLE `coitem` DISABLE KEYS */;
 INSERT INTO `coitem` (`CO_ID`,`CO_SEQ`,`ITEM`,`QTY`,`QTYSHIP`,`PRICE`,`STAT`,`UUSER`,`UDATE`,`CDATE`,`CUSER`) VALUES 
- ('C000001',1,'TEST',5.00,0.00,2000.00,'O','golf','2011-01-23','2011-01-23','golf');
+ ('C000001',1,'DINNER-DESK-001',6.00,NULL,7000.00,'O','dummy_user','2011-01-26','2011-01-26','dummy_user'),
+ ('C000001',2,'CHAIR-WOOD-001',5.00,NULL,5000.00,'O','dummy_user','2011-01-26','2011-01-26','dummy_user'),
+ ('C000001',3,'SOFA-LEATHER-001',2.00,NULL,4000.00,'O','dummy_user','2011-01-26','2011-01-26','dummy_user');
 /*!40000 ALTER TABLE `coitem` ENABLE KEYS */;
 
 
@@ -1276,22 +1278,9 @@ CREATE TABLE `item` (
 
 /*!40000 ALTER TABLE `item` DISABLE KEYS */;
 INSERT INTO `item` (`ITEM`,`DESCRIPTION`,`PRODUCT`,`SOURCE`,`STAT`,`WARRANTY`,`UOM`,`LEADTIME`,`SAFETYSTOCK`,`CDATE`,`CUSER`,`UDATE`,`UUSER`) VALUES 
- ('TEST','test desc','CHAIR-LOF','M','O',1,'ROL',2,3.00,'2011-01-09','developer','2011-01-09','developer'),
- ('TEST-0001','Test create item','CHAIR-LOF','M','A',NULL,'EA',NULL,NULL,'2011-01-09','developer','2011-01-09','developer'),
- ('TEST-0002','Test Create Item','CHAIR-LOF','P','A',3,'ROL',NULL,NULL,'2011-01-09','developer','2011-01-09','developer'),
- ('TEST-0003','Test create item 03','CHAIR-LOF','M','A',1,'EA',2,3.00,'2011-01-09','developer','2011-01-09','developer'),
- ('TEST-0004','Test create item 04','CHAIR-LOF','M','A',NULL,'EA',NULL,NULL,'2011-01-09','developer','2011-01-09','developer'),
- ('TEST-1','Description','CHAIR-LOF','M','A',NULL,'EA',NULL,NULL,'2011-01-09','developer','2011-01-09','developer'),
- ('TEST-10','test','CHAIR-LOF','M','A',NULL,'EA',NULL,NULL,'2011-01-09','developer','2011-01-09','developer'),
- ('TEST-11','test','CHAIR-LOF','M','A',NULL,'EA',NULL,NULL,'2011-01-09','developer','2011-01-09','developer'),
- ('TEST-2','test','CHAIR-LOF','M','A',NULL,'EA',NULL,NULL,'2011-01-09','developer','2011-01-09','developer');
-INSERT INTO `item` (`ITEM`,`DESCRIPTION`,`PRODUCT`,`SOURCE`,`STAT`,`WARRANTY`,`UOM`,`LEADTIME`,`SAFETYSTOCK`,`CDATE`,`CUSER`,`UDATE`,`UUSER`) VALUES 
- ('TEST-3','test description','CHAIR-LOF','M','A',NULL,'EA',NULL,NULL,'2011-01-09','developer','2011-01-09','developer'),
- ('TEST-5','Test','CHAIR-LOF','M','A',NULL,'EA',NULL,NULL,'2011-01-09','developer','2011-01-09','developer'),
- ('TEST-6','Test','CHAIR-LOF','M','A',1,'EA',2,3.00,'2011-01-09','developer','2011-01-09','developer'),
- ('TEST-7','test','CHAIR-LOF','M','A',NULL,'EA',NULL,NULL,'2011-01-09','developer','2011-01-09','developer'),
- ('TEST-8','test','CHAIR-LOF','M','A',NULL,'EA',NULL,NULL,'2011-01-09','developer','2011-01-09','developer'),
- ('TEST-9','ทดสอบแก้ไข Item','CHAIR-LOF','M','A',NULL,'EA',NULL,NULL,'2011-01-09','developer','2011-01-09','developer');
+ ('CHAIR-WOOD-001','เก้าอี้ไม้','CHAIR-LOF','M','A',3,'EA',5,NULL,'2011-01-26','developer','2011-01-26','developer'),
+ ('DINNER-DESK-001','โต็ะรับประทานอาหาร','CHAIR-LOF','M','A',3,'EA',5,NULL,'2011-01-26','developer','2011-01-26','developer'),
+ ('SOFA-LEATHER-001','โซฟาหนังแท้','CHAIR-LOF','M','A',3,'EA',NULL,NULL,'2011-01-26','developer','2011-01-26','developer');
 /*!40000 ALTER TABLE `item` ENABLE KEYS */;
 
 
@@ -1692,6 +1681,10 @@ CREATE TABLE `po` (
 --
 
 /*!40000 ALTER TABLE `po` DISABLE KEYS */;
+INSERT INTO `po` (`PO_ID`,`PO_DATE`,`VEND_ID`,`INV_DATE`,`INV_NUM`,`STAT`,`NOTE`,`CUSER`,`CDATE`,`UUSER`,`UDATE`) VALUES 
+ ('P000001','2011-01-28','V000001',NULL,NULL,'O','ทดสอบการสร้าง P/O','dummy_user','2011-01-26','dummy_user','2011-01-28'),
+ ('P000002','2011-01-28','V000001',NULL,NULL,'O','ทดสอบ','dummy_user','2011-01-28','dummy_user','2011-01-28'),
+ ('P000003','2011-01-27','V000001',NULL,NULL,'O','','dummy_user','2011-01-28','dummy_user','2011-01-28');
 /*!40000 ALTER TABLE `po` ENABLE KEYS */;
 
 
@@ -9949,7 +9942,7 @@ DROP TABLE IF EXISTS `vendor`;
 CREATE TABLE `vendor` (
   `VEND_ID` varchar(7) NOT NULL,
   `DESCRIPTION` varchar(80) DEFAULT NULL,
-  `TERM_ID` varchar(3) DEFAULT NULL,
+  `TERM_ID` varchar(5) DEFAULT NULL,
   `TAX_ID` varchar(6) DEFAULT NULL,
   `TAX_NO` varchar(25) DEFAULT NULL,
   `BANK_ID` varchar(4) DEFAULT NULL,
@@ -9989,6 +9982,9 @@ CREATE TABLE `vendor` (
 --
 
 /*!40000 ALTER TABLE `vendor` DISABLE KEYS */;
+INSERT INTO `vendor` (`VEND_ID`,`DESCRIPTION`,`TERM_ID`,`TAX_ID`,`TAX_NO`,`BANK_ID`,`BANK_ACCT`,`NOTE`,`ADDR1`,`ADDR2`,`ROAD`,`SOI`,`SUBDIST_ID`,`DISTRICT_ID`,`PROVINCE_ID`,`ZIPCODE`,`COUNTRY_ID`,`PHONE`,`FAX`,`EMAIL`) VALUES 
+ ('V000001','Intelli Wood Co., Ltd.','CSH','V07','12345678','BBL','012345678901','Test Note','999/123','Lumpini Condotel','พหลโยธิน','9',103801,1038,10,'10230',66,'12345678','98765432','test@domain.com'),
+ ('V000002','Fabric Methhod Co., Ltd.','CR15','V07','87654321','SCB','014234567890','Test only','555/111','Sansiri','วิภาวดี','8',103801,1038,10,'10230',66,'12345678','98765432','dummy@domain.com');
 /*!40000 ALTER TABLE `vendor` ENABLE KEYS */;
 
 
