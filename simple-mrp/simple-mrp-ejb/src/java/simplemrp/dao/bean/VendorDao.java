@@ -41,16 +41,23 @@ public class VendorDao extends AbstractDao<Vendor> implements InfVendorDao {
 
     @Override
     public String getNextVendor_id() {
-        String sql = "select max(v.vend_id) from vendor as v";
+        String strPrefix = "V";
+
+        String sql = "select max(v.vendId) from Vendor as v";
         Query q = em.createQuery(sql);
-        String strLastCust_id = (String)q.getSingleResult();
+        String strLastVend_id = (String)q.getSingleResult();
 
-        Integer intNext = new Integer(strLastCust_id).intValue() + 1;
+        if(strLastVend_id == null) {
+            strLastVend_id = "000000";
+        }
+        strLastVend_id = strLastVend_id.replaceFirst(strPrefix, "");
 
-        String strNextCust_id = "0000000" + intNext;
-        strNextCust_id = strNextCust_id.substring(strNextCust_id.length() - 7, strNextCust_id.length());
+        Integer intNext = new Integer(strLastVend_id).intValue() + 1;
 
-        return strNextCust_id;
+        String strNextVend_id = "000000" + intNext;
+        strNextVend_id = strPrefix + strNextVend_id.substring(strNextVend_id.length() - 6, strNextVend_id.length());
+
+        return strNextVend_id;
     }
 
 

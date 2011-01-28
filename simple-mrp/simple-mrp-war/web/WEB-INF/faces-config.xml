@@ -54,7 +54,7 @@
     </managed-bean>
     <managed-bean>
         <managed-bean-name>poBean</managed-bean-name>
-        <managed-bean-class>simplemrp.mbean.po.PurchaseOrderBean</managed-bean-class>
+        <managed-bean-class>simplemrp.mbean.po.PoBean</managed-bean-class>
 
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>

@@ -47,8 +47,6 @@ public class CoAttr extends AbstractManageBean {
     private boolean disbCoId;
     private boolean disbAddDtl;
 
-    private boolean showCoitem;
-
     public String getSearchCustId() {
         return searchCustId;
     }
@@ -273,13 +271,5 @@ public class CoAttr extends AbstractManageBean {
 
     public void setMode(String mode) {
         this.mode = mode;
-    }
-
-    public boolean isShowCoitem() {
-        return showCoitem;
-    }
-
-    public void setShowCoitem(boolean showCoitem) {
-        this.showCoitem = showCoitem;
     }
 }

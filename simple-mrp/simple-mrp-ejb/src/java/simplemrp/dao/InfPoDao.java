@@ -5,6 +5,7 @@
 
 package simplemrp.dao;
 
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 import simplemrp.entity.Po;
@@ -30,4 +31,7 @@ public interface InfPoDao {
 
     int count();
 
+    public List<Po> findByVendIdDate(String p_strVendId, Date p_dtPoDate);
+
+    public String getNextPo_id();
 }

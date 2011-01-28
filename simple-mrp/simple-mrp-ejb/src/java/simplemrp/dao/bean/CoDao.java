@@ -38,7 +38,6 @@ public class CoDao extends AbstractDao<Co> implements InfCoDao {
         return q.getResultList();
     }
 
-
     @Override
     public String getNextCo_id() {
         String strPrefix = "C";

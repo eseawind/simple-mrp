@@ -5,7 +5,7 @@
 
 package org.sit.common.utils;
 
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Timestamp;
 import java.util.GregorianCalendar;
 
@@ -31,7 +31,7 @@ public static String convert(String p_string) {
   }
 
 public static String convert(Date p_date) {
-    StringBuffer buffer = new StringBuffer();
+    StringBuilder buffer = new StringBuilder();
 
     if(p_date == null) {
       buffer.append("''");
@@ -39,17 +39,15 @@ public static String convert(Date p_date) {
       GregorianCalendar c = new GregorianCalendar();
       c.setTime(p_date);
 
-      String strMonth = "00" + (c.get(c.MONTH) + 1);
+      String strMonth = "00" + (c.get(GregorianCalendar.MONTH) + 1);
       strMonth = strMonth.substring(strMonth.length() - 2, strMonth.length());
 
-      String strDay = "00" + c.get(c.DAY_OF_MONTH);
+      String strDay = "00" + c.get(GregorianCalendar.DAY_OF_MONTH);
       strDay = strDay.substring(strDay.length() - 2, strDay.length());
 
-      buffer.append("TO_Date('");
-      buffer.append(c.get(c.YEAR));
+      buffer.append(c.get(GregorianCalendar.YEAR));
       buffer.append("-").append(strMonth);
       buffer.append("-").append(strDay);
-      buffer.append("', 'YYYY-MM-DD')");
     }
 
     return buffer.toString();

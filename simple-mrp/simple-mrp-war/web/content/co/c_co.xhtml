@@ -43,11 +43,11 @@
                                 <f:param name="p_co_id" value="#{co.coId}"/>
                             </a4j:commandLink>
                         </rich:column>
-                        <rich:column sortBy="#{co.orderdate}">
+                        <rich:column sortBy="#{co.orderdate}" styleClass="alignCenter">
                             <f:facet name="header">
                                 <h:outputText value="Order Date"/>
                             </f:facet>
-                            <h:outputText value="#{item.orderdate}">
+                            <h:outputText value="#{co.orderdate}">
                                 <f:convertDateTime pattern="#{constantBean.PATTREN_DATE}" timeZone="#{constantBean.TIMEZONE}"/>
                             </h:outputText>
                         </rich:column>
@@ -65,9 +65,11 @@
                     <a4j:commandButton value="Delete" actionListener="#{coBean.doDeleteCo}" reRender="editPanel,searchPanel"
                                        disabled="#{coBean.disbDel}"/>
                     <rich:spacer width="4"/>
-                    <a4j:commandButton value="Add Detail" onclick="addCoitem('#{coBean.coId}')" />
+                    <a4j:commandButton value="Add Detail" onclick="addCoitem('#{coBean.coId}')"
+                                       disabled="#{coBean.disbAddDtl}"/>
                     <rich:spacer width="4"/>
                     <a4j:commandButton value="Clear" actionListener="#{coBean.doClear}" reRender="editPanel"/>
+                    
                     <h:panelGrid columns="2" width="500px">
                         <h:outputLabel value="C/O"/>
                         <h:inputText value="#{coBean.coId}" size="7" maxlength="7" disabled="#{coBean.disbCoId}">
@@ -171,7 +173,7 @@
                         </rich:column>
                         <rich:column width="15%">
                             <f:facet name="header">
-                                <h:outputText value="Qty shipped"/>
+                                <h:outputText value="Qty Shipped"/>
                             </f:facet>
                             <h:outputText value="#{coitem.qtyship}"/>
                         </rich:column>

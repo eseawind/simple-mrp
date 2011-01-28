@@ -30,4 +30,7 @@ public interface InfPoitemDao {
 
     int count();
 
+    public List<Poitem> findByPo(String p_strPoId);
+
+    public Integer getNextPo_seq();
 }

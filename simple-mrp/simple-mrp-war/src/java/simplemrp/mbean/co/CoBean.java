@@ -35,6 +35,7 @@ public class CoBean extends CoAttr {
         setDisbNew(false);
         setDisbSave(true);
         setDisbDel(true);
+        setDisbAddDtl(true);
         setDisbCoID(false);
     }
 
@@ -46,6 +47,7 @@ public class CoBean extends CoAttr {
         setDisbNew(true);
         setDisbSave(false);
         setDisbDel(true);
+        setDisbAddDtl(true);
         setDisbCoID(true);
 
         loadCoStat();
@@ -149,6 +151,7 @@ public class CoBean extends CoAttr {
                 setDisbNew(false);
                 setDisbSave(false);
                 setDisbDel(false);
+                setDisbAddDtl(false);
 
                 loadCoitem(co.getCoId());
                 loadCoStat();
@@ -209,8 +212,20 @@ public class CoBean extends CoAttr {
     }
 
     public void doDeleteCo(ActionEvent e) throws Exception {
+        try {
+            CoFacadeRemote coFacade = EJBLookup.getCoFacade();
+            Co co = new Co();
+            co.setCoId(getCoId());
+            
+            coFacade.deleteCo(co);
 
-        System.out.println("Delete CO");
+            clearEditScreen();
+
+            message("Delete Complete");
+
+        } catch(Exception ex) {
+            message(ex.getMessage());
+        }
     }
 
     public void doSearchCo(ActionEvent e) throws Exception {
@@ -328,6 +343,7 @@ public class CoBean extends CoAttr {
         setDisbNew(false);
         setDisbSave(true);
         setDisbDel(true);
+        setDisbAddDtl(true);
         setDisbCoID(false);
 
         setMode(MODE_EDIT);

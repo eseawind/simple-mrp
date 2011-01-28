@@ -23,12 +23,14 @@ import simplemrp.entity.Slsman;
  */
 @Remote
 public interface CoFacadeRemote {
+    //Customer manage
     public List<Customer> searchCustomer(String p_strKeyword) throws Exception;
     public Customer getCustomer(String p_strCust_id) throws Exception;
     public String createCustomer(Customer p_customer) throws Exception;
     public void editCustomer(Customer p_customer) throws Exception;
     public void deleteCustomer(Customer p_customer) throws Exception;
 
+    //Prefix manage
     public List<Prefixname> getListPrefixname() throws Exception;
 
     //Saleman manage
