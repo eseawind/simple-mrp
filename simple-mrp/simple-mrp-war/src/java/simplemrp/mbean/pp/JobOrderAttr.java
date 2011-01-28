@@ -8,20 +8,24 @@ package simplemrp.mbean.pp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.faces.model.SelectItem;
 import simplemrp.entity.Job;
 import simplemrp.entity.Job_stat;
+import simplemrp.mbean.AbstractManageBean;
 
 /**
  *
  * @author wisaruthkea
  */
-public class JobOrderAttr {
+public class JobOrderAttr extends AbstractManageBean {
+    private String mode;
+    
     private String jobId;
     private String itemCode;
     private Date jobDate;
     private int qtyOrder;
     private int qtyComplete;
-    private String jobStat;
+    private char jobStat;
     private String note;
     private String cUser;
     private Date cDate;
@@ -29,10 +33,24 @@ public class JobOrderAttr {
     private Date uDate;
 
     //select resource
-    private List<Job_stat> lsJobStat;
+    private List<SelectItem> lsJobStat;
+
+    //search input
+    private String searchJobId;
+    //search result
+    private List<Job> lsJob;
+    
+    
+    
+    //page option
+    private boolean disbJobId;
+    private boolean disbSave;
+    private boolean disbDel;
+    private boolean disbNew;
+
 
     public JobOrderAttr(){
-        lsJobStat = new ArrayList<Job_stat>();
+        lsJobStat = new ArrayList<SelectItem>();
     }
     
     /**
@@ -94,14 +112,14 @@ public class JobOrderAttr {
     /**
      * @return the jobStat
      */
-    public String getJobStat() {
+    public char getJobStat() {
         return jobStat;
     }
 
     /**
      * @param jobStat the jobStat to set
      */
-    public void setJobStat(String jobStat) {
+    public void setJobStat(char jobStat) {
         this.jobStat = jobStat;
     }
 
@@ -178,15 +196,19 @@ public class JobOrderAttr {
     /**
      * @return the lsJobStat
      */
-    public List<Job_stat> getLsJobStat() {
+    public List<SelectItem> getLsJobStat() {
         return lsJobStat;
     }
 
     /**
      * @param lsJobStat the lsJobStat to set
      */
-    public void setLsJobStat(List<Job_stat> lsJobStat) {
+    public void setLsJobStat(List<SelectItem> lsJobStat) {
         this.lsJobStat = lsJobStat;
+    }
+
+    public void addJobStat(SelectItem i){
+        this.lsJobStat.add(i);
     }
 
     /**
@@ -202,6 +224,105 @@ public class JobOrderAttr {
     public void setQtyOrder(int qtyOrder) {
         this.qtyOrder = qtyOrder;
     }
+
+    /**
+     * @return the mode
+     */
+    public String getMode() {
+        return mode;
+    }
+
+    /**
+     * @param mode the mode to set
+     */
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
+
+    /**
+     * @return the lsJob
+     */
+    public List<Job> getLsJob() {
+        return lsJob;
+    }
+
+    /**
+     * @param lsJob the lsJob to set
+     */
+    public void setLsJob(List<Job> lsJob) {
+        this.lsJob = lsJob;
+    }
+
+    /**
+     * @return the searchJobId
+     */
+    public String getSearchJobId() {
+        return searchJobId;
+    }
+
+    /**
+     * @param searchJobId the searchJobId to set
+     */
+    public void setSearchJobId(String searchJobId) {
+        this.searchJobId = searchJobId;
+    }
+
+    /**
+     * @return the disbJobId
+     */
+    public boolean isDisbJobId() {
+        return disbJobId;
+    }
+
+    /**
+     * @param disbJobId the disbJobId to set
+     */
+    public void setDisbJobId(boolean disbJobId) {
+        this.disbJobId = disbJobId;
+    }
+
+    /**
+     * @return the disbSave
+     */
+    public boolean isDisbSave() {
+        return disbSave;
+    }
+
+    /**
+     * @param disbSave the disbSave to set
+     */
+    public void setDisbSave(boolean disbSave) {
+        this.disbSave = disbSave;
+    }
+
+    /**
+     * @return the disbDel
+     */
+    public boolean isDisbDel() {
+        return disbDel;
+    }
+
+    /**
+     * @param disbDel the disbDel to set
+     */
+    public void setDisbDel(boolean disbDel) {
+        this.disbDel = disbDel;
+    }
+
+    /**
+     * @return the disbNew
+     */
+    public boolean isDisbNew() {
+        return disbNew;
+    }
+
+    /**
+     * @param disbNew the disbNew to set
+     */
+    public void setDisbNew(boolean disbNew) {
+        this.disbNew = disbNew;
+    }
+
 
     
 }

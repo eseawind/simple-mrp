@@ -17,10 +17,10 @@ and open the template in the editor.
             <h:form id="itemLocFormId">
                 <rich:messages></rich:messages>
                 <a4j:keepAlive beanName="itemLocBean"></a4j:keepAlive>
-                <h:panelGrid columns="2" columnClasses="alignTop,alignTop">
+                <h:panelGrid columns="2" columnClasses="alignTop,alignTop" width="100%">
                     <rich:panel id="editPanel" header="Item Location">
                         <rich:spacer width="4"/>
-                        <a4j:commandButton value="Search" actionListener="#{coShipBean.doSearch}" reRender="editPanel"/>
+                        <a4j:commandButton value="Search" actionListener="#{itemLocBean.doSearch}" reRender="editPanel"/>
                         <h:panelGrid columns="2">
                             <h:outputLabel value="Warehouse"/>
                             <h:inputText value="#{itemLocBean.searchWarehouse}"/>

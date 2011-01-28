@@ -8,12 +8,13 @@ package simplemrp.mbean.ic;
 import java.util.ArrayList;
 import java.util.List;
 import simplemrp.entity.Itemloc;
+import simplemrp.mbean.AbstractManageBean;
 
 /**
  *
  * @author wisaruthkea
  */
-public class ItemLocationAttr {
+public class ItemLocationAttr extends AbstractManageBean{
 
     //result
     private String searchWarehouse;
