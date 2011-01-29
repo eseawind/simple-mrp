@@ -34,7 +34,7 @@ and open the template in the editor.
                                 <h:outputText value="workcenter ID"/>
                             </f:facet>
                             <a4j:commandLink value="#{item.wc}" actionListener="#{workcenterBean.doSelect}" reRender="editPanel">
-                                <f:param name="p_workcenter" value="#{item.workcenter}"/>
+                                <f:param name="p_workcenter" value="#{item.wc}"/>
                             </a4j:commandLink>
                         </rich:column>
 
