@@ -12,6 +12,7 @@ import simplemrp.entity.District;
 import simplemrp.entity.Item;
 import simplemrp.entity.Item_source;
 import simplemrp.entity.Item_stat;
+import simplemrp.entity.Loc;
 import simplemrp.entity.Product;
 import simplemrp.entity.Province;
 import simplemrp.entity.Subdist;

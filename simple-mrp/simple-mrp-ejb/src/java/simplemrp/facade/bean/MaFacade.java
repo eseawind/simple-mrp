@@ -5,6 +5,7 @@
 
 package simplemrp.facade.bean;
 
+import java.util.Collection;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -26,6 +27,7 @@ import simplemrp.entity.District;
 import simplemrp.entity.Item;
 import simplemrp.entity.Item_source;
 import simplemrp.entity.Item_stat;
+import simplemrp.entity.Loc;
 import simplemrp.entity.Product;
 import simplemrp.entity.Province;
 import simplemrp.entity.Subdist;
@@ -213,6 +215,12 @@ public class MaFacade implements MaFacadeRemote {
 
     @Override
     public Whse getWhse(String p_strWhse) throws Exception {
+        Whse whse = whseBo.getWhse(p_strWhse);
+        Collection<Loc> lsLoc = whse.getLocCollection();
+        //Lazy load Location in Whse
+        if(lsLoc!=null){
+            lsLoc.toString();
+        }
         return whseBo.getWhse(p_strWhse);
     }
  @Override

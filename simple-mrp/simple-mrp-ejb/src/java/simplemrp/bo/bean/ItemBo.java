@@ -96,6 +96,14 @@ public class ItemBo implements InfItemBo {
 
     @Override
     public List<Itemloc> searchItemLocation(String warehouse, String location) {
+         List<Itemloc> results = itemLocDao.findByParam(warehouse, location);
+         //Lazy load Item 
+         for(Itemloc itemloc:results){
+             Item i = itemloc.getItem1();
+             if(i!=null){
+                 i.toString();
+             }
+         }
         return itemLocDao.findByParam(warehouse,location);
     }
 }
