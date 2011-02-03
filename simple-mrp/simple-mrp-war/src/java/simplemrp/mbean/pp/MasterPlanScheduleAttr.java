@@ -8,43 +8,60 @@ package simplemrp.mbean.pp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.faces.model.SelectItem;
+import simplemrp.entity.Mps;
 import simplemrp.entity.Mps_stat;
 import simplemrp.entity.Mps_type;
+import simplemrp.mbean.AbstractManageBean;
 
 /**
  *
  * @author wisaruthkea
  */
-public class MasterPlanScheduleAttr {
+public class MasterPlanScheduleAttr extends AbstractManageBean {
+    private String mode;
     //รหัสแผนการผลิต
     private String mpsId;
     //รหัสสินค้า
-    private String itemName;
+    private String itemId;
     //ชนิดของเอกสารอ้างอิง
-    private String mpsType;
+    private Character mpsType;
     //รหัสเอกสาร
     private String refId;
     //ลำดับเอกสาร
-    private String refSeqInt;
+    private int refSeqInt;
     //วันที่ส่งของ
     private Date dueDate;
     //จำนวนที่ต้องการ
     private int qty;
     //สถานะ
-    private String mpsStat;
+    private Character mpsStat;
     
     private String cUser;
     private Date cDate;
     private String uUser;
     private Date uDate;
 
+    //search key
+    private Date searchDueDate;
+    
+    
+    //search result
+    private List<Mps> lsMps;
+    
     //resource
-    private List<Mps_type> lsMpsType;
-    private List<Mps_stat> lsMpsStat;
+    private List<SelectItem> lsMpsType;
+    private List<SelectItem> lsMpsStat;
+
+    //button operation
+    private boolean dsbNew;
+    private boolean dsbSave;
+    private boolean dsbDelete;
 
     public MasterPlanScheduleAttr(){
-        lsMpsType = new ArrayList<Mps_type>();
-        lsMpsStat = new ArrayList<Mps_stat>();
+        lsMps = new ArrayList<Mps>();
+        lsMpsType = new ArrayList<SelectItem>();
+        lsMpsStat = new ArrayList<SelectItem>();
     }
 
     /**
@@ -64,28 +81,28 @@ public class MasterPlanScheduleAttr {
     /**
      * @return the itemName
      */
-    public String getItemName() {
-        return itemName;
+    public String getItemId() {
+        return itemId;
     }
 
     /**
      * @param itemName the itemName to set
      */
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
     }
 
     /**
      * @return the mpsType
      */
-    public String getMpsType() {
+    public Character getMpsType() {
         return mpsType;
     }
 
     /**
      * @param mpsType the mpsType to set
      */
-    public void setMpsType(String mpsType) {
+    public void setMpsType(Character mpsType) {
         this.mpsType = mpsType;
     }
 
@@ -106,14 +123,14 @@ public class MasterPlanScheduleAttr {
     /**
      * @return the refSeqInt
      */
-    public String getRefSeqInt() {
+    public int getRefSeqInt() {
         return refSeqInt;
     }
 
     /**
      * @param refSeqInt the refSeqInt to set
      */
-    public void setRefSeqInt(String refSeqInt) {
+    public void setRefSeqInt(int refSeqInt) {
         this.refSeqInt = refSeqInt;
     }
 
@@ -145,19 +162,6 @@ public class MasterPlanScheduleAttr {
         this.qty = qty;
     }
 
-    /**
-     * @return the mpsStat
-     */
-    public String getMpsStat() {
-        return mpsStat;
-    }
-
-    /**
-     * @param mpsStat the mpsStat to set
-     */
-    public void setMpsStat(String mpsStat) {
-        this.mpsStat = mpsStat;
-    }
 
     /**
      * @return the cUser
@@ -215,32 +219,131 @@ public class MasterPlanScheduleAttr {
         this.uDate = uDate;
     }
 
+
+    /**
+     * @return the lsMps
+     */
+    public List<Mps> getLsMps() {
+        return lsMps;
+    }
+
+    /**
+     * @param lsMps the lsMps to set
+     */
+    public void setLsMps(List<Mps> lsMps) {
+        this.lsMps = lsMps;
+    }
+
+    /**
+     * @return the searchDueDate
+     */
+    public Date getSearchDueDate() {
+        return searchDueDate;
+    }
+
+    /**
+     * @param searchDueDate the searchDueDate to set
+     */
+    public void setSearchDueDate(Date searchDueDate) {
+        this.searchDueDate = searchDueDate;
+    }
+
+    /**
+     * @param mpsStat the mpsStat to set
+     */
+    public void setMpsStat(Character mpsStat) {
+        this.mpsStat = mpsStat;
+    }
+
+    /**
+     * @return the mpsStat
+     */
+    public Character getMpsStat() {
+        return mpsStat;
+    }
+
+    /**
+     * @return the mode
+     */
+    public String getMode() {
+        return mode;
+    }
+
+    /**
+     * @param mode the mode to set
+     */
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
+
     /**
      * @return the lsMpsType
      */
-    public List<Mps_type> getLsMpsType() {
+    public List<SelectItem> getLsMpsType() {
         return lsMpsType;
     }
 
     /**
      * @param lsMpsType the lsMpsType to set
      */
-    public void setLsMpsType(List<Mps_type> lsMpsType) {
+    public void setLsMpsType(List<SelectItem> lsMpsType) {
         this.lsMpsType = lsMpsType;
     }
 
     /**
      * @return the lsMpsStat
      */
-    public List<Mps_stat> getLsMpsStat() {
+    public List<SelectItem> getLsMpsStat() {
         return lsMpsStat;
     }
 
     /**
      * @param lsMpsStat the lsMpsStat to set
      */
-    public void setLsMpsStat(List<Mps_stat> lsMpsStat) {
+    public void setLsMpsStat(List<SelectItem> lsMpsStat) {
         this.lsMpsStat = lsMpsStat;
+    }
+
+    /**
+     * @return the dsbNew
+     */
+    public boolean isDsbNew() {
+        return dsbNew;
+    }
+
+    /**
+     * @param dsbNew the dsbNew to set
+     */
+    public void setDsbNew(boolean dsbNew) {
+        this.dsbNew = dsbNew;
+    }
+
+    /**
+     * @return the dsbSave
+     */
+    public boolean isDsbSave() {
+        return dsbSave;
+    }
+
+    /**
+     * @param dsbSave the dsbSave to set
+     */
+    public void setDsbSave(boolean dsbSave) {
+        this.dsbSave = dsbSave;
+    }
+
+    /**
+     * @return the dsbDelete
+     */
+    public boolean isDsbDelete() {
+        return dsbDelete;
+    }
+
+    /**
+     * @param dsbDelete the dsbDelete to set
+     */
+    public void setDsbDelete(boolean dsbDelete) {
+        this.dsbDelete = dsbDelete;
     }
 
 
