@@ -5,6 +5,7 @@
 
 package simplemrp.dao;
 
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 import simplemrp.entity.Mps;
@@ -29,5 +30,9 @@ public interface InfMpsDao {
     List<Mps> findRange(int[] range);
 
     int count();
+
+    public List<Mps> findByDueDate(Date dueDate);
+
+    public String getNextId();
 
 }

@@ -16,9 +16,16 @@ import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityExistsException;
 import simplemrp.bo.InfForecastBo;
 import simplemrp.bo.InfJobBo;
+import simplemrp.bo.InfMpsBo;
+import simplemrp.dao.InfMpsDao;
+import simplemrp.dao.InfMps_statDao;
+import simplemrp.dao.InfMps_typeDao;
 import simplemrp.entity.Forecast;
 import simplemrp.entity.Job;
 import simplemrp.entity.Job_stat;
+import simplemrp.entity.Mps;
+import simplemrp.entity.Mps_stat;
+import simplemrp.entity.Mps_type;
 import simplemrp.facade.PpFacadeRemote;
 import simplemrp.util.BindingName;
 
@@ -35,6 +42,13 @@ public class PpFacade implements PpFacadeRemote {
     private InfJobBo jobBo;
     @EJB
     private InfForecastBo forecastBo;
+    @EJB
+    private InfMpsBo mpsBo;
+    @EJB
+    private InfMps_statDao mpsStatDao;
+    @EJB
+    private InfMps_typeDao mpsTypeDao;
+
 
     @Override
     public Job getJob(String inputJobId) {
@@ -105,5 +119,46 @@ public class PpFacade implements PpFacadeRemote {
     @Override
     public Forecast getForecast(String forecast_id) {
         return forecastBo.find(forecast_id);
+    }
+
+    @Override
+    public Mps getMps(String mpsId) {
+        return mpsBo.find(mpsId);
+    }
+
+    @Override
+    public List<Mps> listMps() {
+        return mpsBo.findAll();
+    }
+
+    @Override
+    public List<Mps> searchMps(Date dueDate) {
+        return mpsBo.findByDueDate(dueDate);
+    }
+
+    @Override
+    public String createMps(Mps mps) {
+        return mpsBo.create(mps);
+    }
+
+    @Override
+    public void removeMps(String mpsId) {
+        mpsBo.remove(mpsId);
+    }
+
+    @Override
+    public void editMps(Mps mps) {
+        mpsBo.save(mps);
+
+    }
+
+    @Override
+    public List<Mps_stat> listMpsStat() {
+        return mpsStatDao.findAll();
+    }
+
+    @Override
+    public List<Mps_type> listMpsType() {
+        return mpsTypeDao.findAll();
     }
 }

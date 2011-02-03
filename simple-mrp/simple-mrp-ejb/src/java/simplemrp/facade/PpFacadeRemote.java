@@ -13,6 +13,9 @@ import javax.ejb.TransactionAttributeType;
 import simplemrp.entity.Forecast;
 import simplemrp.entity.Job;
 import simplemrp.entity.Job_stat;
+import simplemrp.entity.Mps;
+import simplemrp.entity.Mps_stat;
+import simplemrp.entity.Mps_type;
 
 /**
  *
@@ -35,5 +38,16 @@ public interface PpFacadeRemote {
     public List<Forecast> searchForecast(Date forecaseDate);
     public String createForecase(Forecast forecase);
     public void removeForecase(String forecase_id);
+
+    ///////////////// MPS ///////////////////////////
+    public Mps getMps(String mpsId);
+    public List<Mps> listMps();
+    public List<Mps> searchMps(Date dueDate);
+    public String createMps(Mps mps);
+    public void editMps(Mps mps);
+    public void removeMps(String mpsId);
+    public List<Mps_stat> listMpsStat();
+    public List<Mps_type> listMpsType();
+    
     
 }

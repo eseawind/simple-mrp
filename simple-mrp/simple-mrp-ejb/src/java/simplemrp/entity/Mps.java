@@ -43,7 +43,7 @@ public class Mps implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date duedate;
     @Column(name = "QTY")
-    private Double qty;
+    private Integer qty;
     @Column(name = "CDATE")
     @Temporal(TemporalType.DATE)
     private Date cdate;
@@ -108,11 +108,11 @@ public class Mps implements Serializable {
         this.duedate = duedate;
     }
 
-    public Double getQty() {
+    public Integer getQty() {
         return qty;
     }
 
-    public void setQty(Double qty) {
+    public void setQty(Integer qty) {
         this.qty = qty;
     }
 
