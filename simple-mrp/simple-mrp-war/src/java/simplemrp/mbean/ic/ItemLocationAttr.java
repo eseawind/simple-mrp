@@ -7,7 +7,10 @@ package simplemrp.mbean.ic;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.model.SelectItem;
 import simplemrp.entity.Itemloc;
+import simplemrp.entity.Loc;
+import simplemrp.entity.Whse;
 import simplemrp.mbean.AbstractManageBean;
 
 /**
@@ -21,8 +24,14 @@ public class ItemLocationAttr extends AbstractManageBean{
     private String searchLocation;
     private List<Itemloc> lsItemLoc;
 
+    //select value
+    private List<SelectItem> lsWarehouse;
+    private List<SelectItem> lsLocation;
+
     public ItemLocationAttr(){
         lsItemLoc = new ArrayList<Itemloc>();
+        lsWarehouse = new ArrayList<SelectItem>();
+        lsLocation = new ArrayList<SelectItem>();
     }
     /**
      * @return the searchWarehouse
@@ -64,5 +73,40 @@ public class ItemLocationAttr extends AbstractManageBean{
      */
     public void setLsItemLoc(List<Itemloc> lsItemLoc) {
         this.lsItemLoc = lsItemLoc;
+    }
+
+    /**
+     * @return the lsWarehouse
+     */
+    public List<SelectItem> getLsWarehouse() {
+        return lsWarehouse;
+    }
+
+    /**
+     * @param lsWarehouse the lsWarehouse to set
+     */
+    public void setLsWarehouse(List<SelectItem> lsWarehouse) {
+        this.lsWarehouse = lsWarehouse;
+    }
+    public void addWarehouse(SelectItem warehouse){
+        this.lsWarehouse.add(warehouse);
+    }
+
+    /**
+     * @return the lsLocation
+     */
+    public List<SelectItem> getLsLocation() {
+        return lsLocation;
+    }
+
+    /**
+     * @param lsLocation the lsLocation to set
+     */
+    public void setLsLocation(List<SelectItem> lsLocation) {
+        this.lsLocation = lsLocation;
+    }
+
+    void addLocation(SelectItem sItem) {
+        this.lsLocation.add(sItem);
     }
 }

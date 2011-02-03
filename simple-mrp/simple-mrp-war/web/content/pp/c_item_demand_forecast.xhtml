@@ -16,43 +16,67 @@ and open the template in the editor.
         <h:form id="forecastDemandFormId">
             <rich:messages></rich:messages>
             <a4j:keepAlive beanName="forecastDemandBean"></a4j:keepAlive>
-            <h:panelGrid columns="1" columnClasses="alignTop,alignTop">
+            <h:panelGrid columns="2" columnClasses="left_panel,right_panel" width="100%">
+                <rich:panel id="addPanel">
+                    <a4j:commandButton value="Search" actionListener="#{forecastDemandBean.doSearch}" reRender="editPanel"/>
+                    <rich:spacer width="4"/>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Forecast Date"/>
+                        <rich:calendar value="#{forecastDemandBean.searchForecaseDate}" datePattern="#{constantBean.PATTREN_DATE}"/>
+                    </h:panelGrid>
+                    <a4j:commandButton value="Add" actionListener="#{forecastDemandBean.doAdd}" reRender="editPanel"/>
+                    <rich:spacer width="4"/>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Item"/>
+                        <h:inputText value="#{forecastDemandBean.itemId}"/>
+                        <h:outputLabel value="Quantity"/>
+                        <rich:inputNumberSpinner value="#{forecastDemandBean.qty}"/>
+                        <h:outputLabel value="Forecast Date"/>
+                        <rich:calendar value="#{forecastDemandBean.forecaseDate}" datePattern="#{constantBean.PATTREN_DATE}"></rich:calendar>
+                    </h:panelGrid>
+                </rich:panel>
                 <rich:panel id="editPanel" header="Forecast Demand">
-                    <a4j:commandButton value="New" actionListener="#{forecastDemandBean.doAdd}" reRender="editPanel"/>
+                    
                     <rich:spacer width="4"/>
-                    <a4j:commandButton value="Delete" actionListener="#{forecastDemandBean.doDelete}" reRender="editPanel"/>
-                    <rich:spacer width="4"/>
-
-                    <rich:dataTable id="forecastItemTable" value="#{forecastDemandBean.lsForecast}" var="item" stateVar="status">
-                        <rich:column styleClass="alignCenter">
-                            <f:facet name="header">
-                                <h:outputText value=""/>
-                            </f:facet>
-                            <h:outputText value="#{item.isSelected}"/>
-                        </rich:column>
+                    <rich:dataTable id="forecastItemTable" value="#{forecastDemandBean.lsForecast}" var="fcItem" rowKeyVar="rowNo">
+                        
                         <rich:column styleClass="alignCenter">
                             <f:facet name="header">
                                 <h:outputText value="No."/>
                             </f:facet>
-                            <h:outputText value="#{status}"/>
+                            <h:outputText value="#{rowNo+1}"/>
                         </rich:column>
-                        <rich:column sortBy="#{item.item.description}">
+                          <rich:column sortBy="#{fcItem.item}">
                             <f:facet name="header">
                                 <h:outputText value="Item"/>
                             </f:facet>
-                            <h:outputText value="#{item.item.description}"/>
+                            <h:outputText value="#{fcItem.item}"/>
+                        </rich:column>
+                        <rich:column sortBy="#{fcItem.item1.description}">
+                            <f:facet name="header">
+                                <h:outputText value="Desc"/>
+                            </f:facet>
+                            <h:outputText value="#{fcItem.item1.description}"/>
                         </rich:column>
                         <rich:column>
                             <f:facet name="header">
                                 <h:outputText value="Qty."/>
                             </f:facet>
-                            <h:outputText value="#{item.qty}"/>
+                            <h:outputText value="#{fcItem.qty}"/>
                         </rich:column>
-                        <rich:column sortBy="#{item.fcstdate}">
+                        <rich:column sortBy="#{fcItem.fcstdate}">
                             <f:facet name="header">
                                 <h:outputText value="Forecast Date"/>
                             </f:facet>
-                            <h:outputText value="#{item.fcstdate}"/>
+                            <h:outputText value="#{fcItem.fcstdate}"/>
+                        </rich:column>
+                        <rich:column>
+                            <f:facet name="header">
+                                <h:outputText value="delete"/>
+                            </f:facet>
+                            <a4j:commandButton value="Delete" actionListener="#{forecastDemandBean.doDelete}" reRender="editPanel">
+                                <f:param value="#{fcItem.item}" name="del_forecase"/>
+                            </a4j:commandButton>
                         </rich:column>
                     </rich:dataTable>
                 </rich:panel>

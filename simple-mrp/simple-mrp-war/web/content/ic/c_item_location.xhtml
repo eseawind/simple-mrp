@@ -13,59 +13,81 @@ and open the template in the editor.
                 xmlns:h="http://java.sun.com/jsf/html">
     <ui:define name="programname">Item Location</ui:define>
     <ui:define name="content">
-        
-            <h:form id="itemLocFormId">
-                <rich:messages></rich:messages>
-                <a4j:keepAlive beanName="itemLocBean"></a4j:keepAlive>
-                <h:panelGrid columns="2" columnClasses="alignTop,alignTop" width="100%">
-                    <rich:panel id="editPanel" header="Item Location">
-                        <rich:spacer width="4"/>
-                        <a4j:commandButton value="Search" actionListener="#{itemLocBean.doSearch}" reRender="editPanel"/>
-                        <h:panelGrid columns="2">
-                            <h:outputLabel value="Warehouse"/>
-                            <h:inputText value="#{itemLocBean.searchWarehouse}"/>
-                            <h:outputText value="Location"/>
-                            <h:inputText value="#{itemLocBean.searchLocation}"/>
-                        </h:panelGrid>
-                        <br></br>
-                        Item Location Result
-                        <rich:dataTable id="itemLocTable" value="#{itemLocBean.lsItemLoc}" var="item" stateVar="status">
-                              <rich:column styleClass="alignCenter">
-                                  <f:facet name="header">
-                                      <h:outputText value="No."/>
-                                  </f:facet>
-                                  <h:outputText value="#{status}"/>
-                              </rich:column>
-                              <rich:column >
-                                  <f:facet name="header">
-                                      <h:outputText value="Item Desc."/>
-                                  </f:facet>
-                                  <h:outputText value="รหัสสินค้า"/>
-                              </rich:column>
-                            <rich:column sortBy="#{item.onhand}" >
-                                <f:facet name="header">
-                                    <h:outputText value="On Hand Qty."/>
-                                </f:facet>
-                                <h:outputText value="#{item.onhand}"/>
-                            </rich:column>
 
-                            <rich:column sortBy="#{item.uuser}">
-                                <f:facet name="header">
-                                    <h:outputText value="Edit User"/>
-                                </f:facet>
-                                <h:outputText value="#{item.uuser}"/>
-                            </rich:column>
-                            <rich:column sortBy="#{item.udate}">
-                                <f:facet name="header">
-                                    <h:outputText value="Edit Date"/>
-                                </f:facet>
-                                <h:outputText value="#{item.udate}"/>
-                            </rich:column>
-                        </rich:dataTable>
-                    </rich:panel>
+        <h:form id="itemLocFormId">
+            <rich:messages></rich:messages>
+            <a4j:keepAlive beanName="itemLocBean"></a4j:keepAlive>
+            <h:panelGrid columns="2" columnClasses="alignTop,alignTop" width="100%">
+                <rich:panel id="editPanel" header="Item Location">
+                    <rich:spacer width="4"/>
+                    <a4j:commandButton value="Search" actionListener="#{itemLocBean.doSearch}" reRender="editPanel"/>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Warehouse"/>
+                        <h:selectOneMenu id="selectWarehouse" value="#{itemLocBean.searchWarehouse}">
+                            <f:selectItem itemValue="%" itemLabel="-ALL-"/>
+                            <f:selectItems value="#{itemLocBean.lsWarehouse}" />
+                            <a4j:support event="onchange" reRender="selectLocation" actionListener="#{itemLocBean.doCheckWarehouse}"/>
+                        </h:selectOneMenu>
+                        <h:outputText value="Location"/>
+                        <h:selectOneMenu id="selectLocation" value="#{itemLocBean.searchLocation}">
+                             <f:selectItem itemValue="%" itemLabel="-ALL-"/>
+                            <f:selectItems value="#{itemLocBean.lsLocation}" />
+                            <a4j:support event="onchange" actionListener="#{itemLocBean.doCheckLocation}"/>
+                        </h:selectOneMenu>
+                    </h:panelGrid>
+                    <br></br>
+                    
+                    <rich:dataTable id="itemLocTable" value="#{itemLocBean.lsItemLoc}" var="itemLoc" rowKeyVar="rowkey">
+                        <f:facet name="caption">
+                            <h:outputText value="Item Location Warehouse '#{itemLocBean.searchWarehouse}'" />
+                        </f:facet>
+                        <rich:column styleClass="alignCenter">
+                            <f:facet name="header">
+                                <h:outputText value="No."/>
+                            </f:facet>
+                            <h:outputText value="#{rowkey+1}"/>
+                        </rich:column>
+                        <rich:column >
+                            <f:facet name="header">
+                                <h:outputText value="Item Desc."/>
+                            </f:facet>
+                            <h:outputText value="#{itemLoc.item1.description}"/>
+                        </rich:column>
+                        <rich:column sortBy="#{itemLoc.onhand}" >
+                            <f:facet name="header">
+                                <h:outputText value="On Hand Qty."/>
+                            </f:facet>
+                            <h:outputText value="#{itemLoc.onhand}"/>
+                        </rich:column>
+                        <rich:column sortBy="#{itemLoc.itemlocPK.whse}" >
+                            <f:facet name="header">
+                                <h:outputText value="Warehouse"/>
+                            </f:facet>
+                            <h:outputText value="#{itemLoc.itemlocPK.whse}"/>
+                        </rich:column>
+                        <rich:column sortBy="#{itemLoc.itemlocPK.loc}" >
+                            <f:facet name="header">
+                                <h:outputText value="Location"/>
+                            </f:facet>
+                            <h:outputText value="#{itemLoc.itemlocPK.loc}"/>
+                        </rich:column>
+                        <rich:column sortBy="#{itemLoc.uuser}">
+                            <f:facet name="header">
+                                <h:outputText value="Edit User"/>
+                            </f:facet>
+                            <h:outputText value="#{itemLoc.uuser}"/>
+                        </rich:column>
+                        <rich:column sortBy="#{itemLoc.udate}">
+                            <f:facet name="header">
+                                <h:outputText value="Edit Date"/>
+                            </f:facet>
+                            <h:outputText value="#{itemLoc.udate}"/>
+                        </rich:column>
+                    </rich:dataTable>
+                </rich:panel>
 
-                </h:panelGrid>
-            </h:form>
-        
+            </h:panelGrid>
+        </h:form>
+
     </ui:define>
 </ui:composition>
