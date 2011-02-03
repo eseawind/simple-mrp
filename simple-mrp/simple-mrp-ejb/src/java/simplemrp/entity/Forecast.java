@@ -35,7 +35,7 @@ public class Forecast implements Serializable {
     @Column(name = "ITEM")
     private String item;
     @Column(name = "QTY")
-    private Double qty;
+    private Integer qty;
     @Basic(optional = false)
     @Column(name = "FCSTDATE")
     @Temporal(TemporalType.DATE)
@@ -74,11 +74,11 @@ public class Forecast implements Serializable {
         this.item = item;
     }
 
-    public Double getQty() {
+    public Integer getQty() {
         return qty;
     }
 
-    public void setQty(Double qty) {
+    public void setQty(Integer qty) {
         this.qty = qty;
     }
 

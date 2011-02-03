@@ -4,11 +4,19 @@
  */
 package simplemrp.facade.bean;
 
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.persistence.EntityExistsException;
+import simplemrp.bo.InfForecastBo;
 import simplemrp.bo.InfJobBo;
+import simplemrp.entity.Forecast;
 import simplemrp.entity.Job;
 import simplemrp.entity.Job_stat;
 import simplemrp.facade.PpFacadeRemote;
@@ -24,7 +32,9 @@ public class PpFacade implements PpFacadeRemote {
     ///////////////////////////////////////////////////////////
     //////////////////// JOB ORDER ////////////////////////////
     @EJB
-    InfJobBo jobBo;
+    private InfJobBo jobBo;
+    @EJB
+    private InfForecastBo forecastBo;
 
     @Override
     public Job getJob(String inputJobId) {
@@ -51,7 +61,7 @@ public class PpFacade implements PpFacadeRemote {
 
     @Override
     public void editJob(Job p_job) {
-       jobBo.editJob(p_job);
+        jobBo.editJob(p_job);
     }
 
     @Override
@@ -60,9 +70,40 @@ public class PpFacade implements PpFacadeRemote {
     }
 
     @Override
-    public List<Job_stat> listJobStat(){
+    public List<Job_stat> listJobStat() {
         return jobBo.listJobStat();
     }
     //////////////////// END JOB ORDER ////////////////////////////
     ////////////////////////////////////////////////////////////
+
+    //////////////////FORECASE ///////////////////////
+    @Override
+    public List<Forecast> searchForecast(Date forecaseDate) {
+        return forecastBo.findByForecastDate(forecaseDate);
+    }
+
+    @Override
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public String createForecase(Forecast forecase){
+        String result = "";
+
+        result = forecastBo.create(forecase);
+
+        return result;
+    }
+
+    @Override
+    public void removeForecase(String forecase_id) {
+        forecastBo.remove(forecase_id);
+    }
+
+    @Override
+    public List<Forecast> listForecast() {
+        return forecastBo.findAll();
+    }
+
+    @Override
+    public Forecast getForecast(String forecast_id) {
+        return forecastBo.find(forecast_id);
+    }
 }

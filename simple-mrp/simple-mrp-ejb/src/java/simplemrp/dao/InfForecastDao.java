@@ -5,6 +5,7 @@
 
 package simplemrp.dao;
 
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 import simplemrp.entity.Forecast;
@@ -29,5 +30,7 @@ public interface InfForecastDao {
     List<Forecast> findRange(int[] range);
 
     int count();
+
+    public List<Forecast> findByForecastDate(Date forecaseDate);
 
 }
