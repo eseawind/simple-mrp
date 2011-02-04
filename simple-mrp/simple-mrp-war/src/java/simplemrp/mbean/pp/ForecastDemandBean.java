@@ -14,7 +14,6 @@ import javax.persistence.EntityExistsException;
 import simplemrp.entity.Forecast;
 import simplemrp.entity.Item;
 import simplemrp.facade.MaFacadeRemote;
-import simplemrp.facade.PpFacadeException;
 import simplemrp.facade.PpFacadeRemote;
 import simplemrp.util.BindingName;
 import simplemrp.util.EJBLookup;
