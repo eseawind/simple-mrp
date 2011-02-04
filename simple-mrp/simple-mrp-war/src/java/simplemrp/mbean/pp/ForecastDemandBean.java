@@ -6,11 +6,7 @@ package simplemrp.mbean.pp;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.ejb.EJBException;
 import javax.faces.event.ActionEvent;
-import javax.persistence.EntityExistsException;
 import simplemrp.entity.Forecast;
 import simplemrp.entity.Item;
 import simplemrp.facade.MaFacadeRemote;
