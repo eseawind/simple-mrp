@@ -1280,6 +1280,7 @@ CREATE TABLE `item` (
 INSERT INTO `item` (`ITEM`,`DESCRIPTION`,`PRODUCT`,`SOURCE`,`STAT`,`WARRANTY`,`UOM`,`LEADTIME`,`SAFETYSTOCK`,`CDATE`,`CUSER`,`UDATE`,`UUSER`) VALUES 
  ('CHAIR-WOOD-001','เก้าอี้ไม้','CHAIR-LOF','M','A',3,'EA',5,NULL,'2011-01-26','developer','2011-01-26','developer'),
  ('DINNER-DESK-001','โต็ะรับประทานอาหาร','CHAIR-LOF','M','A',3,'EA',5,NULL,'2011-01-26','developer','2011-01-26','developer'),
+ ('LEG-ROUND-METAL','ขาเหล็กกลม','RAW','P','A',NULL,'EA',NULL,100.00,'2011-02-05','developer','2011-02-05','developer'),
  ('SOFA-LEATHER-001','โซฟาหนังแท้','CHAIR-LOF','M','A',3,'EA',NULL,NULL,'2011-01-26','developer','2011-01-26','developer');
 /*!40000 ALTER TABLE `item` ENABLE KEYS */;
 
@@ -1351,6 +1352,10 @@ CREATE TABLE `itemloc` (
 --
 
 /*!40000 ALTER TABLE `itemloc` DISABLE KEYS */;
+INSERT INTO `itemloc` (`WHSE`,`LOC`,`ITEM`,`ONHAND`,`UDATE`,`UUSER`) VALUES 
+ ('MAIN','FINISH-GOOD','CHAIR-WOOD-001',7.00,'2011-01-30','dummy_user'),
+ ('MAIN','FINISH-GOOD','DINNER-DESK-001',10.00,'2011-01-30','dummy_user'),
+ ('MAIN','FINISH-GOOD','SOFA-LEATHER-001',3.00,'2011-01-30','dummy_user');
 /*!40000 ALTER TABLE `itemloc` ENABLE KEYS */;
 
 
@@ -1570,6 +1575,9 @@ CREATE TABLE `loc` (
 --
 
 /*!40000 ALTER TABLE `loc` DISABLE KEYS */;
+INSERT INTO `loc` (`WHSE`,`LOC`,`DESCRIPTION`) VALUES 
+ ('MAIN','FINISH-GOOD','สินค้าผลิตสำเร็จ'),
+ ('MAIN','RAW-MATL','วัตถุดิบ');
 /*!40000 ALTER TABLE `loc` ENABLE KEYS */;
 
 
@@ -1660,9 +1668,6 @@ DROP TABLE IF EXISTS `po`;
 CREATE TABLE `po` (
   `PO_ID` varchar(7) NOT NULL,
   `PO_DATE` date DEFAULT NULL,
-  `VEND_ID` varchar(7) NOT NULL,
-  `INV_DATE` date DEFAULT NULL,
-  `INV_NUM` varchar(22) DEFAULT NULL,
   `STAT` varchar(1) DEFAULT NULL,
   `NOTE` varchar(100) DEFAULT NULL,
   `CUSER` varchar(20) DEFAULT NULL,
@@ -1671,9 +1676,7 @@ CREATE TABLE `po` (
   `UDATE` date DEFAULT NULL,
   PRIMARY KEY (`PO_ID`),
   KEY `FK_PO_STAT` (`STAT`),
-  KEY `FK_PO_VENDOR` (`VEND_ID`),
-  CONSTRAINT `FK_PO_STAT` FOREIGN KEY (`STAT`) REFERENCES `po_stat` (`STAT`),
-  CONSTRAINT `FK_PO_VENDOR` FOREIGN KEY (`VEND_ID`) REFERENCES `vendor` (`VEND_ID`)
+  CONSTRAINT `FK_PO_STAT` FOREIGN KEY (`STAT`) REFERENCES `po_stat` (`STAT`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1681,10 +1684,8 @@ CREATE TABLE `po` (
 --
 
 /*!40000 ALTER TABLE `po` DISABLE KEYS */;
-INSERT INTO `po` (`PO_ID`,`PO_DATE`,`VEND_ID`,`INV_DATE`,`INV_NUM`,`STAT`,`NOTE`,`CUSER`,`CDATE`,`UUSER`,`UDATE`) VALUES 
- ('P000001','2011-01-28','V000001',NULL,NULL,'O','ทดสอบการสร้าง P/O','dummy_user','2011-01-26','dummy_user','2011-01-28'),
- ('P000002','2011-01-28','V000001',NULL,NULL,'O','ทดสอบ','dummy_user','2011-01-28','dummy_user','2011-01-28'),
- ('P000003','2011-01-27','V000001',NULL,NULL,'O','','dummy_user','2011-01-28','dummy_user','2011-01-28');
+INSERT INTO `po` (`PO_ID`,`PO_DATE`,`STAT`,`NOTE`,`CUSER`,`CDATE`,`UUSER`,`UDATE`) VALUES 
+ ('P000001','2011-02-05','O',NULL,'dummy_user','2011-02-05','dummy_user','2011-02-05');
 /*!40000 ALTER TABLE `po` ENABLE KEYS */;
 
 
@@ -1724,7 +1725,7 @@ CREATE TABLE `poitem` (
   `QTY` double(10,2) DEFAULT NULL,
   `QTY_RCV` double(10,2) DEFAULT '0.00',
   `DUE_DATE` date DEFAULT NULL,
-  `VEND_ITEM` varchar(30) DEFAULT NULL,
+  `VEND_ITEM` varchar(70) DEFAULT NULL,
   `PR_ID` varchar(7) DEFAULT NULL,
   `PR_SEQ` int(11) DEFAULT NULL,
   `NOTE` varchar(100) DEFAULT NULL,
@@ -1732,6 +1733,7 @@ CREATE TABLE `poitem` (
   `CDATE` date DEFAULT NULL,
   `UUSER` varchar(20) DEFAULT NULL,
   `UDATE` date DEFAULT NULL,
+  `VEND_ID` varchar(7) DEFAULT NULL,
   PRIMARY KEY (`PO_ID`,`PO_SEQ`),
   KEY `FK_POITEM_STAT` (`STAT`),
   KEY `FK_POITEM_ITEM` (`ITEM`),
@@ -1747,6 +1749,9 @@ CREATE TABLE `poitem` (
 --
 
 /*!40000 ALTER TABLE `poitem` DISABLE KEYS */;
+INSERT INTO `poitem` (`PO_ID`,`PO_SEQ`,`ITEM`,`STAT`,`QTY`,`QTY_RCV`,`DUE_DATE`,`VEND_ITEM`,`PR_ID`,`PR_SEQ`,`NOTE`,`CUSER`,`CDATE`,`UUSER`,`UDATE`,`VEND_ID`) VALUES 
+ ('P000001',1,'CHAIR-WOOD-001','O',2.00,NULL,NULL,NULL,'R000001',1,NULL,'dummy_user','2011-02-05','dummy_user','2011-02-05',NULL),
+ ('P000001',2,'DINNER-DESK-001','O',4.00,NULL,NULL,NULL,'R000001',2,NULL,'dummy_user','2011-02-05','dummy_user','2011-02-05',NULL);
 /*!40000 ALTER TABLE `poitem` ENABLE KEYS */;
 
 
@@ -1762,6 +1767,10 @@ CREATE TABLE `pr` (
   `APPROVER` varchar(20) DEFAULT NULL,
   `REQ_DATE` date DEFAULT NULL,
   `NOTE` varchar(100) DEFAULT NULL,
+  `CUSER` varchar(20) NOT NULL,
+  `CDATE` date NOT NULL,
+  `UUSER` varchar(20) DEFAULT NULL,
+  `UDATE` date DEFAULT NULL,
   PRIMARY KEY (`PR_ID`),
   KEY `FK_PR_STAT` (`STAT`),
   CONSTRAINT `FK_PR_STAT` FOREIGN KEY (`STAT`) REFERENCES `pr_stat` (`STAT`)
@@ -1772,6 +1781,10 @@ CREATE TABLE `pr` (
 --
 
 /*!40000 ALTER TABLE `pr` DISABLE KEYS */;
+INSERT INTO `pr` (`PR_ID`,`STAT`,`REQUESTER`,`APPROVER`,`REQ_DATE`,`NOTE`,`CUSER`,`CDATE`,`UUSER`,`UDATE`) VALUES 
+ ('R000001','A','tester','dummy_user','2011-02-03','','dummy_user','2011-02-03','dummy_user','2011-02-05'),
+ ('R000002','R','Golf',NULL,'2011-02-03','update note','dummy_user','2011-02-03','dummy_user','2011-02-03'),
+ ('R000003','R','Golf',NULL,'2011-02-09','','dummy_user','2011-02-03','dummy_user','2011-02-03');
 /*!40000 ALTER TABLE `pr` ENABLE KEYS */;
 
 
@@ -1828,17 +1841,16 @@ CREATE TABLE `pritem` (
   `PR_SEQ` int(11) NOT NULL,
   `ITEM` varchar(35) DEFAULT NULL,
   `QTY` double(10,2) DEFAULT NULL,
-  `VEND_ID` varchar(7) DEFAULT NULL,
   `DUE_DATE` date DEFAULT NULL,
   `NOTE` varchar(100) DEFAULT NULL,
   `UUSER` varchar(20) DEFAULT NULL,
   `UDATE` date DEFAULT NULL,
+  `CUSER` varchar(20) DEFAULT NULL,
+  `CDATE` date DEFAULT NULL,
   PRIMARY KEY (`PR_ID`,`PR_SEQ`),
   KEY `FK_PRITEM_ITEM` (`ITEM`),
-  KEY `FK_PRITEM_VENDOR` (`VEND_ID`),
   CONSTRAINT `FK_PRITEM_ITEM` FOREIGN KEY (`ITEM`) REFERENCES `item` (`ITEM`),
-  CONSTRAINT `FK_PRITEM_PR` FOREIGN KEY (`PR_ID`) REFERENCES `pr` (`PR_ID`),
-  CONSTRAINT `FK_PRITEM_VENDOR` FOREIGN KEY (`VEND_ID`) REFERENCES `vendor` (`VEND_ID`)
+  CONSTRAINT `FK_PRITEM_PR` FOREIGN KEY (`PR_ID`) REFERENCES `pr` (`PR_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1846,6 +1858,11 @@ CREATE TABLE `pritem` (
 --
 
 /*!40000 ALTER TABLE `pritem` DISABLE KEYS */;
+INSERT INTO `pritem` (`PR_ID`,`PR_SEQ`,`ITEM`,`QTY`,`DUE_DATE`,`NOTE`,`UUSER`,`UDATE`,`CUSER`,`CDATE`) VALUES 
+ ('R000001',1,'CHAIR-WOOD-001',2.00,'2011-02-04','','dummy_user','2011-02-04','dummy_user','2011-02-04'),
+ ('R000001',2,'DINNER-DESK-001',4.00,'2011-02-03','','dummy_user','2011-02-04','dummy_user','2011-02-04'),
+ ('R000002',1,'CHAIR-WOOD-001',2.00,'2011-02-11','test','dummy_user','2011-02-04','dummy_user','2011-02-04'),
+ ('R000002',2,'DINNER-DESK-001',2.00,'2011-02-11','ทดสอบ','dummy_user','2011-02-04','dummy_user','2011-02-04');
 /*!40000 ALTER TABLE `pritem` ENABLE KEYS */;
 
 
@@ -1870,7 +1887,8 @@ INSERT INTO `product` (`PRODUCT`,`DESCRIPTION`) VALUES
  ('CHAIR-PVC-OD','PVC Outdoor Chair'),
  ('CHAIR-WDR','Wood Dining Room Chair'),
  ('DESK-OFC','Office Desk'),
- ('DESK-WDN','Wood Dining Room Desk');
+ ('DESK-WDN','Wood Dining Room Desk'),
+ ('RAW','Raw-material');
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 
 
@@ -9932,6 +9950,31 @@ INSERT INTO `uom` (`UOM`,`DESCRIPTION`) VALUES
  ('SET','Set'),
  ('SHT','Sheet');
 /*!40000 ALTER TABLE `uom` ENABLE KEYS */;
+
+
+--
+-- Definition of table `usr`
+--
+
+DROP TABLE IF EXISTS `usr`;
+CREATE TABLE `usr` (
+  `usr_id` varchar(20) NOT NULL,
+  `usr_name` varchar(100) NOT NULL,
+  `pwd` varchar(20) DEFAULT NULL,
+  `app_pr` char(1) DEFAULT NULL,
+  `rls_job` char(1) DEFAULT NULL,
+  PRIMARY KEY (`usr_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `usr`
+--
+
+/*!40000 ALTER TABLE `usr` DISABLE KEYS */;
+INSERT INTO `usr` (`usr_id`,`usr_name`,`pwd`,`app_pr`,`rls_job`) VALUES 
+ ('admin','Administrator','admin','Y','Y'),
+ ('dummy_user','Dummy User','dummy','Y','Y');
+/*!40000 ALTER TABLE `usr` ENABLE KEYS */;
 
 
 --
