@@ -17,7 +17,7 @@ and open the template in the editor.
             <h:form id="coShipFormId">
                 <rich:messages></rich:messages>
                 <a4j:keepAlive beanName="coShipBean"></a4j:keepAlive>
-                <h:panelGrid columns="2" columnClasses="alignTop,alignTop" width="480">
+                <h:panelGrid columns="1" columnClasses="alignTop" width="100%">
                     <rich:panel id="editPanel" header="Customer Order Shipping">
 
                         <rich:spacer width="4"/>
@@ -27,38 +27,37 @@ and open the template in the editor.
                             <h:outputLabel value="Customer Order"/>
                             <h:panelGrid columns="2">
                             <h:inputText value="#{coShipBean.searchCo}"/>
-                            <a4j:commandButton value="Search" actionListener="#{coShipBean.doSearch}" reRender="editPanel"/>
+                            <a4j:commandButton value="Search" actionListener="#{coShipBean.doSearch}" reRender="editPanel,coItemTable"/>
                             </h:panelGrid>
                             <h:outputText value="Customer"/>
-                            <h:inputText value="#{coShipBean.cust}"/>
+                            <h:outputText value="#{coShipBean.cust}"/>
                             <h:outputText value="Transaction Date"/>
                             <rich:calendar value="#{coShipBean.transactionDate}" datePattern="#{constantBean.PATTREN_DATE}"></rich:calendar>
                         </h:panelGrid>
                         <br></br>
                         Customer Order Items
-                        <rich:dataTable id="coItemTable" value="#{coShipBean.lsCoShipItemBean}" var="item" stateVar="status">
+                        <rich:dataTable id="coItemTable" value="#{coShipBean.lsCoShipItemBean}" var="coItem" rowKeyVar="rowVar">
                             <rich:column styleClass="alignCenter">
                                 <f:facet name="header">
                                     <h:outputText value="No."/>
                                 </f:facet>
-                                <h:outputText value="#{status}"/>
+                                <h:outputText value="#{rowVar+1}"/>
                             </rich:column>
                             <rich:column>
                                 <f:facet name="header">
                                     <h:outputText value="Item Desc."/>
                                 </f:facet>
-                                <h:outputText value="#{item.item.description}"/>
+                                <h:outputText value="#{coItem.itemId}:#{coItem.itemDesc}"/>
                             </rich:column>
                             <rich:column>
                                 <f:facet name="header">
                                     <h:outputText value="Warehouse"/>
                                 </f:facet>
-                                <h:selectOneMenu value="#{item.selectedWarehouse}" >
-                                    <f:selectItems value="#{coShipBean.lsWarehouse}"
-                                                   var="warehouse"
-                                                   itemValue="#{warehouse.whse}"
-                                                   itemLabel="#{warehouse.description}">
+                                <h:selectOneMenu value="#{coItem.selectedWarehouse}" >
+                                    <f:selectItem itemLabel="-SELECT-" itemValue="-1"/>
+                                    <f:selectItems value="#{coShipBean.lsWarehouse}">
                                     </f:selectItems>
+                                    <a4j:support event="onchange" reRender="selectLocation,elToBeShip,elOnHand" actionListener="#{coItem.doCheckWarehouse}"/>
                                 </h:selectOneMenu>
                                 
                             </rich:column>
@@ -67,32 +66,38 @@ and open the template in the editor.
                                 <f:facet name="header">
                                     <h:outputText value="Location"/>
                                 </f:facet>
-                                <h:selectOneMenu value="#{item.selectedLocation}" >
-                                    <f:selectItems value="#{coShipBean.lsLocation}"
-                                                   var="location"
-                                                   itemValue="#{location.locPK}"
-                                                   itemLabel="#{location.description}">
+                                <h:selectOneMenu id="selectLocation" value="#{coItem.selectedLocation}" >
+                                    <f:selectItem itemLabel="-SELECT-" itemValue="-1"/>
+                                    <f:selectItems value="#{coItem.lsLocation}">
                                     </f:selectItems>
+                                    <a4j:support event="onchange" reRender="elOnHand,elToBeShip" actionListener="#{coItem.doCheckLocation}"/>
                                 </h:selectOneMenu>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="On Hand"/>
+                                </f:facet>
+                                 <h:outputText id="elOnHand" value="#{coItem.onHand}"/>
                             </rich:column>
                              <rich:column>
                                 <f:facet name="header">
                                     <h:outputText value="Qty. Order"/>
                                 </f:facet>
-                                 <h:outputText value="#{item.qty}"/>
+                                 <h:outputText value="#{coItem.qtyOrder}"/>
                             </rich:column>
                             <rich:column>
                                 <f:facet name="header">
                                     <h:outputText value="Qty. Shipped"/>
                                 </f:facet>
-                                <h:outputText value="#{item.qtyship}"/>
+                                <h:outputText value="#{coItem.qtyShipped}"/>
                             </rich:column>
                             <rich:column>
                                 <f:facet name="header">
                                     <h:outputText value="To Be Ship"/>
                                 </f:facet>
-                                <h:inputText value="#{item.toBeShip}"/>
+                                <rich:inputNumberSpinner id="elToBeShip" step="0.5" maxValue="#{coItem.maxToBeShip}" value="#{coItem.toBeShip}"/>
                             </rich:column>
+                             
                         </rich:dataTable>
                     </rich:panel>
 

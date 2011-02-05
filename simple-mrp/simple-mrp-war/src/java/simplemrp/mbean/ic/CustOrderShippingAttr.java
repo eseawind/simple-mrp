@@ -8,17 +8,14 @@ package simplemrp.mbean.ic;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import simplemrp.entity.Co;
-import simplemrp.entity.Co_stat;
-import simplemrp.entity.Coitem;
-import simplemrp.entity.Loc;
-import simplemrp.entity.Whse;
+import javax.faces.model.SelectItem;
+import simplemrp.mbean.AbstractManageBean;
 
 /**
  *
  * @author wisaruthkea
  */
-public class CustOrderShippingAttr {
+public class CustOrderShippingAttr extends AbstractManageBean {
     //Search
     private String searchCo;
 
@@ -30,12 +27,13 @@ public class CustOrderShippingAttr {
     private List<CoShipItemBean> lsCoShipItemBean;
 
     //Optional resource
-    private List<Whse> lsWarehouse;
-    private List<Loc> lsLocation;
+    private List<SelectItem> lsWarehouse;
+    
     
     public CustOrderShippingAttr(){
-        lsWarehouse = new ArrayList<Whse>();
-        lsLocation = new ArrayList<Loc>();
+        lsCoShipItemBean = new ArrayList<CoShipItemBean>();
+        lsWarehouse = new ArrayList<SelectItem>();
+        
     }
 
     /**
@@ -84,30 +82,17 @@ public class CustOrderShippingAttr {
     /**
      * @return the lsWarehouse
      */
-    public List<Whse> getLsWarehouse() {
+    public List<SelectItem> getLsWarehouse() {
         return lsWarehouse;
     }
 
     /**
      * @param lsWarehouse the lsWarehouse to set
      */
-    public void setLsWarehouse(List<Whse> lsWarehouse) {
+    public void setLsWarehouse(List<SelectItem> lsWarehouse) {
         this.lsWarehouse = lsWarehouse;
     }
 
-    /**
-     * @return the lsLocation
-     */
-    public List<Loc> getLsLocation() {
-        return lsLocation;
-    }
-
-    /**
-     * @param lsLocation the lsLocation to set
-     */
-    public void setLsLocation(List<Loc> lsLocation) {
-        this.lsLocation = lsLocation;
-    }
 
     /**
      * @return the lsCoShipItemBean
