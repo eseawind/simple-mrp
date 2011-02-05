@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package simplemrp.mbean.po;
+package simplemrp.constant;
 
 /**
  *
@@ -11,5 +11,6 @@ package simplemrp.mbean.po;
  */
 public class PoConstant {
     public static final Character PO_STAT_ORDER = 'O';
-
+    public static final Character PR_STAT_REQUEST = 'R';
+    public static final Character PR_STAT_APPROVED = 'A';
 }

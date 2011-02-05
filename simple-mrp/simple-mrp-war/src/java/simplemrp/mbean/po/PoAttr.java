@@ -27,10 +27,6 @@ public class PoAttr extends AbstractManageBean {
     
     private String poId;
     private Date poDate;
-    private String vendId;
-    private String vendDesc;
-    private Date invDate;
-    private String invNum;
     private Character stat;
     private String note;
     private String cuser;
@@ -62,22 +58,6 @@ public class PoAttr extends AbstractManageBean {
 
     public void setCuser(String cuser) {
         this.cuser = cuser;
-    }
-
-    public Date getInvDate() {
-        return invDate;
-    }
-
-    public void setInvDate(Date invDate) {
-        this.invDate = invDate;
-    }
-
-    public String getInvNum() {
-        return invNum;
-    }
-
-    public void setInvNum(String invNum) {
-        this.invNum = invNum;
     }
 
     public String getNote() {
@@ -142,22 +122,6 @@ public class PoAttr extends AbstractManageBean {
 
     public void setUuser(String uuser) {
         this.uuser = uuser;
-    }
-
-    public String getVendId() {
-        return vendId;
-    }
-
-    public void setVendId(String vendId) {
-        this.vendId = vendId;
-    }
-
-    public String getVendDesc() {
-        return vendDesc;
-    }
-
-    public void setVendDesc(String vendDesc) {
-        this.vendDesc = vendDesc;
     }
 
     public List<SelectItem> getLsPoStat() {

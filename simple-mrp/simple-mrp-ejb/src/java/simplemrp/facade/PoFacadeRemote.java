@@ -15,6 +15,10 @@ import simplemrp.entity.Po;
 import simplemrp.entity.Po_stat;
 import simplemrp.entity.Poitem;
 import simplemrp.entity.PoitemPK;
+import simplemrp.entity.Pr;
+import simplemrp.entity.Pr_stat;
+import simplemrp.entity.Pritem;
+import simplemrp.entity.PritemPK;
 
 /**
  *
@@ -47,5 +51,22 @@ public interface PoFacadeRemote {
 
     //Po_stat management
     public List<Po_stat> getListPo_stat() throws Exception;
+
+    //Pr_stat management
+    public List<Pr_stat> getListPr_stat() throws Exception;
+
+    //Pr management
+    public List<Pr> searchPr(String p_strRequester, Date p_dtReqDate) throws Exception;
+    public Pr getPr(String strPr_id) throws Exception;
+    public String createPr(Pr p_pr) throws Exception;
+    public void editPr(Pr p_pr) throws Exception;
+    public void deletePr(Pr p_pr) throws Exception;
+
+    //Pritem management
+    public List<Pritem> getPritemByPr(String p_strPr_id) throws Exception;
+    public Pritem getPritem(PritemPK p_pkPritem) throws Exception;
+    public Integer createPritem(Pritem p_poitem) throws Exception;
+    public void editPritem(Pritem p_poitem) throws Exception;
+    public void deletePritem(Pritem p_poitem) throws Exception;
 
 }

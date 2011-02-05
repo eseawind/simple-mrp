@@ -79,10 +79,6 @@ public class Vendor implements Serializable {
     @JoinColumn(name = "BANK_ID", referencedColumnName = "BANK_ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private Bank bank;
-    @OneToMany(mappedBy = "vendor", fetch = FetchType.LAZY)
-    private Collection<Pritem> pritemCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "vendor", fetch = FetchType.LAZY)
-    private Collection<Po> poCollection;
 
     public Vendor() {
     }
@@ -249,22 +245,6 @@ public class Vendor implements Serializable {
 
     public void setBank(Bank bank) {
         this.bank = bank;
-    }
-
-    public Collection<Pritem> getPritemCollection() {
-        return pritemCollection;
-    }
-
-    public void setPritemCollection(Collection<Pritem> pritemCollection) {
-        this.pritemCollection = pritemCollection;
-    }
-
-    public Collection<Po> getPoCollection() {
-        return poCollection;
-    }
-
-    public void setPoCollection(Collection<Po> poCollection) {
-        this.poCollection = poCollection;
     }
 
     @Override

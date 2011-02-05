@@ -67,7 +67,7 @@
                     <h:panelGrid columns="2" width="350px">
                         <h:outputLabel value="Item"/>
                         <h:inputText value="#{itemBean.item}" size="35" maxlength="35">
-                            <a4j:support event="onkeyup" actionListener="#{customerBean.doCheckCust_id}"
+                            <a4j:support event="onkeyup" actionListener="#{itemBean.doCheckItem}"
                                          reRender="editPanel"
                                          onsubmit="if(notEnter(event))return false"/>
                         </h:inputText>

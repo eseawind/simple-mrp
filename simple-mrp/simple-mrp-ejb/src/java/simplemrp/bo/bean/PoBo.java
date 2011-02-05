@@ -30,7 +30,7 @@ public class PoBo implements InfPoBo {
   
         for(int i=0; i<lsPo.size(); i++) {
             Po po = lsPo.get(i);
-            po.getVendor().toString();
+            po.getPostat().toString();
         }
 
         return lsPo;
@@ -40,7 +40,6 @@ public class PoBo implements InfPoBo {
     public Po findPo(String p_strPo_id) throws Exception {
         Po po = poDao.find(p_strPo_id);
         if (po != null) {
-            po.getVendor().toString();
             po.getPostat().toString();
         }
 

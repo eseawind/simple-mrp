@@ -40,9 +40,10 @@ public class CoitemDao extends AbstractDao<Coitem> implements InfCoitemDao {
 
 
     @Override
-    public Integer getNextCo_seq() {
-        String sql = "select max(ci.coitemPK.coSeq) from Coitem as ci";
+    public Integer getNextCo_seq(String p_strCo_id) {
+        String sql = "select max(ci.coitemPK.coSeq) from Coitem as ci where ci.coitemPK.coId = :coId";
         Query q = em.createQuery(sql);
+        q.setParameter("coId", p_strCo_id);
         
         Integer intLastCo_seq = (Integer)q.getSingleResult();
         if(intLastCo_seq == null) {

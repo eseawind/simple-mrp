@@ -40,11 +40,6 @@ public class Po implements Serializable {
     @Column(name = "PO_DATE")
     @Temporal(TemporalType.DATE)
     private Date poDate;
-    @Column(name = "INV_DATE")
-    @Temporal(TemporalType.DATE)
-    private Date invDate;
-    @Column(name = "INV_NUM")
-    private String invNum;
     @Column(name = "NOTE")
     private String note;
     @Column(name = "CUSER")
@@ -59,9 +54,6 @@ public class Po implements Serializable {
     private Date udate;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "po", fetch = FetchType.LAZY)
     private Collection<Poitem> poitemCollection;
-    @JoinColumn(name = "VEND_ID", referencedColumnName = "VEND_ID")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Vendor vendor;
     @JoinColumn(name = "STAT", referencedColumnName = "STAT")
     @ManyToOne(fetch = FetchType.LAZY)
     private Po_stat postat;
@@ -87,22 +79,6 @@ public class Po implements Serializable {
 
     public void setPoDate(Date poDate) {
         this.poDate = poDate;
-    }
-
-    public Date getInvDate() {
-        return invDate;
-    }
-
-    public void setInvDate(Date invDate) {
-        this.invDate = invDate;
-    }
-
-    public String getInvNum() {
-        return invNum;
-    }
-
-    public void setInvNum(String invNum) {
-        this.invNum = invNum;
     }
 
     public String getNote() {
@@ -151,14 +127,6 @@ public class Po implements Serializable {
 
     public void setPoitemCollection(Collection<Poitem> poitemCollection) {
         this.poitemCollection = poitemCollection;
-    }
-
-    public Vendor getVendor() {
-        return vendor;
-    }
-
-    public void setVendor(Vendor vendor) {
-        this.vendor = vendor;
     }
 
     public Po_stat getPostat() {

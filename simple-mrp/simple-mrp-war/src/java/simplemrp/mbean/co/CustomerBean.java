@@ -20,7 +20,7 @@ import simplemrp.entity.Subdist;
 import simplemrp.entity.Tax;
 import simplemrp.facade.CoFacadeRemote;
 import simplemrp.facade.MaFacadeRemote;
-import simplemrp.util.CoConstant;
+import simplemrp.constant.CoConstant;
 import simplemrp.util.EJBLookup;
 import simplemrp.util.FacesUtils;
 

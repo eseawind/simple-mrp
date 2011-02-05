@@ -12,7 +12,7 @@ import simplemrp.entity.CoitemPK;
 import simplemrp.entity.Item;
 import simplemrp.facade.CoFacadeRemote;
 import simplemrp.facade.MaFacadeRemote;
-import simplemrp.util.CoConstant;
+import simplemrp.constant.CoConstant;
 import simplemrp.util.EJBLookup;
 import simplemrp.util.FacesUtils;
 
@@ -21,8 +21,6 @@ import simplemrp.util.FacesUtils;
  * @author Golf
  */
 public class CoitemBean extends CoitemAttr {
-
-    private HtmlForm init;
 
     /** Creates a new instance of CoitemBean */
     public CoitemBean() {

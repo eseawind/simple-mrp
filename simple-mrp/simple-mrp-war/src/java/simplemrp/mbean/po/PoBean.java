@@ -4,6 +4,7 @@
  */
 package simplemrp.mbean.po;
 
+import simplemrp.constant.PoConstant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -53,8 +54,6 @@ public class PoBean extends PoAttr {
     public void doSavePo(ActionEvent e) throws Exception {
         try {
             Po po = new Po();
-            po.setInvDate(getInvDate());
-            po.setInvNum(getInvNum());
             po.setNote(getNote());
             po.setPoDate(getPoDate());
 
@@ -62,21 +61,18 @@ public class PoBean extends PoAttr {
             po_stat.setStat(getStat());
             po.setPostat(po_stat);
 
-            Vendor vendor = new Vendor();
-            vendor.setVendId(getVendId());
-            po.setVendor(vendor);
-            
             po.setUuser(getSessionUserId());
 
             PoFacadeRemote poFacade = EJBLookup.getPoFacade();
 
             if(getMode().equals(MODE_EDIT)) {
+                po.setPoId(getPoId());
                 poFacade.editPo(po);
 
                 checkPoId(po.getPoId());
 
-                if((getSearchVendId().trim().length() > 0) || (getPoDate() != null)) {
-                    searchPO(getSearchVendId().trim().toUpperCase(), getPoDate());
+                if((getSearchVendId().trim().length() > 0) || (getSearchPoDate() != null)) {
+                    searchPO(getSearchVendId().trim().toUpperCase(), getSearchPoDate());
                 }
 
                 message("Save Complete");
@@ -86,8 +82,8 @@ public class PoBean extends PoAttr {
 
                 checkPoId(strNewPoId);
 
-                if((getSearchVendId().trim().length() > 0) || (getPoDate() != null)) {
-                    searchPO(getSearchVendId().trim().toUpperCase(), getPoDate());
+                if((getSearchVendId().trim().length() > 0) || (getSearchPoDate() != null)) {
+                    searchPO(getSearchVendId().trim().toUpperCase(), getSearchPoDate());
                 }
 
                 message("Create Complete");
@@ -114,15 +110,10 @@ public class PoBean extends PoAttr {
 
             if(po != null) {
                 setPoId(po.getPoId());
-                setInvDate(po.getInvDate());
-                setInvNum(po.getInvNum());
                 setNote(po.getNote());
                 setPoDate(po.getPoDate());
                 setPoId(po.getPoId());
                 setStat(po.getPostat().getStat());
-                setVendId(po.getVendor().getVendId());
-                setVendDesc(po.getVendor().getDescription());
-
                 setUuser(po.getUuser());
                 setCuser(po.getCuser());
                 setCdate(po.getCdate());
@@ -142,32 +133,6 @@ public class PoBean extends PoAttr {
             }
         } catch(Exception e) {
             message(e.getMessage());
-        }
-    }
-
-    public void doCheckVendId(ActionEvent e) throws Exception {
-        checkVendId(getVendId().trim().toUpperCase());
-    }
-
-    private void checkVendId(String p_strVendId) {
-        try {
-            p_strVendId = StringUtil.prefixString(p_strVendId, 7);
-            
-            PoFacadeRemote poFacade = EJBLookup.getPoFacade();
-            Vendor vendor = poFacade.getVendor(p_strVendId);
-
-            if(vendor == null) {
-                setVendId(null);
-                setVendDesc(null);
-
-                message("Find Not Found");
-
-            } else {
-                setVendId(vendor.getVendId());
-                setVendDesc(vendor.getDescription());
-            }
-        } catch(Exception ex) {
-            message(ex.getMessage());
         }
     }
 
@@ -261,13 +226,9 @@ public class PoBean extends PoAttr {
 
     private void clearEditScreen() {
         setPoId(null);
-        setInvDate(null);
-        setInvNum(null);
         setNote(null);
         setPoDate(null);
         setStat(null);
-        setVendDesc(null);
-        setVendId(null);
         
         setUuser(null);
         setCuser(null);

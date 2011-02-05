@@ -59,6 +59,10 @@ public class ItemBean extends ItemAttr {
         checkItem(strItem);
     }
 
+    public void doCheckItem(ActionEvent e) throws Exception {
+        checkItem(getItem().trim().toUpperCase());
+    }
+
     private void checkItem(String p_strItem) throws Exception {
         MaFacadeRemote maFacade = EJBLookup.getMaFacade();
         Item item = maFacade.getItem(p_strItem);

@@ -5,6 +5,7 @@
 
 package simplemrp.dao;
 
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 import simplemrp.entity.Pr;
@@ -29,5 +30,9 @@ public interface InfPrDao {
     List<Pr> findRange(int[] range);
 
     int count();
+
+    public List<Pr> findByRequesterReqDate(String p_strRequester, Date p_dtReqDate);
+
+    public String getNextPr_id();
 
 }

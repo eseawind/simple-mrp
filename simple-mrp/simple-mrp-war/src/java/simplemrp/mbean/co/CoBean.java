@@ -19,10 +19,10 @@ import simplemrp.entity.Tax;
 import simplemrp.entity.Term;
 import simplemrp.facade.CoFacadeRemote;
 import simplemrp.facade.MaFacadeRemote;
-import simplemrp.util.CoConstant;
+import simplemrp.constant.CoConstant;
 import simplemrp.util.EJBLookup;
 import simplemrp.util.FacesUtils;
-import simplemrp.util.MasterConstant;
+import simplemrp.constant.MasterConstant;
 
 /**
  *

@@ -46,6 +46,16 @@ public class Pr implements Serializable {
     private Date reqDate;
     @Column(name = "NOTE")
     private String note;
+    @Column(name = "CUSER")
+    private String cuser;
+    @Column(name = "CDATE")
+    @Temporal(TemporalType.DATE)
+    private Date cdate;
+    @Column(name = "UUSER")
+    private String uuser;
+    @Column(name = "UDATE")
+    @Temporal(TemporalType.DATE)
+    private Date udate;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pr", fetch = FetchType.LAZY)
     private Collection<Pritem> pritemCollection;
     @JoinColumn(name = "STAT", referencedColumnName = "STAT")
@@ -113,6 +123,38 @@ public class Pr implements Serializable {
 
     public void setPrstat(Pr_stat prstat) {
         this.prstat = prstat;
+    }
+
+    public Date getCdate() {
+        return cdate;
+    }
+
+    public void setCdate(Date cdate) {
+        this.cdate = cdate;
+    }
+
+    public String getCuser() {
+        return cuser;
+    }
+
+    public void setCuser(String cuser) {
+        this.cuser = cuser;
+    }
+
+    public Date getUdate() {
+        return udate;
+    }
+
+    public void setUdate(Date udate) {
+        this.udate = udate;
+    }
+
+    public String getUuser() {
+        return uuser;
+    }
+
+    public void setUuser(String uuser) {
+        this.uuser = uuser;
     }
 
     @Override

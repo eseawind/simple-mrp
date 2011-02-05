@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+
+    <ui:define name="programname">Purchase Requisition</ui:define>
+
+    <ui:define name="content">
+        <script type="text/javascript">
+            function selectPritem(p_prId, p_prSeq) {
+                var url = "c_pritem.jsf?p_mode=EDIT&amp;p_prId="+p_prId+"&amp;p_prSeq="+p_prSeq;
+                popup(url);
+            }
+            function addPritem(p_prId, p_prSeq) {
+                var url = "c_pritem.jsf?p_mode=NEW&amp;p_prId="+p_prId;
+                popup(url);
+            }
+        </script>
+        <h:form id="prFormId">
+            <a4j:jsFunction name="doCheckPrId" actionListener="#{prBean.doCheckPrId}" reRender="editPanel"></a4j:jsFunction>
+            <a4j:keepAlive beanName="prBean"></a4j:keepAlive>
+            <h:panelGrid columns="2" columnClasses="left_panel,right_panel" width="100%">
+                <rich:panel id="searchPanel" styleClass="noborder">
+                    <h:panelGrid columns="3">
+                        <h:outputLabel value="Requester"/>
+                        <h:inputText value="#{prBean.searchRequester}" size="7" maxlength="7">
+                            <a4j:support event="onkeyup" actionListener="#{prBean.doSearchPr}"
+                                         reRender="searchPanel"
+                                         onsubmit="if(notEnter(event))return false"/>
+                        </h:inputText>
+                        <rich:spacer width="1"></rich:spacer>
+                        <h:outputLabel value="P/R Date"/>
+                        <rich:calendar value="#{prBean.searchReqDate}"
+                                       datePattern="#{constantBean.PATTREN_DATE}"
+                                       popup="true"
+                                       inputSize="10"/>
+                        <a4j:commandButton value="Search" actionListener="#{prBean.doSearchPR}" reRender="prTable"/>
+                    </h:panelGrid>
+
+                    <rich:dataTable id="prTable" value="#{prBean.lsPr}" var="pr" width="400px">
+                        <rich:column sortBy="#{pr.prId}" styleClass="alignCenter">
+                            <f:facet name="header">
+                                <h:outputText value="P/R"/>
+                            </f:facet>
+                            <a4j:commandLink value="#{pr.prId}" actionListener="#{prBean.doSelectPr}" reRender="editPanel">
+                                <f:param name="p_pr_id" value="#{pr.prId}"/>
+                            </a4j:commandLink>
+                        </rich:column>
+                        <rich:column sortBy="#{pr.reqDate}" styleClass="alignCenter">
+                            <f:facet name="header">
+                                <h:outputText value="Request Date"/>
+                            </f:facet>
+                            <h:outputText value="#{pr.reqDate}">
+                                <f:convertDateTime pattern="#{constantBean.PATTREN_DATE}" timeZone="#{constantBean.TIMEZONE}"/>
+                            </h:outputText>
+                        </rich:column>
+                        <rich:column sortBy="#{pr.requester}">
+                            <f:facet name="header">
+                                <h:outputText value="Requester"/>
+                            </f:facet>
+                            <h:outputText value="#{pr.requester}"/>
+                        </rich:column>
+                    </rich:dataTable>
+                </rich:panel>
+
+                <rich:panel id="editPanel" styleClass="noborder">
+                    <h:inputHidden value="#{prBean.mode}"/>
+                    <a4j:commandButton value="New" actionListener="#{prBean.doNewPr}" reRender="editPanel,searchPanel"
+                                       disabled="#{prBean.disbNew}"/>
+                    <rich:spacer width="4"/>
+                    <a4j:commandButton value="Save" actionListener="#{prBean.doSavePr}" reRender="editPanel,searchPanel"
+                                       disabled="#{prBean.disbSave}"/>
+                    <rich:spacer width="4"/>
+                    <a4j:commandButton value="Delete" actionListener="#{prBean.doDeletePr}" reRender="editPanel,searchPanel"
+                                       disabled="#{prBean.disbDel}"/>
+                    <rich:spacer width="4"/>
+                    <a4j:commandButton value="Add Detail" onclick="addPritem('#{prBean.prId}')"
+                                       disabled="#{prBean.disbAddDtl}"/>
+                    <rich:spacer width="4"/>
+                    <a4j:commandButton value="Clear" actionListener="#{prBean.doClear}" reRender="editPanel"/>
+
+                    <h:panelGrid columns="2" width="500px">
+                        <h:outputLabel value="P/R"/>
+                        <h:inputText value="#{prBean.prId}" size="7" maxlength="7" disabled="#{prBean.disbPrId}">
+                            <a4j:support event="onkeyup" actionListener="#{prBean.doCheckPrId}"
+                                         reRender="editPanel,prItemTable"
+                                         onsubmit="if(notEnter(event))return false"/>
+                            <a4j:support event="onchange" actionListener="#{prBean.doCheckPrId}"
+                                         reRender="editPanel,prItemTable"/>
+                        </h:inputText>
+                        <h:outputLabel value="Request Date"/>
+                        <rich:calendar value="#{prBean.reqDate}"
+                                       datePattern="#{constantBean.PATTREN_DATE}"
+                                       popup="true"
+                                       inputSize="10"/>
+
+                        <h:outputText value="Status"/>
+                        <h:selectOneMenu value="#{prBean.stat}" >
+                            <f:selectItems value="#{prBean.lsPrStat}"/>
+                        </h:selectOneMenu>
+
+                        <h:outputLabel value="Requester"/>
+                        <h:inputText value="#{prBean.requester}" size="20" maxlength="20"/>
+
+                        <h:outputLabel value="Approver"/>
+                        <h:outputText value="#{prBean.approver}"/>
+
+                        <h:outputText value="Note"/>
+                        <h:inputText value="#{prBean.note}" size="60" maxlength="100"/>
+
+                        <h:outputText value="Create User"/>
+                        <h:outputText value="#{prBean.cuser}"/>
+                        <h:outputText value="Create Date"/>
+                        <h:outputText value="#{prBean.cdate}">
+                            <f:convertDateTime pattern="#{constantBean.PATTREN_DATE}" timeZone="#{constantBean.TIMEZONE}"/>
+                        </h:outputText>
+
+                        <h:outputText value="Edit User"/>
+                        <h:outputText value="#{prBean.uuser}"/>
+                        <h:outputText value="Edit Date"/>
+                        <h:outputText value="#{prBean.udate}">
+                            <f:convertDateTime pattern="#{constantBean.PATTREN_DATE}" timeZone="#{constantBean.TIMEZONE}"/>
+                        </h:outputText>
+                    </h:panelGrid>
+                    <br></br>
+
+                    Purchase Requesition Items
+                    <rich:dataTable id="pritemTable" value="#{prBean.lsPrItem}" var="pritem" width="500px">
+                        <rich:column styleClass="alignCenter" width="10%">
+                            <f:facet name="header">
+                                <h:outputText value="Seq"/>
+                            </f:facet>
+                            <h:outputText value="#{pritem.pritemPK.prSeq}"/>
+                        </rich:column>
+                        <rich:column width="40%">
+                            <f:facet name="header">
+                                <h:outputText value="Item"/>
+                            </f:facet>
+                            <h:outputText value="#{pritem.item.item}"/>
+                            <br/><rich:spacer width="10px"/>
+                            <h:outputText value="#{pritem.item.description}"/>
+                        </rich:column>
+                        <rich:column width="15%">
+                            <f:facet name="header">
+                                <h:outputText value="Qty"/>
+                            </f:facet>
+                            <h:outputText value="#{pritem.qty}"/>
+                        </rich:column>
+                        <rich:column width="10%">
+                            <a4j:commandButton value="Edit" onclick="selectPritem('#{pritem.pritemPK.prId}', #{pritem.pritemPK.prSeq})"></a4j:commandButton>
+                        </rich:column>
+                        <rich:column width="10%">
+                            <a4j:commandButton value="Del." actionListener="#{prBean.doDeletePritem}" reRender="pritemTable">
+                                <f:param name="p_pr_id" value="#{pritem.pritemPK.prId}"/>
+                                <f:param name="p_pr_seq" value="#{pritem.pritemPK.prSeq}"/>
+                            </a4j:commandButton>
+                        </rich:column>
+                    </rich:dataTable>
+                </rich:panel>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -40,9 +40,10 @@ public class PoitemDao extends AbstractDao<Poitem> implements InfPoitemDao {
 
 
     @Override
-    public Integer getNextPo_seq() {
-        String sql = "select max(pi.poitemPK.poSeq) from Poitem as pi";
+    public Integer getNextPo_seq(String p_strPoId) {
+        String sql = "select max(pi.poitemPK.poSeq) from Poitem as pi where pi.poitemPK.poId = :poId order by pi.poitemPK.poSeq";
         Query q = em.createQuery(sql);
+        q.setParameter("poId", p_strPoId);
 
         Integer intLastPo_seq = (Integer)q.getSingleResult();
         if(intLastPo_seq == null) {

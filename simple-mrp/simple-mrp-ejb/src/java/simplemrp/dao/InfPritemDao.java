@@ -30,4 +30,7 @@ public interface InfPritemDao {
 
     int count();
 
+    public List<Pritem> findByPr(String p_strPrId);
+
+    public Integer getNextPr_seq(String p_strPrId);
 }

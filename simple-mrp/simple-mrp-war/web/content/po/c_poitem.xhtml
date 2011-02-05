@@ -12,71 +12,92 @@
     <ui:define name="content">
         <script type="text/javascript">
             function doClose() {
-                if(opener.doCheckCoid) {
-                    opener.doCheckCoid();
+                if(opener.doCheckPoId) {
+                    opener.doCheckPoId();
                 }
                 window.close();
             }
         </script>
         <h:form >
-            <a4j:jsFunction name="loadDetail" actionListener="#{coitemBean.loadDetail}" reRender="detailPanel"></a4j:jsFunction>
-            <a4j:keepAlive beanName="coitemBean"></a4j:keepAlive>
+            <a4j:jsFunction name="loadDetail" actionListener="#{poitemBean.loadDetail}" reRender="detailPanel"></a4j:jsFunction>
+            <a4j:keepAlive beanName="poitemBean"></a4j:keepAlive>
             <rich:panel id="detailPanel" styleClass="noborder">
                 <h:panelGroup>
-                    <h:inputHidden value="#{coitemBean.p_coId}"/>
-                    <h:inputHidden value="#{coitemBean.p_coSeq}"/>
-                    <h:inputHidden value="#{coitemBean.p_mode}"/>
+                    <h:inputHidden value="#{poitemBean.p_poId}"/>
+                    <h:inputHidden value="#{poitemBean.p_poSeq}"/>
+                    <h:inputHidden value="#{poitemBean.p_mode}"/>
 
-                    <h:inputHidden value="#{coitemBean.mode}"/>
+                    <h:inputHidden value="#{poitemBean.mode}"/>
 
-                    <a4j:commandButton value="Save" actionListener="#{coitemBean.doSave}" reRender="detailPanel"/>
+                    <a4j:commandButton value="Save" actionListener="#{poitemBean.doSave}" reRender="detailPanel"/>
                     <rich:spacer width="4"/>
                     <a4j:commandButton value="Close" onclick="doClose()" />
                 </h:panelGroup>
                 <h:panelGrid columns="2" width="400">
-                    <h:outputLabel value="C/O"/>
-                    <h:inputText size="7" maxlength="7" disabled="true" value="#{coitemBean.coId}"/>
+                    <h:outputLabel value="P/O"/>
+                    <h:outputText value="#{poitemBean.poId}"/>
 
                     <h:outputLabel value="Seq"/>
-                    <h:inputText size="5" maxlength="5" disabled="true" value="#{coitemBean.coSeq}"/>
+                    <h:outputText value="#{poitemBean.poSeq}"/>
 
                     <h:outputLabel value="Item" />
-                    <h:inputText id="item" size="35" maxlength="35" value="#{coitemBean.item}">
-                        <a4j:support event="onkeyup" actionListener="#{coitemBean.doCheckItem}"
-                                     reRender="detailPanel"
-                                     onsubmit="if(notEnter(event))return false"/>
-                        <a4j:support event="onchange" actionListener="#{coitemBean.doCheckItem}"
-                                     reRender="detailPanel"/>
-                    </h:inputText>
-                    
+                    <h:outputText id="item" value="#{poitemBean.item}"/>
+
                     <h:outputLabel value="Description" />
-                    <h:outputText id="itemDesc" value="#{coitemBean.itemDesc}"/>
+                    <h:outputText id="itemDesc" value="#{poitemBean.itemDesc}"/>
+
+                    <h:outputLabel value="Vendor ID"/>
+                    <h:inputText id="vendId" value="#{poitemBean.vendId}" size="7" maxlength="7">
+                        <a4j:support event="onkeyup" actionListener="#{poitemBean.doCheckVendId}"
+                                     reRender="vendId,vendDesc"
+                                     onsubmit="if(notEnter(event))return false"/>
+                        <a4j:support event="onchange" actionListener="#{poitemBean.doCheckVendId}"
+                                     reRender="vendId,vendDesc"/>
+                    </h:inputText>
+
+                    <h:outputLabel value="Vendor Name"/>
+                    <h:outputText id="vendDesc" value="#{poitemBean.vendDesc}"/>
+
+                    <h:outputLabel value="Vendor Item" />
+                    <h:inputText size="50" maxlength="70" value="#{poitemBean.vendItem}"/>
 
                     <h:outputLabel value="Qty"/>
-                    <h:inputText size="5" maxlength="5" value="#{coitemBean.qty}"/>
+                    <h:outputText value="#{poitemBean.qty}"/>
 
-                    <h:outputLabel value="Qty-ship"/>
-                    <h:outputText value="#{coitemBean.qtyShip}"/>
+                    <h:outputLabel value="Qty-receive"/>
+                    <h:outputText value="#{poitemBean.qtyRcv}"/>
 
-                    <h:outputLabel value="Price"/>
-                    <h:inputText size="15" maxlength="15" value="#{coitemBean.price}"/>
+                    <h:outputLabel value="Due Date"/>
+                    <rich:calendar value="#{poitemBean.dueDate}"
+                                   datePattern="#{constantBean.PATTREN_DATE}"
+                                   popup="true"
+                                   inputSize="10"/>
 
                     <h:outputText value="Status"/>
-                    <h:selectOneMenu value="#{coitemBean.stat}" >
-                        <f:selectItems value="#{coitemBean.lsCoitemStat}"/>
+                    <h:selectOneMenu value="#{poitemBean.stat}" >
+                        <f:selectItems value="#{poitemBean.lsPoitemStat}"/>
                     </h:selectOneMenu>
+
+                    <h:outputLabel value="P/R"/>
+                    <h:outputText value="#{poitemBean.prId}"/>
+
+                    <h:outputLabel value="P/R Seq"/>
+                    <h:outputText value="#{poitemBean.prSeq}"/>
+
+                    <h:outputLabel value="Note" />
+                    <h:inputText size="50" maxlength="100" value="#{poitemBean.note}"/>
                     
                     <h:outputText value="Create User"/>
-                    <h:outputText value="#{coitemBean.cuser}"/>
+                    <h:outputText value="#{poitemBean.cuser}"/>
                     <h:outputText value="Create Date"/>
-                    <h:outputText value="#{coitemBean.cdate}">
+                    <h:outputText value="#{poitemBean.cdate}">
                         <f:convertDateTime pattern="#{constantBean.PATTREN_DATE}" timeZone="#{constantBean.TIMEZONE}"/>
                     </h:outputText>
 
                     <h:outputText value="Edit User"/>
-                    <h:outputText value="#{coitemBean.uuser}"/>
+                    <h:outputText value="#{poitemBean.uuser}"/>
                     <h:outputText value="Edit Date"/>
-                    <h:outputText value="#{coitemBean.udate}">
+                    <h:outputText value="#{poitemBean.udate}">
                         <f:convertDateTime pattern="#{constantBean.PATTREN_DATE}" timeZone="#{constantBean.TIMEZONE}"/>
                     </h:outputText>
                 </h:panelGrid>

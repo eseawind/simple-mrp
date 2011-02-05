@@ -32,7 +32,17 @@ public class PoitemBo implements InfPoitemBo {
 
         for(int i = 0; i < lsPoitem.size(); i++) {
             Poitem poitem = lsPoitem.get(i);
+            poitem.getPostat().toString();
             poitem.getItem().toString();
+
+            if(poitem.getVendor() != null) {
+               poitem.getVendor().toString();
+            }
+            
+            if(poitem.getPritem() != null) {
+                poitem.getPritem().toString();
+            }
+
             lsReturn.add(poitem);
         }
 
@@ -44,13 +54,20 @@ public class PoitemBo implements InfPoitemBo {
         Poitem poitem = poitemDao.find(p_pkPoitem);
         poitem.getPostat().toString();
         poitem.getItem().toString();
+        if(poitem.getVendor() != null) {
+            poitem.getVendor().toString();
+        }
+
+        if(poitem.getPritem() != null) {
+            poitem.getPritem().toString();
+        }
 
         return poitem;
     }
 
     @Override
     public Integer createPoitem(Poitem p_poitem) throws Exception {
-        Integer intNextPoSeq = poitemDao.getNextPo_seq();
+        Integer intNextPoSeq = poitemDao.getNextPo_seq(p_poitem.getPoitemPK().getPoId());
         p_poitem.getPoitemPK().setPoSeq(intNextPoSeq);
 
         p_poitem.setUdate(DateUtil.getDate());
@@ -75,6 +92,7 @@ public class PoitemBo implements InfPoitemBo {
         poitem.setPostat(p_poitem.getPostat());
         poitem.setItem(p_poitem.getItem());
         poitem.setVendItem(p_poitem.getVendItem());
+        poitem.setVendor(p_poitem.getVendor());
 
         poitem.setUdate(DateUtil.getDate());
         poitem.setUuser(poitem.getUuser());

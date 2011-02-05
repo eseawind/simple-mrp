@@ -144,7 +144,7 @@
                     <br></br>
 
                     Customer Order Items
-                    <rich:dataTable id="coItemTable" value="#{coBean.lsCoItem}" var="coitem" width="500px">
+                    <rich:dataTable id="coitemTable" value="#{coBean.lsCoItem}" var="coitem" width="500px">
                         <rich:column styleClass="alignCenter" width="10%">
                             <f:facet name="header">
                                 <h:outputText value="Seq"/>
@@ -181,7 +181,7 @@
                             <a4j:commandButton value="Edit" onclick="selectCoitem('#{coitem.coitemPK.coId}', #{coitem.coitemPK.coSeq})"></a4j:commandButton>
                         </rich:column>
                         <rich:column width="5%">
-                            <a4j:commandButton value="Del." actionListener="#{coBean.doDeleteCoitem}" reRender="coItemTable">
+                            <a4j:commandButton value="Del." actionListener="#{coBean.doDeleteCoitem}" reRender="coitemTable">
                                 <f:param name="p_co_id" value="#{coitem.coitemPK.coId}"/>
                                 <f:param name="p_co_seq" value="#{coitem.coitemPK.coSeq}"/>
                             </a4j:commandButton>

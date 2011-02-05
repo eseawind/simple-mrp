@@ -22,18 +22,11 @@
             }
         </script>
         <h:form id="poFormId">
-            <a4j:jsFunction name="doCheckCoid" actionListener="#{poBean.doCheckPoId}" reRender="editPanel"></a4j:jsFunction>
+            <a4j:jsFunction name="doCheckPoId" actionListener="#{poBean.doCheckPoId}" reRender="editPanel"></a4j:jsFunction>
             <a4j:keepAlive beanName="poBean"></a4j:keepAlive>
             <h:panelGrid columns="2" columnClasses="left_panel,right_panel" width="100%">
                 <rich:panel id="searchPanel" styleClass="noborder">
                     <h:panelGrid columns="3">
-                        <h:outputLabel value="Vendor ID"/>
-                        <h:inputText value="#{poBean.searchVendId}" size="7" maxlength="7">
-                            <a4j:support event="onkeyup" actionListener="#{poBean.doSearchPo}"
-                                         reRender="searchPanel"
-                                         onsubmit="if(notEnter(event))return false"/>
-                        </h:inputText>
-                        <rich:spacer width="1"></rich:spacer>
                         <h:outputLabel value="P/O Date"/>
                         <rich:calendar value="#{poBean.searchPoDate}"
                                        datePattern="#{constantBean.PATTREN_DATE}"
@@ -59,28 +52,16 @@
                                 <f:convertDateTime pattern="#{constantBean.PATTREN_DATE}" timeZone="#{constantBean.TIMEZONE}"/>
                             </h:outputText>
                         </rich:column>
-                        <rich:column sortBy="#{po.vendor.description}">
-                            <f:facet name="header">
-                                <h:outputText value="Vendor"/>
-                            </f:facet>
-                            <h:outputText value="#{po.vendor.description}"/>
-                        </rich:column>
                     </rich:dataTable>
                 </rich:panel>
 
                 <rich:panel id="editPanel" styleClass="noborder">
                     <h:inputHidden value="#{poBean.mode}"/>
-                    <a4j:commandButton value="New" actionListener="#{poBean.doNewPo}" reRender="editPanel,searchPanel"
-                                       disabled="#{poBean.disbNew}"/>
-                    <rich:spacer width="4"/>
                     <a4j:commandButton value="Save" actionListener="#{poBean.doSavePo}" reRender="editPanel,searchPanel"
                                        disabled="#{poBean.disbSave}"/>
                     <rich:spacer width="4"/>
                     <a4j:commandButton value="Delete" actionListener="#{poBean.doDeletePo}" reRender="editPanel,searchPanel"
                                        disabled="#{poBean.disbDel}"/>
-                    <rich:spacer width="4"/>
-                    <a4j:commandButton value="Add Detail" onclick="addPoitem('#{poBean.poId}')"
-                                       disabled="#{coBean.disbAddDtl}"/>
                     <rich:spacer width="4"/>
                     <a4j:commandButton value="Clear" actionListener="#{poBean.doClear}" reRender="editPanel"/>
                     
@@ -94,17 +75,7 @@
                                          reRender="editPanel,poItemTable"/>
                         </h:inputText>
 
-                        <h:outputLabel value="Vendor ID"/>
-                        <h:inputText id="vendId" value="#{poBean.vendId}" size="7" maxlength="7">
-                            <a4j:support event="onkeyup" actionListener="#{poBean.doCheckVendId}"
-                                         reRender="vendId,vendDesc"
-                                         onsubmit="if(notEnter(event))return false"/>
-                            <a4j:support event="onchange" actionListener="#{poBean.doCheckVendId}"
-                                         reRender="vendId,vendDesc"/>
-                        </h:inputText>
                         
-                        <h:outputLabel value="Vendor Name"/>
-                        <h:outputText id="vendDesc" value="#{poBean.vendDesc}"/>
 
                         <h:outputLabel value="P/O Date"/>
                         <rich:calendar value="#{poBean.poDate}"
@@ -119,14 +90,6 @@
 
                         <h:outputText value="Note"/>
                         <h:inputText value="#{poBean.note}" size="60" maxlength="100"/>
-
-                        <h:outputLabel value="Invoice"/>
-                        <h:outputText value="#{poBean.invNum}"/>
-
-                        <h:outputLabel value="Invoice Date"/>
-                        <h:outputText value="#{poBean.invDate}">
-                            <f:convertDateTime pattern="#{constantBean.PATTREN_DATE}" timeZone="#{constantBean.TIMEZONE}"/>
-                        </h:outputText>
 
                         <h:outputText value="Create User"/>
                         <h:outputText value="#{poBean.cuser}"/>
@@ -145,7 +108,7 @@
                     <br></br>
 
                     Purchase Order Items
-                    <rich:dataTable id="poItemTable" value="#{poBean.lsPoItem}" var="poitem" width="500px">
+                    <rich:dataTable id="poitemTable" value="#{poBean.lsPoItem}" var="poitem" width="500px">
                         <rich:column styleClass="alignCenter" width="10%">
                             <f:facet name="header">
                                 <h:outputText value="Seq"/>
@@ -176,7 +139,7 @@
                             <a4j:commandButton value="Edit" onclick="selectPoitem('#{poitem.poitemPK.poId}', #{poitem.poitemPK.poSeq})"></a4j:commandButton>
                         </rich:column>
                         <rich:column width="10%">
-                            <a4j:commandButton value="Del." actionListener="#{poBean.doDeletePoitem}" reRender="coItemTable">
+                            <a4j:commandButton value="Del." actionListener="#{poBean.doDeletePoitem}" reRender="poitemTable">
                                 <f:param name="p_po_id" value="#{poitem.poitemPK.poId}"/>
                                 <f:param name="p_po_seq" value="#{poitem.poitemPK.poSeq}"/>
                             </a4j:commandButton>

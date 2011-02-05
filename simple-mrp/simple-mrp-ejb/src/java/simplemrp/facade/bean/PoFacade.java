@@ -12,6 +12,9 @@ import javax.ejb.Stateless;
 import simplemrp.bo.InfPoBo;
 import simplemrp.bo.InfPo_statBo;
 import simplemrp.bo.InfPoitemBo;
+import simplemrp.bo.InfPrBo;
+import simplemrp.bo.InfPr_statBo;
+import simplemrp.bo.InfPritemBo;
 import simplemrp.entity.Po;
 import simplemrp.entity.Po_stat;
 import simplemrp.entity.Vendor;
@@ -20,6 +23,10 @@ import simplemrp.util.BindingName;
 import simplemrp.bo.InfVendorBo;
 import simplemrp.entity.Poitem;
 import simplemrp.entity.PoitemPK;
+import simplemrp.entity.Pr;
+import simplemrp.entity.Pr_stat;
+import simplemrp.entity.Pritem;
+import simplemrp.entity.PritemPK;
 
 /**
  *
@@ -39,6 +46,15 @@ public class PoFacade implements PoFacadeRemote {
 
     @EJB
     private InfPo_statBo po_statBo;
+
+    @EJB
+    private InfPr_statBo pr_statBo;
+
+    @EJB
+    private InfPrBo prBo;
+
+    @EJB
+    private InfPritemBo pritemBo;
 
     @Override
     public List<Vendor> searchVendor(String p_strKeyword) throws Exception {
@@ -118,5 +134,60 @@ public class PoFacade implements PoFacadeRemote {
     @Override
     public void deletePoitem(Poitem p_poitem) throws Exception {
         poitemBo.removePoitem(p_poitem);
+    }
+
+    @Override
+    public List<Pr_stat> getListPr_stat() throws Exception {
+        return pr_statBo.getListPr_stat();
+    }
+
+    @Override
+    public List<Pr> searchPr(String p_strRequester, Date p_dtReqDate) throws Exception {
+        return prBo.searchPr(p_strRequester, p_dtReqDate);
+    }
+
+    @Override
+    public Pr getPr(String strPr_id) throws Exception {
+        return prBo.findPr(strPr_id);
+    }
+
+    @Override
+    public String createPr(Pr p_pr) throws Exception {
+        return prBo.createPr(p_pr);
+    }
+
+    @Override
+    public void editPr(Pr p_pr) throws Exception {
+        prBo.editPr(p_pr);
+    }
+
+    @Override
+    public void deletePr(Pr p_pr) throws Exception {
+        prBo.removePr(p_pr);
+    }
+
+    @Override
+    public List<Pritem> getPritemByPr(String p_strPr_id) throws Exception {
+        return pritemBo.getPritemByPr(p_strPr_id);
+    }
+
+    @Override
+    public Pritem getPritem(PritemPK p_pkPritem) throws Exception {
+        return pritemBo.getPritem(p_pkPritem);
+    }
+
+    @Override
+    public Integer createPritem(Pritem p_poitem) throws Exception {
+        return pritemBo.createPritem(p_poitem);
+    }
+
+    @Override
+    public void editPritem(Pritem p_poitem) throws Exception {
+        pritemBo.editPritem(p_poitem);
+    }
+
+    @Override
+    public void deletePritem(Pritem p_poitem) throws Exception {
+        pritemBo.removePritem(p_poitem);
     }
 }

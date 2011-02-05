@@ -51,7 +51,7 @@ public class CoitemBo implements InfCoitemBo {
 
     @Override
     public Integer createCoitem(Coitem p_coitem) throws Exception {
-        Integer intNextCoSeq = coitemDao.getNextCo_seq();
+        Integer intNextCoSeq = coitemDao.getNextCo_seq(p_coitem.getCoitemPK().getCoId());
         p_coitem.getCoitemPK().setCoSeq(intNextCoSeq);
 
         p_coitem.setUdate(DateUtil.getDate());

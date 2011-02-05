@@ -60,8 +60,7 @@
     </managed-bean>
     <managed-bean>
         <managed-bean-name>prBean</managed-bean-name>
-        <managed-bean-class>simplemrp.mbean.po.PurchaseRequisitionBean</managed-bean-class>
-
+        <managed-bean-class>simplemrp.mbean.po.PrBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
     <managed-bean>
@@ -135,5 +134,39 @@
         <managed-bean-name>workcenterBean</managed-bean-name>
         <managed-bean-class>simplemrp.mbean.master.WorkcenterBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>poitemBean</managed-bean-name>
+        <managed-bean-class>simplemrp.mbean.po.PoitemBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>p_poId</property-name>
+            <value>#{param.p_poId}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>p_poSeq</property-name>
+            <value>#{param.p_poSeq}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>p_mode</property-name>
+            <value>#{param.p_mode}</value>
+        </managed-property>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>pritemBean</managed-bean-name>
+        <managed-bean-class>simplemrp.mbean.po.PritemBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>p_prId</property-name>
+            <value>#{param.p_prId}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>p_prSeq</property-name>
+            <value>#{param.p_prSeq}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>p_mode</property-name>
+            <value>#{param.p_mode}</value>
+        </managed-property>
     </managed-bean>
 </faces-config>

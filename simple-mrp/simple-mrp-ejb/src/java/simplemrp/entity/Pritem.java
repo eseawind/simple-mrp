@@ -45,11 +45,13 @@ public class Pritem implements Serializable {
     @Column(name = "UDATE")
     @Temporal(TemporalType.DATE)
     private Date udate;
+    @Column(name = "CUSER")
+    private String cuser;
+    @Column(name = "CDATE")
+    @Temporal(TemporalType.DATE)
+    private Date cdate;
     @OneToMany(mappedBy = "pritem", fetch = FetchType.LAZY)
     private Collection<Poitem> poitemCollection;
-    @JoinColumn(name = "VEND_ID", referencedColumnName = "VEND_ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Vendor vendor;
     @JoinColumn(name = "PR_ID", referencedColumnName = "PR_ID", insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Pr pr;
@@ -116,20 +118,28 @@ public class Pritem implements Serializable {
         this.udate = udate;
     }
 
+    public Date getCdate() {
+        return cdate;
+    }
+
+    public void setCdate(Date cdate) {
+        this.cdate = cdate;
+    }
+
+    public String getCuser() {
+        return cuser;
+    }
+
+    public void setCuser(String cuser) {
+        this.cuser = cuser;
+    }
+
     public Collection<Poitem> getPoitemCollection() {
         return poitemCollection;
     }
 
     public void setPoitemCollection(Collection<Poitem> poitemCollection) {
         this.poitemCollection = poitemCollection;
-    }
-
-    public Vendor getVendor() {
-        return vendor;
-    }
-
-    public void setVendor(Vendor vendor) {
-        this.vendor = vendor;
     }
 
     public Pr getPr() {
