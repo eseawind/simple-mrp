@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package simplemrp.facade.bean;
 
 import java.util.Collection;
@@ -43,8 +42,9 @@ import simplemrp.util.BindingName;
  *
  * @author Golf
  */
-@Stateless (mappedName=BindingName.MaFacadeRemote)
+@Stateless(mappedName = BindingName.MaFacadeRemote)
 public class MaFacade implements MaFacadeRemote {
+
     @EJB
     private InfCountryBo countryBo;
     @EJB
@@ -67,8 +67,7 @@ public class MaFacade implements MaFacadeRemote {
     private InfWorkcenterBo workcenterBo;
     @EJB
     private InfTermBo termBo;
-
-     @EJB
+    @EJB
     private InfWhseBo whseBo;
     @EJB
     private InfUomBo uomBo;
@@ -155,7 +154,7 @@ public class MaFacade implements MaFacadeRemote {
         return termBo.getListTerm();
     }
 
-     @Override
+    @Override
     public List<Uom> searchUom(String p_strUom) {
         return uomBo.searchUom(p_strUom);
     }
@@ -164,14 +163,15 @@ public class MaFacade implements MaFacadeRemote {
     public Uom getUom(String p_strUom) throws Exception {
         return uomBo.getUom(p_strUom);
     }
- @Override
+
+    @Override
     public String createUom(Uom p_uom) throws Exception {
         return uomBo.createUom(p_uom);
     }
 
     @Override
     public void editUom(Uom p_uom) throws Exception {
-       uomBo.editUom(p_uom);
+        uomBo.editUom(p_uom);
     }
 
     @Override
@@ -179,7 +179,7 @@ public class MaFacade implements MaFacadeRemote {
         uomBo.removeUom(p_uom);
     }
 
-      @Override
+    @Override
     public List<Product> searchProduct(String p_strProduct) {
         return productBo.searchProduct(p_strProduct);
     }
@@ -188,27 +188,28 @@ public class MaFacade implements MaFacadeRemote {
     public Product getProduct(String p_strProduct) throws Exception {
         return productBo.getProduct(p_strProduct);
     }
- @Override
+
+    @Override
     public String createProduct(Product p_product) throws Exception {
         return productBo.createProduct(p_product);
     }
 
     @Override
     public void editProduct(Product p_product) throws Exception {
-       productBo.editProduct(p_product);
+        productBo.editProduct(p_product);
     }
 
     @Override
     public void deleteProduct(Product p_product) throws Exception {
         productBo.removeProduct(p_product);
     }
-     @Override
+
+    @Override
     public List<Whse> getListWhse() throws Exception {
         return whseBo.getListWhse();
     }
 
-
-   @Override
+    @Override
     public List<Whse> searchWhse(String p_strWhse) {
         return whseBo.searchWhse(p_strWhse);
     }
@@ -216,21 +217,24 @@ public class MaFacade implements MaFacadeRemote {
     @Override
     public Whse getWhse(String p_strWhse) throws Exception {
         Whse whse = whseBo.getWhse(p_strWhse);
-        Collection<Loc> lsLoc = whse.getLocCollection();
-        //Lazy load Location in Whse
-        if(lsLoc!=null){
-            lsLoc.toString();
+        if (whse != null) {
+            Collection<Loc> lsLoc = whse.getLocCollection();
+            //Lazy load Location in Whse
+            if (lsLoc != null) {
+                lsLoc.toString();
+            }
         }
-        return whseBo.getWhse(p_strWhse);
+        return whse;
     }
- @Override
+
+    @Override
     public String createWhse(Whse p_whse) throws Exception {
         return whseBo.createWhse(p_whse);
     }
 
     @Override
     public void editWhse(Whse p_whse) throws Exception {
-       whseBo.editWhse(p_whse);
+        whseBo.editWhse(p_whse);
     }
 
     @Override
@@ -238,13 +242,12 @@ public class MaFacade implements MaFacadeRemote {
         whseBo.removeWhse(p_whse);
     }
 
-      @Override
+    @Override
     public List<Workcenter> getListWorkcenter() throws Exception {
         return workcenterBo.getListWorkcenter();
     }
 
-
-   @Override
+    @Override
     public List<Workcenter> searchWorkcenter(String p_strWorkcenter) {
         return workcenterBo.searchWorkcenter(p_strWorkcenter);
     }
@@ -253,14 +256,15 @@ public class MaFacade implements MaFacadeRemote {
     public Workcenter getWorkcenter(String p_strWorkcenter) throws Exception {
         return workcenterBo.getWorkcenter(p_strWorkcenter);
     }
- @Override
+
+    @Override
     public String createWorkcenter(Workcenter p_workcenter) throws Exception {
         return workcenterBo.createWorkcenter(p_workcenter);
     }
 
     @Override
     public void editWorkcenter(Workcenter p_workcenter) throws Exception {
-       workcenterBo.editWorkcenter(p_workcenter);
+        workcenterBo.editWorkcenter(p_workcenter);
     }
 
     @Override

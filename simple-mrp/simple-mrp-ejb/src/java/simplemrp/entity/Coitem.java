@@ -32,9 +32,9 @@ public class Coitem implements Serializable {
     @EmbeddedId
     protected CoitemPK coitemPK;
     @Column(name = "QTY")
-    private Integer qty;
+    private Double qty;
     @Column(name = "QTYSHIP")
-    private Integer qtyship;
+    private Double qtyship;
     @Column(name = "PRICE")
     private Double price;
     @Column(name = "UUSER")
@@ -76,19 +76,19 @@ public class Coitem implements Serializable {
         this.coitemPK = coitemPK;
     }
 
-    public Integer getQty() {
+    public Double getQty() {
         return qty;
     }
 
-    public void setQty(Integer qty) {
+    public void setQty(Double qty) {
         this.qty = qty;
     }
 
-    public Integer getQtyship() {
+    public Double getQtyship() {
         return qtyship;
     }
 
-    public void setQtyship(Integer qtyship) {
+    public void setQtyship(Double qtyship) {
         this.qtyship = qtyship;
     }
 

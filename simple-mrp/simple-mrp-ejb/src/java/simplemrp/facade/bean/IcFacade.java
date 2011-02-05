@@ -10,11 +10,14 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import simplemrp.bo.InfCoBo;
 import simplemrp.bo.InfItemBo;
+import simplemrp.bo.InfItemLocationBo;
 import simplemrp.dao.InfItemlocDao;
 import simplemrp.entity.Co;
 import simplemrp.entity.Coitem;
 import simplemrp.entity.Itemloc;
+import simplemrp.entity.ItemlocPK;
 import simplemrp.facade.IcFacadeRemote;
+import simplemrp.mbean.ic.to.CoOrderItemTO;
 import simplemrp.util.BindingName;
 
 /**
@@ -28,6 +31,8 @@ public class IcFacade implements IcFacadeRemote {
     private InfItemBo infItemBo;
     @EJB
     private InfCoBo infCoBo;
+    @EJB
+    private InfItemLocationBo infItemLocationBo;
 
     @Override
     public List<Itemloc> searchItemLocation(String warehouse, String location) {
@@ -52,5 +57,16 @@ public class IcFacade implements IcFacadeRemote {
             }
         }
         return co;
+    }
+
+    @Override
+    public Itemloc findItemLocation(String whseId, String locationId, String itemId) {
+        ItemlocPK pk = new ItemlocPK(whseId, locationId, itemId);
+        return infItemLocationBo.findItemLocation(pk);
+    }
+
+    @Override
+    public void saveCoShipped(String coId, Date tranDate, List<CoOrderItemTO> lsCoOrderItem) {
+        System.out.println("Save co shipped coid="+coId);
     }
 }

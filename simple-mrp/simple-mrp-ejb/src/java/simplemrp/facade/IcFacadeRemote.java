@@ -11,6 +11,7 @@ import javax.ejb.Remote;
 import simplemrp.entity.Co;
 import simplemrp.entity.Coitem;
 import simplemrp.entity.Itemloc;
+import simplemrp.mbean.ic.to.CoOrderItemTO;
 
 /**
  *
@@ -24,4 +25,8 @@ public interface IcFacadeRemote {
     public void saveCo(Co co);
     //Lazy load coitem
     public Co findCo(String coId) throws Exception;
+    public void saveCoShipped(String coId,Date tranDate,List<CoOrderItemTO> lsCoOrderItem);
+
+    //Item Location
+    public Itemloc findItemLocation(String whseId,String locationId,String itemId);
 }
