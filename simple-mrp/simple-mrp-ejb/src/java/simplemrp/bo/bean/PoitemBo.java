@@ -32,8 +32,12 @@ public class PoitemBo implements InfPoitemBo {
 
         for(int i = 0; i < lsPoitem.size(); i++) {
             Poitem poitem = lsPoitem.get(i);
-            poitem.getPostat().toString();
-            poitem.getItem().toString();
+            if(poitem.getPostat()!=null){
+                poitem.getPostat().toString();
+            }
+            if(poitem.getItem()!=null){
+                poitem.getItem().toString();
+            }
 
             if(poitem.getVendor() != null) {
                poitem.getVendor().toString();

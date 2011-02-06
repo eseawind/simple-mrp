@@ -71,7 +71,7 @@ public class Poitem implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Po po;
     @JoinColumn(name = "ITEM", referencedColumnName = "ITEM")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Item item;
 
     public Poitem() {

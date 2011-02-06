@@ -44,7 +44,9 @@ public class MpsDao extends AbstractDao<Mps> implements InfMpsDao {
         String sql = "select max(o.mpsId) from Mps o";
         Query q = em.createQuery(sql);
         String strLastId = (String)q.getSingleResult();
-
+        if(strLastId==null){
+            return "0000001";
+        }
         Integer intNext = new Integer(strLastId).intValue() + 1;
 
         String strNextCust_id = "0000000" + intNext;
