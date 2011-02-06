@@ -7,6 +7,7 @@ package simplemrp.mbean.master;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 import org.sit.common.utils.StringUtil;
 import simplemrp.entity.Whse;
 import simplemrp.facade.MaFacadeRemote;
@@ -31,6 +32,7 @@ public class WhseBean extends WhseAttr{
         setDisbSave(true);
         setDisbDel(true);
         setDisbWhse(false);
+      
     }
 
 
