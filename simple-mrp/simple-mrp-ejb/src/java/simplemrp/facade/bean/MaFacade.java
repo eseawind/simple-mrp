@@ -20,6 +20,7 @@ import simplemrp.bo.InfTaxBo;
 import simplemrp.bo.InfTermBo;
 import simplemrp.bo.InfUomBo;
 import simplemrp.bo.InfWhseBo;
+import simplemrp.bo.InfLocBo;
 import simplemrp.bo.InfWorkcenterBo;
 import simplemrp.entity.Country;
 import simplemrp.entity.District;
@@ -35,6 +36,8 @@ import simplemrp.entity.Term;
 import simplemrp.entity.Uom;
 import simplemrp.entity.Workcenter;
 import simplemrp.entity.Whse;
+import simplemrp.entity.Loc;
+import simplemrp.entity.LocPK;
 import simplemrp.facade.MaFacadeRemote;
 import simplemrp.util.BindingName;
 
@@ -69,6 +72,8 @@ public class MaFacade implements MaFacadeRemote {
     private InfTermBo termBo;
     @EJB
     private InfWhseBo whseBo;
+      @EJB
+    private InfLocBo locBo;
     @EJB
     private InfUomBo uomBo;
 
@@ -271,4 +276,35 @@ public class MaFacade implements MaFacadeRemote {
     public void deleteWorkcenter(Workcenter p_workcenter) throws Exception {
         workcenterBo.removeWorkcenter(p_workcenter);
     }
+
+
+    
+
+
+   @Override
+    public List<Loc> searchLoc(String p_strLoc) {
+        return locBo.searchLoc(p_strLoc);
+    }
+
+    @Override
+    public Loc getLoc(LocPK p_locPK) throws Exception {
+        return locBo.getLoc(p_locPK);
+
+
+    }
+ @Override
+    public void createLoc(Loc p_loc) throws Exception {
+        locBo.createLoc(p_loc);
+    }
+
+    @Override
+    public void editLoc(Loc p_loc) throws Exception {
+       locBo.editLoc(p_loc);
+    }
+
+    @Override
+    public void deleteLoc(Loc p_loc) throws Exception {
+        locBo.removeLoc(p_loc);
+    }
+
 }

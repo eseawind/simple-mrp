@@ -8,6 +8,7 @@ package simplemrp.dao;
 import java.util.List;
 import javax.ejb.Local;
 import simplemrp.entity.Loc;
+import simplemrp.entity.LocPK;
 
 /**
  *
@@ -29,5 +30,7 @@ public interface InfLocDao {
     List<Loc> findRange(int[] range);
 
     int count();
+     public List<Loc> findByName(String p_strKeyword);
 
+   
 }
