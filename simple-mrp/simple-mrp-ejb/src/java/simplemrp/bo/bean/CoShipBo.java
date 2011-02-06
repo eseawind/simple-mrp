@@ -77,7 +77,7 @@ public class CoShipBo implements InfCoShipBo {
 
     private void updateQtyShipped(CoitemPK pk, Double qtyToBeShip) {
         Coitem coitem = coItemDao.find(pk);
-        Double currentShipped = coitem.getQtyship();
+        Double currentShipped = coitem.getQtyship()==null?0:coitem.getQtyship();
         Double afterPlusShip = currentShipped + qtyToBeShip;
         coitem.setQtyship(afterPlusShip);
         coItemDao.edit(coitem);

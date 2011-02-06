@@ -28,7 +28,16 @@ public class ForecastBo implements InfForecastBo {
 
     @Override
     public List<Forecast> findByForecastDate(Date forecaseDate) {
-        return forecastDao.findByForecastDate(forecaseDate);
+        List<Forecast> results = forecastDao.findByForecastDate(forecaseDate);
+        //LAZYLOAD
+        if(results!=null){
+            for(Forecast f:results){
+                if(f.getItem1()!=null){
+                    f.getItem1().toString();
+                }
+            }
+        }
+        return results;
     }
 
     @Override
