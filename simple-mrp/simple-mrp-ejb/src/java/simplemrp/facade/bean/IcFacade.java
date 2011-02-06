@@ -9,6 +9,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import simplemrp.bo.InfCoBo;
+import simplemrp.bo.InfCoShipBo;
 import simplemrp.bo.InfItemBo;
 import simplemrp.bo.InfItemLocationBo;
 import simplemrp.dao.InfItemlocDao;
@@ -33,6 +34,8 @@ public class IcFacade implements IcFacadeRemote {
     private InfCoBo infCoBo;
     @EJB
     private InfItemLocationBo infItemLocationBo;
+    @EJB
+    private InfCoShipBo infCoShipBo;
 
     @Override
     public List<Itemloc> searchItemLocation(String warehouse, String location) {
@@ -66,7 +69,7 @@ public class IcFacade implements IcFacadeRemote {
     }
 
     @Override
-    public void saveCoShipped(String coId, Date tranDate, List<CoOrderItemTO> lsCoOrderItem) {
-        System.out.println("Save co shipped coid="+coId);
+    public void saveCoShipping(String coId, Date tranDate, List<CoOrderItemTO> lsCoOrderItem) {
+        infCoShipBo.saveCoShipping(coId,tranDate,lsCoOrderItem);
     }
 }

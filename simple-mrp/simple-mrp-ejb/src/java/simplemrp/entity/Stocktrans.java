@@ -39,7 +39,7 @@ public class Stocktrans implements Serializable {
     @Column(name = "TRANS_ID")
     private Integer transId;
     @Column(name = "TRANS_TYPE")
-    private String transType;
+    private Character transType;
     @Basic(optional = false)
     @Column(name = "TRANS_DATE")
     @Temporal(TemporalType.DATE)
@@ -84,11 +84,11 @@ public class Stocktrans implements Serializable {
         this.transId = transId;
     }
 
-    public String getTransType() {
+    public Character getTransType() {
         return transType;
     }
 
-    public void setTransType(String transType) {
+    public void setTransType(Character transType) {
         this.transType = transType;
     }
 

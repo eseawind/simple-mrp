@@ -25,7 +25,7 @@ public interface IcFacadeRemote {
     public void saveCo(Co co);
     //Lazy load coitem
     public Co findCo(String coId) throws Exception;
-    public void saveCoShipped(String coId,Date tranDate,List<CoOrderItemTO> lsCoOrderItem);
+    public void saveCoShipping(String coId,Date tranDate,List<CoOrderItemTO> lsCoOrderItem);
 
     //Item Location
     public Itemloc findItemLocation(String whseId,String locationId,String itemId);

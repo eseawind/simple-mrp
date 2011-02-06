@@ -33,7 +33,7 @@ public class ForecastDao extends AbstractDao<Forecast> implements InfForecastDao
 
     @Override
     public List<Forecast> findByForecastDate(Date forecastDate) {
-        String sql = "SELECT o FROM Forecast o WHERE o.forecastDate=:forecastDate";
+        String sql = "SELECT o FROM Forecast o WHERE o.fcstdate=:forecastDate";
         Query q = em.createQuery(sql);
         q.setParameter("forecastDate", forecastDate);
         return q.getResultList();

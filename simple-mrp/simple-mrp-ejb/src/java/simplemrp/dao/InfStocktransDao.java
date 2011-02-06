@@ -29,5 +29,6 @@ public interface InfStocktransDao {
     List<Stocktrans> findRange(int[] range);
 
     int count();
+    Integer getNextPK();
 
 }
