@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package simplemrp.mbean.ic;
 
 import java.util.ArrayList;
@@ -23,72 +22,80 @@ import simplemrp.util.EJBLookup;
  * @author wisaruthkea
  */
 public class CustOrderShippingBean extends CustOrderShippingAttr {
-    private IcFacadeRemote ic = (IcFacadeRemote)EJBLookup.getEJBInstance(BindingName.IcFacadeRemote);
-    private MaFacadeRemote ma = (MaFacadeRemote)EJBLookup.getEJBInstance(BindingName.MaFacadeRemote);
-    public CustOrderShippingBean() throws Exception{
+
+    private IcFacadeRemote ic = (IcFacadeRemote) EJBLookup.getEJBInstance(BindingName.IcFacadeRemote);
+    private MaFacadeRemote ma = (MaFacadeRemote) EJBLookup.getEJBInstance(BindingName.MaFacadeRemote);
+
+    public CustOrderShippingBean() throws Exception {
         super();
         init();
     }
-    private void init() throws Exception{
+
+    private void init() throws Exception {
         List<Whse> results = ma.getListWhse();
-        for(Whse w:results){
+        for (Whse w : results) {
             SelectItem item = new SelectItem(w.getWhse(), w.getDescription());
             super.getLsWarehouse().add(item);
         }
 
     }
-    
-     //operation
 
-    public void doSave(ActionEvent e){
-        log.info("save coid="+super.getSearchCo());
+    //operation
+    public void doSave(ActionEvent e) {
+        log.info("save coid=" + super.getSearchCo());
         CoOrderItemTO to = null;
         List<CoOrderItemTO> lsTo = new ArrayList<CoOrderItemTO>();
-        for(CoShipItemBean item:super.getLsCoShipItemBean()){
+        for (CoShipItemBean item : super.getLsCoShipItemBean()) {
             to = new CoOrderItemTO();
+            to.setCoSeq(item.getCoSeq());
             to.setItemId(item.getItemId());
             to.setWareHouseId(item.getSelectedWarehouse());
             to.setLocationId(item.getSelectedLocation());
             to.setToBeShip(item.getToBeShip());
             lsTo.add(to);
         }
-        ic.saveCoShipped(super.getSearchCo(),super.getTransactionDate(),lsTo);
-        message("Save CO ID="+super.getSearchCo()+" Success.");
+        try {
+            ic.saveCoShipping(super.getSearchCo(), super.getTransactionDate(), lsTo);
+            message("Save CO ID=" + super.getSearchCo() + " Success.");
+        } catch (Exception ex) {
+            message("Save CO ID=" + super.getSearchCo() + " Fail. cause " + ex.getMessage());
+        }
+
     }
-    public void doSearch(ActionEvent e){
-        log.info("Search CO Shipping input="+super.getSearchCo());
+
+    public void doSearch(ActionEvent e) {
+        log.info("Search CO Shipping input=" + super.getSearchCo());
         clear();
-        try{
+        try {
             Co results = ic.findCo(super.getSearchCo());
-            if(results==null){
-                message("CO id="+super.getSearchCo()+" not found.");
+            if (results == null) {
+                message("CO id=" + super.getSearchCo() + " not found.");
                 return;
             }
             fillValue(results);
-        }catch(Exception ex){
-            message("find co fail cause,"+ex.getMessage());
+        } catch (Exception ex) {
+            message("find co fail cause," + ex.getMessage());
         }
     }
-    
-    private void clear(){
+
+    private void clear() {
         super.setCust(null);
         super.setTransactionDate(null);
         super.getLsCoShipItemBean().clear();
     }
-    
-    private void fillValue(Co co){
-        super.setCust(co.getCustomer().getCustId()+":"+co.getCustomer().getName());
-        
+
+    private void fillValue(Co co) {
+        super.setCust(co.getCustomer().getCustId() + ":" + co.getCustomer().getName());
+
         CoShipItemBean cib = null;
-        for(Coitem coitem:co.getCoitemCollection()){
+        for (Coitem coitem : co.getCoitemCollection()) {
             cib = new CoShipItemBean();
+            cib.setCoSeq(coitem.getCoitemPK().getCoSeq());
             cib.setItemId(coitem.getItem().getItem());
             cib.setItemDesc(coitem.getItem().getDescription());
             cib.setQtyOrder(coitem.getQty());
             cib.setQtyShipped(coitem.getQtyship());
-            
             super.getLsCoShipItemBean().add(cib);
         }
     }
-    
 }

@@ -25,12 +25,13 @@ import simplemrp.util.EJBLookup;
 public class CoShipItemBean extends AbstractManageBean {
     private MaFacadeRemote ma = (MaFacadeRemote) EJBLookup.getEJBInstance(BindingName.MaFacadeRemote);
     private IcFacadeRemote ic = (IcFacadeRemote)EJBLookup.getEJBInstance(BindingName.IcFacadeRemote);
+    private Integer coSeq;
     private String itemId;
     private String itemDesc;
     private String selectedWarehouse;
     private String selectedLocation;
     private Double qtyOrder;
-    private Double qtyShipped;
+    private Double qtyShipped=0.0;
     private Double maxToBeShip=0.0;
     private Double toBeShip=0.0;
     private Double onHand=0.0;
@@ -67,10 +68,11 @@ public class CoShipItemBean extends AbstractManageBean {
         Itemloc itemloc = ic.findItemLocation(this.selectedWarehouse, this.selectedLocation, this.itemId);
         if(itemloc!=null){
             this.onHand = itemloc.getOnhand();
-            if(this.onHand<this.qtyOrder){
+            this.qtyShipped = (this.qtyShipped!=null)?this.qtyShipped:0;
+            if((this.qtyOrder-this.qtyShipped)>this.onHand){
                 this.setMaxToBeShip(this.onHand);
             } else {
-                this.setMaxToBeShip(this.qtyOrder);
+                this.setMaxToBeShip(this.qtyOrder-this.qtyShipped);
             }
         } else {
             this.toBeShip=0.0;
@@ -203,5 +205,12 @@ public class CoShipItemBean extends AbstractManageBean {
      */
     public void setMaxToBeShip(Double maxToBeShip) {
         this.maxToBeShip = maxToBeShip;
+    }
+
+    public void setCoSeq(Integer coSeq) {
+        this.coSeq = coSeq;
+    }
+    public Integer getCoSeq(){
+        return this.coSeq;
     }
 }
