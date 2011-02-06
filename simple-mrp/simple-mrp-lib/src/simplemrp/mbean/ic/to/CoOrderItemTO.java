@@ -12,6 +12,7 @@ import java.io.Serializable;
  * @author wisaruthkea
  */
 public class CoOrderItemTO implements Serializable {
+    private Integer coSeq;
     private String itemId;
     private String wareHouseId;
     private String locationId;
@@ -71,5 +72,12 @@ public class CoOrderItemTO implements Serializable {
      */
     public void setToBeShip(Double toBeShip) {
         this.toBeShip = toBeShip;
+    }
+
+    public void setCoSeq(Integer coSeq) {
+       this.coSeq = coSeq;
+    }
+    public Integer getCoSeq(){
+        return this.coSeq;
     }
 }
