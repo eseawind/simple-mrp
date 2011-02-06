@@ -2,10 +2,8 @@ package simplemrp.mbean.co;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.component.html.HtmlForm;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
-import org.sit.common.utils.StringUtil;
 import simplemrp.entity.Co_stat;
 import simplemrp.entity.Coitem;
 import simplemrp.entity.CoitemPK;

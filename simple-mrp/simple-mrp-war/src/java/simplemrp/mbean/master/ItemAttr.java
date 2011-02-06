@@ -16,20 +16,6 @@ import simplemrp.mbean.AbstractManageBean;
  * @author Golf
  */
 public abstract class ItemAttr extends AbstractManageBean {
-//`ITEM` varchar(35) NOT NULL,
-//`DESCRIPTION` varchar(70) DEFAULT NULL,
-//`PRODUCT` varchar(30) NOT NULL,
-//`SOURCE` varchar(1) NOT NULL,
-//`STAT` varchar(1) NOT NULL,
-//`WARRANTY` int(11) DEFAULT NULL,
-//`UOM` varchar(5) NOT NULL,
-//`LEADTIME` int(11) DEFAULT NULL,
-//`SAFETYSTOCK` double(8,2) DEFAULT NULL,
-//`CDATE` date NOT NULL,
-//`CUSER` varchar(20) NOT NULL,
-//`UDATE` date NOT NULL,
-//`UUSER` varchar(20) NOT NULL,
-    
     private String item;
     private String description;
     private String product;

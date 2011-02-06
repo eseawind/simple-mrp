@@ -132,9 +132,9 @@
     </managed-bean>
      <managed-bean>
         <managed-bean-name>workcenterBean</managed-bean-name>
-        <managed-bean-class>simplemrp.mbean.master.WorkcenterBean</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
+        <managed-bean-class>simplemrp.mbean.pp.WorkcenterBean</managed-bean-class>
+
+        <managed-bean-scope>request</managed-bean-scope></managed-bean>
      <managed-bean>
         <managed-bean-name>locationBean</managed-bean-name>
         <managed-bean-class>simplemrp.mbean.master.LocBean</managed-bean-class>
@@ -173,5 +173,10 @@
             <property-name>p_mode</property-name>
             <value>#{param.p_mode}</value>
         </managed-property>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>bomBean</managed-bean-name>
+        <managed-bean-class>simplemrp.mbean.pp.BomBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 </faces-config>

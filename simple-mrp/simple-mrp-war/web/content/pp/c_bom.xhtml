@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="../../templates/template.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
@@ -11,8 +9,88 @@ and open the template in the editor.
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html">
-    <ui:define name="programname">Bill Of Materials</ui:define>
+    <ui:define name="programname">Bill of Materials</ui:define>
     <ui:define name="content">
-        //Undercronstruction
+        <script type="text/javascript">
+            function selectItemopr(p_item, p_opr) {
+                var url = "c_itemopr.jsf?p_mode=EDIT&amp;p_item="+p_item+"&amp;p_coSeq="+p_opr;
+                popup(url);
+            }
+            function addOperation(p_item) {
+                var url = "c_itemopr.jsf?p_mode=NEW&amp;p_item="+p_item;
+                popup(url);
+            }
+        </script>
+        <h:form>
+            <a4j:jsFunction name="doCheckBom" actionListener="#{bomBean.doCheckItem}" reRender="editPanel"></a4j:jsFunction>
+            <a4j:keepAlive beanName="bomBean" />
+
+            <h:panelGrid columns="2" columnClasses="left_panel,right_panel" width="100%">
+                <rich:panel id="searchPanel" styleClass="noborder">
+                    <h:panelGrid columns="3">
+                        <h:outputLabel value="Item"/>
+                        <h:inputText value="#{bomBean.searchItem}" size="25">
+                            <a4j:support event="onkeyup" actionListener="#{bomBean.doSearch}"
+                                         reRender="itemTable"
+                                         onsubmit="if(notEnter(event))return false"/>
+                        </h:inputText>
+                        <rich:spacer style="display:block;"></rich:spacer>
+                        <h:outputLabel value="Description"/>
+                        <h:inputText value="#{bomBean.searchDesc}" size="25">
+                            <a4j:support event="onkeyup" actionListener="#{bomBean.doSearch}"
+                                         reRender="itemTable"
+                                         onsubmit="if(notEnter(event))return false"/>
+                        </h:inputText>
+                        <a4j:commandButton value="Search" actionListener="#{bomBean.doSearch}" reRender="itemTable"/>
+                    </h:panelGrid>
+                    <rich:dataTable id="itemTable" value="#{bomBean.lsItem}" var="item" width="400px">
+                        <rich:column sortBy="#{item.item}">
+                            <f:facet name="header">
+                                <h:outputText value="Item"/>
+                            </f:facet>
+                            <a4j:commandLink value="#{item.item}" actionListener="#{bomBean.doSelect}" reRender="editPanel">
+                                <f:param name="p_item" value="#{item.item}"/>
+                            </a4j:commandLink>
+                        </rich:column>
+
+                        <rich:column sortBy="#{item.description}">
+                            <f:facet name="header">
+                                <h:outputText value="Description"/>
+                            </f:facet>
+                            <h:outputText value="#{item.description}"/>
+                        </rich:column>
+                    </rich:dataTable>
+                </rich:panel>
+
+                <rich:panel id="editPanel" styleClass="noborder">
+                    <a4j:commandButton value="Add Operation" onclick="addOperation('#{bomBean.item}')"/>
+                    <rich:spacer width="4px"/>
+                    <a4j:commandButton value="Clear" actionListener="#{bomBean.doClear}" reRender="editPanel"/>
+
+                    <h:panelGrid columns="2" width="350px">
+                        <h:outputLabel value="Item"/>
+                        <h:inputText value="#{bomBean.item}" size="35" maxlength="35">
+                            <a4j:support event="onkeyup" actionListener="#{bomBean.doCheckItem}"
+                                         reRender="editPanel"
+                                         onsubmit="if(notEnter(event))return false"/>
+                        </h:inputText>
+
+                        <h:outputLabel value="Description"/>
+                        <h:outputLabel value="#{bomBean.itemDesc}"/>
+                    </h:panelGrid>
+                    <br/>
+                    
+                    <rich:dataTable id="bomTable" value="#{bomBean.lsItemopr}" var="itemopr" width="400px">
+                        <rich:column styleClass="alignCenter" width="10%">
+                            <f:facet name="header">
+                                <h:outputText value="Operation"/>
+                            </f:facet>
+                            <h:outputText value="#{itemopr.itemoprPK.opr}"/>
+                        </rich:column>
+                    </rich:dataTable>
+                    <br/>
+                </rich:panel>
+            </h:panelGrid>
+        </h:form>
     </ui:define>
 </ui:composition>

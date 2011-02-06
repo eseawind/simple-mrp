@@ -30,4 +30,8 @@ public interface InfItemoprDao {
 
     int count();
 
+    public List<Itemopr> findByItem(String p_strItem);
+
+    public Integer getNextOpr(String p_strItem);
+
 }

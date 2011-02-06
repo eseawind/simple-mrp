@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package simplemrp.mbean.master;
+package simplemrp.mbean.pp;
 import simplemrp.mbean.AbstractManageBean;
 /**
  *

@@ -32,6 +32,7 @@
                         </h:inputText>
                         <a4j:commandButton value="Search" actionListener="#{itemBean.doSearch}" reRender="itemTable"/>
                     </h:panelGrid>
+
                     <rich:dataTable id="itemTable" value="#{itemBean.lsItem}" var="item" width="400px">
                         <rich:column sortBy="#{item.item}">
                             <f:facet name="header">

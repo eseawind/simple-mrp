@@ -20,9 +20,9 @@ and open the template in the editor.
             <h:panelGrid columns="2" columnClasses="left_panel,right_panel" width="100%">
                 <rich:panel id="searchPanel" styleClass="noborder">
                     <h:panelGrid columns="3">
-                        <h:outputLabel value="workcenter Name"/>
+                        <h:outputLabel value="Description"/>
                         <h:inputText value="#{workcenterBean.keyword}">
-                            <a4j:support event="onkeyup" actionListener="#{workcenterBean}"
+                            <a4j:support event="onkeyup" actionListener="#{workcenterBean.doSearch}"
                                          reRender="workcenterTable"
                                          onsubmit="if(notEnter(event))return false"/>
                         </h:inputText>
@@ -67,7 +67,7 @@ and open the template in the editor.
 
                         </h:inputText>
 
-                        <h:outputLabel value="DESCRIPTION"/>
+                        <h:outputLabel value="Description"/>
                         <h:inputText value="#{workcenterBean.description}" size="50" maxlength="100"/>
 
 

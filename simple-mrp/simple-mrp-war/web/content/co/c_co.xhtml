@@ -178,7 +178,7 @@
                             <h:outputText value="#{coitem.qtyship}"/>
                         </rich:column>
                         <rich:column width="5%">
-                            <a4j:commandButton value="Edit" onclick="selectCoitem('#{coitem.coitemPK.coId}', #{coitem.coitemPK.coSeq})"></a4j:commandButton>
+                            <a4j:commandButton value="Edit" onclick="selectCoitem('#{coitem.coitemPK.coId}', #{coitem.coitemPK.coSeq})"/>
                         </rich:column>
                         <rich:column width="5%">
                             <a4j:commandButton value="Del." actionListener="#{coBean.doDeleteCoitem}" reRender="coitemTable">

@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package simplemrp.mbean.master;
+package simplemrp.mbean.pp;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.event.ActionEvent;

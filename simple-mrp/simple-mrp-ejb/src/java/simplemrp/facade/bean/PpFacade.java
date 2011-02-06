@@ -4,7 +4,6 @@
  */
 package simplemrp.facade.bean;
 
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,12 +14,15 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityExistsException;
 import simplemrp.bo.InfForecastBo;
+import simplemrp.bo.InfItemoprBo;
 import simplemrp.bo.InfJobBo;
 import simplemrp.bo.InfMpsBo;
 import simplemrp.dao.InfMpsDao;
 import simplemrp.dao.InfMps_statDao;
 import simplemrp.dao.InfMps_typeDao;
 import simplemrp.entity.Forecast;
+import simplemrp.entity.Itemopr;
+import simplemrp.entity.ItemoprPK;
 import simplemrp.entity.Job;
 import simplemrp.entity.Job_stat;
 import simplemrp.entity.Mps;
@@ -48,7 +50,8 @@ public class PpFacade implements PpFacadeRemote {
     private InfMps_statDao mpsStatDao;
     @EJB
     private InfMps_typeDao mpsTypeDao;
-
+    @EJB
+    private InfItemoprBo itemoprBo;
 
     @Override
     public Job getJob(String inputJobId) {
@@ -63,7 +66,7 @@ public class PpFacade implements PpFacadeRemote {
     @Override
     public void removeJob(String jobid) {
         Job job = jobBo.getJob(jobid);
-        if (job != null) {
+        if(job != null) {
             jobBo.removeJob(job);
         }
     }
@@ -98,7 +101,7 @@ public class PpFacade implements PpFacadeRemote {
 
     @Override
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-    public String createForecase(Forecast forecase){
+    public String createForecase(Forecast forecase) {
         String result = "";
 
         result = forecastBo.create(forecase);
@@ -160,5 +163,30 @@ public class PpFacade implements PpFacadeRemote {
     @Override
     public List<Mps_type> listMpsType() {
         return mpsTypeDao.findAll();
+    }
+
+    @Override
+    public List<Itemopr> getItemoprByItem(String p_strItem) throws Exception {
+        return itemoprBo.getItemoprByItem(p_strItem);
+    }
+
+    @Override
+    public Itemopr getItemopr(ItemoprPK p_pkItemopr) throws Exception {
+        return itemoprBo.getItemopr(p_pkItemopr);
+    }
+
+    @Override
+    public Integer createItemopr(Itemopr p_itemopr) throws Exception {
+        return itemoprBo.createItemopr(p_itemopr);
+    }
+
+    @Override
+    public void editItemopr(Itemopr p_itemopr) throws Exception {
+        itemoprBo.editItemopr(p_itemopr);
+    }
+
+    @Override
+    public void deleteItemopr(Itemopr p_itemopr) throws Exception {
+        itemoprBo.removeItemopr(p_itemopr);
     }
 }

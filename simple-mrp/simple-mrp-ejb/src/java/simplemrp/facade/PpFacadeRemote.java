@@ -11,6 +11,8 @@ import javax.ejb.Remote;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import simplemrp.entity.Forecast;
+import simplemrp.entity.Itemopr;
+import simplemrp.entity.ItemoprPK;
 import simplemrp.entity.Job;
 import simplemrp.entity.Job_stat;
 import simplemrp.entity.Mps;
@@ -48,6 +50,11 @@ public interface PpFacadeRemote {
     public void removeMps(String mpsId);
     public List<Mps_stat> listMpsStat();
     public List<Mps_type> listMpsType();
-    
+
+    public List<Itemopr> getItemoprByItem(String p_strItem) throws Exception;
+    public Itemopr getItemopr(ItemoprPK p_pkItemopr) throws Exception;
+    public Integer createItemopr(Itemopr p_itemopr) throws Exception;
+    public void editItemopr(Itemopr p_itemopr) throws Exception;
+    public void deleteItemopr(Itemopr p_itemopr) throws Exception;
     
 }
