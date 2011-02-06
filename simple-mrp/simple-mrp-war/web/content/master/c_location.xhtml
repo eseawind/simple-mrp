@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+    <ui:define name="programname">Location</ui:define>
+   <ui:define name="content">
+        <h:form>
+
+            <a4j:keepAlive beanName="locationBean" />
+
+            <h:panelGrid columns="2" columnClasses="left_panel,right_panel" width="100%">
+                <rich:panel id="searchPanel" styleClass="noborder">
+                    <h:panelGrid columns="3">
+                        <h:outputLabel value="locationBean Name"/>
+                        <h:inputText value="#{locationBean.keyword}">
+                            <a4j:support event="onkeyup" actionListener="#{locationBean}"
+                                         reRender="locationTable"
+                                         onsubmit="if(notEnter(event))return false"/>
+                        </h:inputText>
+                        <a4j:commandButton value="Search" actionListener="#{locationBean.doSearch}" reRender="locationTable"/>
+                    </h:panelGrid>
+                    <rich:dataTable id="locationTable" value="#{locationBean.lsLoc}" var="item" width="400px">
+                        <rich:column sortBy="#{item.locPK.loc}" styleClass="alignCenter">
+                            <f:facet name="header">
+                                <h:outputText value="Location ID"/>
+                            </f:facet>
+                            <a4j:commandLink value="#{item.locPK.loc}" actionListener="#{locationBean.doSelect}" reRender="editPanel">
+                                <f:param name="p_loc" value="#{item.locPK.loc}"/>
+                                <f:param name="p_whse" value="#{item.locPK.whse}"/>
+                            </a4j:commandLink>
+                        </rich:column>
+                    <rich:column sortBy="#{item.locPK.whse}">
+                            <f:facet name="header">
+                                <h:outputText value="whse"/>
+                            </f:facet>
+                            <h:outputText value="#{item.locPK.whse}"/>
+                        </rich:column>
+                        <rich:column sortBy="#{item.description}">
+                            <f:facet name="header">
+                                <h:outputText value="description"/>
+                            </f:facet>
+                            <h:outputText value="#{item.description}"/>
+                        </rich:column>
+                    </rich:dataTable>
+                </rich:panel>
+
+                <rich:panel id="editPanel" styleClass="noborder">
+                    <h:inputHidden value="#{locationBean.mode}"/>
+                    <a4j:commandButton value="New" actionListener="#{locationBean.doNew}" reRender="editPanel,searchPanel"
+                                       disabled="#{locationBean.disbNew}"/>
+                    <rich:spacer width="4"/>
+                    <a4j:commandButton value="Save" actionListener="#{locationBean.doSave}" reRender="editPanel,searchPanel"
+                                       disabled="#{locationBean.disbSave}"/>
+                    <rich:spacer width="4"/>
+                    <a4j:commandButton value="Delete" actionListener="#{locationBean.doDelete}" reRender="editPanel,searchPanel"
+                                       disabled="#{locationBean.disbDel}"/>
+                    <rich:spacer width="4"/>
+                    <a4j:commandButton value="Clear" actionListener="#{locationBean.doClear}" reRender="editPanel"/>
+
+                    <h:panelGrid columns="2" width="350px">
+
+                    <h:outputLabel value="Warehouse"/>
+                        <h:selectOneMenu value="#{locationBean.whse}">
+                            <f:selectItems value="#{locationBean.lsWhse}"/>
+                        </h:selectOneMenu>
+                    <h:outputLabel value="Location"/>
+                        <h:inputText value="#{locationBean.loc}" size="7" maxlength="7" >
+
+                        </h:inputText>
+
+                        <h:outputLabel value="Description"/>
+                        <h:inputText value="#{locationBean.description}" size="50" maxlength="100"/>
+
+
+                    </h:panelGrid>
+                </rich:panel>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>
