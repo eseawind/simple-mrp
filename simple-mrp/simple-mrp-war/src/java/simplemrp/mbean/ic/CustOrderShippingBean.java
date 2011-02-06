@@ -43,6 +43,10 @@ public class CustOrderShippingBean extends CustOrderShippingAttr {
     //operation
     public void doSave(ActionEvent e) {
         log.info("save coid=" + super.getSearchCo());
+        if(super.getTransactionDate()==null){
+            message("please specify transaction date.");
+            return;
+        }
         CoOrderItemTO to = null;
         List<CoOrderItemTO> lsTo = new ArrayList<CoOrderItemTO>();
         for (CoShipItemBean item : super.getLsCoShipItemBean()) {

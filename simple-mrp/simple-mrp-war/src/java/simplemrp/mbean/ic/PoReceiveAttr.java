@@ -8,14 +8,16 @@ package simplemrp.mbean.ic;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.faces.model.SelectItem;
 import simplemrp.entity.Loc;
 import simplemrp.entity.Whse;
+import simplemrp.mbean.AbstractManageBean;
 
 /**
  *
  * @author wisaruthkea
  */
-public class PoReceiveAttr {
+public class PoReceiveAttr extends AbstractManageBean {
     //search input
     private String searchPo;
     //search result
@@ -24,12 +26,13 @@ public class PoReceiveAttr {
     private List<PoReceiveItemBean> lsPoReceiveItemBean;
 
     //Option select
-    private List<Whse> lsWarehouse;
-    private List<Loc> lsLocation;
+    private List<SelectItem> lsWarehouse;
+    
 
     public PoReceiveAttr(){
-        lsWarehouse = new ArrayList<Whse>();
-        lsLocation = new ArrayList<Loc>();
+        lsPoReceiveItemBean = new ArrayList<PoReceiveItemBean>();
+        lsWarehouse = new ArrayList<SelectItem>();
+        
     }
     /**
      * @return the searchPo
@@ -90,28 +93,15 @@ public class PoReceiveAttr {
     /**
      * @return the lsWarehouse
      */
-    public List<Whse> getLsWarehouse() {
+    public List<SelectItem> getLsWarehouse() {
         return lsWarehouse;
     }
 
     /**
      * @param lsWarehouse the lsWarehouse to set
      */
-    public void setLsWarehouse(List<Whse> lsWarehouse) {
+    public void setLsWarehouse(List<SelectItem> lsWarehouse) {
         this.lsWarehouse = lsWarehouse;
     }
 
-    /**
-     * @return the lsLocation
-     */
-    public List<Loc> getLsLocation() {
-        return lsLocation;
-    }
-
-    /**
-     * @param lsLocation the lsLocation to set
-     */
-    public void setLsLocation(List<Loc> lsLocation) {
-        this.lsLocation = lsLocation;
-    }
 }

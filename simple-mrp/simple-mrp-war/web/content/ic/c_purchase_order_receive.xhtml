@@ -17,7 +17,7 @@ and open the template in the editor.
             <h:form id="poRecvFormId">
                 <rich:messages></rich:messages>
                 <a4j:keepAlive beanName="poRecvBean"></a4j:keepAlive>
-                <h:panelGrid columns="2" columnClasses="alignTop,alignTop" width="480">
+                <h:panelGrid columns="1" columnClasses="alignTop" width="100%">
                     <rich:panel id="editPanel" header="Purchase Order Receive">
 
                         <rich:spacer width="4"/>
@@ -30,35 +30,34 @@ and open the template in the editor.
                             <a4j:commandButton value="Search" actionListener="#{poRecvBean.doSearch}" reRender="editPanel"/>
                             </h:panelGrid>
                             <h:outputText value="Vendor"/>
-                            <h:inputText value="#{poRecvBean.vendor}"/>
+                            <h:outputText value="#{poRecvBean.vendor}"/>
                             <h:outputText value="Transaction Date"/>
                             <rich:calendar value="#{poRecvBean.transactionDate}" datePattern="#{constantBean.PATTREN_DATE}"></rich:calendar>
                         </h:panelGrid>
                         <br></br>
                         Purchase Order Items
-                        <rich:dataTable id="poItemTable" value="#{poRecvBean.lsPoReceiveItemBean}" var="item" stateVar="status">
+                        <rich:dataTable id="poItemTable" value="#{poRecvBean.lsPoReceiveItemBean}" var="poitem"  rowKeyVar="rowKey">
                             <rich:column styleClass="alignCenter">
                                 <f:facet name="header">
                                     <h:outputText value="No."/>
                                 </f:facet>
-                                <h:outputText value="#{status}"/>
+                                <h:outputText value="#{rowKey+1}"/>
                             </rich:column>
                             <rich:column>
                                 <f:facet name="header">
                                     <h:outputText value="Item Desc."/>
                                 </f:facet>
-                                <h:outputText value="#{item.item.description}"/>
+                                <h:outputText value="#{poitem.itemId}:#{poitem.itemDesc}"/>
                             </rich:column>
                             <rich:column>
                                 <f:facet name="header">
                                     <h:outputText value="Warehouse"/>
                                 </f:facet>
-                                <h:selectOneMenu value="#{item.selectedWarehouse}" >
-                                    <f:selectItems value="#{poRecvBean.lsWarehouse}"
-                                                   var="warehouse"
-                                                   itemValue="#{warehouse.whse}"
-                                                   itemLabel="#{warehouse.description}">
+                                <h:selectOneMenu value="#{poitem.selectedWarehouse}" >
+                                    <f:selectItem itemValue="-1" itemLabel="-SELECT-"/>
+                                    <f:selectItems value="#{poRecvBean.lsWarehouse}">
                                     </f:selectItems>
+                                    <a4j:support event="onchange" reRender="poItemTable" actionListener="#{poitem.doCheckWarehouse}"/>
                                 </h:selectOneMenu>
 
                             </rich:column>
@@ -67,31 +66,37 @@ and open the template in the editor.
                                 <f:facet name="header">
                                     <h:outputText value="Location"/>
                                 </f:facet>
-                                <h:selectOneMenu value="#{item.selectedLocation}" >
-                                    <f:selectItems value="#{poRecvBean.lsLocation}"
-                                                   var="location"
-                                                   itemValue="#{location.locPK}"
-                                                   itemLabel="#{location.description}">
+                                <h:selectOneMenu value="#{poitem.selectedLocation}" >
+                                    <f:selectItem itemValue="-1" itemLabel="-SELECT-"/>
+                                    <f:selectItems value="#{poitem.lsLocation}">
                                     </f:selectItems>
+                                    <a4j:support event="onchange" reRender="poItemTable" actionListener="#{poitem.doCheckLocation}"/>
                                 </h:selectOneMenu>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Qty. Order"/>
+                                </f:facet>
+                                <h:outputText value="#{poitem.onHand}"/>
                             </rich:column>
                              <rich:column>
                                 <f:facet name="header">
                                     <h:outputText value="Qty. Order"/>
                                 </f:facet>
-                                 <h:outputText value="#{item.qty}"/>
+                                 <h:outputText value="#{poitem.qtyOrder}"/>
                             </rich:column>
                             <rich:column>
                                 <f:facet name="header">
                                     <h:outputText value="Qty. Received"/>
                                 </f:facet>
-                                <h:outputText value="#{item.qtyship}"/>
+                                <h:outputText value="#{poitem.qtyReceived}"/>
                             </rich:column>
                             <rich:column>
                                 <f:facet name="header">
                                     <h:outputText value="To Be Receive"/>
                                 </f:facet>
-                                <h:inputText value="#{item.toBeReceive}"/>
+                                <rich:inputNumberSpinner value="#{poitem.toBeReceive}" maxValue="#{poitem.maxToBeReceive}" step="0.5"/>
+                                
                             </rich:column>
                         </rich:dataTable>
                     </rich:panel>
