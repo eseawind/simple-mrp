@@ -73,6 +73,7 @@ public class CoShipBo implements InfCoShipBo {
         e.setRefSeq(to.getCoSeq());
         e.setQty(to.getToBeShip());
         e.setCdate(new Date());
+        stockTranDao.edit(e);
     }
 
     private void updateQtyShipped(CoitemPK pk, Double qtyToBeShip) {

@@ -12,6 +12,7 @@ import simplemrp.bo.InfCoBo;
 import simplemrp.bo.InfCoShipBo;
 import simplemrp.bo.InfItemBo;
 import simplemrp.bo.InfItemLocationBo;
+import simplemrp.bo.InfPoRecvBo;
 import simplemrp.dao.InfItemlocDao;
 import simplemrp.entity.Co;
 import simplemrp.entity.Coitem;
@@ -19,6 +20,7 @@ import simplemrp.entity.Itemloc;
 import simplemrp.entity.ItemlocPK;
 import simplemrp.facade.IcFacadeRemote;
 import simplemrp.mbean.ic.to.CoOrderItemTO;
+import simplemrp.mbean.ic.to.PoRecvItemTO;
 import simplemrp.util.BindingName;
 
 /**
@@ -36,6 +38,8 @@ public class IcFacade implements IcFacadeRemote {
     private InfItemLocationBo infItemLocationBo;
     @EJB
     private InfCoShipBo infCoShipBo;
+    @EJB
+    private InfPoRecvBo infPoRecvBo;
 
     @Override
     public List<Itemloc> searchItemLocation(String warehouse, String location) {
@@ -71,5 +75,10 @@ public class IcFacade implements IcFacadeRemote {
     @Override
     public void saveCoShipping(String coId, Date tranDate, List<CoOrderItemTO> lsCoOrderItem) {
         infCoShipBo.saveCoShipping(coId,tranDate,lsCoOrderItem);
+    }
+
+    @Override
+    public void savePoReceive(String poId, Date tranDate, List<PoRecvItemTO> lsPoOrderItem) {
+        infPoRecvBo.savePoRecv(poId,tranDate,lsPoOrderItem);
     }
 }

@@ -12,6 +12,7 @@ import simplemrp.entity.Co;
 import simplemrp.entity.Coitem;
 import simplemrp.entity.Itemloc;
 import simplemrp.mbean.ic.to.CoOrderItemTO;
+import simplemrp.mbean.ic.to.PoRecvItemTO;
 
 /**
  *
@@ -29,4 +30,8 @@ public interface IcFacadeRemote {
 
     //Item Location
     public Itemloc findItemLocation(String whseId,String locationId,String itemId);
+
+
+    ///////////// Purchase Order Receive //////
+    public void savePoReceive(String poId,Date tranDate,List<PoRecvItemTO> lsPoOrderItem);
 }
