@@ -21,7 +21,6 @@ public class PoReceiveAttr extends AbstractManageBean {
     //search input
     private String searchPo;
     //search result
-    private String vendor;
     private Date transactionDate;
     private List<PoReceiveItemBean> lsPoReceiveItemBean;
 
@@ -48,19 +47,6 @@ public class PoReceiveAttr extends AbstractManageBean {
         this.searchPo = searchPo;
     }
 
-    /**
-     * @return the vendor
-     */
-    public String getVendor() {
-        return vendor;
-    }
-
-    /**
-     * @param vendor the vendor to set
-     */
-    public void setVendor(String vendor) {
-        this.vendor = vendor;
-    }
 
     /**
      * @return the transactionDate

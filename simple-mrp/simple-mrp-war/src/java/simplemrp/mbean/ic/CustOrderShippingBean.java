@@ -60,6 +60,7 @@ public class CustOrderShippingBean extends CustOrderShippingAttr {
         }
         try {
             ic.saveCoShipping(super.getSearchCo(), super.getTransactionDate(), lsTo);
+            doSearch(e);
             message("Save CO ID=" + super.getSearchCo() + " Success.");
         } catch (Exception ex) {
             message("Save CO ID=" + super.getSearchCo() + " Fail. cause " + ex.getMessage());

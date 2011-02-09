@@ -25,6 +25,7 @@ public class PoReceiveItemBean extends AbstractManageBean {
 
     private MaFacadeRemote ma = (MaFacadeRemote) EJBLookup.getEJBInstance(BindingName.MaFacadeRemote);
     private IcFacadeRemote ic = (IcFacadeRemote) EJBLookup.getEJBInstance(BindingName.IcFacadeRemote);
+    private Integer poSeq;
     private String itemId;
     private String itemDesc;
     private String selectedWarehouse;
@@ -216,5 +217,19 @@ public class PoReceiveItemBean extends AbstractManageBean {
      */
     public void setLsLocation(List<SelectItem> lsLocation) {
         this.lsLocation = lsLocation;
+    }
+
+    /**
+     * @return the poSeq
+     */
+    public Integer getPoSeq() {
+        return poSeq;
+    }
+
+    /**
+     * @param poSeq the poSeq to set
+     */
+    public void setPoSeq(Integer poSeq) {
+        this.poSeq = poSeq;
     }
 }

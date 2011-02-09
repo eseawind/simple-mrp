@@ -29,8 +29,7 @@ and open the template in the editor.
                                 <h:inputText value="#{poRecvBean.searchPo}"/>
                             <a4j:commandButton value="Search" actionListener="#{poRecvBean.doSearch}" reRender="editPanel"/>
                             </h:panelGrid>
-                            <h:outputText value="Vendor"/>
-                            <h:outputText value="#{poRecvBean.vendor}"/>
+                           
                             <h:outputText value="Transaction Date"/>
                             <rich:calendar value="#{poRecvBean.transactionDate}" datePattern="#{constantBean.PATTREN_DATE}"></rich:calendar>
                         </h:panelGrid>
@@ -75,7 +74,7 @@ and open the template in the editor.
                             </rich:column>
                             <rich:column>
                                 <f:facet name="header">
-                                    <h:outputText value="Qty. Order"/>
+                                    <h:outputText value="On Hand"/>
                                 </f:facet>
                                 <h:outputText value="#{poitem.onHand}"/>
                             </rich:column>
