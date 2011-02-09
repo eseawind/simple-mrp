@@ -46,7 +46,7 @@ public class ItemBean extends ItemAttr {
     }
 
     private void searchItem(String p_strSearchItem, String p_strSearchDesc) throws Exception {
-        if (p_strSearchItem.length() > 0) {
+        if ((p_strSearchItem.length() > 0) || (p_strSearchDesc.length() > 0)) {
             MaFacadeRemote maFacade = EJBLookup.getMaFacade();
             List<Item> ls = maFacade.searchItem(p_strSearchItem, p_strSearchDesc);
 

@@ -14,13 +14,17 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityExistsException;
 import simplemrp.bo.InfForecastBo;
+import simplemrp.bo.InfItemmatlBo;
 import simplemrp.bo.InfItemoprBo;
 import simplemrp.bo.InfJobBo;
 import simplemrp.bo.InfMpsBo;
+import simplemrp.bo.InfWorkcenterBo;
 import simplemrp.dao.InfMpsDao;
 import simplemrp.dao.InfMps_statDao;
 import simplemrp.dao.InfMps_typeDao;
 import simplemrp.entity.Forecast;
+import simplemrp.entity.Itemmatl;
+import simplemrp.entity.ItemmatlPK;
 import simplemrp.entity.Itemopr;
 import simplemrp.entity.ItemoprPK;
 import simplemrp.entity.Job;
@@ -28,6 +32,7 @@ import simplemrp.entity.Job_stat;
 import simplemrp.entity.Mps;
 import simplemrp.entity.Mps_stat;
 import simplemrp.entity.Mps_type;
+import simplemrp.entity.Workcenter;
 import simplemrp.facade.PpFacadeRemote;
 import simplemrp.util.BindingName;
 
@@ -52,6 +57,10 @@ public class PpFacade implements PpFacadeRemote {
     private InfMps_typeDao mpsTypeDao;
     @EJB
     private InfItemoprBo itemoprBo;
+    @EJB
+    private InfItemmatlBo itemmatlBo;
+    @EJB
+    private InfWorkcenterBo workcenterBo;
 
     @Override
     public Job getJob(String inputJobId) {
@@ -189,4 +198,66 @@ public class PpFacade implements PpFacadeRemote {
     public void deleteItemopr(Itemopr p_itemopr) throws Exception {
         itemoprBo.removeItemopr(p_itemopr);
     }
+
+    @Override
+    public List<Itemopr> getBomDeatil(String p_strItem) throws Exception {
+        return itemoprBo.getBomDeatil(p_strItem);
+    }
+
+    @Override
+    public List<Workcenter> getListWorkcenter() throws Exception {
+        return workcenterBo.getListWorkcenter();
+    }
+
+    @Override
+    public List<Workcenter> searchWorkcenter(String p_strWorkcenter) {
+        return workcenterBo.searchWorkcenter(p_strWorkcenter);
+    }
+
+    @Override
+    public Workcenter getWorkcenter(String p_strWorkcenter) throws Exception {
+        return workcenterBo.getWorkcenter(p_strWorkcenter);
+    }
+
+    @Override
+    public String createWorkcenter(Workcenter p_workcenter) throws Exception {
+        return workcenterBo.createWorkcenter(p_workcenter);
+    }
+
+    @Override
+    public void editWorkcenter(Workcenter p_workcenter) throws Exception {
+        workcenterBo.editWorkcenter(p_workcenter);
+    }
+
+    @Override
+    public void deleteWorkcenter(Workcenter p_workcenter) throws Exception {
+        workcenterBo.removeWorkcenter(p_workcenter);
+    }
+
+    @Override
+    public List<Itemmatl> getItemmatlByItemopr(String p_strItem, Integer p_intOpr) throws Exception {
+        return itemmatlBo.getItemmatlByItemopr(p_strItem, p_intOpr);
+    }
+
+    @Override
+    public Itemmatl getItemmatl(ItemmatlPK p_pkItemmatl) throws Exception {
+        return itemmatlBo.getItemmatl(p_pkItemmatl);
+    }
+
+    @Override
+    public Integer createItemmatl(Itemmatl p_itemmatl) throws Exception {
+        return itemmatlBo.createItemmatl(p_itemmatl);
+    }
+
+    @Override
+    public void editItemmatl(Itemmatl p_itemmatl) throws Exception {
+        itemmatlBo.editItemmatl(p_itemmatl);
+    }
+
+    @Override
+    public void deleteItemmatl(Itemmatl p_itemmatl) throws Exception {
+        itemmatlBo.removeItemmatl(p_itemmatl);
+    }
+
+
 }

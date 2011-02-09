@@ -44,14 +44,16 @@ public class Itemmatl implements Serializable {
     @Column(name = "UDATE")
     @Temporal(TemporalType.DATE)
     private Date udate;
+
     @JoinColumns({
         @JoinColumn(name = "ITEM", referencedColumnName = "ITEM", insertable = false, updatable = false),
         @JoinColumn(name = "OPR", referencedColumnName = "OPR", insertable = false, updatable = false)})
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Itemopr itemopr;
+
     @JoinColumn(name = "MATL", referencedColumnName = "ITEM")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Item item1;
+    private Item matl;
 
     public Itemmatl() {
     }
@@ -120,12 +122,12 @@ public class Itemmatl implements Serializable {
         this.itemopr = itemopr;
     }
 
-    public Item getItem1() {
-        return item1;
+    public Item getMatl() {
+        return matl;
     }
 
-    public void setItem1(Item item1) {
-        this.item1 = item1;
+    public void setMatl(Item item1) {
+        this.matl = item1;
     }
 
     @Override

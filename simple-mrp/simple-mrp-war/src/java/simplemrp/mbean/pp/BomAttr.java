@@ -17,6 +17,8 @@ public class BomAttr extends AbstractManageBean {
     private List<Itemopr> lsItemopr;
     
     private boolean disbNewOpr;
+    private boolean showEdit;
+    private String editButtonLabel;
 
     public String getItem() {
         return item;
@@ -73,4 +75,21 @@ public class BomAttr extends AbstractManageBean {
     public void setDisbNewOpr(boolean disbNewOpr) {
         this.disbNewOpr = disbNewOpr;
     }
+
+    public boolean isShowEdit() {
+        return showEdit;
+    }
+
+    public void setShowEdit(boolean showEdit) {
+        this.showEdit = showEdit;
+    }
+
+    public String getEditButtonLabel() {
+        return editButtonLabel;
+    }
+
+    public void setEditButtonLabel(String editButtonLabel) {
+        this.editButtonLabel = editButtonLabel;
+    }
+    
 }

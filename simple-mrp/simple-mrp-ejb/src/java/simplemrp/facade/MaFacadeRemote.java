@@ -81,13 +81,7 @@ public interface MaFacadeRemote {
     public void deleteWhse(Whse p_whse) throws Exception;
      public List<Whse> getListWhse() throws Exception;
 
-      //Workcenter manage
-    public List<Workcenter> searchWorkcenter(String p_strKeyword) throws Exception;
-    public Workcenter getWorkcenter(String p_strWorkcenter) throws Exception;
-    public String createWorkcenter(Workcenter p_workcenter) throws Exception;
-    public void editWorkcenter(Workcenter p_workcenter) throws Exception;
-    public void deleteWorkcenter(Workcenter p_workcenter) throws Exception;
-     public List<Workcenter> getListWorkcenter() throws Exception;
+
 
       //Loc manage
     public List<Loc> searchLoc(String p_strKeyword) throws Exception;

@@ -67,8 +67,6 @@ public class MaFacade implements MaFacadeRemote {
     @EJB
     private InfItem_statBo item_statBo;
     @EJB
-    private InfWorkcenterBo workcenterBo;
-    @EJB
     private InfTermBo termBo;
     @EJB
     private InfWhseBo whseBo;
@@ -246,40 +244,6 @@ public class MaFacade implements MaFacadeRemote {
     public void deleteWhse(Whse p_whse) throws Exception {
         whseBo.removeWhse(p_whse);
     }
-
-    @Override
-    public List<Workcenter> getListWorkcenter() throws Exception {
-        return workcenterBo.getListWorkcenter();
-    }
-
-    @Override
-    public List<Workcenter> searchWorkcenter(String p_strWorkcenter) {
-        return workcenterBo.searchWorkcenter(p_strWorkcenter);
-    }
-
-    @Override
-    public Workcenter getWorkcenter(String p_strWorkcenter) throws Exception {
-        return workcenterBo.getWorkcenter(p_strWorkcenter);
-    }
-
-    @Override
-    public String createWorkcenter(Workcenter p_workcenter) throws Exception {
-        return workcenterBo.createWorkcenter(p_workcenter);
-    }
-
-    @Override
-    public void editWorkcenter(Workcenter p_workcenter) throws Exception {
-        workcenterBo.editWorkcenter(p_workcenter);
-    }
-
-    @Override
-    public void deleteWorkcenter(Workcenter p_workcenter) throws Exception {
-        workcenterBo.removeWorkcenter(p_workcenter);
-    }
-
-
-    
-
 
    @Override
     public List<Loc> searchLoc(String p_strLoc) {

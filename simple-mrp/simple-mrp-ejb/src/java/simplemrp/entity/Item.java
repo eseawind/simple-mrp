@@ -76,7 +76,7 @@ public class Item implements Serializable {
     private Forecast forecast;
     @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
     private Collection<Job> jobCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "item1", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "matl", fetch = FetchType.LAZY)
     private Collection<Itemmatl> itemmatlCollection;
     @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
     private Collection<Pritem> pritemCollection;

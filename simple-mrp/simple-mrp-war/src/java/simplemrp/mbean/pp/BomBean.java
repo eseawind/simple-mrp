@@ -8,6 +8,8 @@ import java.util.List;
 import javax.faces.event.ActionEvent;
 import org.sit.common.utils.StringUtil;
 import simplemrp.entity.Item;
+import simplemrp.entity.Itemmatl;
+import simplemrp.entity.ItemmatlPK;
 import simplemrp.entity.Itemopr;
 import simplemrp.entity.ItemoprPK;
 import simplemrp.facade.MaFacadeRemote;
@@ -22,6 +24,8 @@ import simplemrp.util.FacesUtils;
 public class BomBean extends BomAttr {
 
     public BomBean() {
+        setEditButtonLabel("Show Edit");
+        setShowEdit(false);
         setDisbNewOpr(true);
     }
 
@@ -32,6 +36,9 @@ public class BomBean extends BomAttr {
     public void clearEditScreen() {
         setItem(null);
         setItemDesc(null);
+
+        setEditButtonLabel("Show Edit");
+        setShowEdit(false);
     }
 
     public void doSearch(ActionEvent e) throws Exception {
@@ -73,11 +80,14 @@ public class BomBean extends BomAttr {
             setItemDesc(item.getDescription());
 
             PpFacadeRemote ppFacade = EJBLookup.getPpFacade();
-            List<Itemopr> lsItemopr = ppFacade.getItemoprByItem(p_strItem);
+            List<Itemopr> lsItemopr = ppFacade.getBomDeatil(p_strItem);
 
             setLsItemopr(lsItemopr);
 
+//            setEditButtonLabel("Show Edit");
+//            setShowEdit(false);
             setDisbNewOpr(false);
+
         } catch(Exception ex) {
             message(ex.getMessage());
         }
@@ -105,6 +115,35 @@ public class BomBean extends BomAttr {
         }
     }
 
-    public void doNewOpr(ActionEvent e) {
+    public void doDeleteMatl(ActionEvent e) {
+        try {
+            Integer intP_opr = StringUtil.toInteger(FacesUtils.getRequestParameter("p_opr"));
+            Integer intP_seq = StringUtil.toInteger(FacesUtils.getRequestParameter("p_seq"));
+
+            ItemmatlPK itemmatlPK = new ItemmatlPK(getItem(), intP_opr, intP_seq);
+
+            Itemmatl itemmatl = new Itemmatl();
+            itemmatl.setItemmatlPK(itemmatlPK);
+
+            PpFacadeRemote ppFacade = EJBLookup.getPpFacade();
+            ppFacade.deleteItemmatl(itemmatl);
+
+            checkItem(itemmatlPK.getItem());
+
+            message("Delete Complete");
+        } catch(Exception ex) {
+            message(ex.getMessage());
+        }
+    }
+
+    public void doShowEdit(ActionEvent e) {
+        if(isShowEdit()) {
+            setEditButtonLabel("Show Edit");
+            setShowEdit(false);
+        } else {
+            setEditButtonLabel("Hide Edit");
+            setShowEdit(true);
+        }
+
     }
 }

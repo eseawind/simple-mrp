@@ -8,7 +8,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ajax="https://ajax4jsf.dev.java.net/ajax">
-    <ui:define name="programname">Item Operation</ui:define>
+    <ui:define name="programname">Item Material</ui:define>
     <ui:define name="content">
         <script type="text/javascript">
             function doClose() {
@@ -20,55 +20,62 @@
         </script>
         <h:form >
             <h:inputText value="" style="display: none"/>
-            <a4j:jsFunction name="loadDetail" actionListener="#{itemoprBean.loadDetail}" reRender="detailPanel"></a4j:jsFunction>
-            <a4j:keepAlive beanName="itemoprBean"></a4j:keepAlive>
+            <a4j:jsFunction name="loadDetail" actionListener="#{itemmatlBean.loadDetail}" reRender="detailPanel"></a4j:jsFunction>
+            <a4j:keepAlive beanName="itemmatlBean"></a4j:keepAlive>
             <rich:panel id="detailPanel" styleClass="noborder">
                 <h:panelGroup>
-                    <h:inputHidden value="#{itemoprBean.p_item}"/>
-                    <h:inputHidden value="#{itemoprBean.p_opr}"/>
-                    <h:inputHidden value="#{itemoprBean.p_mode}"/>
+                    <h:inputHidden value="#{itemmatlBean.p_item}"/>
+                    <h:inputHidden value="#{itemmatlBean.p_opr}"/>
+                    <h:inputHidden value="#{itemmatlBean.p_seq}"/>
+                    <h:inputHidden value="#{itemmatlBean.p_mode}"/>
 
-                    <h:inputHidden value="#{itemoprBean.mode}"/>
+                    <h:inputHidden value="#{itemmatlBean.mode}"/>
 
-                    <a4j:commandButton value="Save" actionListener="#{itemoprBean.doSave}" reRender="detailPanel"/>
+                    <a4j:commandButton value="Save" actionListener="#{itemmatlBean.doSave}" reRender="detailPanel"/>
                     <rich:spacer width="4"/>
                     <a4j:commandButton value="Close" onclick="doClose()" />
                 </h:panelGroup>
-                <h:panelGrid columns="2" width="250">
+                <h:panelGrid columns="2" width="400">
                     <h:outputLabel value="Item"/>
-                    <h:outputText value="#{itemoprBean.item}"/>
+                    <h:outputText value="#{itemmatlBean.item}"/>
 
                     <h:outputLabel value="Description" />
-                    <h:outputText id="itemDesc" value="#{itemoprBean.itemDesc}"/>
+                    <h:outputText id="itemDesc" value="#{itemmatlBean.itemDesc}"/>
 
                     <h:outputLabel value="Operation"/>
-                    <h:outputText value="#{itemoprBean.opr}"/>
+                    <h:outputText value="#{itemmatlBean.opr}"/>
 
-                    <h:outputLabel value="Workcenter" />
-                    <h:inputText id="wc" size="10" maxlength="10" value="#{itemoprBean.wc}">
-                        <a4j:support event="onkeyup" actionListener="#{itemoprBean.doCheckWc}"
-                                     reRender="wc,wcDesc"
+                    <h:outputLabel value="Sequence"/>
+                    <h:outputText value="#{itemmatlBean.seq}"/>
+
+                    <h:outputLabel value="Material" />
+                    <h:inputText id="matl" size="35" maxlength="35" value="#{itemmatlBean.matl}">
+                        <a4j:support event="onkeyup" actionListener="#{itemmatlBean.doCheckMatl}"
+                                     reRender="matl,matlDesc"
                                      onsubmit="if(notEnter(event))return false"/>
-                        <a4j:support event="onchange" actionListener="#{itemoprBean.doCheckWc}"
-                                     reRender="wc,wcDesc"/>
+                        <a4j:support event="onchange" actionListener="#{itemmatlBean.doCheckMatl}"
+                                     reRender="matl,matlDesc"/>
                     </h:inputText>
 
                     <h:outputLabel value="Description" />
-                    <h:outputText id="wcDesc" value="#{itemoprBean.wcDesc}"/>
+                    <h:outputText id="matlDesc" value="#{itemmatlBean.matlDesc}"/>
+
+                    <h:outputLabel value="Quantity" />
+                    <h:inputText size="15" maxlength="15" value="#{itemmatlBean.qty}" />
 
                     <h:outputText value="Create User"/>
-                    <h:outputText value="#{itemoprBean.cuser}"/>
-                    
+                    <h:outputText value="#{itemmatlBean.cuser}"/>
+
                     <h:outputText value="Create Date"/>
-                    <h:outputText value="#{itemoprBean.cdate}">
+                    <h:outputText value="#{itemmatlBean.cdate}">
                         <f:convertDateTime pattern="#{constantBean.PATTREN_DATE}" timeZone="#{constantBean.TIMEZONE}"/>
                     </h:outputText>
 
                     <h:outputText value="Edit User"/>
-                    <h:outputText value="#{itemoprBean.uuser}"/>
+                    <h:outputText value="#{itemmatlBean.uuser}"/>
 
                     <h:outputText value="Edit Date"/>
-                    <h:outputText value="#{itemoprBean.udate}">
+                    <h:outputText value="#{itemmatlBean.udate}">
                         <f:convertDateTime pattern="#{constantBean.PATTREN_DATE}" timeZone="#{constantBean.TIMEZONE}"/>
                     </h:outputText>
                 </h:panelGrid>

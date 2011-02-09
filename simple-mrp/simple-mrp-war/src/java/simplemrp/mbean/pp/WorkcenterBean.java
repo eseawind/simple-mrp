@@ -9,7 +9,7 @@ import java.util.List;
 import javax.faces.event.ActionEvent;
 import org.sit.common.utils.StringUtil;
 import simplemrp.entity.Workcenter;
-import simplemrp.facade.MaFacadeRemote;
+import simplemrp.facade.PpFacadeRemote;
 import simplemrp.util.EJBLookup;
 import simplemrp.util.FacesUtils;
 
@@ -92,8 +92,8 @@ public class WorkcenterBean extends WorkcenterAttr{
     }
   private void checkKeyword(String p_strKeyword) throws Exception {
         if (p_strKeyword.length() > 0) {
-            MaFacadeRemote maFacade = EJBLookup.getMaFacade();
-            List<Workcenter> ls = maFacade.searchWorkcenter(p_strKeyword);
+            PpFacadeRemote ppFacade = EJBLookup.getPpFacade();
+            List<Workcenter> ls = ppFacade.searchWorkcenter(p_strKeyword);
 
 
             setLsWorkcenter(ls);
@@ -111,8 +111,8 @@ public class WorkcenterBean extends WorkcenterAttr{
           setMode(MODE_EDIT);
         setDisbWorkcenter(false);
 
-        MaFacadeRemote maFacade = EJBLookup.getMaFacade();
-        Workcenter workcenter = maFacade.getWorkcenter(p_strWorkcenter);
+        PpFacadeRemote ppFacade = EJBLookup.getPpFacade();
+        Workcenter workcenter = ppFacade.getWorkcenter(p_strWorkcenter);
 
 
 
@@ -177,13 +177,13 @@ public class WorkcenterBean extends WorkcenterAttr{
 
 
 
-            MaFacadeRemote maFacade = EJBLookup.getMaFacade();
+            PpFacadeRemote ppFacade = EJBLookup.getPpFacade();
 
             if (getMode().equals(MODE_EDIT)) {
 
 
 
-                maFacade.editWorkcenter(workcenter);
+                ppFacade.editWorkcenter(workcenter);
                 if (getKeyword().trim().length() > 0) {
                     checkKeyword(getKeyword().trim());
                 }
@@ -194,7 +194,7 @@ public class WorkcenterBean extends WorkcenterAttr{
             } else if (getMode().equals(MODE_NEW)) {
 
 
-                String strNewWorkcenter = maFacade.createWorkcenter(workcenter);
+                String strNewWorkcenter = ppFacade.createWorkcenter(workcenter);
                 checkWorkcenter(strNewWorkcenter);
                 if (getKeyword().trim().length() > 0) {
                     checkKeyword(getKeyword().trim());
@@ -213,8 +213,8 @@ public class WorkcenterBean extends WorkcenterAttr{
        if (getWc() !=null) {
             Workcenter workcenter = new Workcenter();
             workcenter.setWc(getWc());
-            MaFacadeRemote maFacade = EJBLookup.getMaFacade();
-           maFacade.deleteWorkcenter(workcenter);
+            PpFacadeRemote ppFacade = EJBLookup.getPpFacade();
+           ppFacade.deleteWorkcenter(workcenter);
 
             clearEditScreen();
             if (getKeyword().trim().length() > 0) {

@@ -12,18 +12,37 @@
     <ui:define name="programname">Bill of Materials</ui:define>
     <ui:define name="content">
         <script type="text/javascript">
-            function selectItemopr(p_item, p_opr) {
-                var url = "c_itemopr.jsf?p_mode=EDIT&amp;p_item="+p_item+"&amp;p_coSeq="+p_opr;
+            //Itemopr
+            function editOperation(p_item, p_opr) {
+                var url = "c_itemopr.jsf?p_mode=EDIT&amp;p_item="+p_item+"&amp;p_opr="+p_opr;
                 popup(url);
             }
             function addOperation(p_item) {
                 var url = "c_itemopr.jsf?p_mode=NEW&amp;p_item="+p_item;
                 popup(url);
             }
+            
+            //Itemmatl
+            function editItemmatl(p_item, p_opr, p_seq) {
+                var url = "c_itemmatl.jsf?p_mode=EDIT&amp;p_item="+p_item+"&amp;p_opr="+p_opr+"&amp;p_seq="+p_seq;
+                popup(url);
+            }
+            function addItemmatl(p_item, p_opr) {
+                var url = "c_itemmatl.jsf?p_mode=NEW&amp;p_item="+p_item+"&amp;p_opr="+p_opr;
+                popup(url);
+            }
         </script>
+        <style type="text/css">
+            .div_operation {
+                border-bottom-style: solid;
+                border-bottom-color: #CCCCCC;
+                border-bottom-width: 1px;
+            }
+        </style>
         <h:form>
             <a4j:jsFunction name="doCheckBom" actionListener="#{bomBean.doCheckItem}" reRender="editPanel"></a4j:jsFunction>
             <a4j:keepAlive beanName="bomBean" />
+
 
             <h:panelGrid columns="2" columnClasses="left_panel,right_panel" width="100%">
                 <rich:panel id="searchPanel" styleClass="noborder">
@@ -63,7 +82,10 @@
                 </rich:panel>
 
                 <rich:panel id="editPanel" styleClass="noborder">
+                    <h:inputHidden value="#{bomBean.showEdit}"></h:inputHidden>
                     <a4j:commandButton value="Add Operation" onclick="addOperation('#{bomBean.item}')"/>
+                    <rich:spacer width="4px"/>
+                    <a4j:commandButton value="#{bomBean.editButtonLabel}" actionListener="#{bomBean.doShowEdit}" reRender="editPanel"/>
                     <rich:spacer width="4px"/>
                     <a4j:commandButton value="Clear" actionListener="#{bomBean.doClear}" reRender="editPanel"/>
 
@@ -73,21 +95,87 @@
                             <a4j:support event="onkeyup" actionListener="#{bomBean.doCheckItem}"
                                          reRender="editPanel"
                                          onsubmit="if(notEnter(event))return false"/>
+                            <a4j:support event="onchange" actionListener="#{bomBean.doCheckItem}"
+                                         reRender="editPanel"/>
                         </h:inputText>
 
                         <h:outputLabel value="Description"/>
                         <h:outputLabel value="#{bomBean.itemDesc}"/>
                     </h:panelGrid>
                     <br/>
-                    
-                    <rich:dataTable id="bomTable" value="#{bomBean.lsItemopr}" var="itemopr" width="400px">
-                        <rich:column styleClass="alignCenter" width="10%">
-                            <f:facet name="header">
-                                <h:outputText value="Operation"/>
-                            </f:facet>
-                            <h:outputText value="#{itemopr.itemoprPK.opr}"/>
-                        </rich:column>
-                    </rich:dataTable>
+
+                    <rich:dataDefinitionList id="bomList" value="#{bomBean.lsItemopr}" var="itemopr">
+                        <div class="div_operation">
+                            <h:panelGrid columns="2">
+                                <h:panelGroup style="width: 100%;">
+                                    <h:outputLabel>Operation</h:outputLabel>
+                                    <rich:spacer width="10px"/>
+                                    <h:outputText value="#{itemopr.itemoprPK.opr}"/>,
+
+                                    <rich:spacer width="10px"/>
+                                    <h:outputLabel>Workcenter</h:outputLabel>
+                                    <rich:spacer width="10px"/>
+                                    <h:outputText value="#{itemopr.workcenter.wc}"/>
+                                </h:panelGroup>
+                                <h:panelGroup>
+                                    <rich:spacer width="10px"/>
+                                    <a4j:commandButton value="Edit OPR." 
+                                                       onclick="editOperation('#{itemopr.itemoprPK.item}', #{itemopr.itemoprPK.opr})"
+                                                       rendered="#{bomBean.showEdit}"/>
+                                    <rich:spacer width="4px"/>
+                                    <a4j:commandButton value="Delete OPR." actionListener="#{bomBean.doDeleteOpr}" 
+                                                       reRender="editPanel,bomList"
+                                                       rendered="#{bomBean.showEdit}">
+                                        <f:param name="p_item" value="#{itemopr.itemoprPK.item}"/>
+                                        <f:param name="p_opr" value="#{itemopr.itemoprPK.opr}"/>
+                                    </a4j:commandButton>
+                                    <rich:spacer width="4px"/>
+                                    <a4j:commandButton value="Add Matl." 
+                                                       onclick="addItemmatl('#{itemopr.itemoprPK.item}', #{itemopr.itemoprPK.opr})"
+                                                       rendered="#{bomBean.showEdit}"/>
+                                </h:panelGroup>
+                            </h:panelGrid>
+                        </div>
+                        <rich:dataDefinitionList id="matlList" value="#{itemopr.itemmatlList}" var="itemmatl">
+                            <h:panelGroup style="width: 100%;">
+                                <h:outputLabel>Seq.</h:outputLabel>
+                                <rich:spacer width="10px"/>
+                                <h:outputText value="#{itemmatl.itemmatlPK.seq}"/>
+
+                                <h:panelGroup>
+                                    <rich:spacer width="10px"/>
+                                    <h:outputLabel><u>Matl</u></h:outputLabel>
+                                    <rich:spacer width="10px"/>
+                                    <h:outputText value="#{itemmatl.matl.item}"/>
+
+                                    <rich:spacer width="10px"/>
+                                    <h:outputLabel><u>Matl Desrciption</u></h:outputLabel>
+                                    <rich:spacer width="10px"/>
+                                    <h:outputText value="#{itemmatl.matl.description}"/>
+
+                                    <rich:spacer width="10px"/>
+                                    <h:outputLabel><u>QTY</u></h:outputLabel>
+                                    <rich:spacer width="10px"/>
+                                    <h:outputText value="#{itemmatl.qty}"/>
+                                    <rich:spacer width="5px"/>
+                                    <h:outputText value="#{itemmatl.matl.uom.uom}"/>
+
+                                    <rich:spacer width="10px"/>
+                                    <a4j:commandButton value="Edit Matl."
+                                                       onclick="editItemmatl('#{itemmatl.itemmatlPK.item}', #{itemmatl.itemmatlPK.opr}, #{itemmatl.itemmatlPK.seq})"
+                                                       rendered="#{bomBean.showEdit}"/>
+                                    <rich:spacer width="4px"/>
+                                    <a4j:commandButton value="Delete Matl." actionListener="#{bomBean.doDeleteMatl}"
+                                                       reRender="editPanel,bomList"
+                                                       rendered="#{bomBean.showEdit}">
+                                        <f:param name="p_item" value="#{itemmatl.itemmatlPK.item}"/>
+                                        <f:param name="p_opr" value="#{itemmatl.itemmatlPK.opr}"/>
+                                        <f:param name="p_seq" value="#{itemmatl.itemmatlPK.seq}"/>
+                                    </a4j:commandButton>
+                                </h:panelGroup>
+                            </h:panelGroup>
+                        </rich:dataDefinitionList>
+                    </rich:dataDefinitionList>
                     <br/>
                 </rich:panel>
             </h:panelGrid>

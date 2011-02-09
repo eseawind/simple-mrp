@@ -44,10 +44,6 @@ public class CoitemBean extends CoitemAttr {
         }
     }
 
-    private void addCoitem(String p_strCoId) {
-        setMode(MODE_NEW);
-    }
-
     private void checkCoitem(String p_strCoId, Integer p_intCoSeq) {
         try {
             setMode(MODE_EDIT);

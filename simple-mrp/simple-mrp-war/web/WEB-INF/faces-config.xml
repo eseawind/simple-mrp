@@ -179,4 +179,42 @@
         <managed-bean-class>simplemrp.mbean.pp.BomBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>itemoprBean</managed-bean-name>
+        <managed-bean-class>simplemrp.mbean.pp.ItemoprBean</managed-bean-class>
+
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>p_item</property-name>
+            <value>#{param.p_item}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>p_opr</property-name>
+            <value>#{param.p_opr}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>p_mode</property-name>
+            <value>#{param.p_mode}</value>
+        </managed-property></managed-bean>
+    <managed-bean>
+        <managed-bean-name>itemmatlBean</managed-bean-name>
+        <managed-bean-class>simplemrp.mbean.pp.ItemmatlBean</managed-bean-class>
+
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>p_item</property-name>
+            <value>#{param.p_item}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>p_opr</property-name>
+            <value>#{param.p_opr}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>p_seq</property-name>
+            <value>#{param.p_seq}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>p_mode</property-name>
+            <value>#{param.p_mode}</value>
+        </managed-property></managed-bean>
 </faces-config>

@@ -6,8 +6,8 @@
 package simplemrp.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -41,17 +41,21 @@ public class Itemopr implements Serializable {
     private Date cdate;
     @Column(name = "UUSER")
     private String uuser;
+
     @Column(name = "UDATE")
     @Temporal(TemporalType.DATE)
     private Date udate;
+
     @JoinColumn(name = "WC", referencedColumnName = "WC")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Workcenter workcenter;
+
     @JoinColumn(name = "ITEM", referencedColumnName = "ITEM", insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Item item1;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "itemopr", fetch = FetchType.LAZY)
-    private Collection<Itemmatl> itemmatlCollection;
+    private List<Itemmatl> itemmatlList;
 
     public Itemopr() {
     }
@@ -120,12 +124,12 @@ public class Itemopr implements Serializable {
         this.item1 = item1;
     }
 
-    public Collection<Itemmatl> getItemmatlCollection() {
-        return itemmatlCollection;
+    public List<Itemmatl> getItemmatlList() {
+        return itemmatlList;
     }
 
-    public void setItemmatlCollection(Collection<Itemmatl> itemmatlCollection) {
-        this.itemmatlCollection = itemmatlCollection;
+    public void setItemmatlList(List<Itemmatl> itemmatlList) {
+        this.itemmatlList = itemmatlList;
     }
 
     @Override

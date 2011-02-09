@@ -21,4 +21,5 @@ public interface InfItemoprBo {
     public Integer createItemopr(Itemopr p_itemopr) throws Exception;
     public void editItemopr(Itemopr p_itemopr) throws Exception;
     public void removeItemopr(Itemopr p_itemopr) throws Exception;
+    public List<Itemopr> getBomDeatil(String p_strItem) throws Exception;
 }

@@ -35,10 +35,10 @@
                 </h:panelGroup>
                 <h:panelGrid columns="2" width="400">
                     <h:outputLabel value="C/O"/>
-                    <h:inputText size="7" maxlength="7" disabled="true" value="#{coitemBean.coId}"/>
+                    <h:outputText value="#{coitemBean.coId}"/>
 
                     <h:outputLabel value="Seq"/>
-                    <h:inputText size="5" maxlength="5" disabled="true" value="#{coitemBean.coSeq}"/>
+                    <h:outputText value="#{coitemBean.coSeq}"/>
 
                     <h:outputLabel value="Item" />
                     <h:inputText id="item" size="35" maxlength="35" value="#{coitemBean.item}">

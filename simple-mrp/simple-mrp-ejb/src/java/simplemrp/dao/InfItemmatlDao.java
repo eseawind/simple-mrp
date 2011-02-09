@@ -29,5 +29,9 @@ public interface InfItemmatlDao {
     List<Itemmatl> findRange(int[] range);
 
     int count();
+    
+    public List<Itemmatl> findByItemopr(String p_strItem, Integer p_intOpr);
+
+    public Integer getNextSeq(String p_strItem, Integer p_intOpr);
 
 }
