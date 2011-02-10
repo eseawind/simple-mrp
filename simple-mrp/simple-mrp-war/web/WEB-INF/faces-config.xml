@@ -98,6 +98,11 @@
         <managed-bean-class>simplemrp.mbean.pp.JobOrderBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+        <managed-bean>
+        <managed-bean-name>jobOrderRecvBean</managed-bean-name>
+        <managed-bean-class>simplemrp.mbean.ic.JobOrderRecvBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
     <managed-bean>
         <managed-bean-name>coitemBean</managed-bean-name>
         <managed-bean-class>simplemrp.mbean.co.CoitemBean</managed-bean-class>
@@ -217,4 +222,5 @@
             <property-name>p_mode</property-name>
             <value>#{param.p_mode}</value>
         </managed-property></managed-bean>
+
 </faces-config>

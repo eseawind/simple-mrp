@@ -11,8 +11,84 @@ and open the template in the editor.
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html">
-    <ui:define name="programname">Job Receive</ui:define>
+    <ui:define name="programname">Job Order Receive</ui:define>
     <ui:define name="content">
-        // under cronstruction
+        <h:form id="jobOrderRecvFormId">
+            <rich:messages></rich:messages>
+            <a4j:keepAlive beanName="jobOrderRecvBean"></a4j:keepAlive>
+            <h:panelGrid columns="2" columnClasses="left_panel,right_panel" width="100%">
+                <rich:panel id="searchPanel" header="Job Order Table">
+
+                    <a4j:commandButton value="Search" actionListener="#{jobOrderRecvBean.doSearch}" reRender="searchPanel"/>
+                    <rich:spacer width="4"/>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Job ID"/>
+                        <h:inputText value="#{jobOrderRecvBean.searchJobId}"/>
+                    </h:panelGrid>
+                    <rich:dataTable id="jobsTable" value="#{jobOrderRecvBean.lsJob}" var="item" rowKeyVar="rowKey">
+                        <rich:column styleClass="alignCenter">
+                            <f:facet name="header">
+                                <h:outputText value="No."/>
+                            </f:facet>
+                            <h:outputText value="#{rowKey+1}"/>
+                        </rich:column>
+                        <rich:column styleClass="alignCenter">
+                            <f:facet name="header">
+                                <h:outputText value="Job ID"/>
+                            </f:facet>
+                            <a4j:commandLink value="#{item.jobId}"
+                                             actionListener="#{jobOrderRecvBean.doSelectJob}"
+                                             reRender="editPanel">
+                                             <f:param name="p_job_id" value="#{item.jobId}"/>
+                        </a4j:commandLink>
+
+                        </rich:column>
+                        <rich:column styleClass="alignCenter">
+                            <f:facet name="header">
+                                <h:outputText value="Job Date"/>
+                            </f:facet>
+                            <h:outputText value="#{item.jobdate}"/>
+                        </rich:column>
+                    </rich:dataTable>
+                </rich:panel>
+                <rich:panel id="editPanel" header="Job Order Receive">
+                   
+                    <a4j:commandButton value="Save" actionListener="#{jobOrderRecvBean.doSave}" reRender="editPanel"/>
+                    <rich:spacer width="4"/>
+                 
+                    <h:panelGrid columns="2" columnClasses="alignTop,alignTop">
+                    <h:outputLabel value="Job ID"></h:outputLabel>
+                    <h:outputText value="#{jobOrderRecvBean.jobId}"/>
+                    <h:outputLabel value="Item ID"></h:outputLabel>
+                    <h:outputText value="#{jobOrderRecvBean.itemId}"/>
+                    <h:outputLabel value="Item Description"></h:outputLabel>
+                    <h:outputText value="#{jobOrderRecvBean.itemDesc}"/>
+                    <h:outputText value="Warehouse"/>
+                    <h:selectOneMenu value="#{jobOrderRecvBean.selectedWarehouse}">
+                        <f:selectItem itemLabel="-SELECT-" itemValue="-1"/>
+                        <f:selectItems value="#{jobOrderRecvBean.lsWarehouse}"/>
+                        <a4j:support event="onchange" reRender="editPanel" actionListener="#{jobOrderRecvBean.doCheckWarehouse}"/>
+                    </h:selectOneMenu>
+                    <h:outputText value="Location"/>
+                    <h:selectOneMenu value="#{jobOrderRecvBean.selectedLocation}">
+                        <f:selectItem itemLabel="-SELECT-" itemValue="-1"/>
+                        <f:selectItems value="#{jobOrderRecvBean.lsLocation}"/>
+                        <a4j:support event="onchange" reRender="editPanel" actionListener="#{jobOrderRecvBean.doCheckLocation}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="On Hand"/>
+                    <h:outputText value="#{jobOrderRecvBean.onHand}"/>
+                    <h:outputLabel value="Order Quantity"></h:outputLabel>
+                    <h:outputText value="#{jobOrderRecvBean.qtyOrder}"></h:outputText>
+                    <h:outputLabel value="Complete Quantity"></h:outputLabel>
+                    <h:outputText value="#{jobOrderRecvBean.qtyComplete}"/>
+                    <h:outputText value="Transaction Date"/>
+                    <rich:calendar value="#{jobOrderRecvBean.transactionDate}" datePattern="#{constantBean.PATTREN_DATE}"/>
+                    <h:outputLabel value="To be Complete"></h:outputLabel>
+                    <rich:inputNumberSpinner id="elTobeComplete" value="#{jobOrderRecvBean.toBeComplete}" maxValue="#{jobOrderRecvBean.maxToBeComplte}"/>
+                </h:panelGrid>
+                </rich:panel>
+
+            </h:panelGrid>
+        </h:form>
     </ui:define>
 </ui:composition>
