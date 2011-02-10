@@ -8,6 +8,7 @@ package simplemrp.entity;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -44,14 +45,18 @@ public class Jobopr implements Serializable {
     @Column(name = "UDATE")
     @Temporal(TemporalType.DATE)
     private Date udate;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "jobopr", fetch = FetchType.LAZY)
-    private Collection<Jobmatl> jobmatlCollection;
+    private List<Jobmatl> jobmatlList;
+
     @JoinColumn(name = "WC", referencedColumnName = "WC")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Workcenter workcenter;
+
     @JoinColumn(name = "JOB_ID", referencedColumnName = "JOB_ID", insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Job job;
+
     @JoinColumn(name = "ITEM", referencedColumnName = "ITEM")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Item item;
@@ -107,12 +112,12 @@ public class Jobopr implements Serializable {
         this.udate = udate;
     }
 
-    public Collection<Jobmatl> getJobmatlCollection() {
-        return jobmatlCollection;
+    public List<Jobmatl> getJobmatlList() {
+        return jobmatlList;
     }
 
-    public void setJobmatlCollection(Collection<Jobmatl> jobmatlCollection) {
-        this.jobmatlCollection = jobmatlCollection;
+    public void setJobmatlCollection(List<Jobmatl> jobmatlList) {
+        this.jobmatlList = jobmatlList;
     }
 
     public Workcenter getWorkcenter() {

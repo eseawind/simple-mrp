@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
+import simplemrp.constant.PpConstant;
 import simplemrp.entity.Item;
 import simplemrp.entity.Job;
 import simplemrp.entity.Job_stat;
@@ -44,13 +45,14 @@ public class JobOrderBean extends JobOrderAttr {
     private void fillJobStatList() {
         List<Job_stat> lsJobStatResource = ppFacadeRemote.listJobStat();
         SelectItem selectItem = null;
-        for (Job_stat stat : lsJobStatResource) {
+        for(Job_stat stat : lsJobStatResource) {
             selectItem = new SelectItem(stat.getStat(), stat.getDescription(), stat.getDescription());
             super.addJobStat(selectItem);
         }
 
     }
-    private void fillPage(Job job){
+
+    private void fillPage(Job job) {
         super.setJobId(job.getJobId());
         super.setItemCode(job.getItem().getItem());
         super.setJobDate(job.getJobdate());
@@ -86,13 +88,16 @@ public class JobOrderBean extends JobOrderAttr {
         log.debug("do New");
         clearEditScreen();
         super.setMode(super.MODE_NEW);
+
+        setJobStat(PpConstant.JOB_STAT_FIRM);
+
         setDisbJobId(true);
         setDisbSave(false);
     }
 
     public void doSave(ActionEvent e) {
         Job job = new Job();
-        if (MODE_EDIT.endsWith(super.getMode())) {
+        if(MODE_EDIT.endsWith(super.getMode())) {
             job.setJobId(super.getJobId());
         }
         Item item = new Item();
@@ -107,7 +112,7 @@ public class JobOrderBean extends JobOrderAttr {
         job.setNote(super.getNote());
 
         try {
-            if (super.MODE_NEW.equals(super.getMode())) {
+            if(super.MODE_NEW.equals(super.getMode())) {
                 job.setCuser(super.getSessionUserId());
                 job.setCdate(new Date());
                 String jobId = ppFacadeRemote.createJob(job);
@@ -115,9 +120,8 @@ public class JobOrderBean extends JobOrderAttr {
                 fillPage(currentJob);
                 // is save success change to edit mode
                 super.setMode(super.MODE_EDIT);
-                message("New Complete");
-            } else
-            if (super.MODE_EDIT.equals(super.getMode())) {
+                message("Save Complete");
+            } else if(super.MODE_EDIT.equals(super.getMode())) {
                 job.setCuser(super.getcUser());
                 job.setCdate(super.getcDate());
                 job.setUuser(super.getSessionUserId());
@@ -127,7 +131,7 @@ public class JobOrderBean extends JobOrderAttr {
             } else {
                 message("Unknow operation.");
             }
-        } catch (Exception ex) {
+        } catch(Exception ex) {
             message(ex.getMessage());
         }
     }
@@ -136,8 +140,8 @@ public class JobOrderBean extends JobOrderAttr {
         try {
             ppFacadeRemote.removeJob(super.getJobId());
             message("Delete " + super.getJobId() + " complete.");
-            
-        } catch (Exception ex) {
+
+        } catch(Exception ex) {
             message("Delete " + super.getJobId() + " fail." + ex);
         }
         clearEditScreen();
@@ -145,20 +149,35 @@ public class JobOrderBean extends JobOrderAttr {
     }
 
     public void doSearch(ActionEvent e) {
-        List<Job> lsJob = ppFacadeRemote.searchJob(super.getSearchJobId());
-        super.setLsJob(lsJob);
+        String strSearchJobId = getSearchJobId().trim().toUpperCase();
+        Date dtSeearchJobDate = getSearchJobDate();
+
+        searchJob(strSearchJobId, dtSeearchJobDate);
+    }
+
+    private void searchJob(String p_strJobID, Date p_dtJobDate) {
+        try {
+            if((p_strJobID.length() == 0) && (p_dtJobDate == null)) {
+                message("Please Enter Search Condition");
+            } else {
+                List<Job> lsJob = ppFacadeRemote.searchJob(p_strJobID, p_dtJobDate);
+                super.setLsJob(lsJob);
+            }
+        } catch(Exception ex) {
+            message(ex.getMessage());
+        }
     }
 
     public void doSelectJob(ActionEvent e) {
         clearEditScreen();
         String jobId = FacesUtils.getRequestParameter("p_job_id");
-        log.debug("selectjob="+jobId);
+        log.debug("selectjob=" + jobId);
         Job selectJob = ppFacadeRemote.getJob(jobId);
-        log.debug("selectjob="+jobId+" result="+selectJob);
-        if(selectJob!=null){
+        log.debug("selectjob=" + jobId + " result=" + selectJob);
+        if(selectJob != null) {
             fillPage(selectJob);
         } else {
-            message("Job id:"+jobId+" not found or already deleted.");
+            message("Job id:" + jobId + " not found or already deleted.");
         }
         super.setDisbJobId(true);
         super.setMode(MODE_EDIT);

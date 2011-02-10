@@ -30,4 +30,7 @@ public interface InfJoboprDao {
 
     int count();
 
+    public List<Jobopr> findByJob(String p_strJob);
+
+    public Integer getNextOpr(String p_strJobId);
 }

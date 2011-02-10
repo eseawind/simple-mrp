@@ -46,6 +46,8 @@ public class Job implements Serializable {
     private Integer qtycomplete;
     @Column(name = "NOTE")
     private String note;
+    @Column(name = "RELEASER")
+    private String releaser;
     @Column(name = "CUSER")
     private String cuser;
     @Column(name = "CDATE")
@@ -110,6 +112,14 @@ public class Job implements Serializable {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public String getReleaser() {
+        return releaser;
+    }
+
+    public void setReleaser(String releaser) {
+        this.releaser = releaser;
     }
 
     public String getCuser() {

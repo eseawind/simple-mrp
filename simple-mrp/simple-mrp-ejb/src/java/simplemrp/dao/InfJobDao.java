@@ -31,7 +31,7 @@ public interface InfJobDao {
     List<Job> findRange(int[] range);
 
     int count();
-    public List<Job> searchByJobId(String job_id_key);
+    public List<Job> searchByJobId(String job_id_key, Date p_dtJobDate);
     public List<Job> findByJobDate(Date jobDate);
     public String getNextJob();
 

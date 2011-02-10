@@ -10,7 +10,6 @@ import java.util.Date;
 import java.util.List;
 import javax.faces.model.SelectItem;
 import simplemrp.entity.Job;
-import simplemrp.entity.Job_stat;
 import simplemrp.mbean.AbstractManageBean;
 
 /**
@@ -37,10 +36,9 @@ public class JobOrderAttr extends AbstractManageBean {
 
     //search input
     private String searchJobId;
+    private Date searchJobDate;
     //search result
     private List<Job> lsJob;
-    
-    
     
     //page option
     private boolean disbJobId;
@@ -265,6 +263,14 @@ public class JobOrderAttr extends AbstractManageBean {
      */
     public void setSearchJobId(String searchJobId) {
         this.searchJobId = searchJobId;
+    }
+
+    public Date getSearchJobDate() {
+        return searchJobDate;
+    }
+
+    public void setSearchJobDate(Date searchJobDate) {
+        this.searchJobDate = searchJobDate;
     }
 
     /**

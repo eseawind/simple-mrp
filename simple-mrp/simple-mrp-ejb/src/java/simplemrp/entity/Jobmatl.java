@@ -32,8 +32,8 @@ public class Jobmatl implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected JobmatlPK jobmatlPK;
-    @Column(name = "QTY")
-    private Double qty;
+//    @Column(name = "QTY")
+//    private Double qty;
     @Column(name = "QTY_REQ")
     private Double qtyReq;
     @Column(name = "QTY_SHIP")
@@ -76,12 +76,28 @@ public class Jobmatl implements Serializable {
         this.jobmatlPK = jobmatlPK;
     }
 
-    public Double getQty() {
-        return qty;
+//    public Double getQty() {
+//        return qty;
+//    }
+//
+//    public void setQty(Double qty) {
+//        this.qty = qty;
+//    }
+
+    public Double getQtyReq() {
+        return qtyReq;
     }
 
-    public void setQty(Double qty) {
-        this.qty = qty;
+    public void setQtyReq(Double qtyReq) {
+        this.qtyReq = qtyReq;
+    }
+
+    public Double getQtyShip() {
+        return qtyShip;
+    }
+
+    public void setQtyShip(Double qtyShip) {
+        this.qtyShip = qtyShip;
     }
 
     public String getCuser() {

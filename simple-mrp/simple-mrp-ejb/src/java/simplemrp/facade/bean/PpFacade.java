@@ -68,8 +68,8 @@ public class PpFacade implements PpFacadeRemote {
     }
 
     @Override
-    public List<Job> searchJob(String searchJobKey) {
-        return jobBo.searchJob(searchJobKey);
+    public List<Job> searchJob(String searchJobKey, Date p_dtJobDate) {
+        return jobBo.searchJob(searchJobKey, p_dtJobDate);
     }
 
     @Override
@@ -86,7 +86,7 @@ public class PpFacade implements PpFacadeRemote {
     }
 
     @Override
-    public void editJob(Job p_job) {
+    public void editJob(Job p_job) throws Exception {
         jobBo.editJob(p_job);
     }
 

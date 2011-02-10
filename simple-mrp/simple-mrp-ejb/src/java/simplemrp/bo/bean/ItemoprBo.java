@@ -111,15 +111,6 @@ public class ItemoprBo implements InfItemoprBo {
                     itemmatl.getMatl().getUom().toString();
                 }
             }
-
-
-//            List<Itemmatl> lsItemmatl = itemmatlBo.getItemmatlByItemopr(itemopr.getItemoprPK().getItem(), itemopr.getItemoprPK().getOpr());
-//
-//            for(int j = 0; j < lsItemmatl.size(); j++) {
-//                Itemmatl itemmatl = lsItemmatl.get(j);
-//                itemmatl.getMatl().toString();
-//            }
-
         }
 
         return lsItemopr;

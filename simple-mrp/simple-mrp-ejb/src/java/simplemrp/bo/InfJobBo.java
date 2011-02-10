@@ -19,13 +19,13 @@ import simplemrp.entity.Job_stat;
 public interface InfJobBo {
     public Job getJob(String inputJobId);
 
-    public List<Job> searchJob(String searchJobKey);
+    public List<Job> searchJob(String searchJobKey, Date p_dtJobDate);
 
     public void removeJob(Job p_job);
 
     public String createJob(Job p_job);
 
-    public void editJob(Job p_job);
+    public void editJob(Job p_job) throws Exception;
 
     public List<Job> findByJobDate(Date p_jobDate);
 
