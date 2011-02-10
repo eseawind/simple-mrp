@@ -12,6 +12,7 @@ import simplemrp.entity.Co;
 import simplemrp.entity.Coitem;
 import simplemrp.entity.Itemloc;
 import simplemrp.mbean.ic.to.CoOrderItemTO;
+import simplemrp.mbean.ic.to.JobRecvItemTO;
 import simplemrp.mbean.ic.to.PoRecvItemTO;
 
 /**
@@ -34,4 +35,7 @@ public interface IcFacadeRemote {
 
     ///////////// Purchase Order Receive //////
     public void savePoReceive(String poId,Date tranDate,List<PoRecvItemTO> lsPoOrderItem);
+
+    ///////////// Job Order Receive
+    public void saveJobReceive(String jobId,Date transDate,JobRecvItemTO to);
 }
