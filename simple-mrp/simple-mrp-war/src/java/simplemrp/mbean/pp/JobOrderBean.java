@@ -4,6 +4,7 @@
  */
 package simplemrp.mbean.pp;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.faces.event.ActionEvent;
@@ -43,13 +44,15 @@ public class JobOrderBean extends JobOrderAttr {
     }
 
     private void fillJobStatList() {
+        List<SelectItem> lsJobStat = new ArrayList<SelectItem>();
         List<Job_stat> lsJobStatResource = ppFacadeRemote.listJobStat();
-        SelectItem selectItem = null;
+
         for(Job_stat stat : lsJobStatResource) {
-            selectItem = new SelectItem(stat.getStat(), stat.getDescription(), stat.getDescription());
-            super.addJobStat(selectItem);
+            SelectItem selectItem = new SelectItem(stat.getStat(), stat.getDescription(), stat.getDescription());
+            lsJobStat.add(selectItem);
         }
 
+        setLsJobStat(lsJobStat);
     }
 
     private void fillPage(Job job) {
@@ -181,5 +184,7 @@ public class JobOrderBean extends JobOrderAttr {
         }
         super.setDisbJobId(true);
         super.setMode(MODE_EDIT);
+
+        fillJobStatList();
     }
 }

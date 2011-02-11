@@ -42,7 +42,7 @@ public class JobmatlDao extends AbstractDao<Jobmatl> implements InfJobmatlDao {
 
     @Override
     public Integer getNextSeq(String p_strJob, Integer p_intOpr) {
-        String sql = "select max(jm.joboprPK.seq) from Jobmatl as jm where jm.joboprPK.jobId = :jobId and jm.joboprPK.opr = :opr";
+        String sql = "select max(jm.jobmatlPK.seq) from Jobmatl as jm where jm.jobmatlPK.jobId = :jobId and jm.jobmatlPK.opr = :opr";
         Query q = em.createQuery(sql);
         q.setParameter("jobId", p_strJob);
         q.setParameter("opr", p_intOpr);

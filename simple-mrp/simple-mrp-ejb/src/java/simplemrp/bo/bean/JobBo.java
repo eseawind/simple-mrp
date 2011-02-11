@@ -135,7 +135,7 @@ public class JobBo implements InfJobBo {
                 releaseJob(job.getJobId());
             }
         } catch(Exception ex) {
-            throw new Exception(ex.getMessage(), ex);
+            throw new Exception(ex.getCause().getMessage(), ex);
         }
     }
 
@@ -152,6 +152,7 @@ public class JobBo implements InfJobBo {
                     Jobopr jobopr = new Jobopr();
                     JoboprPK joboprPK = new JoboprPK(job.getJobId(), itemopr.getItemoprPK().getOpr());
 
+                    jobopr.setJoboprPK(joboprPK);
                     jobopr.setItem(itemopr.getItem1());
                     jobopr.setJob(job);
                     jobopr.setWorkcenter(itemopr.getWorkcenter());
@@ -188,10 +189,8 @@ public class JobBo implements InfJobBo {
 
                             Integer intNewSeq = jobmatlBo.createJobmatl(jobmatl);
 
-                            if(intNewSeq != null) {
+                            if(intNewSeq == null) {
                                 throw new Exception("Could not create job material");
-                            } else {
-
                             }
                         }
                     }
@@ -200,7 +199,7 @@ public class JobBo implements InfJobBo {
                 throw new Exception("BOM is not define");
             }
         } catch(Exception ex) {
-            throw new Exception(ex.getMessage(), ex);
+            throw new Exception(ex.getCause().getMessage(), ex);
         }
     }
 }

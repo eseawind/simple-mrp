@@ -45,18 +45,28 @@ public class JobmatlBo implements InfJobmatlBo {
 
     @Override
     public Integer createJobmatl(Jobmatl p_jobmatl) throws Exception {
-        if((p_jobmatl.getQtyReq() == null) || (p_jobmatl.getQtyReq().intValue() == 0)) {
-            throw new Exception("Invalid quantity");
+        Integer intNextSeq = null;
+
+        try {
+            if((p_jobmatl.getQtyReq() == null) || (p_jobmatl.getQtyReq().intValue() == 0)) {
+                throw new Exception("Invalid quantity");
+            }
+
+            String strJobId = p_jobmatl.getJobmatlPK().getJobId();
+            Integer intOpr = p_jobmatl.getJobmatlPK().getOpr();
+
+            intNextSeq = jobmatlDao.getNextSeq(strJobId, intOpr);
+            p_jobmatl.getJobmatlPK().setSeq(intNextSeq);
+
+            p_jobmatl.setUdate(DateUtil.getDate());
+
+            p_jobmatl.setCdate(p_jobmatl.getUdate());
+            p_jobmatl.setCuser(p_jobmatl.getUuser());
+
+            jobmatlDao.create(p_jobmatl);
+        } catch(Exception ex) {
+            throw new Exception(ex.getCause().getMessage(), ex.getCause());
         }
-        Integer intNextSeq = jobmatlDao.getNextSeq(p_jobmatl.getJobmatlPK().getJobId(), p_jobmatl.getJobmatlPK().getOpr());
-        p_jobmatl.getJobmatlPK().setSeq(intNextSeq);
-
-        p_jobmatl.setUdate(DateUtil.getDate());
-
-        p_jobmatl.setCdate(p_jobmatl.getUdate());
-        p_jobmatl.setCuser(p_jobmatl.getUuser());
-
-        jobmatlDao.create(p_jobmatl);
 
         return intNextSeq;
     }
