@@ -19,6 +19,7 @@ import simplemrp.entity.Pr;
 import simplemrp.entity.Pr_stat;
 import simplemrp.entity.Pritem;
 import simplemrp.entity.PritemPK;
+import simplemrp.entity.Bank;
 
 /**
  *
@@ -33,6 +34,7 @@ public interface PoFacadeRemote {
     public String createVendor(Vendor p_vendor) throws Exception;
     public void editVendor(Vendor p_vendor) throws Exception;
     public void deleteVendor(Vendor p_vendor) throws Exception;
+    public List<Bank> getListBank() throws Exception;
 
     //Po management
     public List<Po> searchPo(String p_strVendId, Date p_dtPoDate) throws Exception;
