@@ -15,6 +15,8 @@ import simplemrp.bo.InfPoitemBo;
 import simplemrp.bo.InfPrBo;
 import simplemrp.bo.InfPr_statBo;
 import simplemrp.bo.InfPritemBo;
+import simplemrp.bo.InfBankBo;
+import simplemrp.entity.Bank;
 import simplemrp.entity.Po;
 import simplemrp.entity.Po_stat;
 import simplemrp.entity.Vendor;
@@ -55,6 +57,9 @@ public class PoFacade implements PoFacadeRemote {
 
     @EJB
     private InfPritemBo pritemBo;
+
+    @EJB
+    private InfBankBo bankBo;
 
     @Override
     public List<Vendor> searchVendor(String p_strKeyword) throws Exception {
@@ -189,5 +194,10 @@ public class PoFacade implements PoFacadeRemote {
     @Override
     public void deletePritem(Pritem p_poitem) throws Exception {
         pritemBo.removePritem(p_poitem);
+    }
+
+    @Override
+    public List<Bank> getListBank() throws Exception {
+        return bankBo.getListBank();
     }
 }
