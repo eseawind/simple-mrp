@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+    <ui:define name="programname">Vendor</ui:define>
+    <ui:define name="content">
+        <h:form>
+            <a4j:keepAlive beanName="vendorBean" />
+
+            <h:panelGrid columns="2" columnClasses="left_panel,right_panel" width="100%">
+                <rich:panel id="searchPanel" styleClass="noborder">
+                    <h:panelGrid columns="3">
+                        <h:outputLabel value="Vendor Name"/>
+                        <h:inputText value="#{vendorBean.keyword}">
+                            <a4j:support event="onkeyup" actionListener="#{vendorBean.doSearch}"
+                                         reRender="vendorTable"
+                                         onsubmit="if(notEnter(event))return false"/>
+                        </h:inputText>
+                        <a4j:commandButton value="Search" actionListener="#{vendorBean.doSearch}" reRender="vendorTable"/>
+                    </h:panelGrid>
+                    <rich:dataTable id="vendorTable" value="#{vendorBean.lsVendor}" var="item" width="400px">
+                        <rich:column sortBy="#{item.vendorId}" styleClass="alignCenter">
+                            <f:facet name="header">
+                                <h:outputText value="Vendor ID"/>
+                            </f:facet>
+                            <a4j:commandLink value="#{item.vendorId}" actionListener="#{vendorBean.doSelect}" reRender="editPanel">
+                                <f:param name="p_vendor_id" value="#{item.vendorId}"/>
+                            </a4j:commandLink>
+                        </rich:column>
+
+                        <rich:column sortBy="#{item.name}">
+                            <f:facet name="header">
+                                <h:outputText value="Name"/>
+                            </f:facet>
+                            <h:outputText value="#{item.name}"/>
+                        </rich:column>
+                    </rich:dataTable>
+                </rich:panel>
+
+                <rich:panel id="editPanel" styleClass="noborder">
+                    <h:inputHidden value="#{vendorBean.mode}"/>
+                    <a4j:commandButton value="New" actionListener="#{vendorBean.doNew}" reRender="editPanel,searchPanel"
+                                       disabled="#{vendorBean.disbNew}"/>
+                    <rich:spacer width="4"/>
+                    <a4j:commandButton value="Save" actionListener="#{vendorBean.doSave}" reRender="editPanel,searchPanel"
+                                       disabled="#{vendorBean.disbSave}"/>
+                    <rich:spacer width="4"/>
+                    <a4j:commandButton value="Delete" actionListener="#{vendorBean.doDelete}" reRender="editPanel,searchPanel"
+                                       disabled="#{vendorBean.disbDel}"/>
+                    <rich:spacer width="4"/>
+                    <a4j:commandButton value="Clear" actionListener="#{vendorBean.doClear}" reRender="editPanel"/>
+
+                    <h:panelGrid columns="2" width="350px">
+                        <h:outputLabel value="Vendor ID"/>
+                        <h:inputText value="#{vendorBean.vendor_id}" size="7" maxlength="7" disabled="#{vendorBean.disbVendor_id}">
+                            <a4j:support event="onkeyup" actionListener="#{vendorBean.doCheckVendor_id}"
+                                         reRender="editPanel"
+                                         onsubmit="if(notEnter(event))return false"/>
+                        </h:inputText>
+                       <h:outputLabel value="Name"/>
+                        <h:inputText value="#{vendorBean.description}" size="50" maxlength="100"/>
+                        <h:outputLabel value="Address 1"/>
+                        <h:inputText value="#{vendorBean.addr1}" size="50" maxlength="120"/>
+                        <h:outputLabel value="Address 2"/>
+                        <h:inputText value="#{vendorBean.addr2}" size="50" maxlength="120"/>
+                        <h:outputLabel value="Road"/>
+                        <h:inputText value="#{vendorBean.road}" size="30" maxlength="70"/>
+                        <h:outputLabel value="Soi"/>
+                        <h:inputText value="#{vendorBean.soi}" size="30" maxlength="70"/>
+
+                        <h:outputLabel value="Country"/>
+                        <h:selectOneMenu value="#{vendorBean.country_id}">
+                            <f:selectItems value="#{vendorBean.lsCountry}" />
+                            <a4j:support event="onchange" reRender="province,district,subdist,zipcode" actionListener="#{customerBean.doCheckCountry}"/>
+                        </h:selectOneMenu>
+
+                        <h:outputLabel value="Province"/>
+                        <h:selectOneMenu id="province" value="#{vendorBean.province}">
+                            <f:selectItems value="#{vendorBean.lsProvince}" />
+                            <a4j:support event="onchange" reRender="district,subdist,zipcode" actionListener="#{customerBean.doCheckProvince}"/>
+                        </h:selectOneMenu>
+
+                        <h:outputLabel value="District"/>
+                        <h:selectOneMenu id="district" value="#{vendorBean.district}">
+                            <f:selectItems value="#{vendorBean.lsDistrict}" />
+                            <a4j:support event="onchange" reRender="subdist,zipcode" actionListener="#{customerBean.doCheckDistrict}"/>
+                        </h:selectOneMenu>
+
+                        <h:outputLabel value="Sub district"/>
+                        <h:selectOneMenu id="subdist" value="#{vendorBean.subdist_id}">
+                            <f:selectItems value="#{vendorBean.lsSubdist}" />
+                            <a4j:support event="onchange" reRender="zipcode" actionListener="#{customerBean.doCheckSubdist}"/>
+                        </h:selectOneMenu>
+
+                        <h:outputLabel value="Zipcode"/>
+                        <h:inputText id="zipcode" value="#{vendorBean.zipcode}" size="5" maxlength="5"/>
+                        <h:outputLabel value="Phone"/>
+                        <h:inputText value="#{vendorBean.phone}" size="40" maxlength="70"/>
+                        <h:outputLabel value="Fax"/>
+                        <h:inputText value="#{vendorBean.fax}" size="40" maxlength="50"/>
+                        <h:outputLabel value="e-mail"/>
+                        <h:inputText value="#{vendorBean.email}" size="40" maxlength="60"/>
+
+                        <h:outputLabel value="Tax"/>
+                        <h:selectOneMenu id="tax" value="#{vendorBean.tax_id}">
+                            <f:selectItems value="#{vendorBean.lsTax}" />
+                        </h:selectOneMenu>
+
+                    </h:panelGrid>
+                </rich:panel>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>
