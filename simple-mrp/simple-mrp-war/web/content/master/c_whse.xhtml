@@ -20,7 +20,7 @@ and open the template in the editor.
             <h:panelGrid columns="2" columnClasses="left_panel,right_panel" width="100%">
                 <rich:panel id="searchPanel" styleClass="noborder">
                     <h:panelGrid columns="3">
-                        <h:outputLabel value="whse Name"/>
+                        <h:outputLabel value="Description"/>
                         <h:inputText value="#{whseBean.keyword}">
                             <a4j:support event="onkeyup" actionListener="#{whseBean}"
                                          reRender="whseTable"
@@ -31,7 +31,7 @@ and open the template in the editor.
                     <rich:dataTable id="whseTable" value="#{whseBean.lsWhse}" var="item" width="400px">
                         <rich:column sortBy="#{item.whse}" styleClass="alignCenter">
                             <f:facet name="header">
-                                <h:outputText value="whse ID"/>
+                                <h:outputText value="Warehouse"/>
                             </f:facet>
                             <a4j:commandLink value="#{item.whse}" actionListener="#{whseBean.doSelect}" reRender="editPanel">
                                 <f:param name="p_whse" value="#{item.whse}"/>
@@ -40,7 +40,7 @@ and open the template in the editor.
 
                         <rich:column sortBy="#{item.description}">
                             <f:facet name="header">
-                                <h:outputText value="description"/>
+                                <h:outputText value="Description"/>
                             </f:facet>
                             <h:outputText value="#{item.description}"/>
                         </rich:column>
@@ -67,7 +67,7 @@ and open the template in the editor.
 
                         </h:inputText>
 
-                        <h:outputLabel value="DESCRIPTION"/>
+                        <h:outputLabel value="Description"/>
                         <h:inputText value="#{whseBean.description}" size="50" maxlength="100"/>
 
 

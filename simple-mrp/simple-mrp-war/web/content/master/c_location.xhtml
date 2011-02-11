@@ -20,7 +20,7 @@ and open the template in the editor.
             <h:panelGrid columns="2" columnClasses="left_panel,right_panel" width="100%">
                 <rich:panel id="searchPanel" styleClass="noborder">
                     <h:panelGrid columns="3">
-                        <h:outputLabel value="locationBean Name"/>
+                        <h:outputLabel value="location Name"/>
                         <h:inputText value="#{locationBean.keyword}">
                             <a4j:support event="onkeyup" actionListener="#{locationBean}"
                                          reRender="locationTable"
@@ -40,13 +40,13 @@ and open the template in the editor.
                         </rich:column>
                     <rich:column sortBy="#{item.locPK.whse}">
                             <f:facet name="header">
-                                <h:outputText value="whse"/>
+                                <h:outputText value="Whse"/>
                             </f:facet>
                             <h:outputText value="#{item.locPK.whse}"/>
                         </rich:column>
                         <rich:column sortBy="#{item.description}">
                             <f:facet name="header">
-                                <h:outputText value="description"/>
+                                <h:outputText value="Description"/>
                             </f:facet>
                             <h:outputText value="#{item.description}"/>
                         </rich:column>
