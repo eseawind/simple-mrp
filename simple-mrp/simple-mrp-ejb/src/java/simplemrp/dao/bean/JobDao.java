@@ -48,13 +48,16 @@ public class JobDao extends AbstractDao<Job> implements InfJobDao {
         }
 
         if(p_dtJobDate != null) {
+            if(condition.length() > 0) {
+                condition.append("AND ");
+            }
             condition.append("j.jobdate = :jobDate ");
             pb.put("jobDate", p_dtJobDate);
         }
 
         if(condition.length() > 0) {
             StringBuilder sql = new StringBuilder();
-            sql.append("SELECT j FROM Job AS j WHERE ").append(condition);
+            sql.append("SELECT distinct j FROM Job AS j WHERE ").append(condition);
 
             Query q = em.createQuery(sql.toString());
             q = pb.bind(q);

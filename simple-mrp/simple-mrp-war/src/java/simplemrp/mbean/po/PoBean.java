@@ -71,8 +71,8 @@ public class PoBean extends PoAttr {
 
                 checkPoId(po.getPoId());
 
-                if((getSearchVendId().trim().length() > 0) || (getSearchPoDate() != null)) {
-                    searchPO(getSearchVendId().trim().toUpperCase(), getSearchPoDate());
+                if(getSearchPoDate() != null) {
+                    searchPO(getSearchPoDate());
                 }
 
                 message("Save Complete");
@@ -82,8 +82,8 @@ public class PoBean extends PoAttr {
 
                 checkPoId(strNewPoId);
 
-                if((getSearchVendId().trim().length() > 0) || (getSearchPoDate() != null)) {
-                    searchPO(getSearchVendId().trim().toUpperCase(), getSearchPoDate());
+                if(getSearchPoDate() != null) {
+                    searchPO(getSearchPoDate());
                 }
 
                 message("Create Complete");
@@ -155,16 +155,14 @@ public class PoBean extends PoAttr {
 
     public void doSearchPo(ActionEvent e) throws Exception {
         try {
-            String strSearchVendId = StringUtil.prefixString(getSearchVendId().trim(), 7);
             Date dtSearchPoDate = getSearchPoDate();
 
-            setSearchVendId(strSearchVendId);
             setSearchPoDate(dtSearchPoDate);
 
-            if((strSearchVendId.length() == 0) && (dtSearchPoDate == null)) {
-                message("Please Enter Search Condition");
+            if(dtSearchPoDate == null) {
+                message("Please P/O Date");
             } else {
-                searchPO(strSearchVendId, dtSearchPoDate);
+                searchPO(dtSearchPoDate);
             }
         } catch(Exception ex) {
             message(ex.getMessage());
@@ -172,10 +170,10 @@ public class PoBean extends PoAttr {
         
     }
 
-    private void searchPO(String p_strVendId, Date p_dtPoDate) throws Exception {
-        if((p_strVendId.length() > 0) || (p_dtPoDate != null)) {
+    private void searchPO(Date p_dtPoDate) throws Exception {
+        if(p_dtPoDate != null) {
             PoFacadeRemote poFacade = EJBLookup.getPoFacade();
-            List<Po> lsPo = poFacade.searchPo(p_strVendId, p_dtPoDate);
+            List<Po> lsPo = poFacade.searchPo(p_dtPoDate);
 
             setLsPo(lsPo);
         }

@@ -16,7 +16,7 @@ import simplemrp.entity.Po;
  */
 @Local
 public interface InfPoBo {
-    public List<Po> searchPo(String p_strVendId, Date p_dtPoDate) throws Exception;
+    public List<Po> searchPo(Date p_dtPoDate) throws Exception;
 
     public Po findPo(String p_strPo_id) throws Exception;
 

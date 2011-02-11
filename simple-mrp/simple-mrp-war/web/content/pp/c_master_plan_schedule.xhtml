@@ -17,6 +17,45 @@ and open the template in the editor.
             <rich:messages></rich:messages>
             <a4j:keepAlive beanName="mpsBean"></a4j:keepAlive>
             <h:panelGrid columns="2" columnClasses="left_panel,right_panel" width="100%">
+                
+                <rich:panel id="searchPanel" styleClass="noborder">
+                    <h:panelGrid columns="3">
+                        <h:outputText value="Due Date"/>
+                        <rich:calendar value="#{mpsBean.searchDueDate}" datePattern="#{constantBean.PATTREN_DATE}"/>
+                        <a4j:commandButton value="Search" actionListener="#{mpsBean.doSearch}" reRender="searchPanel,editPanel"/>
+                    </h:panelGrid>
+                    <rich:dataTable id="mpsTable" value="#{mpsBean.lsMps}" var="mpsItem" width="400">
+                        <rich:column width="20%" sortBy="#{mpsItem.mpsId}">
+                            <f:facet name="header">
+                                <h:outputText value="MPS ID"/>
+                            </f:facet>
+                            <a4j:commandLink value="#{mpsItem.mpsId}"
+                                             actionListener="#{mpsBean.doEdit}"
+                                             reRender="editPanel">
+                                <f:param name="p_mps_id" value="#{mpsItem.mpsId}"/>
+                            </a4j:commandLink>
+                        </rich:column>
+                        <rich:column width="5%" sortBy="#{mpsItem.mpstype.mpsType}">
+                            <f:facet name="header">
+                                <h:outputText value="Type"/>
+                            </f:facet>
+                            <h:outputText value="#{mpsItem.mpstype.description}"/>
+                        </rich:column>
+                        <rich:column width="40%" sortBy="#{mpsItem.item.item}" >
+                            <f:facet name="header">
+                                <h:outputText value="Item"/>
+                            </f:facet>
+                            <h:outputText value="#{mpsItem.item.item}"/>
+                        </rich:column>
+                        
+                        <rich:column width="35%" sortBy="#{mpsItem.duedate}">
+                            <f:facet name="header">
+                                <h:outputText value="Due Date"/>
+                            </f:facet>
+                            <h:outputText value="#{mpsItem.duedate}"/>
+                        </rich:column>
+                    </rich:dataTable>
+                </rich:panel>
                 <rich:panel id="editPanel" header="Master Plan Schedule">
                     <a4j:commandButton value="New" actionListener="#{mpsBean.doNew}" disabled="#{mpsBean.dsbNew}" reRender="editPanel"/>
                     <rich:spacer width="4"/>
@@ -26,93 +65,46 @@ and open the template in the editor.
                     <rich:spacer width="4"/>
 
                     <h:panelGrid columns="2" columnClasses="alignTop,alignTop">
-                        <h:outputLabel value="รหัสแผนการผลิต"></h:outputLabel>
+                        <h:outputLabel value="MPS ID"></h:outputLabel>
                         <h:inputText value="#{mpsBean.mpsId}" disabled="true"></h:inputText>
-                        <h:outputLabel value="รหัสสินค้า"></h:outputLabel>
+
+                        <h:outputLabel value="Item"></h:outputLabel>
                         <h:inputText value="#{mpsBean.itemId}"></h:inputText>
-                        <h:outputLabel value="ชนิดของเอกสารอ้างอิง"></h:outputLabel>
+
+                        <h:outputLabel value="MPS Type"></h:outputLabel>
                         <h:selectOneMenu value="#{mpsBean.mpsType}">
                             <f:selectItems value="#{mpsBean.lsMpsType}">
                             </f:selectItems>
                         </h:selectOneMenu>
-                        <h:outputLabel value="รหัสเอกสาร"></h:outputLabel>
 
+                        <h:outputLabel value="Ref. Document"></h:outputLabel>
                         <h:inputText value="#{mpsBean.refId}"></h:inputText>
-                        <h:outputLabel value="ลำดับเอกสาร"></h:outputLabel>
-                        <rich:inputNumberSpinner value="#{mpsBean.refSeqInt}"/>
-
-                        <h:outputLabel value="วันที่ส่งของ"></h:outputLabel>
-                        <rich:calendar value="#{mpsBean.dueDate}" datePattern="#{constantBean.PATTREN_DATE}"/>
-                        <h:outputLabel value="จำนวนที่ต้องการ"></h:outputLabel>
-                        <rich:inputNumberSpinner value="#{mpsBean.qty}"/>
                         
-                        <h:outputLabel value="สถานะ"></h:outputLabel>
+                        <h:outputLabel value="Ref. Seq"></h:outputLabel>
+                        <h:outputText value="#{mpsBean.refSeqInt}"/>
+
+                        <h:outputLabel value="Duedate"></h:outputLabel>
+                        <rich:calendar value="#{mpsBean.dueDate}" datePattern="#{constantBean.PATTREN_DATE}"/>
+                        
+                        <h:outputLabel value="QTY"></h:outputLabel>
+                        <rich:inputNumberSpinner value="#{mpsBean.qty}"/>
+
+                        <h:outputLabel value="Status"></h:outputLabel>
                         <h:selectOneMenu value="#{mpsBean.mpsStat}">
                             <f:selectItems value="#{mpsBean.lsMpsStat}">
                             </f:selectItems>
                         </h:selectOneMenu>
+
                         <h:outputLabel value="Create User"></h:outputLabel>
                         <h:outputText value="#{mpsBean.cUser}"/>
                         <h:outputLabel value="Create Date"></h:outputLabel>
                         <h:outputText value="#{mpsBean.cDate}"/>
+                        
                         <h:outputLabel value="Update User"></h:outputLabel>
                         <h:outputText value="#{mpsBean.uUser}"/>
                         <h:outputLabel value="Update Date"></h:outputLabel>
                         <h:outputText value="#{mpsBean.uDate}"/>
                     </h:panelGrid>
-                </rich:panel>
-                <rich:panel id="tablePanel" header="MPS List">
-                    <h:panelGrid columns="3">
-                        <h:outputText value="Due Dat"/>
-                        <rich:calendar value="#{mpsBean.searchDueDate}" datePattern="#{constantBean.PATTREN_DATE}"/>
-                        <a4j:commandButton value="Search" actionListener="#{mpsBean.doSearch}" reRender="tablePanel,editPanel"/>
-                    </h:panelGrid>
-
-                    <rich:spacer width="4"/>
-
-                    <rich:dataTable id="mpsTable" value="#{mpsBean.lsMps}" var="mpsItem" rowKeyVar="rowNo">
-
-                        <rich:column styleClass="alignCenter">
-                            <f:facet name="header">
-                                <h:outputText value="No."/>
-                            </f:facet>
-                            <h:outputText value="#{rowNo+1}"/>
-                        </rich:column>
-                        <rich:column sortBy="#{mpsItem.mpsId}">
-                            <f:facet name="header">
-                                <h:outputText value="MPS"/>
-                            </f:facet>
-                            <a4j:commandLink value="#{mpsItem.mpsId}"
-                                             actionListener="#{mpsBean.doEdit}"
-                                             reRender="editPanel">
-                                <f:param name="p_mps_id" value="#{mpsItem.mpsId}"/>
-                            </a4j:commandLink>
-                        </rich:column>
-                        <rich:column sortBy="#{mpsItem.item.item}">
-                            <f:facet name="header">
-                                <h:outputText value="Item ID"/>
-                            </f:facet>
-                            <h:outputText value="#{mpsItem.item.item}"/>
-                        </rich:column>
-                        <rich:column sortBy="#{mpsItem.mpstype.description}">
-                            <f:facet name="header">
-                                <h:outputText value="ชนิดของเอกสารอ้างอิง"/>
-                            </f:facet>
-                            <h:outputText value="#{mpsItem.mpstype.description}"/>
-                        </rich:column>
-                        <rich:column sortBy="#{mpsItem.mpsstat.description}">
-                            <f:facet name="header">
-                                <h:outputText value="Stat"/>
-                            </f:facet>
-                            <h:outputText value="#{mpsItem.mpsstat.description}"/>
-                        </rich:column>
-                        <rich:column sortBy="#{mpsItem.duedate}">
-                            <f:facet name="header">
-                                <h:outputText value="Due Date"/>
-                            </f:facet>
-                            <h:outputText value="#{mpsItem.duedate}"/>
-                        </rich:column>
-                    </rich:dataTable>
                 </rich:panel>
             </h:panelGrid>
         </h:form>

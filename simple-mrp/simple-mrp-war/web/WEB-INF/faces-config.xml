@@ -227,4 +227,9 @@
             <property-name>p_mode</property-name>
             <value>#{param.p_mode}</value>
         </managed-property></managed-bean>
+        <managed-bean>
+            <managed-bean-name>changepwdBean</managed-bean-name>
+            <managed-bean-class>simplemrp.mbean.master.ChangepwdBean</managed-bean-class>
+            <managed-bean-scope>request</managed-bean-scope>
+        </managed-bean>
 </faces-config>

@@ -22,7 +22,6 @@ public class PoAttr extends AbstractManageBean {
 
     private String mode;
 
-    private String searchVendId;
     private Date searchPoDate;
     
     private String poId;
@@ -90,14 +89,6 @@ public class PoAttr extends AbstractManageBean {
 
     public void setSearchPoDate(Date searchPoDate) {
         this.searchPoDate = searchPoDate;
-    }
-
-    public String getSearchVendId() {
-        return searchVendId;
-    }
-
-    public void setSearchVendId(String searchVendId) {
-        this.searchVendId = searchVendId;
     }
 
     public Character getStat() {

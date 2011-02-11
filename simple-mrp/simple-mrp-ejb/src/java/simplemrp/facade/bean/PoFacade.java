@@ -87,8 +87,8 @@ public class PoFacade implements PoFacadeRemote {
     }
 
     @Override
-    public List<Po> searchPo(String p_strVendId, Date p_dtPoDate) throws Exception {
-        return poBo.searchPo(p_strVendId, p_dtPoDate);
+    public List<Po> searchPo(Date p_dtPoDate) throws Exception {
+        return poBo.searchPo(p_dtPoDate);
     }
 
     @Override

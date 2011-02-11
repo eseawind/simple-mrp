@@ -37,7 +37,7 @@ public interface PoFacadeRemote {
     public List<Bank> getListBank() throws Exception;
 
     //Po management
-    public List<Po> searchPo(String p_strVendId, Date p_dtPoDate) throws Exception;
+    public List<Po> searchPo(Date p_dtPoDate) throws Exception;
     public Po getPo(String strPo_id) throws Exception;
     public String createPo(Po p_po) throws Exception;
     public void editPo(Po p_po) throws Exception;
