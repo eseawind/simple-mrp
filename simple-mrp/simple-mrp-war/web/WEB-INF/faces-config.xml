@@ -185,6 +185,11 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
     <managed-bean>
+        <managed-bean-name>vendorBean</managed-bean-name>
+        <managed-bean-class>simplemrp.mbean.po.VendorBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
         <managed-bean-name>itemoprBean</managed-bean-name>
         <managed-bean-class>simplemrp.mbean.pp.ItemoprBean</managed-bean-class>
 
@@ -222,5 +227,4 @@
             <property-name>p_mode</property-name>
             <value>#{param.p_mode}</value>
         </managed-property></managed-bean>
-
 </faces-config>
