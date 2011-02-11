@@ -127,6 +127,7 @@ CREATE TABLE `coitem` (
   `UDATE` date DEFAULT NULL,
   `CDATE` date DEFAULT NULL,
   `CUSER` varchar(20) DEFAULT NULL,
+  `MPS_ID` varchar(7) DEFAULT NULL,
   PRIMARY KEY (`CO_ID`,`CO_SEQ`),
   KEY `FK_COITEM_ITEM` (`ITEM`),
   KEY `FK_COITEM_STAT` (`STAT`),
@@ -141,10 +142,10 @@ CREATE TABLE `coitem` (
 --
 
 /*!40000 ALTER TABLE `coitem` DISABLE KEYS */;
-INSERT INTO `coitem` (`CO_ID`,`CO_SEQ`,`ITEM`,`QTY`,`QTYSHIP`,`PRICE`,`STAT`,`UUSER`,`UDATE`,`CDATE`,`CUSER`) VALUES 
- ('C000001',1,'DINNER-DESK-001',6.00,NULL,7000.00,'O','dummy_user','2011-01-26','2011-01-26','dummy_user'),
- ('C000001',2,'CHAIR-WOOD-001',5.00,NULL,5000.00,'O','dummy_user','2011-01-26','2011-01-26','dummy_user'),
- ('C000001',3,'SOFA-LEATHER-001',2.00,NULL,4000.00,'O','dummy_user','2011-01-26','2011-01-26','dummy_user');
+INSERT INTO `coitem` (`CO_ID`,`CO_SEQ`,`ITEM`,`QTY`,`QTYSHIP`,`PRICE`,`STAT`,`UUSER`,`UDATE`,`CDATE`,`CUSER`,`MPS_ID`) VALUES 
+ ('C000001',1,'DINNER-DESK-001',6.00,NULL,7000.00,'O','dummy_user','2011-01-26','2011-01-26','dummy_user',NULL),
+ ('C000001',2,'CHAIR-WOOD-001',5.00,NULL,5000.00,'O','dummy_user','2011-01-26','2011-01-26','dummy_user',NULL),
+ ('C000001',3,'SOFA-LEATHER-001',2.00,NULL,4000.00,'O','dummy_user','2011-01-26','2011-01-26','dummy_user',NULL);
 /*!40000 ALTER TABLE `coitem` ENABLE KEYS */;
 
 
@@ -1230,6 +1231,7 @@ CREATE TABLE `forecast` (
   `UDATE` date DEFAULT NULL,
   `CDATE` date DEFAULT NULL,
   `CUSER` varchar(20) DEFAULT NULL,
+  `MPS_ID` varchar(7) DEFAULT NULL,
   PRIMARY KEY (`ITEM`),
   CONSTRAINT `FK_FORECAST_ITEM` FOREIGN KEY (`ITEM`) REFERENCES `item` (`ITEM`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -1239,6 +1241,8 @@ CREATE TABLE `forecast` (
 --
 
 /*!40000 ALTER TABLE `forecast` DISABLE KEYS */;
+INSERT INTO `forecast` (`ITEM`,`QTY`,`FCSTDATE`,`UUSER`,`UDATE`,`CDATE`,`CUSER`,`MPS_ID`) VALUES 
+ ('DINNER-DESK-001',12.00,'2011-02-11',NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `forecast` ENABLE KEYS */;
 
 
@@ -1281,7 +1285,9 @@ INSERT INTO `item` (`ITEM`,`DESCRIPTION`,`PRODUCT`,`SOURCE`,`STAT`,`WARRANTY`,`U
  ('CHAIR-WOOD-001','เก้าอี้ไม้','CHAIR-LOF','M','A',3,'EA',5,NULL,'2011-01-26','developer','2011-01-26','developer'),
  ('DINNER-DESK-001','โต็ะรับประทานอาหาร','CHAIR-LOF','M','A',3,'EA',5,NULL,'2011-01-26','developer','2011-01-26','developer'),
  ('LEG-ROUND-METAL','ขาเหล็กกลม','RAW','P','A',NULL,'EA',NULL,100.00,'2011-02-05','developer','2011-02-05','developer'),
- ('SOFA-LEATHER-001','โซฟาหนังแท้','CHAIR-LOF','M','A',3,'EA',NULL,NULL,'2011-01-26','developer','2011-01-26','developer');
+ ('SCREW-ST-1INCH','สกรูสเตนเลส 1 นิ้ว','RAW','P','A',NULL,'EA',NULL,NULL,'2011-02-09','developer','2011-02-09','developer'),
+ ('SOFA-LEATHER-001','โซฟาหนังแท้','CHAIR-LOF','M','A',3,'EA',NULL,NULL,'2011-01-26','developer','2011-01-26','developer'),
+ ('TOP-WOOD-OAK','Top ไม้โอ้ค','RAW','P','A',NULL,'EA',NULL,NULL,'2011-01-26','developer','2011-01-26','developer');
 /*!40000 ALTER TABLE `item` ENABLE KEYS */;
 
 
@@ -1385,6 +1391,10 @@ CREATE TABLE `itemmatl` (
 --
 
 /*!40000 ALTER TABLE `itemmatl` DISABLE KEYS */;
+INSERT INTO `itemmatl` (`ITEM`,`OPR`,`SEQ`,`MATL`,`QTY`,`CUSER`,`CDATE`,`UUSER`,`UDATE`) VALUES 
+ ('CHAIR-WOOD-001',10,1,'LEG-ROUND-METAL',3.00,'dummy_user','2011-02-09','dummy_user','2011-02-09'),
+ ('CHAIR-WOOD-001',10,2,'SCREW-ST-1INCH',20.00,'dummy_user','2011-02-09','dummy_user','2011-02-09'),
+ ('CHAIR-WOOD-001',20,1,'TOP-WOOD-OAK',1.00,'dummy_user','2011-02-09','dummy_user','2011-02-09');
 /*!40000 ALTER TABLE `itemmatl` ENABLE KEYS */;
 
 
@@ -1412,6 +1422,9 @@ CREATE TABLE `itemopr` (
 --
 
 /*!40000 ALTER TABLE `itemopr` DISABLE KEYS */;
+INSERT INTO `itemopr` (`ITEM`,`OPR`,`WC`,`CUSER`,`CDATE`,`UUSER`,`UDATE`) VALUES 
+ ('CHAIR-WOOD-001',10,'CUT-01','dummy_user','2011-02-07','dummy_user','2011-02-09'),
+ ('CHAIR-WOOD-001',20,'ASMB-01','dummy_user','2011-02-09','dummy_user','2011-02-09');
 /*!40000 ALTER TABLE `itemopr` ENABLE KEYS */;
 
 
@@ -1452,6 +1465,7 @@ CREATE TABLE `job` (
   `QTYCOMPLETE` int(10) unsigned DEFAULT '0',
   `STAT` varchar(1) NOT NULL,
   `NOTE` varchar(100) DEFAULT NULL,
+  `Releaser` varchar(20) DEFAULT NULL,
   `CUSER` varchar(20) DEFAULT NULL,
   `CDATE` date DEFAULT NULL,
   `UUSER` varchar(20) DEFAULT NULL,
@@ -1468,6 +1482,8 @@ CREATE TABLE `job` (
 --
 
 /*!40000 ALTER TABLE `job` DISABLE KEYS */;
+INSERT INTO `job` (`JOB_ID`,`ITEM`,`JOBDATE`,`QTY`,`QTYCOMPLETE`,`STAT`,`NOTE`,`Releaser`,`CUSER`,`CDATE`,`UUSER`,`UDATE`) VALUES 
+ ('J000001','CHAIR-WOOD-001','2011-02-09',2,0,'R','','dummy_user','dummy_user','2011-02-09','dummy_user','2011-02-11');
 /*!40000 ALTER TABLE `job` ENABLE KEYS */;
 
 
@@ -1523,6 +1539,10 @@ CREATE TABLE `jobmatl` (
 --
 
 /*!40000 ALTER TABLE `jobmatl` DISABLE KEYS */;
+INSERT INTO `jobmatl` (`JOB_ID`,`OPR`,`SEQ`,`MATL`,`QTY`,`CUSER`,`CDATE`,`UUSER`,`UDATE`,`QTY_REQ`,`QTY_SHIP`) VALUES 
+ ('J000001',10,1,'LEG-ROUND-METAL',0.00,'dummy_user','2011-02-11','dummy_user','2011-02-11',6,NULL),
+ ('J000001',10,2,'SCREW-ST-1INCH',0.00,'dummy_user','2011-02-11','dummy_user','2011-02-11',40,NULL),
+ ('J000001',20,1,'TOP-WOOD-OAK',0.00,'dummy_user','2011-02-11','dummy_user','2011-02-11',2,NULL);
 /*!40000 ALTER TABLE `jobmatl` ENABLE KEYS */;
 
 
@@ -1554,6 +1574,9 @@ CREATE TABLE `jobopr` (
 --
 
 /*!40000 ALTER TABLE `jobopr` DISABLE KEYS */;
+INSERT INTO `jobopr` (`JOB_ID`,`OPR`,`WC`,`ITEM`,`CUSER`,`CDATE`,`UUSER`,`UDATE`) VALUES 
+ ('J000001',10,'CUT-01','CHAIR-WOOD-001','dummy_user','2011-02-11','dummy_user','2011-02-11'),
+ ('J000001',20,'ASMB-01','CHAIR-WOOD-001','dummy_user','2011-02-11','dummy_user','2011-02-11');
 /*!40000 ALTER TABLE `jobopr` ENABLE KEYS */;
 
 
@@ -1685,7 +1708,8 @@ CREATE TABLE `po` (
 
 /*!40000 ALTER TABLE `po` DISABLE KEYS */;
 INSERT INTO `po` (`PO_ID`,`PO_DATE`,`STAT`,`NOTE`,`CUSER`,`CDATE`,`UUSER`,`UDATE`) VALUES 
- ('P000001','2011-02-05','O',NULL,'dummy_user','2011-02-05','dummy_user','2011-02-05');
+ ('P000001','2011-02-05','O',NULL,'dummy_user','2011-02-05','dummy_user','2011-02-05'),
+ ('P000002','2011-02-11','O','อนุมัติแล้ว','dummy_user','2011-02-11','dummy_user','2011-02-11');
 /*!40000 ALTER TABLE `po` ENABLE KEYS */;
 
 
@@ -1751,7 +1775,8 @@ CREATE TABLE `poitem` (
 /*!40000 ALTER TABLE `poitem` DISABLE KEYS */;
 INSERT INTO `poitem` (`PO_ID`,`PO_SEQ`,`ITEM`,`STAT`,`QTY`,`QTY_RCV`,`DUE_DATE`,`VEND_ITEM`,`PR_ID`,`PR_SEQ`,`NOTE`,`CUSER`,`CDATE`,`UUSER`,`UDATE`,`VEND_ID`) VALUES 
  ('P000001',1,'CHAIR-WOOD-001','O',2.00,NULL,NULL,NULL,'R000001',1,NULL,'dummy_user','2011-02-05','dummy_user','2011-02-05',NULL),
- ('P000001',2,'DINNER-DESK-001','O',4.00,NULL,NULL,NULL,'R000001',2,NULL,'dummy_user','2011-02-05','dummy_user','2011-02-05',NULL);
+ ('P000001',2,'DINNER-DESK-001','O',4.00,NULL,NULL,NULL,'R000001',2,NULL,'dummy_user','2011-02-05','dummy_user','2011-02-05',NULL),
+ ('P000002',1,'DINNER-DESK-001','O',13.00,NULL,'2011-02-11',NULL,'R000004',1,NULL,'dummy_user','2011-02-11','dummy_user','2011-02-11',NULL);
 /*!40000 ALTER TABLE `poitem` ENABLE KEYS */;
 
 
@@ -1784,7 +1809,8 @@ CREATE TABLE `pr` (
 INSERT INTO `pr` (`PR_ID`,`STAT`,`REQUESTER`,`APPROVER`,`REQ_DATE`,`NOTE`,`CUSER`,`CDATE`,`UUSER`,`UDATE`) VALUES 
  ('R000001','A','tester','dummy_user','2011-02-03','','dummy_user','2011-02-03','dummy_user','2011-02-05'),
  ('R000002','R','Golf',NULL,'2011-02-03','update note','dummy_user','2011-02-03','dummy_user','2011-02-03'),
- ('R000003','R','Golf',NULL,'2011-02-09','','dummy_user','2011-02-03','dummy_user','2011-02-03');
+ ('R000003','R','Golf',NULL,'2011-02-09','','dummy_user','2011-02-03','dummy_user','2011-02-03'),
+ ('R000004','A','Tester','dummy_user','2011-02-11','ทดสอบ Purchase Requisition','dummy_user','2011-02-11','dummy_user','2011-02-11');
 /*!40000 ALTER TABLE `pr` ENABLE KEYS */;
 
 
@@ -1862,7 +1888,8 @@ INSERT INTO `pritem` (`PR_ID`,`PR_SEQ`,`ITEM`,`QTY`,`DUE_DATE`,`NOTE`,`UUSER`,`U
  ('R000001',1,'CHAIR-WOOD-001',2.00,'2011-02-04','','dummy_user','2011-02-04','dummy_user','2011-02-04'),
  ('R000001',2,'DINNER-DESK-001',4.00,'2011-02-03','','dummy_user','2011-02-04','dummy_user','2011-02-04'),
  ('R000002',1,'CHAIR-WOOD-001',2.00,'2011-02-11','test','dummy_user','2011-02-04','dummy_user','2011-02-04'),
- ('R000002',2,'DINNER-DESK-001',2.00,'2011-02-11','ทดสอบ','dummy_user','2011-02-04','dummy_user','2011-02-04');
+ ('R000002',2,'DINNER-DESK-001',2.00,'2011-02-11','ทดสอบ','dummy_user','2011-02-04','dummy_user','2011-02-04'),
+ ('R000004',1,'DINNER-DESK-001',13.00,'2011-02-11','เพื่อมอบให้แก่โรงเรียน','dummy_user','2011-02-11','dummy_user','2011-02-11');
 /*!40000 ALTER TABLE `pritem` ENABLE KEYS */;
 
 
