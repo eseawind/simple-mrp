@@ -22,6 +22,7 @@ import simplemrp.bo.InfUomBo;
 import simplemrp.bo.InfWhseBo;
 import simplemrp.bo.InfLocBo;
 import simplemrp.bo.InfWorkcenterBo;
+import simplemrp.bo.InfUsrBo;
 import simplemrp.entity.Country;
 import simplemrp.entity.District;
 import simplemrp.entity.Item;
@@ -34,6 +35,7 @@ import simplemrp.entity.Subdist;
 import simplemrp.entity.Tax;
 import simplemrp.entity.Term;
 import simplemrp.entity.Uom;
+import simplemrp.entity.Usr;
 import simplemrp.entity.Workcenter;
 import simplemrp.entity.Whse;
 import simplemrp.entity.Loc;
@@ -74,6 +76,8 @@ public class MaFacade implements MaFacadeRemote {
     private InfLocBo locBo;
     @EJB
     private InfUomBo uomBo;
+     @EJB
+    private InfUsrBo usrBo;
 
     @Override
     public List<Country> getListCountry() throws Exception {
@@ -269,6 +273,11 @@ public class MaFacade implements MaFacadeRemote {
     @Override
     public void deleteLoc(Loc p_loc) throws Exception {
         locBo.removeLoc(p_loc);
+    }
+
+    @Override
+    public Usr getUsr(String usrId) throws Exception {
+        return usrBo.findUsr(usrId);
     }
 
 }
