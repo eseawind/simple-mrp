@@ -23,6 +23,7 @@ import simplemrp.entity.Whse;
 import simplemrp.entity.Workcenter;
 import simplemrp.entity.Loc;
 import simplemrp.entity.LocPK;
+import simplemrp.entity.Usr;
 /**
  *
  * @author Golf
@@ -81,13 +82,14 @@ public interface MaFacadeRemote {
     public void deleteWhse(Whse p_whse) throws Exception;
      public List<Whse> getListWhse() throws Exception;
 
-
-
       //Loc manage
     public List<Loc> searchLoc(String p_strKeyword) throws Exception;
     public Loc getLoc(LocPK p_locPK) throws Exception;
     public void createLoc(Loc p_loc) throws Exception ;
     public void editLoc(Loc p_loc) throws Exception;
     public void deleteLoc(Loc p_loc) throws Exception;
+
+      //Usr manage
+    public Usr getUsr(String usrId) throws Exception;
    
 }
