@@ -30,4 +30,6 @@ public interface InfJobBo {
     public List<Job> findByJobDate(Date p_jobDate);
 
     public List<Job_stat> listJobStat();
+
+    public void releaseJob(String p_strJob_id) throws Exception;
 }

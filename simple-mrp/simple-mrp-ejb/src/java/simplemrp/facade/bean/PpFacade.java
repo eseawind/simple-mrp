@@ -13,6 +13,7 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityExistsException;
+import org.sit.common.utils.OperationResult;
 import simplemrp.bo.InfForecastBo;
 import simplemrp.bo.InfItemmatlBo;
 import simplemrp.bo.InfItemoprBo;
@@ -92,6 +93,11 @@ public class PpFacade implements PpFacadeRemote {
     @Override
     public void editJob(Job p_job) throws Exception {
         jobBo.editJob(p_job);
+    }
+
+    @Override
+    public void releaseJob(String p_strJob_id) throws Exception {
+        jobBo.releaseJob(p_strJob_id);
     }
 
     @Override
@@ -268,5 +274,8 @@ public class PpFacade implements PpFacadeRemote {
         return jobMatlBo.getJobmatlByJobId(jobId);
     }
 
-
+    @Override
+    public OperationResult generateMPS() throws Exception {
+        return mpsBo.generateMPS();
+    }
 }

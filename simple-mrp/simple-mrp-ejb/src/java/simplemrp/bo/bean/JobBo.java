@@ -139,7 +139,7 @@ public class JobBo implements InfJobBo {
         }
     }
 
-    private void releaseJob(String p_strJob_id) throws Exception {
+    public void releaseJob(String p_strJob_id) throws Exception {
         try {
             Job job = jobDao.find(p_strJob_id);
 

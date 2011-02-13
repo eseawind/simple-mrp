@@ -10,6 +10,7 @@ import java.util.List;
 import javax.ejb.Remote;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import org.sit.common.utils.OperationResult;
 import simplemrp.entity.Forecast;
 import simplemrp.entity.Itemmatl;
 import simplemrp.entity.ItemmatlPK;
@@ -80,4 +81,8 @@ public interface PpFacadeRemote {
 
     //JobMatl Manage
     public List<Jobmatl> getJobMatlByJobId(String jobId);
+
+    public OperationResult generateMPS() throws Exception;
+
+    public void releaseJob(String p_strJob_id) throws Exception;
 }

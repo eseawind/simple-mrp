@@ -11,4 +11,8 @@ package simplemrp.constant;
  */
 public class MasterConstant {
     public static final String TERM_CASH = "CSH";
+    public static final String ITEMSOURCE_PURCHASE = "P";
+    public static final String ITEMSOURCE_MANUFACTURE = "M";
+
+
 }
