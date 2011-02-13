@@ -70,7 +70,7 @@ public class CoFacadeRemoteTest {
          assertEquals(expResult, result);
         } else {
             System.out.println("searchCustomer Result="+result);
-            assertNull(result);
+            assertNotNull(result);
         }
         
        
