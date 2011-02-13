@@ -1,17 +1,126 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <title>TODO supply a title</title>
-    </head>
-    <body>
-        <p>
-            TODO write content
-        </p>
-    </body>
-</html>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+
+    <ui:define name="programname">Stocktrans</ui:define>
+
+    <ui:define name="content">
+       
+        
+        <h:form id="stocktransFormId">
+            <a4j:keepAlive beanName="stocktransBean"></a4j:keepAlive>
+            <h:panelGrid columns="1" columnClasses="left_panel" width="100%">
+                <rich:panel id="searchPanel" styleClass="noborder">
+                    <h:panelGrid columns="11">
+                        <h:outputLabel value="Item"/>
+                        <h:inputText value="#{stocktransBean.searchTransItem}" size="30" maxlength="35">
+                            <a4j:support event="onkeyup" actionListener="#{stocktransBean.doSearchStocktrans}"
+                                         reRender="searchPanel"
+                                         onsubmit="if(notEnter(event))return false"/>
+                        </h:inputText>
+                        <rich:spacer width="1"></rich:spacer>
+                        <h:outputLabel value="Date From"/>
+                        <rich:calendar value="#{stocktransBean.searchTransDateFrom}"
+                                       datePattern="#{constantBean.PATTREN_DATE}"
+                                       popup="true"
+                                       inputSize="10"/>
+                          <h:outputLabel value="Date To"/>
+                        <rich:calendar value="#{stocktransBean.searchTransDateTo}"
+                                       datePattern="#{constantBean.PATTREN_DATE}"
+                                       popup="true"
+                                       inputSize="10"/>
+                        <a4j:commandButton value="Search" actionListener="#{stocktransBean.doSearchStocktrans}" reRender="stocktransTable"/>
+                    </h:panelGrid>
+
+                    <rich:dataTable id="stocktransTable" value="#{stocktransBean.lsStocktrans}" var="stocktrans" width="400px">
+
+                        <rich:column sortBy="#{stocktrans.transId}">
+                            <f:facet name="header">
+                                <h:outputText value="transId"/>
+                            </f:facet>
+                            <h:outputText value="#{stocktrans.transId}"/>
+                        </rich:column>
+
+                        <rich:column sortBy="#{stocktrans.itemloc.itemlocPK.item}">
+                            <f:facet name="header">
+                                <h:outputText value="item"/>
+                            </f:facet>
+                            <h:outputText value="#{stocktrans.itemloc.itemlocPK.item}"/>
+                        </rich:column>
+
+                        <rich:column sortBy="#{stocktrans.itemloc.itemlocPK.whse}">
+                            <f:facet name="header">
+                                <h:outputText value="whse"/>
+                            </f:facet>
+                            <h:outputText value="#{stocktrans.itemloc.itemlocPK.whse}"/>
+                        </rich:column>
+
+                        <rich:column sortBy="#{stocktrans.itemloc.itemlocPK.loc}">
+                            <f:facet name="header">
+                                <h:outputText value="loc"/>
+                            </f:facet>
+                            <h:outputText value="#{stocktrans.itemloc.itemlocPK.loc}"/>
+                        </rich:column>
+
+                        <rich:column sortBy="#{stocktrans.transType}">
+                            <f:facet name="header">
+                                <h:outputText value="transType"/>
+                            </f:facet>
+                            <h:outputText value="#{stocktrans.transType}"/>
+                        </rich:column>
+                        <rich:column sortBy="#{stocktrans.transDate}" styleClass="alignCenter">
+                            <f:facet name="header">
+                                <h:outputText value="stocktrans Date"/>
+                            </f:facet>
+                            <h:outputText value="#{stocktrans.transDate}">
+                                <f:convertDateTime pattern="#{constantBean.PATTREN_DATE}" timeZone="#{constantBean.TIMEZONE}"/>
+                            </h:outputText>
+                        </rich:column>
+                          <rich:column sortBy="#{stocktrans.cdate}" styleClass="alignCenter">
+                            <f:facet name="header">
+                                <h:outputText value="cdate"/>
+                            </f:facet>
+                            <h:outputText value="#{stocktrans.cdate}">
+                                <f:convertDateTime pattern="#{constantBean.PATTREN_DATE}" timeZone="#{constantBean.TIMEZONE}"/>
+                            </h:outputText>
+                        </rich:column>
+
+                           <rich:column sortBy="#{stocktrans.refId}">
+                            <f:facet name="header">
+                                <h:outputText value="refId"/>
+                            </f:facet>
+                            <h:outputText value="#{stocktrans.refId}"/>
+                        </rich:column>
+                           <rich:column sortBy="#{stocktrans.refSeq}">
+                            <f:facet name="header">
+                                <h:outputText value="refSeq"/>
+                            </f:facet>
+                            <h:outputText value="#{stocktrans.refSeq}"/>
+                        </rich:column>
+                           <rich:column sortBy="#{stocktrans.qty}">
+                            <f:facet name="header">
+                                <h:outputText value="qty"/>
+                            </f:facet>
+                            <h:outputText value="#{stocktrans.qty}"/>
+                        </rich:column>
+                           <rich:column sortBy="#{stocktrans.cuser}">
+                            <f:facet name="header">
+                                <h:outputText value="cuser"/>
+                            </f:facet>
+                            <h:outputText value="#{stocktrans.cuser}"/>
+                        </rich:column>
+                        
+                    </rich:dataTable>
+                </rich:panel>
+
+
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

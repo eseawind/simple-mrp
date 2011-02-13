@@ -11,6 +11,7 @@ import javax.ejb.Remote;
 import simplemrp.entity.Co;
 import simplemrp.entity.Coitem;
 import simplemrp.entity.Itemloc;
+import simplemrp.entity.Stocktrans;
 import simplemrp.mbean.ic.to.CoOrderItemTO;
 import simplemrp.mbean.ic.to.JobRecvItemTO;
 import simplemrp.mbean.ic.to.PoRecvItemTO;
@@ -38,4 +39,9 @@ public interface IcFacadeRemote {
 
     ///////////// Job Order Receive
     public void saveJobReceive(String jobId,Date transDate,JobRecvItemTO to);
+
+
+      //Stocktrans manage
+    public List<Stocktrans> searchStocktrans(String p_strTransItem, Date p_dtTransDateFrom, Date p_dtTransDateTo) throws Exception;
+
 }

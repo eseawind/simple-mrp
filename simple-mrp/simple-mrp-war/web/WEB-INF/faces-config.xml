@@ -145,6 +145,11 @@
         <managed-bean-class>simplemrp.mbean.master.LocBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+     <managed-bean>
+        <managed-bean-name>stocktransBean</managed-bean-name>
+        <managed-bean-class>simplemrp.mbean.ic.StocktransBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
     <managed-bean>
         <managed-bean-name>poitemBean</managed-bean-name>
         <managed-bean-class>simplemrp.mbean.po.PoitemBean</managed-bean-class>

@@ -14,11 +14,13 @@ import simplemrp.bo.InfItemBo;
 import simplemrp.bo.InfItemLocationBo;
 import simplemrp.bo.InfJobRecvBo;
 import simplemrp.bo.InfPoRecvBo;
+import simplemrp.bo.InfStocktransBo;
 import simplemrp.dao.InfItemlocDao;
 import simplemrp.entity.Co;
 import simplemrp.entity.Coitem;
 import simplemrp.entity.Itemloc;
 import simplemrp.entity.ItemlocPK;
+import simplemrp.entity.Stocktrans;
 import simplemrp.facade.IcFacadeRemote;
 import simplemrp.mbean.ic.to.CoOrderItemTO;
 import simplemrp.mbean.ic.to.JobRecvItemTO;
@@ -44,6 +46,8 @@ public class IcFacade implements IcFacadeRemote {
     private InfPoRecvBo infPoRecvBo;
     @EJB
     private InfJobRecvBo infJobRecvBo;
+    @EJB
+    private InfStocktransBo stocktransBo;
 
     @Override
     public List<Itemloc> searchItemLocation(String warehouse, String location) {
@@ -90,4 +94,10 @@ public class IcFacade implements IcFacadeRemote {
     public void saveJobReceive(String jobId, Date transDate,JobRecvItemTO jobRecvItem) {
         infJobRecvBo.saveJobRecv(jobId,transDate,jobRecvItem);
     }
+
+    @Override
+    public List<Stocktrans> searchStocktrans(String p_strTransItem, Date p_dtTransDateFrom, Date p_dtTransDateTo) {
+        return stocktransBo.searchStocktrans( p_strTransItem, p_dtTransDateFrom, p_dtTransDateTo);
+    }
+
 }
