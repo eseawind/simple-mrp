@@ -5,6 +5,7 @@
 
 package simplemrp.facade;
 
+import java.util.Date;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -15,10 +16,16 @@ import static org.junit.Assert.*;
 import simplemrp.entity.Co;
 import simplemrp.entity.Coitem;
 import simplemrp.entity.CoitemPK;
+import simplemrp.entity.Country;
 import simplemrp.entity.Customer;
+import simplemrp.entity.District;
 import simplemrp.entity.Itemprice;
 import simplemrp.entity.ItempricePK;
+import simplemrp.entity.Prefixname;
+import simplemrp.entity.Province;
 import simplemrp.entity.Slsman;
+import simplemrp.entity.Subdist;
+import simplemrp.entity.Tax;
 import simplemrp.test.ContextFactory;
 import simplemrp.util.BindingName;
 
@@ -28,6 +35,8 @@ import simplemrp.util.BindingName;
  */
 public class CoFacadeRemoteTest {
     private static CoFacadeRemote coFacade;
+    private static Customer c=null;
+    private static String custId;
     public CoFacadeRemoteTest() {
     }
 
@@ -57,37 +66,49 @@ public class CoFacadeRemoteTest {
         String p_strKeyword = "";
         List expResult = null;
         List result = coFacade.searchCustomer(p_strKeyword);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        if(result==null){
+         assertEquals(expResult, result);
+        } else {
+            System.out.println("searchCustomer Result="+result);
+            assertNull(result);
+        }
+        
+       
     }
 
-    /**
-     * Test of getCustomer method, of class CoFacadeRemote.
-     */
-    @Test
-    public void testGetCustomer() throws Exception {
-        System.out.println("getCustomer");
-        String p_strCust_id = "";
-        Customer expResult = null;
-        Customer result = coFacade.getCustomer(p_strCust_id);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+
 
     /**
      * Test of createCustomer method, of class CoFacadeRemote.
      */
+    
     @Test
     public void testCreateCustomer() throws Exception {
         System.out.println("createCustomer");
-        Customer p_customer = null;
-        String expResult = "";
-        String result = coFacade.createCustomer(p_customer);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        c = new Customer("autogenid");
+        c.setTax(new Tax("V07"));
+        c.setPrefixname(new Prefixname(1));
+        c.setName("UNIT USER");
+        c.setAddr1("UNITADDR");
+        c.setAddr2("UNITADDR2");
+        c.setRoad("UNITRODE");
+        c.setSoi("UNITSOI");
+        c.setSubdist(new Subdist(103401));
+        c.setDistrict(new District(1034));
+        c.setProvince(new Province(10));
+        c.setZipcode("10250");
+        c.setCountry(new Country(66));
+        c.setPhone("08-58108022");
+        c.setFax("02-722-8150");
+        c.setEmail("email@domain.com");
+        c.setCdate(new Date());
+        c.setCuser("unittest_u");
+        c.setUdate(new Date());
+        c.setUuser("unittest_u");
+        custId = coFacade.createCustomer(c);
+        System.out.println("createCustomer ID="+custId);
+        assertNotNull(custId);
+        
     }
 
     /**
@@ -96,10 +117,23 @@ public class CoFacadeRemoteTest {
     @Test
     public void testEditCustomer() throws Exception {
         System.out.println("editCustomer");
-        Customer p_customer = null;
-        coFacade.editCustomer(p_customer);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        c.setCustId(custId);
+        c.setEmail("myemail@domain.com");
+        coFacade.editCustomer(c);
+       
+    }
+
+        /**
+     * Test of getCustomer method, of class CoFacadeRemote.
+     */
+    @Test
+    public void testGetCustomer() throws Exception {
+        System.out.println("getCustomer");
+        String p_strCust_id = custId;
+        String expResult = "myemail@domain.com";
+        Customer result = coFacade.getCustomer(p_strCust_id);
+        assertEquals(expResult, result.getEmail());
+        
     }
 
     /**
@@ -108,10 +142,11 @@ public class CoFacadeRemoteTest {
     @Test
     public void testDeleteCustomer() throws Exception {
         System.out.println("deleteCustomer");
-        Customer p_customer = null;
+        Customer p_customer = new Customer(custId);
         coFacade.deleteCustomer(p_customer);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Customer result = coFacade.getCustomer(custId);
+        assertEquals(null, result);
     }
 
     /**
