@@ -82,7 +82,7 @@ public interface PpFacadeRemote {
     //JobMatl Manage
     public List<Jobmatl> getJobMatlByJobId(String jobId);
 
-    public OperationResult generateMPS() throws Exception;
+    public OperationResult generateMPS(String p_strUsr_id) throws Exception;
 
     public void releaseJob(String p_strJob_id) throws Exception;
 }

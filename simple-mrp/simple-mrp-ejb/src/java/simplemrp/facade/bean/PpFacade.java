@@ -275,7 +275,7 @@ public class PpFacade implements PpFacadeRemote {
     }
 
     @Override
-    public OperationResult generateMPS() throws Exception {
-        return mpsBo.generateMPS();
+    public OperationResult generateMPS(String p_strUsr_id) throws Exception {
+        return mpsBo.generateMPS(p_strUsr_id);
     }
 }
