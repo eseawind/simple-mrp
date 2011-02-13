@@ -8,32 +8,35 @@ package simplemrp.mbean.ic;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.faces.model.SelectItem;
 import simplemrp.entity.Loc;
 import simplemrp.entity.Whse;
+import simplemrp.mbean.AbstractManageBean;
 
 /**
  *
  * @author wisaruthkea
  */
-public class MatlToJobAttr {
+public class MatlToJobAttr extends AbstractManageBean {
     //search
     private String jobId;
 
     //search result
     // one
-    private String jobItem;
-    private String qty;
+    private String jobItemId;
+    private String jobItemDesc;
+    private Integer qty;
     private Date transactionDate;
     // to many
     private List<MatlToJobItem> lsMatlToJobItem;
     
     //resource
-    private List<Whse> lsWarehouse;
-    private List<Loc> lsLocation;
+    private List<SelectItem> lsWarehouse;
+    
 
     public MatlToJobAttr(){
-        lsWarehouse = new ArrayList<Whse>();
-        lsLocation = new ArrayList<Loc>();
+        lsMatlToJobItem =new ArrayList<MatlToJobItem>();
+        lsWarehouse = new ArrayList<SelectItem>();
     }
     /**
      * @return the jobId
@@ -49,33 +52,8 @@ public class MatlToJobAttr {
         this.jobId = jobId;
     }
 
-    /**
-     * @return the jobItem
-     */
-    public String getJobItem() {
-        return jobItem;
-    }
 
-    /**
-     * @param jobItem the jobItem to set
-     */
-    public void setJobItem(String jobItem) {
-        this.jobItem = jobItem;
-    }
 
-    /**
-     * @return the qty
-     */
-    public String getQty() {
-        return qty;
-    }
-
-    /**
-     * @param qty the qty to set
-     */
-    public void setQty(String qty) {
-        this.qty = qty;
-    }
 
     /**
      * @return the transactionDate
@@ -92,6 +70,62 @@ public class MatlToJobAttr {
     }
 
     /**
+     * @return the jobItemId
+     */
+    public String getJobItemId() {
+        return jobItemId;
+    }
+
+    /**
+     * @param jobItemId the jobItemId to set
+     */
+    public void setJobItemId(String jobItemId) {
+        this.jobItemId = jobItemId;
+    }
+
+    /**
+     * @return the jobItemDesc
+     */
+    public String getJobItemDesc() {
+        return jobItemDesc;
+    }
+
+    /**
+     * @param jobItemDesc the jobItemDesc to set
+     */
+    public void setJobItemDesc(String jobItemDesc) {
+        this.jobItemDesc = jobItemDesc;
+    }
+
+    /**
+     * @return the lsWarehouse
+     */
+    public List<SelectItem> getLsWarehouse() {
+        return lsWarehouse;
+    }
+
+    /**
+     * @param lsWarehouse the lsWarehouse to set
+     */
+    public void setLsWarehouse(List<SelectItem> lsWarehouse) {
+        this.lsWarehouse = lsWarehouse;
+    }
+
+    /**
+     * @return the qty
+     */
+    public Integer getQty() {
+        return qty;
+    }
+
+    /**
+     * @param qty the qty to set
+     */
+    public void setQty(Integer qty) {
+        this.qty = qty;
+    }
+
+    /**
      * @return the lsMatlToJobItem
      */
     public List<MatlToJobItem> getLsMatlToJobItem() {
@@ -103,34 +137,6 @@ public class MatlToJobAttr {
      */
     public void setLsMatlToJobItem(List<MatlToJobItem> lsMatlToJobItem) {
         this.lsMatlToJobItem = lsMatlToJobItem;
-    }
-
-    /**
-     * @return the lsWarehouse
-     */
-    public List<Whse> getLsWarehouse() {
-        return lsWarehouse;
-    }
-
-    /**
-     * @param lsWarehouse the lsWarehouse to set
-     */
-    public void setLsWarehouse(List<Whse> lsWarehouse) {
-        this.lsWarehouse = lsWarehouse;
-    }
-
-    /**
-     * @return the lsLocation
-     */
-    public List<Loc> getLsLocation() {
-        return lsLocation;
-    }
-
-    /**
-     * @param lsLocation the lsLocation to set
-     */
-    public void setLsLocation(List<Loc> lsLocation) {
-        this.lsLocation = lsLocation;
     }
 
 

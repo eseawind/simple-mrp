@@ -14,77 +14,105 @@ and open the template in the editor.
     <ui:define name="programname">Material To Job</ui:define>
     <ui:define name="content">
 
-            <h:form id="matlToJobFormId">
-                <rich:messages></rich:messages>
-                <a4j:keepAlive beanName="matlToJobBean"></a4j:keepAlive>
-                <h:panelGrid columns="2" columnClasses="alignTop,alignTop">
-                    <rich:panel id="editPanel" header="Material To Job">
-                        <rich:spacer width="4"/>
-                        <a4j:commandButton value="Save" actionListener="#{matlToJobBean.doSave}" reRender="editPanel"/>
+        <h:form id="matlToJobFormId">
+            <rich:messages></rich:messages>
+            <a4j:keepAlive beanName="matlToJobBean"></a4j:keepAlive>
+            <h:panelGrid columns="2" columnClasses="alignTop,alignTop" width="100%">
+                <rich:panel id="editPanel" header="Material To Job">
+                    <rich:spacer width="4"/>
+                    <a4j:commandButton value="Save" actionListener="#{matlToJobBean.doSave}" reRender="editPanel"/>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Job ID"/>
                         <h:panelGrid columns="2">
-                            <h:outputLabel value="Job ID"/>
-                            <h:panelGrid columns="2">
-                                <h:inputText value="#{matlToJobBean.jobId}"/>
-                                <a4j:commandButton value="Search" actionListener="#{matlToJobBean.doSearch}" reRender="editPanel"/>
-                            </h:panelGrid>
-                            <h:outputText value="Item"/>
-                            <h:inputText value="#{matlToJobBean.jobItem}"/>
-                            <h:outputText value="Quantity"/>
-                            <h:inputText value="#{matlToJobBean.qty}"/>
-                            <h:outputText value="Transaction Date"/>
-                            <rich:calendar value="#{matlToJobBean.transactionDate}" datePattern="#{constantBean.PATTREN_DATE}"></rich:calendar>
+                            <h:inputText value="#{matlToJobBean.jobId}"/>
+                            <a4j:commandButton value="Search" actionListener="#{matlToJobBean.doSearch}" reRender="editPanel"/>
                         </h:panelGrid>
-                        <br></br>
-                        Item
-                        <rich:dataTable id="matlToJobTable" value="#{matlToJobBean.lsMatlToJobItem}" var="item" stateVar="status">
-                              <rich:column styleClass="alignCenter">
-                                  <f:facet name="header">
-                                      <h:outputText value="No."/>
-                                  </f:facet>
-                                  <h:outputText value="#{status}"/>
-                              </rich:column>
-                              <rich:column >
-                                  <f:facet name="header">
-                                      <h:outputText value="Material"/>
-                                  </f:facet>
-                                  <h:outputText value="#{item.itemmatlPK}"/>
-                              </rich:column>
-                            <rich:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Warehouse"/>
-                                </f:facet>
-                                <h:outputText value="warehouse"/>
-                            </rich:column>
+                        <h:outputText value="Item"/>
+                        <h:outputText value="#{matlToJobBean.jobItemId} #{matlToJobBean.jobItemDesc}"/>
+                        <h:outputText value="Quantity"/>
+                        <h:outputText value="#{matlToJobBean.qty}"/>
+                        <h:outputText value="Transaction Date"/>
+                        <rich:calendar value="#{matlToJobBean.transactionDate}" datePattern="#{constantBean.PATTREN_DATE}"></rich:calendar>
+                    </h:panelGrid>
+                    <br></br>
+                    Item
+                    <rich:dataTable id="matlToJobTable" value="#{matlToJobBean.lsMatlToJobItem}" var="matlItem" rowKeyVar="rowKey">
+                        <rich:column styleClass="alignCenter">
+                            <f:facet name="header">
+                                <h:outputText value="No."/>
+                            </f:facet>
+                            <h:outputText value="#{rowKey+1}"/>
+                        </rich:column>
+                        <rich:column>
+                            <f:facet name="header">
+                                <h:outputText value="Seq"/>
+                            </f:facet>
+                            <h:outputText value="#{matlItem.sequence}"/>
+                        </rich:column>
+                        <rich:column>
+                            <f:facet name="header">
+                                <h:outputText value="Operation"/>
+                            </f:facet>
+                            <h:outputText value="#{matlItem.operation}"/>
+                        </rich:column>
+                        <rich:column >
+                            <f:facet name="header">
+                                <h:outputText value="Material"/>
+                            </f:facet>
+                            <h:outputText value="#{matlItem.matl}"/>
+                        </rich:column>
+                        <rich:column>
+                            <f:facet name="header">
+                                <h:outputText value="Warehouse"/>
+                            </f:facet>
+                            <h:selectOneMenu value="#{matlItem.selectedWarehouse}">
+                                <f:selectItem itemLabel="-SELECT-" itemValue="-1"></f:selectItem>
+                                <f:selectItems value="#{matlToJobBean.lsWarehouse}"/>
+                                <a4j:support event="onchange" reRender="matlToJobTable" actionListener="#{matlItem.doCheckWarehouse}"/>
+                            </h:selectOneMenu>
+                            
+                        </rich:column>
 
-                            <rich:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Location"/>
-                                </f:facet>
-                                <h:outputText value="location"/>
-                            </rich:column>
-                            <rich:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Qty Request"/>
-                                </f:facet>
-                                <h:outputText value="จำนวนที่ขอเบิก=JobQtyxjobMatlQty"/>
-                            </rich:column>
-                            <rich:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Qty Issued"/>
-                                </f:facet>
-                                <h:outputText value="จำนวนที่จ่ายแล้ว"/>
-                            </rich:column>
-                            <rich:column>
-                                <f:facet name="header">
-                                    <h:outputText value="To Be Issue"/>
-                                </f:facet>
-                                <h:outputText value="#{item.toBeIssue}"/>
-                            </rich:column>
-                        </rich:dataTable>
-                    </rich:panel>
+                        <rich:column>
+                            <f:facet name="header">
+                                <h:outputText value="Location"/>
+                            </f:facet>
+                            <h:selectOneMenu value="#{matlItem.selectedLocation}">
+                                 <f:selectItem itemLabel="-SELECT-" itemValue="-1"></f:selectItem>
+                                 <f:selectItems value="#{matlItem.lsLocation}"/>
+                                 <a4j:support event="onchange" reRender="matlToJobTable" actionListener="#{matlItem.doCheckLocation}"/>
+                            </h:selectOneMenu>
+                            
+                        </rich:column>
+                        <rich:column>
+                            <f:facet name="header">
+                                <h:outputText value="On Hand"/>
+                            </f:facet>
+                            <h:outputText value="#{matlItem.onHand}"/>
+                        </rich:column>
+                        <rich:column>
+                            <f:facet name="header">
+                                <h:outputText value="Qty Request"/>
+                            </f:facet>
+                            <h:outputText value="#{matlItem.qtyRequest}"/>
+                        </rich:column>
+                        <rich:column>
+                            <f:facet name="header">
+                                <h:outputText value="Qty Issued"/>
+                            </f:facet>
+                            <h:outputText value="#{matlItem.qtyIssued}"/>
+                        </rich:column>
+                        <rich:column>
+                            <f:facet name="header">
+                                <h:outputText value="To Be Issue"/>
+                            </f:facet>
+                            <rich:inputNumberSpinner value="#{matlItem.toBeIssue}" maxValue="#{matlItem.maxToBeIssue}"/>
+                        </rich:column>
+                    </rich:dataTable>
+                </rich:panel>
 
-                </h:panelGrid>
-            </h:form>
+            </h:panelGrid>
+        </h:form>
 
     </ui:define>
 </ui:composition>
