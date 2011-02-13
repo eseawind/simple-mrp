@@ -13,7 +13,7 @@ import simplemrp.mbean.AbstractManageBean;
  */
 public class ChangepwdAttr extends AbstractManageBean {
     private String usrId;
-    private String usrName;
+//    private String usrName;
     private String pwdOld;
     private String pwdNew;
     private String pwdConfirm;
@@ -51,13 +51,13 @@ public class ChangepwdAttr extends AbstractManageBean {
         this.usrId = usrId;
     }
 
-    public String getUsrName() {
-        return usrName;
-    }
-
-    public void setUsrName(String usrName) {
-        this.usrName = usrName;
-    }
+//    public String getUsrName() {
+//        return usrName;
+//    }
+//
+//    public void setUsrName(String usrName) {
+//        this.usrName = usrName;
+//    }
 
     
 }
