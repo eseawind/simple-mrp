@@ -57,4 +57,12 @@ public class JobmatlDao extends AbstractDao<Jobmatl> implements InfJobmatlDao {
         return intNext;
     }
 
+    @Override
+    public List<Jobmatl> findByJobId(String jobId) {
+        String sql = "SELECT o FROM Jobmatl o WHERE o.jobmatlPK.jobId=:jobId";
+        Query q = em.createQuery(sql);
+        q.setParameter("jobId", jobId);
+        return q.getResultList();
+    }
+
 }

@@ -93,4 +93,15 @@ public class JobmatlBo implements InfJobmatlBo {
     public void removeJobmatl(Jobmatl p_jobmatl) throws Exception {
         jobmatlDao.remove(p_jobmatl);
     }
+
+    @Override
+    public List<Jobmatl> getJobmatlByJobId(String jobId) {
+        List<Jobmatl> lsJM = jobmatlDao.findByJobId(jobId);
+        for(Jobmatl j:lsJM){
+            if(j.getItem()!=null){
+                j.getItem().toString();
+            }
+        }
+        return lsJM;
+    }
  }

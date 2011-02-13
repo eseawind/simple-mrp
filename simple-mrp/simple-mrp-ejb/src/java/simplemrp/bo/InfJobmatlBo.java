@@ -18,6 +18,7 @@ import simplemrp.entity.JobmatlPK;
 public interface InfJobmatlBo {
     public List<Jobmatl> getJobmatlByJobopr(String p_strJob, Integer p_intOpr) throws Exception;
     public Jobmatl getJobmatl(JobmatlPK p_pkJobmatl) throws Exception;
+    public List<Jobmatl> getJobmatlByJobId(String jobId);
     public Integer createJobmatl(Jobmatl p_jobmatl) throws Exception;
     public void editJobmatl(Jobmatl p_jobmatl) throws Exception;
     public void removeJobmatl(Jobmatl p_jobmatl) throws Exception;

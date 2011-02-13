@@ -17,6 +17,7 @@ import simplemrp.bo.InfForecastBo;
 import simplemrp.bo.InfItemmatlBo;
 import simplemrp.bo.InfItemoprBo;
 import simplemrp.bo.InfJobBo;
+import simplemrp.bo.InfJobmatlBo;
 import simplemrp.bo.InfMpsBo;
 import simplemrp.bo.InfWorkcenterBo;
 import simplemrp.dao.InfMpsDao;
@@ -29,6 +30,7 @@ import simplemrp.entity.Itemopr;
 import simplemrp.entity.ItemoprPK;
 import simplemrp.entity.Job;
 import simplemrp.entity.Job_stat;
+import simplemrp.entity.Jobmatl;
 import simplemrp.entity.Mps;
 import simplemrp.entity.Mps_stat;
 import simplemrp.entity.Mps_type;
@@ -61,6 +63,8 @@ public class PpFacade implements PpFacadeRemote {
     private InfItemmatlBo itemmatlBo;
     @EJB
     private InfWorkcenterBo workcenterBo;
+    @EJB
+    private InfJobmatlBo jobMatlBo;
 
     @Override
     public Job getJob(String inputJobId) {
@@ -257,6 +261,11 @@ public class PpFacade implements PpFacadeRemote {
     @Override
     public void deleteItemmatl(Itemmatl p_itemmatl) throws Exception {
         itemmatlBo.removeItemmatl(p_itemmatl);
+    }
+
+    @Override
+    public List<Jobmatl> getJobMatlByJobId(String jobId) {
+        return jobMatlBo.getJobmatlByJobId(jobId);
     }
 
 

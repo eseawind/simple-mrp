@@ -33,4 +33,6 @@ public interface InfJobmatlDao {
     public List<Jobmatl> findByJobopr(String p_strJob, Integer p_intOpr);
 
     public Integer getNextSeq(String p_strJob, Integer p_intOpr);
+
+    public List<Jobmatl> findByJobId(String jobId);
 }

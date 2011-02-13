@@ -14,6 +14,7 @@ import simplemrp.entity.Itemloc;
 import simplemrp.entity.Stocktrans;
 import simplemrp.mbean.ic.to.CoOrderItemTO;
 import simplemrp.mbean.ic.to.JobRecvItemTO;
+import simplemrp.mbean.ic.to.MatlToJobItemTO;
 import simplemrp.mbean.ic.to.PoRecvItemTO;
 
 /**
@@ -41,7 +42,13 @@ public interface IcFacadeRemote {
     public void saveJobReceive(String jobId,Date transDate,JobRecvItemTO to);
 
 
+    //////////// Matl To Job
+    public void saveMatlToJob(String jobId,Date transDate,List<MatlToJobItemTO> lsTo);
+
+
+
       //Stocktrans manage
     public List<Stocktrans> searchStocktrans(String p_strTransItem, Date p_dtTransDateFrom, Date p_dtTransDateTo) throws Exception;
+
 
 }

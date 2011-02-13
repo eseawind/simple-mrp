@@ -17,6 +17,7 @@ import simplemrp.entity.Itemopr;
 import simplemrp.entity.ItemoprPK;
 import simplemrp.entity.Job;
 import simplemrp.entity.Job_stat;
+import simplemrp.entity.Jobmatl;
 import simplemrp.entity.Mps;
 import simplemrp.entity.Mps_stat;
 import simplemrp.entity.Mps_type;
@@ -76,4 +77,7 @@ public interface PpFacadeRemote {
     public Integer createItemmatl(Itemmatl p_itemmatl) throws Exception;
     public void editItemmatl(Itemmatl p_itemmatl) throws Exception;
     public void deleteItemmatl(Itemmatl p_itemmatl) throws Exception;
+
+    //JobMatl Manage
+    public List<Jobmatl> getJobMatlByJobId(String jobId);
 }
