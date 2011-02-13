@@ -32,4 +32,6 @@ public interface InfItemlocDao {
 
     public List<Itemloc> findByParam(String warehouse, String location);
 
+    public Double countOnhand(String p_strItem) throws Exception;
+
 }

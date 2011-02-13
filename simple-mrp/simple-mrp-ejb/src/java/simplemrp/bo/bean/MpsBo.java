@@ -149,8 +149,12 @@ public class MpsBo implements InfMpsBo {
 
                     if(mapMps.containsKey(strMpsKey)) {
                         Mps mps = mapMps.get(strMpsKey);
+                        mps.setMpsId(mpsDao.getNextId());
                         mps.setQty(new Integer(mps.getQty().intValue() + dblDemand.intValue()));
                         mapMps.put(strMpsKey, mps);
+
+                        coitem.setMps_id(mps.getMpsId());
+                        coitemDao.edit(coitem);
                     } else {
                         Mps mps = new Mps();
                         Item item = new Item();
@@ -159,6 +163,9 @@ public class MpsBo implements InfMpsBo {
                         mps.setDuedate(dtDue);
 
                         mapMps.put(strMpsKey, mps);
+
+                        coitem.setMps_id(mps.getMpsId());
+                        coitemDao.edit(coitem);
                     }
                 }
             }
@@ -216,7 +223,7 @@ public class MpsBo implements InfMpsBo {
             while(itr.hasNext()) {
                 String strKey = itr.next();
                 Mps mps = mapMps.get(strKey);
-                mps.setMpsId(mpsDao.getNextId());
+                
 
                 Item item = itemDao.find(mps.getItem().getItem());
 

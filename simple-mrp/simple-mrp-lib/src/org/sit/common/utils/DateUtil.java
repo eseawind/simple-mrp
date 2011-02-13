@@ -4,9 +4,9 @@
  */
 package org.sit.common.utils;
 
-import java.sql.Date;
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  *
@@ -14,15 +14,17 @@ import java.util.Calendar;
  */
 public class DateUtil {
 
-    public static java.sql.Date getDate() {
+    public static Date getDate() {
         Calendar ca = Calendar.getInstance();
         Date now = new Date(ca.getTimeInMillis());
         return new Date(now.getTime());
     }
 
-    public static java.sql.Timestamp getTimestamp() {
-        Calendar ca = Calendar.getInstance();
-        Date now = new Date(ca.getTimeInMillis());
-        return new Timestamp(now.getTime());
+    public static Date addDays(Date date, int days) throws Exception {
+        GregorianCalendar c = new GregorianCalendar();
+        c.setTime(date);
+        c.add(c.DATE, days);
+
+        return new Date(c.getTime().getTime());
     }
 }

@@ -47,6 +47,9 @@ public class Coitem implements Serializable {
     private Date cdate;
     @Column(name = "CUSER")
     private String cuser;
+    @Column(name = "MPS_ID")
+    private String mps_id;
+
     @JoinColumn(name = "STAT", referencedColumnName = "STAT")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Co_stat costat;
@@ -130,6 +133,14 @@ public class Coitem implements Serializable {
 
     public void setCuser(String cuser) {
         this.cuser = cuser;
+    }
+
+    public String getMps_id() {
+        return mps_id;
+    }
+
+    public void setMps_id(String mps_id) {
+        this.mps_id = mps_id;
     }
 
     public Co_stat getCostat() {

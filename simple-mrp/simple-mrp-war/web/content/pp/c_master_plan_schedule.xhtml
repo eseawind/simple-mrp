@@ -14,13 +14,13 @@ and open the template in the editor.
     <ui:define name="programname">Master Plan Schedule</ui:define>
     <ui:define name="content">
         <h:form id="mpsFormId">
-            <rich:messages></rich:messages>
+            
             <a4j:keepAlive beanName="mpsBean"></a4j:keepAlive>
             <h:panelGrid columns="2" columnClasses="left_panel,right_panel" width="100%">
                 
                 <rich:panel id="searchPanel" styleClass="noborder">
                     <h:panelGrid columns="3">
-                        <h:outputText value="Due Date"/>
+                        <h:outputText value="Duedate"/>
                         <rich:calendar value="#{mpsBean.searchDueDate}" datePattern="#{constantBean.PATTREN_DATE}"/>
                         <a4j:commandButton value="Search" actionListener="#{mpsBean.doSearch}" reRender="searchPanel,editPanel"/>
                     </h:panelGrid>
@@ -56,7 +56,9 @@ and open the template in the editor.
                         </rich:column>
                     </rich:dataTable>
                 </rich:panel>
-                <rich:panel id="editPanel" header="Master Plan Schedule">
+                <rich:panel id="editPanel" styleClass="noborder">
+                    <a4j:commandButton value="Generate MPS" actionListener="#{mpsBean.doGenerateMPS}"/>
+                    <rich:spacer width="4"/>
                     <a4j:commandButton value="New" actionListener="#{mpsBean.doNew}" disabled="#{mpsBean.dsbNew}" reRender="editPanel"/>
                     <rich:spacer width="4"/>
                     <a4j:commandButton value="Save" actionListener="#{mpsBean.doSave}" disabled="#{mpsBean.dsbSave}" reRender="editPanel"/>

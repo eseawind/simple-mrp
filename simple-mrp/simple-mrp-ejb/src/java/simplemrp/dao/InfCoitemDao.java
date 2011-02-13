@@ -34,4 +34,6 @@ public interface InfCoitemDao {
 
     public Integer getNextCo_seq(String p_strCo_id);
 
+    public List<Coitem> findForMpsGen() throws Exception;
+
 }

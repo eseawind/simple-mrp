@@ -166,4 +166,12 @@ public class MasterPlanScheduleBean extends MasterPlanScheduleAttr {
         super.setuUser(mps.getUuser());
         super.setuDate(mps.getUdate());
     }
+
+    public void doGenerateMPS(ActionEvent e) {
+        try {
+
+        } catch(Exception ex) {
+            message(ex.getMessage());
+        }
+    }
 }

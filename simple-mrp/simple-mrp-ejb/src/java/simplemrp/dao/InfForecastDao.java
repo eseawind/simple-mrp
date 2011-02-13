@@ -33,4 +33,6 @@ public interface InfForecastDao {
 
     public List<Forecast> findByForecastDate(Date forecaseDate);
 
+    public List<Forecast> findForMpsGen() throws Exception;
+
 }

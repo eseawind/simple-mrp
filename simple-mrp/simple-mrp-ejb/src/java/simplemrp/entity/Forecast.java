@@ -50,6 +50,9 @@ public class Forecast implements Serializable {
     private Date cdate;
     @Column(name = "CUSER")
     private String cuser;
+    @Column(name = "MPS_ID")
+    private String mps_id;
+
     @JoinColumn(name = "ITEM", referencedColumnName = "ITEM", insertable = false, updatable = false)
     @OneToOne(optional = false, fetch = FetchType.LAZY)
     private Item item1;
@@ -120,6 +123,14 @@ public class Forecast implements Serializable {
 
     public void setCuser(String cuser) {
         this.cuser = cuser;
+    }
+
+    public String getMps_id() {
+        return mps_id;
+    }
+
+    public void setMps_id(String mps_id) {
+        this.mps_id = mps_id;
     }
 
     public Item getItem1() {
