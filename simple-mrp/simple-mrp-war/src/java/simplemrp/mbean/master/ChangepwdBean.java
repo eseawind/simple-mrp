@@ -31,6 +31,8 @@ public class ChangepwdBean extends ChangepwdAttr {
             message("Confirm password not match!!!");
         } else {
             usr.setPwd(getPwdNew());
+            ma.editUsr(usr);
+            message("Change Complete!!!");
         }
 
     }

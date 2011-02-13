@@ -280,4 +280,9 @@ public class MaFacade implements MaFacadeRemote {
         return usrBo.findUsr(usrId);
     }
 
+    @Override
+    public void editUsr(Usr usr) throws Exception {
+        usrBo.editUsr(usr);
+    }
+
 }
