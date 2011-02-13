@@ -8,6 +8,7 @@ package simplemrp.bo;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
+import org.sit.common.utils.OperationResult;
 import simplemrp.entity.Mps;
 
 /**
@@ -28,5 +29,7 @@ public interface InfMpsBo {
     public void remove(String mpsId);
 
     public void save(Mps mps);
+
+    public OperationResult generateMPS(String p_strUsr_id) throws Exception;
 
 }
