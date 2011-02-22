@@ -22,4 +22,5 @@ public interface InfJoboprBo {
     public void editJobopr(Jobopr p_jobopr) throws Exception;
     public void removeJobopr(Jobopr p_jobopr) throws Exception;
     public List<Jobopr> getBomDeatil(String p_strJobId) throws Exception;
+    public List<Jobopr> getByJob(String p_strJobID) throws Exception;
 }

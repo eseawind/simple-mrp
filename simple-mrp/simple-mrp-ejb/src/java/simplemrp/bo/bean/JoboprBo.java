@@ -112,4 +112,17 @@ public class JoboprBo implements InfJoboprBo {
 
         return lsJobopr;
     }
+
+    @Overide
+    public List<Jobopr> getByJob(String p_strJobID) throws Exception {
+        List<Jobopr> lsJobopr = null;
+
+        try {
+            lsJobopr = joboprDao.findByJob(p_strJobID);
+        } catch(Exception ex) {
+            throw new Exception(ex.getMessage(), ex);
+        }
+
+        return lsJobopr;
+    }
 }

@@ -19,6 +19,7 @@ import simplemrp.entity.ItemoprPK;
 import simplemrp.entity.Job;
 import simplemrp.entity.Job_stat;
 import simplemrp.entity.Jobmatl;
+import simplemrp.entity.Jobopr;
 import simplemrp.entity.Mps;
 import simplemrp.entity.Mps_stat;
 import simplemrp.entity.Mps_type;
@@ -85,4 +86,6 @@ public interface PpFacadeRemote {
     public OperationResult generateMPS(String p_strUsr_id) throws Exception;
 
     public void releaseJob(String p_strJob_id) throws Exception;
+
+    public List<Jobopr> getJoboprByJob(String p_strJobId) throws Exception;
 }

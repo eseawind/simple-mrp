@@ -21,6 +21,8 @@ import simplemrp.entity.Itemopr;
 import simplemrp.entity.ItemoprPK;
 import simplemrp.entity.Job;
 import simplemrp.entity.Mps;
+import simplemrp.entity.Item;
+import simplemrp.entity.Job_stat;
 import simplemrp.entity.Workcenter;
 import simplemrp.test.ContextFactory;
 import simplemrp.util.BindingName;
@@ -32,6 +34,8 @@ import simplemrp.util.BindingName;
 public class PpFacadeRemoteTest {
 
     private static PpFacadeRemote ppFacade;
+      private static String jobId;
+      private static Job j=null;
     public PpFacadeRemoteTest() throws NamingException {
         ppFacade = (PpFacadeRemote) ContextFactory.getContext().lookup(BindingName.PpFacadeRemote);
     }
@@ -50,6 +54,31 @@ public class PpFacadeRemoteTest {
 
     @After
     public void tearDown() {
+    }
+
+     /**
+     * Test of createJob method, of class PpFacadeRemote.
+     */
+    @Test
+    public void testCreateJob() {
+        System.out.println("createJob");
+         j = new Job("autogenid");
+            j.setCdate(new Date());
+            j.setCuser("Developer");
+            j.setItem(new Item("CHAIR-WOOD-001"));
+            j.setJobdate(new Date());
+            j.setJoboprCollection(null);
+            j.setJobstat(new Job_stat('F'));
+            j.setNote("");
+            j.setQty(2);
+            j.setQtycomplete(2);
+            j.setReleaser("dummy_user");
+            j.setUdate(new Date());
+            j.setUuser("dummy_user");
+        jobId =ppFacade.createJob(j);
+        System.out.println("createJob ID="+jobId);
+        assertNotNull(jobId);
+
     }
 
     /**
@@ -92,50 +121,28 @@ public class PpFacadeRemoteTest {
         
         List expResult = null;
         List result = ppFacade.searchJob(searchJobKey, p_dtJobDate);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+       
+        if(result==null){
+         assertEquals(expResult, result);
+        } else {
+            System.out.println("SearchJob Result="+result);
+            assertNotNull(result);
+        }
     }
 
-    /**
-     * Test of removeJob method, of class PpFacadeRemote.
-     */
-    @Test
-    public void testRemoveJob() {
-        System.out.println("removeJob");
-        String jobid = "";
-        
-        ppFacade.removeJob(jobid);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+   
 
-    /**
-     * Test of createJob method, of class PpFacadeRemote.
-     */
-    @Test
-    public void testCreateJob() {
-        System.out.println("createJob");
-        Job p_job = null;
-        
-        String expResult = "";
-        String result = ppFacade.createJob(p_job);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
+   
     /**
      * Test of editJob method, of class PpFacadeRemote.
      */
     @Test
     public void testEditJob() throws Exception {
         System.out.println("editJob");
-        Job p_job = null;
-        
-        ppFacade.editJob(p_job);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+         j.setJobId(jobId);
+       j.setJobstat(new Job_stat('R'));
+        ppFacade.editJob(j);
     }
 
     /**
@@ -152,7 +159,20 @@ public class PpFacadeRemoteTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
+ /**
+     * Test of removeJob method, of class PpFacadeRemote.
+     */
+    @Test
+    public void testRemoveJob() {
+        System.out.println("removeJob");
 
+         ppFacade.removeJob(jobId);
+        Job result = ppFacade.getJob(jobId);
+         assertEquals(null, result);
+
+
+
+    }
     /**
      * Test of getForecast method, of class PpFacadeRemote.
      */
