@@ -82,7 +82,7 @@ CREATE TABLE `co` (
 
 /*!40000 ALTER TABLE `co` DISABLE KEYS */;
 INSERT INTO `co` (`CO_ID`,`CUST_ID`,`CUST_PO`,`ORDERDATE`,`DUEDATE`,`TERM_ID`,`STAT`,`SLSMAN`,`TAX_ID`,`UUSER`,`UDATE`,`CDATE`,`CUSER`) VALUES 
- ('C000001','0000002','test-customer-po','2011-01-21','2011-01-21','CSH','C','S000001','V07','dummy_user','2011-01-22','2011-01-22','dummy_user'),
+ ('C000001','0000002','test-customer-po','2011-01-21','2011-03-05','CSH','C','S000001','V07','dummy_user','2011-01-22','2011-01-22','dummy_user'),
  ('C000002','0000002','TEST','2011-01-02','2011-01-02','CR30','C','S000001','V07','dummy_user','2011-01-22','2011-01-02','test');
 /*!40000 ALTER TABLE `co` ENABLE KEYS */;
 
@@ -1242,7 +1242,7 @@ CREATE TABLE `forecast` (
 
 /*!40000 ALTER TABLE `forecast` DISABLE KEYS */;
 INSERT INTO `forecast` (`ITEM`,`QTY`,`FCSTDATE`,`UUSER`,`UDATE`,`CDATE`,`CUSER`,`MPS_ID`) VALUES 
- ('DINNER-DESK-001',12.00,'2011-02-11',NULL,NULL,NULL,NULL,NULL);
+ ('DINNER-DESK-001',12.00,'2011-03-05','dummy_user','2011-02-22','2011-02-22','dummy_user',NULL);
 /*!40000 ALTER TABLE `forecast` ENABLE KEYS */;
 
 
@@ -1483,7 +1483,8 @@ CREATE TABLE `job` (
 
 /*!40000 ALTER TABLE `job` DISABLE KEYS */;
 INSERT INTO `job` (`JOB_ID`,`ITEM`,`JOBDATE`,`QTY`,`QTYCOMPLETE`,`STAT`,`NOTE`,`Releaser`,`CUSER`,`CDATE`,`UUSER`,`UDATE`) VALUES 
- ('J000001','CHAIR-WOOD-001','2011-02-09',2,0,'R','','dummy_user','dummy_user','2011-02-09','dummy_user','2011-02-11');
+ ('J000001','CHAIR-WOOD-001','2011-02-09',2,0,'R','','dummy_user','dummy_user','2011-02-09','dummy_user','2011-02-11'),
+ ('J000002','DINNER-DESK-001','2011-02-28',8,NULL,'F',NULL,NULL,'dummy_user','2011-02-22','dummy_user','2011-02-22');
 /*!40000 ALTER TABLE `job` ENABLE KEYS */;
 
 
@@ -1613,7 +1614,7 @@ CREATE TABLE `mps` (
   `MPS_ID` varchar(7) NOT NULL,
   `ITEM` varchar(35) NOT NULL,
   `MPS_TYPE` char(1) NOT NULL,
-  `REF_ID` varchar(10) NOT NULL,
+  `REF_ID` varchar(10) DEFAULT NULL,
   `REF_SEQ` int(11) DEFAULT NULL,
   `DUEDATE` date DEFAULT NULL,
   `QTY` double(10,2) DEFAULT NULL,
@@ -1622,6 +1623,7 @@ CREATE TABLE `mps` (
   `CUSER` varchar(20) DEFAULT NULL,
   `UDATE` date DEFAULT NULL,
   `UUSER` varchar(20) DEFAULT NULL,
+  `RELEASER` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`MPS_ID`),
   KEY `FK_MPS_ITEM` (`ITEM`),
   KEY `FK_MPS_TYPE` (`MPS_TYPE`),
@@ -9990,6 +9992,7 @@ CREATE TABLE `usr` (
   `pwd` varchar(20) DEFAULT NULL,
   `app_pr` char(1) DEFAULT NULL,
   `rls_job` char(1) DEFAULT NULL,
+  `rls_mps` char(1) DEFAULT NULL,
   PRIMARY KEY (`usr_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -9998,9 +10001,9 @@ CREATE TABLE `usr` (
 --
 
 /*!40000 ALTER TABLE `usr` DISABLE KEYS */;
-INSERT INTO `usr` (`usr_id`,`usr_name`,`pwd`,`app_pr`,`rls_job`) VALUES 
- ('admin','Administrator','admin','Y','Y'),
- ('dummy_user','Dummy User','dummy','Y','Y');
+INSERT INTO `usr` (`usr_id`,`usr_name`,`pwd`,`app_pr`,`rls_job`,`rls_mps`) VALUES 
+ ('admin','Administrator','admin','Y','Y','Y'),
+ ('dummy_user','Dummy User','dummy','Y','Y','Y');
 /*!40000 ALTER TABLE `usr` ENABLE KEYS */;
 
 
