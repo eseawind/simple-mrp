@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package simplemrp.facade;
 
 import java.util.Date;
@@ -14,6 +13,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import simplemrp.entity.Co;
+import simplemrp.entity.Co_stat;
 import simplemrp.entity.Coitem;
 import simplemrp.entity.CoitemPK;
 import simplemrp.entity.Country;
@@ -26,6 +26,7 @@ import simplemrp.entity.Province;
 import simplemrp.entity.Slsman;
 import simplemrp.entity.Subdist;
 import simplemrp.entity.Tax;
+import simplemrp.entity.Term;
 import simplemrp.test.ContextFactory;
 import simplemrp.util.BindingName;
 
@@ -34,9 +35,18 @@ import simplemrp.util.BindingName;
  * @author wisaruthkea
  */
 public class CoFacadeRemoteTest {
+
     private static CoFacadeRemote coFacade;
-    private static Customer c=null;
+    //
+    private static Customer c = null;
     private static String custId;
+    //
+    private static Slsman s = null;
+    private static String slsId;
+    //
+    private static Co co = null;
+    private static String coId;
+
     public CoFacadeRemoteTest() {
     }
 
@@ -66,22 +76,19 @@ public class CoFacadeRemoteTest {
         String p_strKeyword = "";
         List expResult = null;
         List result = coFacade.searchCustomer(p_strKeyword);
-        if(result==null){
-         assertEquals(expResult, result);
+        if (result == null) {
+            assertEquals(expResult, result);
         } else {
-            System.out.println("searchCustomer Result="+result);
+            System.out.println("searchCustomer Result=" + result);
             assertNotNull(result);
         }
-        
-       
+
+
     }
-
-
 
     /**
      * Test of createCustomer method, of class CoFacadeRemote.
      */
-    
     @Test
     public void testCreateCustomer() throws Exception {
         System.out.println("createCustomer");
@@ -106,9 +113,9 @@ public class CoFacadeRemoteTest {
         c.setUdate(new Date());
         c.setUuser("unittest_u");
         custId = coFacade.createCustomer(c);
-        System.out.println("createCustomer ID="+custId);
+        System.out.println("createCustomer ID=" + custId);
         assertNotNull(custId);
-        
+
     }
 
     /**
@@ -120,10 +127,10 @@ public class CoFacadeRemoteTest {
         c.setCustId(custId);
         c.setEmail("myemail@domain.com");
         coFacade.editCustomer(c);
-       
+
     }
 
-        /**
+    /**
      * Test of getCustomer method, of class CoFacadeRemote.
      */
     @Test
@@ -133,7 +140,7 @@ public class CoFacadeRemoteTest {
         String expResult = "myemail@domain.com";
         Customer result = coFacade.getCustomer(p_strCust_id);
         assertEquals(expResult, result.getEmail());
-        
+
     }
 
     /**
@@ -155,39 +162,9 @@ public class CoFacadeRemoteTest {
     @Test
     public void testGetListPrefixname() throws Exception {
         System.out.println("getListPrefixname");
-        List expResult = null;
         List result = coFacade.getListPrefixname();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+        System.out.println("getListPrefixname result=" + result);
 
-    /**
-     * Test of searchSlsman method, of class CoFacadeRemote.
-     */
-    @Test
-    public void testSearchSlsman() throws Exception {
-        System.out.println("searchSlsman");
-        String p_strKeyword = "";
-        List expResult = null;
-        List result = coFacade.searchSlsman(p_strKeyword);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getSlsman method, of class CoFacadeRemote.
-     */
-    @Test
-    public void testGetSlsman() throws Exception {
-        System.out.println("getSlsman");
-        String p_strSlsman_id = "";
-        Slsman expResult = null;
-        Slsman result = coFacade.getSlsman(p_strSlsman_id);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -196,13 +173,37 @@ public class CoFacadeRemoteTest {
     @Test
     public void testCreateSlsman() throws Exception {
         System.out.println("createSlsman");
-        Slsman p_slsman = null;
-        
-        String expResult = "";
-        String result = coFacade.createSlsman(p_slsman);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        s = new Slsman("autogenID");
+        s.setFname("UNITFIRSTNAME");
+        s.setLname("UNITLASTNAME");
+        slsId = coFacade.createSlsman(s);
+        assertNotNull(slsId);
+    }
+
+    /**
+     * Test of searchSlsman method, of class CoFacadeRemote.
+     */
+    @Test
+    public void testSearchSlsman() throws Exception {
+        System.out.println("searchSlsman");
+        String p_strKeyword = slsId;
+
+        List result = coFacade.searchSlsman(p_strKeyword);
+        System.out.println("searchSlsman result=" + result);
+        assertNotNull(result);
+    }
+
+    /**
+     * Test of getSlsman method, of class CoFacadeRemote.
+     */
+    @Test
+    public void testGetSlsman() throws Exception {
+        System.out.println("getSlsman");
+        String p_strSlsman_id = slsId;
+        String expResult = "UNITFIRSTNAME";
+        Slsman result = coFacade.getSlsman(p_strSlsman_id);
+        assertEquals(expResult, result.getFname());
+
     }
 
     /**
@@ -211,11 +212,13 @@ public class CoFacadeRemoteTest {
     @Test
     public void testEditSlsman() throws Exception {
         System.out.println("editSlsman");
-        Slsman p_slsman = null;
-        
-        coFacade.editSlsman(p_slsman);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        s.setSlsman(slsId);
+        s.setLname("UNITLASTNAME_2");
+
+        coFacade.editSlsman(s);
+        Slsman result = coFacade.getSlsman(slsId);
+        assertEquals("UNITLASTNAME_2", result.getLname());
+
     }
 
     /**
@@ -224,41 +227,10 @@ public class CoFacadeRemoteTest {
     @Test
     public void testDeleteSlsman() throws Exception {
         System.out.println("deleteSlsman");
-        Slsman p_slsman = null;
-        
+        Slsman p_slsman = new Slsman(slsId);
         coFacade.deleteSlsman(p_slsman);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of searchCo method, of class CoFacadeRemote.
-     */
-    @Test
-    public void testSearchCo() throws Exception {
-        System.out.println("searchCo");
-        String p_strCustomerId = "";
-        
-        List expResult = null;
-        List result = coFacade.searchCo(p_strCustomerId);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getCo method, of class CoFacadeRemote.
-     */
-    @Test
-    public void testGetCo() throws Exception {
-        System.out.println("getCo");
-        String strCo_id = "";
-        
-        Co expResult = null;
-        Co result = coFacade.getCo(strCo_id);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Slsman result = coFacade.getSlsman(slsId);
+        assertNull(result);
     }
 
     /**
@@ -267,14 +239,40 @@ public class CoFacadeRemoteTest {
     @Test
     public void testCreateCo() throws Exception {
         System.out.println("createCo");
-        Co p_co = null;
-        
-        String expResult = "";
-        String result = coFacade.createCo(p_co);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        co = new Co("autogenID");
+        co.setCustomer(new Customer("0000002"));
+        co.setCustPo("UNIT-CUST-PO");
+        co.setOrderdate(new Date());
+        co.setDuedate(new Date());
+        co.setTerm(new Term("CSH"));
+        co.setCostat(new Co_stat('C'));
+        co.setSlsman(new Slsman("S000001"));
+        co.setTax(new Tax("V07"));
+        co.setUuser("UNITUSER");
+        co.setUdate(new Date());
+        co.setCdate(new Date());
+        co.setCuser("UNITUSER");
+
+
+        coId = coFacade.createCo(co);
+        System.out.println("createCo id=" + coId);
+        assertNotNull(coId);
     }
+
+    /**
+     * Test of searchCo method, of class CoFacadeRemote.
+     */
+    @Test
+    public void testSearchCo() throws Exception {
+        System.out.println("searchCo");
+        String p_strCustomerId = coId;
+
+        List result = coFacade.searchCo(p_strCustomerId);
+        assertNotNull(result);
+        System.out.println("searchCo result="+result);
+    }
+
+
 
     /**
      * Test of editCo method, of class CoFacadeRemote.
@@ -282,11 +280,25 @@ public class CoFacadeRemoteTest {
     @Test
     public void testEditCo() throws Exception {
         System.out.println("editCo");
-        Co p_co = null;
+        co.setCoId(coId);
+        co.setCuser("UNITUSER2");
+        coFacade.editCo(co);
         
-        coFacade.editCo(p_co);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    }
+
+        /**
+     * Test of getCo method, of class CoFacadeRemote.
+     */
+    @Test
+    public void testGetCo() throws Exception {
+        System.out.println("getCo");
+        String strCo_id = coId;
+
+
+        Co result = coFacade.getCo(strCo_id);
+        assertNotNull(result);
+        assertEquals("UNITUSER2", result.getCuser());
+        System.out.println("getCo result="+result);
     }
 
     /**
@@ -295,11 +307,11 @@ public class CoFacadeRemoteTest {
     @Test
     public void testDeleteCo() throws Exception {
         System.out.println("deleteCo");
-        Co p_co = null;
-        
+        Co p_co = new Co(coId);
+
         coFacade.deleteCo(p_co);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Co result = coFacade.getCo(coId);
+        assertNull(result);
     }
 
     /**
@@ -309,7 +321,7 @@ public class CoFacadeRemoteTest {
     public void testGetCoitemByCo() throws Exception {
         System.out.println("getCoitemByCo");
         String p_strCo_id = "";
-        
+
         List expResult = null;
         List result = coFacade.getCoitemByCo(p_strCo_id);
         assertEquals(expResult, result);
@@ -324,7 +336,7 @@ public class CoFacadeRemoteTest {
     public void testGetCoitem() throws Exception {
         System.out.println("getCoitem");
         CoitemPK p_pkCoitem = null;
-      
+
         Coitem expResult = null;
         Coitem result = coFacade.getCoitem(p_pkCoitem);
         assertEquals(expResult, result);
@@ -339,7 +351,7 @@ public class CoFacadeRemoteTest {
     public void testCreateCoitem() throws Exception {
         System.out.println("createCoitem");
         Coitem p_coitem = null;
-       
+
         Integer expResult = null;
         Integer result = coFacade.createCoitem(p_coitem);
         assertEquals(expResult, result);
@@ -354,7 +366,7 @@ public class CoFacadeRemoteTest {
     public void testEditCoitem() throws Exception {
         System.out.println("editCoitem");
         Coitem p_coitem = null;
-       
+
         coFacade.editCoitem(p_coitem);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -367,7 +379,7 @@ public class CoFacadeRemoteTest {
     public void testDeleteCoitem() throws Exception {
         System.out.println("deleteCoitem");
         Coitem p_coitem = null;
-       
+
         coFacade.deleteCoitem(p_coitem);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -379,12 +391,11 @@ public class CoFacadeRemoteTest {
     @Test
     public void testGetListCo_stat() throws Exception {
         System.out.println("getListCo_stat");
+
         
-        List expResult = null;
         List result = coFacade.getListCo_stat();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotNull(result);
+        System.out.println("getListCo_stat result="+result);
     }
 
     /**
@@ -394,7 +405,7 @@ public class CoFacadeRemoteTest {
     public void testGetItempriceByItem() throws Exception {
         System.out.println("getItempriceByItem");
         String p_strItem = "";
-       
+
         List expResult = null;
         List result = coFacade.getItempriceByItem(p_strItem);
         assertEquals(expResult, result);
@@ -409,7 +420,7 @@ public class CoFacadeRemoteTest {
     public void testGetItemprice() throws Exception {
         System.out.println("getItemprice");
         ItempricePK p_pkItemprice = null;
-      
+
         Itemprice expResult = null;
         Itemprice result = coFacade.getItemprice(p_pkItemprice);
         assertEquals(expResult, result);
@@ -424,7 +435,7 @@ public class CoFacadeRemoteTest {
     public void testCreateItemprice() throws Exception {
         System.out.println("createItemprice");
         Itemprice p_itemprice = null;
-   
+
         coFacade.createItemprice(p_itemprice);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -437,7 +448,7 @@ public class CoFacadeRemoteTest {
     public void testEditItemprice() throws Exception {
         System.out.println("editItemprice");
         Itemprice p_itemprice = null;
-    
+
         coFacade.editItemprice(p_itemprice);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -454,7 +465,4 @@ public class CoFacadeRemoteTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-
-    
-
 }

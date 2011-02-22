@@ -200,4 +200,10 @@ public class PoFacade implements PoFacadeRemote {
     public List<Bank> getListBank() throws Exception {
         return bankBo.getListBank();
     }
+
+    @Override
+    public List<Poitem> getPoitemByPr(String p_strPr_id) {
+        //System.out.println("Get POITEM by PR="+p_strPr_id);
+        return poitemBo.getPoitemByPr(p_strPr_id);
+    }
 }

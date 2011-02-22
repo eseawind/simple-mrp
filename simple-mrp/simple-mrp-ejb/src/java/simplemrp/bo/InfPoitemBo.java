@@ -25,5 +25,7 @@ public interface InfPoitemBo {
     public void editPoitem(Poitem p_poitem) throws Exception;
 
     public void removePoitem(Poitem p_poitem) throws Exception;
+
+    public List<Poitem> getPoitemByPr(String p_strPr_id);
     
 }

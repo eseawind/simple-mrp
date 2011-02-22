@@ -38,6 +38,19 @@ public class PoitemDao extends AbstractDao<Poitem> implements InfPoitemDao {
         return q.getResultList();
     }
 
+     @Override
+    public List<Poitem> findByPr(String p_strPr_id) {
+        String sql = "SELECT o FROM Poitem o WHERE o.pritem.pritemPK.prId = :prId ORDER BY o.poitemPK.poSeq";
+         //System.out.println("\n\n\n\n\n Find by PRR \n\n\n\n\n\n");
+         //String sql = "SELECT o FROM Poitem o";
+        Query q = em.createQuery(sql);
+        q.setParameter("prId", p_strPr_id);
+        List<Poitem> lsPoitem = q.getResultList();
+        for(Poitem item:lsPoitem){
+            item.getPo().toString();
+        }
+        return lsPoitem;
+    }
 
     @Override
     public Integer getNextPo_seq(String p_strPoId) {
@@ -54,4 +67,6 @@ public class PoitemDao extends AbstractDao<Poitem> implements InfPoitemDao {
 
         return intNext;
     }
+
+
 }

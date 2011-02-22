@@ -33,4 +33,6 @@ public interface InfPoitemDao {
     public List<Poitem> findByPo(String p_strPoId);
 
     public Integer getNextPo_seq(String p_strPoId);
+
+    public List<Poitem> findByPr(String p_strPr_id);
 }

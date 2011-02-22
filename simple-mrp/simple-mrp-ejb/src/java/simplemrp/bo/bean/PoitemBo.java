@@ -108,4 +108,9 @@ public class PoitemBo implements InfPoitemBo {
     public void removePoitem(Poitem p_poitem) throws Exception {
         poitemDao.remove(p_poitem);
     }
+
+    @Override
+    public List<Poitem> getPoitemByPr(String p_strPr_id) {
+       return poitemDao.findByPr(p_strPr_id);
+    }
 }

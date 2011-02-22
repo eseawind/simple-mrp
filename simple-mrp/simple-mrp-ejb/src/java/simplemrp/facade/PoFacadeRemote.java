@@ -44,6 +44,7 @@ public interface PoFacadeRemote {
     public void deletePo(Po p_po) throws Exception;
 
     //Poitem management
+    public List<Poitem> getPoitemByPr(String p_strPr_id);
     public List<Poitem> getPoitemByPo(String p_strPo_id) throws Exception;
     public Poitem getPoitem(PoitemPK p_pkPoitem) throws Exception;
     public Integer createPoitem(Poitem p_poitem) throws Exception;
