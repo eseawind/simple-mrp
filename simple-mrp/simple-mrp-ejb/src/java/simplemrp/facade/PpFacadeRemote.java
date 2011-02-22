@@ -122,6 +122,5 @@ public interface PpFacadeRemote {
 
     //Method for testing
     public List<Forecast> getForMpsGen() throws Exception;
-
-    public String getMPSLastId();
+    public void daoEditForecast(Forecast p_forecast) throws Exception;
 }

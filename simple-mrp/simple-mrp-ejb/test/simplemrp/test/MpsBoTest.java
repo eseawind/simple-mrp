@@ -21,10 +21,6 @@ import org.sit.common.utils.DateUtil;
 import simplemrp.entity.Co;
 import simplemrp.facade.PpFacadeRemote;
 import simplemrp.facade.CoFacadeRemote;
-import simplemrp.dao.InfForecastDao;
-import simplemrp.dao.InfCoitemDao;
-import simplemrp.bo.InfForecastBo;
-import simplemrp.bo.InfCoitemBo;
 import simplemrp.entity.Forecast;
 import simplemrp.entity.Coitem;
 import java.util.List;
@@ -42,15 +38,13 @@ import static org.junit.Assert.*;
  * @author Golf
  */
 public class MpsBoTest {
+
     private CoFacadeRemote coFacade;
     private PpFacadeRemote ppFacade;
-
     private List<Coitem> m_lsBackupCoitem;
     private List<Forecast> m_lsBackupForecast;
-
+    private Map<String, Mps> m_mpsGenerated;
     private Co m_coDummy;
-
-    private String m_strLastMps_id;
 
     private String DUMMY_ITEM_1 = "LEG-ROUND-METAL";
     private String DUMMY_ITEM_2 = "SCREW-ST-1INCH";
@@ -78,7 +72,7 @@ public class MpsBoTest {
             Coitem coitem = m_lsBackupCoitem.get(i);
             coitem.setMps_id("TEST999");
 
-            coFacade.editCoitem(coitem);
+            coFacade.daoEditCoitem(coitem);
         }
 
         m_lsBackupForecast = ppFacade.getForMpsGen();
@@ -87,7 +81,7 @@ public class MpsBoTest {
             Forecast forecast = m_lsBackupForecast.get(i);
             forecast.setMps_id("TEST999");
 
-            ppFacade.editForecast(forecast);
+            ppFacade.daoEditForecast(forecast);
         }
 
         m_mapDemand = new TreeMap<String, Double>();
@@ -95,8 +89,6 @@ public class MpsBoTest {
         m_mapDemand.put(DUMMY_ITEM_2, new Double(1000));
 
         genDummyCo();
-
-        m_strLastMps_id = ppFacade.getMPSLastId();
     }
 
     @After
@@ -107,7 +99,7 @@ public class MpsBoTest {
             Coitem coitem = m_lsBackupCoitem.get(i);
             coitem.setMps_id(null);
 
-            coFacade.editCoitem(coitem);
+            coFacade.daoEditCoitem(coitem);
         }
 
         m_lsBackupForecast = ppFacade.getForMpsGen();
@@ -116,8 +108,26 @@ public class MpsBoTest {
             Forecast forecast = m_lsBackupForecast.get(i);
             forecast.setMps_id(null);
 
-            ppFacade.editForecast(forecast);
+            ppFacade.daoEditForecast(forecast);
         }
+
+        Iterator itr = m_mpsGenerated.keySet().iterator();
+
+        while(itr.hasNext()) {
+            String strItemAndDate = (String) itr.next();
+            Mps mps = m_mpsGenerated.get(strItemAndDate);
+
+            ppFacade.removeMps(mps.getMpsId());
+        }
+
+        List lsCoitem = (List)m_coDummy.getCoitemCollection();
+
+        for(int i = 0; i < lsCoitem.size(); i++) {
+            Coitem coitem = (Coitem)lsCoitem.get(i);
+            coFacade.deleteCoitem(coitem);
+        }
+
+        coFacade.deleteCo(m_coDummy);
     }
 
     private void genDummyCo() throws Exception {
@@ -133,7 +143,7 @@ public class MpsBoTest {
             m_coDummy.setUuser("dummyuser");
 
             String strCo_id = coFacade.createCo(m_coDummy);
-            
+
             m_coDummy.setCoId(strCo_id);
 
             List<Coitem> lsCoitem = new ArrayList<Coitem>();
@@ -179,7 +189,7 @@ public class MpsBoTest {
             }
 
             m_coDummy.setCoitemCollection(lsCoitem);
-            
+
         } catch(Exception ex) {
             throw new Exception(ex.getMessage(), ex);
         }
@@ -188,21 +198,29 @@ public class MpsBoTest {
     @Test
     public void testGenerateMPS() throws Exception {
         try {
-            OperationResult result = ppFacade.generateMPS(m_strLastMps_id);
-            Map<String, Mps> mapMPS = (Map<String, Mps>)result.getObj();
+            OperationResult result = ppFacade.generateMPS("dummy_user");
+            m_mpsGenerated = (Map<String, Mps>) result.getObj();
 
-            Iterator itr = mapMPS.keySet().iterator();
+            Iterator itr = m_mpsGenerated.keySet().iterator();
+
             while(itr.hasNext()) {
-                String strItem = (String)itr.next();
-                Mps mps = mapMPS.get(strItem);
+                String strItemAndDate = (String) itr.next();
+                Mps mps = m_mpsGenerated.get(strItemAndDate);
 
-                if(m_mapDemand.containsKey(strItem)) {
-                    
-                } else {
-                    fail("Item demand for ");
+                Double dblDemand = m_mapDemand.get(mps.getItem().getItem());
+
+                if((dblDemand != null) && (dblDemand.doubleValue() == mps.getQty().doubleValue())) {
+                    m_mapDemand.remove(mps.getItem().getItem());
                 }
             }
-            
+
+            if(!m_mapDemand.isEmpty()) {
+                Iterator itrDemand = m_mapDemand.keySet().iterator();
+                while(itrDemand.hasNext()) {
+                    String strItem = (String) itrDemand.next();
+                    fail("Demand for item " + strItem + " wasn't generated");
+                }
+            }
         } catch(Exception ex) {
             throw new Exception(ex.getMessage(), ex);
         }

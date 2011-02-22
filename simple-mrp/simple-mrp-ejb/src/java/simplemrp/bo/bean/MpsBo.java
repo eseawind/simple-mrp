@@ -227,7 +227,7 @@ public class MpsBo implements InfMpsBo {
                             dblOnhand = dblOnhand - dblDemand;
                             dblDemand = new Double(0);
                         } else {
-                            dblDemand = new Double(dblOnhand.doubleValue());
+                            dblDemand = new Double(dblDemand.doubleValue() - dblOnhand.doubleValue());
                             dblOnhand = new Double(0);
                         }
 
@@ -461,8 +461,8 @@ public class MpsBo implements InfMpsBo {
         }
     }
 
-    @Override
-    public String getLastId() {
-        return mpsDao.getLastId();
-    }
+//    @Override
+//    public String getLastId() {
+//        return mpsDao.getLastId();
+//    }
 }

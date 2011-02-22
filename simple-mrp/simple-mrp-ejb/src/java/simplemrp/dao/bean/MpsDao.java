@@ -55,13 +55,13 @@ public class MpsDao extends AbstractDao<Mps> implements InfMpsDao {
         return strNextCust_id;
     }
 
-    @Override
-    public String getLastId() {
-        String sql = "select max(o.mpsId) from Mps o";
-        Query q = em.createQuery(sql);
-        String strLastId = (String)q.getSingleResult();
-        
-        return strLastId;
-    }
+//    @Override
+//    public String getLastId() {
+//        String sql = "select max(o.mpsId) from Mps o";
+//        Query q = em.createQuery(sql);
+//        String strLastId = (String)q.getSingleResult();
+//
+//        return strLastId;
+//    }
     
 }

@@ -66,5 +66,6 @@ public interface CoFacadeRemote {
 
     //Method for testing purpose
     public List<Coitem> getForMpsGen() throws Exception;
+    public void daoEditCoitem(Coitem p_coitem) throws Exception;
 
 }

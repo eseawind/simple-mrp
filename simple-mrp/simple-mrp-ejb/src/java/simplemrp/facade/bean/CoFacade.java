@@ -20,6 +20,7 @@ import simplemrp.bo.bean.CoBo;
 import simplemrp.bo.bean.Co_statBo;
 import simplemrp.bo.bean.CoitemBo;
 import simplemrp.bo.bean.ItempriceBo;
+import simplemrp.dao.InfCoitemDao;
 import simplemrp.entity.Co;
 import simplemrp.entity.Co_stat;
 import simplemrp.entity.Coitem;
@@ -53,6 +54,9 @@ public class CoFacade implements CoFacadeRemote {
     private InfCo_statBo co_statBo;
     @EJB
     private InfItempriceBo itempriceBo;
+
+    @EJB
+    private InfCoitemDao coitemDao;
 
     @Override
     public List<Customer> searchCustomer(String p_strKeyword) throws Exception {
@@ -195,5 +199,10 @@ public class CoFacade implements CoFacadeRemote {
     @Override
     public List<Coitem> getForMpsGen() throws Exception {
         return coitemBo.getForMpsGen();
+    }
+
+    @Override
+    public void daoEditCoitem(Coitem p_coitem) throws Exception {
+        coitemDao.edit(p_coitem);
     }
 }

@@ -85,4 +85,6 @@ public class ForecastBo implements InfForecastBo {
     public List<Forecast> getForMpsGen() throws Exception {
         return forecastDao.findForMpsGen();
     }
+
+
 }

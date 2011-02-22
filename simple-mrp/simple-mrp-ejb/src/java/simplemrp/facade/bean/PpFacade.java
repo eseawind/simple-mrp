@@ -22,6 +22,7 @@ import simplemrp.bo.InfJobmatlBo;
 import simplemrp.bo.InfJoboprBo;
 import simplemrp.bo.InfMpsBo;
 import simplemrp.bo.InfWorkcenterBo;
+import simplemrp.dao.InfForecastDao;
 import simplemrp.dao.InfMpsDao;
 import simplemrp.dao.InfMps_statDao;
 import simplemrp.dao.InfMps_typeDao;
@@ -70,6 +71,9 @@ public class PpFacade implements PpFacadeRemote {
     private InfJobmatlBo jobMatlBo;
     @EJB
     private InfJoboprBo joboprBo;
+
+    @EJB
+    private InfForecastDao forecastDao;
 
     @Override
     public Job getJob(String inputJobId) {
@@ -306,10 +310,9 @@ public class PpFacade implements PpFacadeRemote {
     public List<Forecast> getForMpsGen() throws Exception {
         return forecastBo.getForMpsGen();
     }
-    
-    @Override
-    public String getMPSLastId() {
-        return mpsBo.getLastId();
-    }
 
+    @Override
+    public void daoEditForecast(Forecast p_forecast) throws Exception {
+        forecastDao.edit(p_forecast);
+    }
 }
