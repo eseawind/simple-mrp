@@ -378,6 +378,7 @@ public class MpsBo implements InfMpsBo {
             }
 
             result.setMessage("Generate " + mapMps.size() + " plans");
+            result.setObj(mapMps);
             result.setComplete(Boolean.TRUE);
         } catch(Exception ex) {
             throw new Exception(ex.getMessage(), ex);
@@ -458,5 +459,10 @@ public class MpsBo implements InfMpsBo {
         } catch(Exception ex) {
             throw new Exception(ex.getMessage(), ex);
         }
+    }
+
+    @Override
+    public String getLastId() {
+        return mpsDao.getLastId();
     }
 }

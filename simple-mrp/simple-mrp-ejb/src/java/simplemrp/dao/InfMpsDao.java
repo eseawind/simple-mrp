@@ -35,4 +35,6 @@ public interface InfMpsDao {
 
     public String getNextId();
 
+    public String getLastId();
+
 }

@@ -7,6 +7,8 @@ package simplemrp.facade;
 
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.naming.NamingException;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -309,12 +311,15 @@ public class PpFacadeRemoteTest {
      */
     @Test
     public void testEditMps() {
-        System.out.println("editMps");
-        Mps mps = null;
-        
-        ppFacade.editMps(mps);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        try {
+            System.out.println("editMps");
+            Mps mps = null;
+            ppFacade.editMps(mps);
+            // TODO review the generated test code and remove the default call to fail.
+            fail("The test case is a prototype.");
+        } catch(Exception ex) {
+            Logger.getLogger(PpFacadeRemoteTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -322,12 +327,15 @@ public class PpFacadeRemoteTest {
      */
     @Test
     public void testRemoveMps() {
-        System.out.println("removeMps");
-        String mpsId = "";
-        
-        ppFacade.removeMps(mpsId);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        try {
+            System.out.println("removeMps");
+            String mpsId = "";
+            ppFacade.removeMps(mpsId);
+            // TODO review the generated test code and remove the default call to fail.
+            fail("The test case is a prototype.");
+        } catch(Exception ex) {
+            Logger.getLogger(PpFacadeRemoteTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

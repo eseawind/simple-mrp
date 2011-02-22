@@ -148,6 +148,11 @@ public class PpFacade implements PpFacadeRemote {
     }
 
     @Override
+    public void editForecast(Forecast p_forecast) throws Exception {
+        forecastBo.editForecast(p_forecast);
+    }
+
+    @Override
     public Mps getMps(String mpsId) {
         return mpsBo.find(mpsId);
     }
@@ -289,9 +294,22 @@ public class PpFacade implements PpFacadeRemote {
     public OperationResult generateMPS(String p_strUsr_id) throws Exception {
         return mpsBo.generateMPS(p_strUsr_id);
     }
-
-    @Overide
+    
+    @Override
     public List<Jobopr> getJoboprByJob(String p_strJobId) throws Exception {
         return joboprBo.getJoboprByJob(p_strJobId);
     }
+
+    //Method below this line is for testing purpose
+
+    @Override
+    public List<Forecast> getForMpsGen() throws Exception {
+        return forecastBo.getForMpsGen();
+    }
+    
+    @Override
+    public String getMPSLastId() {
+        return mpsBo.getLastId();
+    }
+
 }

@@ -21,4 +21,5 @@ public interface InfCoitemBo {
     public Integer createCoitem(Coitem p_coitem) throws Exception;
     public void editCoitem(Coitem p_coitem) throws Exception;
     public void removeCoitem(Coitem p_coitem) throws Exception;
+    public List<Coitem> getForMpsGen() throws Exception;
 }

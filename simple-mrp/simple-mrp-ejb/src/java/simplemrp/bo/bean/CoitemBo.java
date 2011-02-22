@@ -84,4 +84,9 @@ public class CoitemBo implements InfCoitemBo {
     public void removeCoitem(Coitem p_coitem) throws Exception {
         coitemDao.remove(p_coitem);
     }
+
+    @Override
+    public List<Coitem> getForMpsGen() throws Exception {
+        return coitemDao.findForMpsGen();
+    }
 }

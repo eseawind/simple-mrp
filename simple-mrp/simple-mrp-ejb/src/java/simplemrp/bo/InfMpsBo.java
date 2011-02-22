@@ -32,4 +32,6 @@ public interface InfMpsBo {
 
     public OperationResult generateMPS(String p_strUsr_id) throws Exception;
 
+    public String getLastId();
+
 }

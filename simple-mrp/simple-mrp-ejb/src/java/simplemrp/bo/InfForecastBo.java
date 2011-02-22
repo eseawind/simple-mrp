@@ -27,4 +27,8 @@ public interface InfForecastBo {
 
     public Forecast find(String forecast_id);
 
+    public List<Forecast> getForMpsGen() throws Exception;
+
+    public void editForecast(Forecast p_forecast) throws Exception;
+
 }

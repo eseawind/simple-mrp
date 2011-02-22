@@ -113,7 +113,7 @@ public class JoboprBo implements InfJoboprBo {
         return lsJobopr;
     }
 
-    @Overide
+    @Override
     public List<Jobopr> getByJob(String p_strJobID) throws Exception {
         List<Jobopr> lsJobopr = null;
 

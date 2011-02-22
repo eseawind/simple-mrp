@@ -27,6 +27,11 @@ public class ForecastBo implements InfForecastBo {
     private InfForecastDao forecastDao;
 
     @Override
+    public void editForecast(Forecast p_forecast) throws Exception {
+        forecastDao.edit(p_forecast);
+    }
+
+    @Override
     public List<Forecast> findByForecastDate(Date forecaseDate) {
         List<Forecast> results = forecastDao.findByForecastDate(forecaseDate);
         //LAZYLOAD
@@ -73,5 +78,11 @@ public class ForecastBo implements InfForecastBo {
     @Override
     public Forecast find(String forecast_id) {
         return forecastDao.find(forecast_id);
+    }
+
+
+    @Override
+    public List<Forecast> getForMpsGen() throws Exception {
+        return forecastDao.findForMpsGen();
     }
 }

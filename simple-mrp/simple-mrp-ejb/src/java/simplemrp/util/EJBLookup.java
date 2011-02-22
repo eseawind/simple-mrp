@@ -13,6 +13,7 @@ import simplemrp.facade.IcFacadeRemote;
 import simplemrp.facade.MaFacadeRemote;
 import simplemrp.facade.PoFacadeRemote;
 import simplemrp.facade.PpFacadeRemote;
+import simplemrp.util.BindingName;
 
 /**
  *

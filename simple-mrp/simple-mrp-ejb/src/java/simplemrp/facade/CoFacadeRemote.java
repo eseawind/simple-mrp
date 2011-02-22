@@ -64,4 +64,7 @@ public interface CoFacadeRemote {
     public void editItemprice(Itemprice p_itemprice) throws Exception;
     public void deleteItemprice(Itemprice p_itemprice) throws Exception;
 
+    //Method for testing purpose
+    public List<Coitem> getForMpsGen() throws Exception;
+
 }

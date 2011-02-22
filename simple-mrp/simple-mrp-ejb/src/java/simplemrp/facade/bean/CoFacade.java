@@ -188,4 +188,12 @@ public class CoFacade implements CoFacadeRemote {
     public void deleteItemprice(Itemprice p_itemprice) throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+
+    //Method below this line is for testing purpose
+
+    @Override
+    public List<Coitem> getForMpsGen() throws Exception {
+        return coitemBo.getForMpsGen();
+    }
 }
