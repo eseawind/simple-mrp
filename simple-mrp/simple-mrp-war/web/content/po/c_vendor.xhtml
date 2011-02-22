@@ -24,21 +24,21 @@
                         </h:inputText>
                         <a4j:commandButton value="Search" actionListener="#{vendorBean.doSearch}" reRender="vendorTable"/>
                     </h:panelGrid>
-                    <rich:dataTable id="vendorTable" value="#{vendorBean.lsVendor}" var="item" width="400px">
-                        <rich:column sortBy="#{item.vendorId}" styleClass="alignCenter">
+                    <rich:dataTable id="vendorTable" value="#{vendorBean.lsVendor}" var="vendor" width="400px">
+                        <rich:column sortBy="#{vendor.vendId}" styleClass="alignCenter">
                             <f:facet name="header">
                                 <h:outputText value="Vendor ID"/>
                             </f:facet>
-                            <a4j:commandLink value="#{item.vendorId}" actionListener="#{vendorBean.doSelect}" reRender="editPanel">
-                                <f:param name="p_vendor_id" value="#{item.vendorId}"/>
+                            <a4j:commandLink value="#{vendor.vendId}" actionListener="#{vendorBean.doSelect}" reRender="editPanel">
+                                <f:param name="p_vendor_id" value="#{vendor.vendId}"/>
                             </a4j:commandLink>
                         </rich:column>
 
-                        <rich:column sortBy="#{item.name}">
+                        <rich:column sortBy="#{vendor.description}">
                             <f:facet name="header">
                                 <h:outputText value="Name"/>
                             </f:facet>
-                            <h:outputText value="#{item.name}"/>
+                            <h:outputText value="#{vendor.description}"/>
                         </rich:column>
                     </rich:dataTable>
                 </rich:panel>
@@ -77,25 +77,25 @@
                         <h:outputLabel value="Country"/>
                         <h:selectOneMenu value="#{vendorBean.country_id}">
                             <f:selectItems value="#{vendorBean.lsCountry}" />
-                            <a4j:support event="onchange" reRender="province,district,subdist,zipcode" actionListener="#{customerBean.doCheckCountry}"/>
+                            <a4j:support event="onchange" reRender="province,district,subdist,zipcode" actionListener="#{vendorBean.doCheckCountry}"/>
                         </h:selectOneMenu>
 
                         <h:outputLabel value="Province"/>
                         <h:selectOneMenu id="province" value="#{vendorBean.province}">
                             <f:selectItems value="#{vendorBean.lsProvince}" />
-                            <a4j:support event="onchange" reRender="district,subdist,zipcode" actionListener="#{customerBean.doCheckProvince}"/>
+                            <a4j:support event="onchange" reRender="district,subdist,zipcode" actionListener="#{vendorBean.doCheckProvince}"/>
                         </h:selectOneMenu>
 
                         <h:outputLabel value="District"/>
                         <h:selectOneMenu id="district" value="#{vendorBean.district}">
                             <f:selectItems value="#{vendorBean.lsDistrict}" />
-                            <a4j:support event="onchange" reRender="subdist,zipcode" actionListener="#{customerBean.doCheckDistrict}"/>
+                            <a4j:support event="onchange" reRender="subdist,zipcode" actionListener="#{vendorBean.doCheckDistrict}"/>
                         </h:selectOneMenu>
 
                         <h:outputLabel value="Sub district"/>
                         <h:selectOneMenu id="subdist" value="#{vendorBean.subdist_id}">
                             <f:selectItems value="#{vendorBean.lsSubdist}" />
-                            <a4j:support event="onchange" reRender="zipcode" actionListener="#{customerBean.doCheckSubdist}"/>
+                            <a4j:support event="onchange" reRender="zipcode" actionListener="#{vendorBean.doCheckSubdist}"/>
                         </h:selectOneMenu>
 
                         <h:outputLabel value="Zipcode"/>

@@ -37,6 +37,8 @@ public class Usr implements Serializable {
     private Character app_pr;
     @Column(name = "rls_job")
     private Character rls_job;
+    @Column(name = "rls_mps")
+    private Character rls_mps;
 
     public Usr() {
     }
@@ -88,6 +90,14 @@ public class Usr implements Serializable {
 
     public void setUsr_name(String usr_name) {
         this.usr_name = usr_name;
+    }
+
+    public Character getRls_mps() {
+        return rls_mps;
+    }
+
+    public void setRls_mps(Character rls_mps) {
+        this.rls_mps = rls_mps;
     }
 
     @Override

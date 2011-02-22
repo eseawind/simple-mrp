@@ -34,7 +34,6 @@ public class Mps implements Serializable {
     @Basic(optional = false)
     @Column(name = "MPS_ID")
     private String mpsId;
-    @Basic(optional = false)
     @Column(name = "REF_ID")
     private String refId;
     @Column(name = "REF_SEQ")
@@ -54,6 +53,8 @@ public class Mps implements Serializable {
     private Date udate;
     @Column(name = "UUSER")
     private String uuser;
+    @Column(name = "RELEASER")
+    private String releaser;
     @JoinColumn(name = "MPS_TYPE", referencedColumnName = "MPS_TYPE")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Mps_type mpstype;
@@ -170,6 +171,14 @@ public class Mps implements Serializable {
 
     public void setItem(Item item) {
         this.item = item;
+    }
+
+    public String getReleaser() {
+        return releaser;
+    }
+
+    public void setReleaser(String releaser) {
+        this.releaser = releaser;
     }
 
     @Override

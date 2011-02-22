@@ -31,7 +31,7 @@ public interface InfMpsDao {
 
     int count();
 
-    public List<Mps> findByDueDate(Date dueDate);
+    public List<Mps> findByCdate(Date p_cdate);
 
     public String getNextId();
 

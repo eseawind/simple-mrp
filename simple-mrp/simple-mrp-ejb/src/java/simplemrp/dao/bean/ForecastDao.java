@@ -59,4 +59,22 @@ public class ForecastDao extends AbstractDao<Forecast> implements InfForecastDao
 
         return lsForecast;
     }
+
+    @Override
+    public List<Forecast> findByMps(String p_strMps_id) throws Exception {
+        List<Forecast> lsForecast = null;
+
+        try {
+            String sql = "SELECT o FROM Forecast o WHERE o.mps_id=:mps_id";
+            Query q = em.createQuery(sql);
+            q.setParameter("mps_id", p_strMps_id);
+            
+            lsForecast = q.getResultList();
+
+        } catch(Exception ex) {
+            throw new Exception(ex.getMessage(), ex);
+        }
+
+        return lsForecast;
+    }
 }

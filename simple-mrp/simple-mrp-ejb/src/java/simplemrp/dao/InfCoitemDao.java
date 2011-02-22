@@ -36,4 +36,6 @@ public interface InfCoitemDao {
 
     public List<Coitem> findForMpsGen() throws Exception;
 
+    public List<Coitem> findByMps(String p_strMps_id) throws Exception;
+
 }

@@ -75,9 +75,9 @@ public class JobOrderBean extends JobOrderAttr {
         super.setJobId(null);
         super.setItemCode(null);
         super.setJobDate(null);
-        super.setQtyOrder(0);
-        super.setQtyComplete(0);
-        super.setJobStat('c');
+        super.setQtyOrder(null);
+        super.setQtyComplete(null);
+        super.setJobStat(PpConstant.JOB_STAT_FIRM);
         super.setNote(null);
         super.setcUser(null);
         super.setcDate(null);

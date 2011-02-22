@@ -5,13 +5,11 @@
 
 package simplemrp.mbean.ic.to;
 
-import java.io.Serializable;
-
 /**
  *
  * @author wisaruthkea
  */
-public class MatlToJobItemTO implements Serializable {
+public class MatlToJobItemTO {
     private Integer opr;
     private Integer seq;
     private String matlId;

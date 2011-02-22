@@ -33,28 +33,27 @@ public class VendorBo implements InfVendorBo {
     public Vendor findVendor(String p_strVend_id) throws Exception {
         Vendor vendor = vendorDao.find(p_strVend_id);
         if (vendor != null) {
-            if (vendor.getTerm().getTermId() != null) {
-                vendor.getTerm().getTermId().toString();
+            if (vendor.getTerm() != null) {
+                vendor.getTerm().toString();
             }
-            if (vendor.getTax().getTaxId() != null) {
-                vendor.getTax().getTaxId().toString();
+            if (vendor.getTax() != null) {
+                vendor.getTax().toString();
             }
-            if (vendor.getBank().getBankId() != null) {
-                vendor.getBank().getBankId().toString();
+            if (vendor.getBank() != null) {
+                vendor.getBank().toString();
             }
             if (vendor.getSubdist() != null) {
                 vendor.getSubdist().toString();
             }
-            if (vendor.getDistrict().getDistrictId() != null) {
+            if (vendor.getDistrict() != null) {
                 vendor.getDistrict().getDistrictId().toString();
             }
-            if (vendor.getProvince().getProvinceId() != null) {
+            if (vendor.getProvince() != null) {
                 vendor.getProvince().getProvinceId().toString();
             }
-            if (vendor.getCountry().getCountryId() != null) {
+            if (vendor.getCountry() != null) {
                 vendor.getCountry().getCountryId().toString();
             }
-
         }
 
         return vendor;

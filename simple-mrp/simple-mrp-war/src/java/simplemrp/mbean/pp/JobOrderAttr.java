@@ -22,9 +22,9 @@ public class JobOrderAttr extends AbstractManageBean {
     private String jobId;
     private String itemCode;
     private Date jobDate;
-    private int qtyOrder;
-    private int qtyComplete;
-    private char jobStat;
+    private Integer qtyOrder;
+    private Integer qtyComplete;
+    private Character jobStat;
     private String note;
     private String cUser;
     private Date cDate;
@@ -96,28 +96,28 @@ public class JobOrderAttr extends AbstractManageBean {
     /**
      * @return the qtyComplete
      */
-    public int getQtyComplete() {
+    public Integer getQtyComplete() {
         return qtyComplete;
     }
 
     /**
      * @param qtyComplete the qtyComplete to set
      */
-    public void setQtyComplete(int qtyComplete) {
+    public void setQtyComplete(Integer qtyComplete) {
         this.qtyComplete = qtyComplete;
     }
 
     /**
      * @return the jobStat
      */
-    public char getJobStat() {
+    public Character getJobStat() {
         return jobStat;
     }
 
     /**
      * @param jobStat the jobStat to set
      */
-    public void setJobStat(char jobStat) {
+    public void setJobStat(Character jobStat) {
         this.jobStat = jobStat;
     }
 
@@ -212,14 +212,14 @@ public class JobOrderAttr extends AbstractManageBean {
     /**
      * @return the qtyOrder
      */
-    public int getQtyOrder() {
+    public Integer getQtyOrder() {
         return qtyOrder;
     }
 
     /**
      * @param qtyOrder the qtyOrder to set
      */
-    public void setQtyOrder(int qtyOrder) {
+    public void setQtyOrder(Integer qtyOrder) {
         this.qtyOrder = qtyOrder;
     }
 

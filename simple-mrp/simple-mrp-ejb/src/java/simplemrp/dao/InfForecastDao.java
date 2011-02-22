@@ -35,4 +35,6 @@ public interface InfForecastDao {
 
     public List<Forecast> findForMpsGen() throws Exception;
 
+    public List<Forecast> findByMps(String p_strMps_id) throws Exception;
+
 }

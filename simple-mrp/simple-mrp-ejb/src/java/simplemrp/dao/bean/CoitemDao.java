@@ -64,12 +64,29 @@ public class CoitemDao extends AbstractDao<Coitem> implements InfCoitemDao {
             StringBuilder sql = new StringBuilder();
             sql.append("SELECT ci \n");
             sql.append("FROM Coitem as ci \n");
-            sql.append("WHERE ((ci.qty > ci.qtyship) OR (ci.qtyship IS NULL)) \n");
+            sql.append("WHERE ((ci.qtyship IS NULL) or (ci.qty > ci.qtyship)) \n");
             sql.append("AND ci.mps_id IS NULL \n");
             sql.append("AND ci.costat.stat = '").append(CoConstant.CO_STAT_ORDER).append("' \n");
             sql.append("ORDER BY ci.coitemPK.coId, ci.coitemPK.coSeq \n");
 
             Query q = em.createQuery(sql.toString());
+            lsCoitem = q.getResultList();
+            
+        } catch(Exception ex) {
+            throw new Exception(ex.getMessage(), ex);
+        }
+
+        return lsCoitem;
+    }
+
+    @Override
+    public List<Coitem> findByMps(String p_strMps_id) throws Exception {
+        List<Coitem> lsCoitem = null;
+
+        try {
+            String sql = "select distinct ci from Coitem as ci where ci.mps_id = :mps_id order by ci.coitemPK.coId, ci.coitemPK.coSeq";
+            Query q = em.createQuery(sql);
+            q.setParameter("mps_id", p_strMps_id);
             lsCoitem = q.getResultList();
             
         } catch(Exception ex) {

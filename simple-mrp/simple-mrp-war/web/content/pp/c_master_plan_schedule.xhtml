@@ -20,8 +20,8 @@ and open the template in the editor.
                 
                 <rich:panel id="searchPanel" styleClass="noborder">
                     <h:panelGrid columns="3">
-                        <h:outputText value="Duedate"/>
-                        <rich:calendar value="#{mpsBean.searchDueDate}" datePattern="#{constantBean.PATTREN_DATE}"/>
+                        <h:outputText value="Create Date"/>
+                        <rich:calendar value="#{mpsBean.searchCreateDate}" datePattern="#{constantBean.PATTREN_DATE}"/>
                         <a4j:commandButton value="Search" actionListener="#{mpsBean.doSearch}" reRender="searchPanel,editPanel"/>
                     </h:panelGrid>
                     <rich:dataTable id="mpsTable" value="#{mpsBean.lsMps}" var="mpsItem" width="400">
@@ -57,7 +57,7 @@ and open the template in the editor.
                     </rich:dataTable>
                 </rich:panel>
                 <rich:panel id="editPanel" styleClass="noborder">
-                    <a4j:commandButton value="Generate MPS" actionListener="#{mpsBean.doGenerateMPS}"/>
+                    <a4j:commandButton value="Generate MPS" actionListener="#{mpsBean.doGenerateMPS}" reRender="searchPanel,editPanel"/>
                     <rich:spacer width="4"/>
                     <a4j:commandButton value="New" actionListener="#{mpsBean.doNew}" disabled="#{mpsBean.dsbNew}" reRender="editPanel"/>
                     <rich:spacer width="4"/>
@@ -80,10 +80,10 @@ and open the template in the editor.
                         </h:selectOneMenu>
 
                         <h:outputLabel value="Ref. Document"></h:outputLabel>
-                        <h:inputText value="#{mpsBean.refId}"></h:inputText>
+                        <h:outputText value="#{mpsBean.refId}"></h:outputText>
                         
                         <h:outputLabel value="Ref. Seq"></h:outputLabel>
-                        <h:outputText value="#{mpsBean.refSeqInt}"/>
+                        <h:outputText value="#{mpsBean.refSeq}"/>
 
                         <h:outputLabel value="Duedate"></h:outputLabel>
                         <rich:calendar value="#{mpsBean.dueDate}" datePattern="#{constantBean.PATTREN_DATE}"/>
@@ -106,6 +106,9 @@ and open the template in the editor.
                         <h:outputText value="#{mpsBean.uUser}"/>
                         <h:outputLabel value="Update Date"></h:outputLabel>
                         <h:outputText value="#{mpsBean.uDate}"/>
+
+                        <h:outputLabel value="Release By"></h:outputLabel>
+                        <h:outputText value="#{mpsBean.releaser}"/>
                     </h:panelGrid>
                 </rich:panel>
             </h:panelGrid>

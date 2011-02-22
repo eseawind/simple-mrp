@@ -51,8 +51,8 @@ public interface PpFacadeRemote {
     public List<Mps> listMps();
     public List<Mps> searchMps(Date dueDate);
     public String createMps(Mps mps);
-    public void editMps(Mps mps);
-    public void removeMps(String mpsId);
+    public void editMps(Mps mps) throws Exception;
+    public void removeMps(String mpsId) throws Exception;
     public List<Mps_stat> listMpsStat();
     public List<Mps_type> listMpsType();
 

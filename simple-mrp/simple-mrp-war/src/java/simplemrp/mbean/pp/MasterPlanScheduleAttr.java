@@ -10,8 +10,6 @@ import java.util.Date;
 import java.util.List;
 import javax.faces.model.SelectItem;
 import simplemrp.entity.Mps;
-import simplemrp.entity.Mps_stat;
-import simplemrp.entity.Mps_type;
 import simplemrp.mbean.AbstractManageBean;
 
 /**
@@ -20,21 +18,13 @@ import simplemrp.mbean.AbstractManageBean;
  */
 public class MasterPlanScheduleAttr extends AbstractManageBean {
     private String mode;
-    //รหัสแผนการผลิต
     private String mpsId;
-    //รหัสสินค้า
     private String itemId;
-    //ชนิดของเอกสารอ้างอิง
     private Character mpsType;
-    //รหัสเอกสาร
     private String refId;
-    //ลำดับเอกสาร
-    private int refSeqInt;
-    //วันที่ส่งของ
+    private Integer refSeq;
     private Date dueDate;
-    //จำนวนที่ต้องการ
-    private int qty;
-    //สถานะ
+    private Integer qty;
     private Character mpsStat;
     
     private String cUser;
@@ -42,8 +32,10 @@ public class MasterPlanScheduleAttr extends AbstractManageBean {
     private String uUser;
     private Date uDate;
 
+    private String releaser;
+
     //search key
-    private Date searchDueDate;
+    private Date searchCreateDate;
     
     
     //search result
@@ -54,6 +46,7 @@ public class MasterPlanScheduleAttr extends AbstractManageBean {
     private List<SelectItem> lsMpsStat;
 
     //button operation
+    private boolean dsbGen;
     private boolean dsbNew;
     private boolean dsbSave;
     private boolean dsbDelete;
@@ -123,15 +116,15 @@ public class MasterPlanScheduleAttr extends AbstractManageBean {
     /**
      * @return the refSeqInt
      */
-    public int getRefSeqInt() {
-        return refSeqInt;
+    public Integer getRefSeq() {
+        return refSeq;
     }
 
     /**
      * @param refSeqInt the refSeqInt to set
      */
-    public void setRefSeqInt(int refSeqInt) {
-        this.refSeqInt = refSeqInt;
+    public void setRefSeqInt(Integer refSeqInt) {
+        this.refSeq = refSeqInt;
     }
 
     /**
@@ -151,14 +144,14 @@ public class MasterPlanScheduleAttr extends AbstractManageBean {
     /**
      * @return the qty
      */
-    public int getQty() {
+    public Integer getQty() {
         return qty;
     }
 
     /**
      * @param qty the qty to set
      */
-    public void setQty(int qty) {
+    public void setQty(Integer qty) {
         this.qty = qty;
     }
 
@@ -237,15 +230,15 @@ public class MasterPlanScheduleAttr extends AbstractManageBean {
     /**
      * @return the searchDueDate
      */
-    public Date getSearchDueDate() {
-        return searchDueDate;
+    public Date getSearchCreateDate() {
+        return searchCreateDate;
     }
 
     /**
      * @param searchDueDate the searchDueDate to set
      */
-    public void setSearchDueDate(Date searchDueDate) {
-        this.searchDueDate = searchDueDate;
+    public void setSearchCreateDate(Date searchCreateDate) {
+        this.searchCreateDate = searchCreateDate;
     }
 
     /**
@@ -346,5 +339,33 @@ public class MasterPlanScheduleAttr extends AbstractManageBean {
         this.dsbDelete = dsbDelete;
     }
 
+    public String getReleaser() {
+        return releaser;
+    }
 
+    public void setReleaser(String releaser) {
+        this.releaser = releaser;
+    }
+
+//    public boolean isDsbGen() {
+//        dsbGen = true;
+//
+//        try {
+//            MaFacadeRemote maFacade = EJBLookup.getMaFacade();
+//            Usr usr =maFacade.getUsr(getSessionUserId());
+//
+//            if(usr.getGen_mps() != null) && (usr.getGen_mps().equals('Y'))) {
+//                dsbGen = false;
+//            }
+//        } catch(Exception ex) {
+//            dsbGen = true;
+//        }
+//
+//
+//        return dsbGen;
+//    }
+
+//    public void setDsbGen(boolean dsbGen) {
+//        this.dsbGen = dsbGen;
+//    }
 }

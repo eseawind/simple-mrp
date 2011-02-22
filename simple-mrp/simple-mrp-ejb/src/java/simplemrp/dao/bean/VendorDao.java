@@ -33,7 +33,7 @@ public class VendorDao extends AbstractDao<Vendor> implements InfVendorDao {
 
     @Override
     public List<Vendor> findByName(String name) {
-        String sql = "select distinct v from vendor as v where v.description like ?1";
+        String sql = "select distinct v from Vendor as v where v.description like ?1";
         Query q = em.createQuery(sql);
         q.setParameter(1, name + "%");
         return q.getResultList();

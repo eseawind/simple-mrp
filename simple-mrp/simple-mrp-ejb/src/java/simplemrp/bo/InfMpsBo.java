@@ -24,11 +24,11 @@ public interface InfMpsBo {
 
     public String create(Mps mps);
 
-    public List<Mps> findByDueDate(Date dueDate);
+    public List<Mps> findByCreateDate(Date p_dtCreate);
 
-    public void remove(String mpsId);
+    public void remove(String mpsId) throws Exception;
 
-    public void save(Mps mps);
+    public void save(Mps mps) throws Exception ;
 
     public OperationResult generateMPS(String p_strUsr_id) throws Exception;
 

@@ -32,10 +32,10 @@ public class MpsDao extends AbstractDao<Mps> implements InfMpsDao {
     }
 
     @Override
-    public List<Mps> findByDueDate(Date dueDate) {
-        String sql = "SELECT o FROM Mps o WHERE o.duedate=:duedate";
+    public List<Mps> findByCdate(Date p_cdate) {
+        String sql = "SELECT o FROM Mps o WHERE o.cdate=:cdate";
         Query q = em.createQuery(sql);
-        q.setParameter("duedate", dueDate);
+        q.setParameter("cdate", p_cdate);
         return q.getResultList();
     }
 

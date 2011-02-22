@@ -155,7 +155,7 @@ public class PpFacade implements PpFacadeRemote {
 
     @Override
     public List<Mps> searchMps(Date dueDate) {
-        return mpsBo.findByDueDate(dueDate);
+        return mpsBo.findByCreateDate(dueDate);
     }
 
     @Override
@@ -164,14 +164,21 @@ public class PpFacade implements PpFacadeRemote {
     }
 
     @Override
-    public void removeMps(String mpsId) {
-        mpsBo.remove(mpsId);
+    public void removeMps(String mpsId) throws Exception {
+        try {
+            mpsBo.remove(mpsId);
+        } catch(Exception ex) {
+            throw new Exception(ex.getMessage(), ex);
+        }
     }
 
     @Override
-    public void editMps(Mps mps) {
-        mpsBo.save(mps);
-
+    public void editMps(Mps mps) throws Exception {
+        try {
+            mpsBo.save(mps);
+        } catch(Exception ex) {
+            throw new Exception(ex.getMessage(), ex);
+        }
     }
 
     @Override

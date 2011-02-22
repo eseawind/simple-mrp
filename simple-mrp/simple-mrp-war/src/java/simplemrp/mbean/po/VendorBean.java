@@ -29,20 +29,20 @@ import simplemrp.util.FacesUtils;
 /**
  *
  * @author Golf*/
- 
 public class VendorBean extends VendorAttr {
-    
+
     /** Creates a new instance of CustomerBean*/
     public VendorBean() throws Exception {
         setDisbNew(false);
         setDisbSave(true);
         setDisbDel(true);
         setDisbVendor_id(false);
+        setMode(MODE_EDIT);
     }
 
     public void doSearch(ActionEvent e) throws Exception {
         String strKeyword = getKeyword().trim();
-        if (strKeyword.length() == 0) {
+        if(strKeyword.length() == 0) {
             message("Please Enter Vendor Name");
         } else {
             checkKeyword(strKeyword);
@@ -50,12 +50,17 @@ public class VendorBean extends VendorAttr {
     }
 
     private void checkKeyword(String p_strKeyword) throws Exception {
-        if (p_strKeyword.length() > 0) {
-            PoFacadeRemote poFacade = EJBLookup.getPoFacade();
-            List<Vendor> ls = poFacade.searchVendor(p_strKeyword);
+        try {
+            if(p_strKeyword.length() > 0) {
+                PoFacadeRemote poFacade = EJBLookup.getPoFacade();
+                List<Vendor> ls = poFacade.searchVendor(p_strKeyword);
 
-            setLsVendor(ls);
+                setLsVendor(ls);
+            }
+        } catch(Exception ex) {
+            throw new Exception(ex.getMessage(), ex);
         }
+
     }
 
     public void doSelect(ActionEvent e) throws Exception {
@@ -78,26 +83,49 @@ public class VendorBean extends VendorAttr {
             setAddr1(vendor.getAddr1());
             setAddr2(vendor.getAddr2());
             setBank_acc(vendor.getBankAcct());
-            setBank_id(vendor.getBank().getBankId());
-            setCountry_id(vendor.getCountry().getCountryId());
             setDescription(vendor.getDescription());
             setEmail(vendor.getEmail());
             setFax(vendor.getFax());
             setNote(vendor.getNote());
             setPhone(vendor.getPhone());
-            setProvince(vendor.getProvince().getProvinceId());
             setRoad(vendor.getRoad());
             setSoi(vendor.getSoi());
-            setSubdist_id(vendor.getSubdist().getSubdistId());
-            setTax_id(vendor.getTax().getTaxId());
             setTax_no(vendor.getTaxNo());
             setVendor_id(vendor.getVendId());
             setZipcode(vendor.getZipcode());
 
+            if(vendor.getBank() != null) {
+                setBank_id(vendor.getBank().getBankId());
+            } else {
+                setBank_id(null);
+            }
+
+            if(vendor.getCountry() != null) {
+                setCountry_id(vendor.getCountry().getCountryId());
+            } else {
+                setCountry_id(null);
+            }
+             if(vendor.getProvince() != null) {
+                setProvince(vendor.getProvince().getProvinceId());
+            } else {
+                setProvince(null);
+            }
+
+            if(vendor.getSubdist() != null) {
+                setSubdist_id(vendor.getSubdist().getSubdistId());
+            } else {
+                setSubdist_id(null);
+            }
+
+            if(vendor.getTax() != null) {
+                setTax_id(vendor.getTax().getTaxId());
+            } else {
+                setTax_id(null);
+            }
+
             setDisbNew(false);
             setDisbSave(false);
             setDisbDel(false);
-
 
             loadTax();
             loadTerm();
@@ -126,7 +154,7 @@ public class VendorBean extends VendorAttr {
         District districtFirst = loadDistrict(provinceFirst);
         Subdist subdistFirst = loadSubdist(districtFirst);
 
-        if (subdistFirst != null) {
+        if(subdistFirst != null) {
             setZipcode(subdistFirst.getZipcode());
         }
     }
@@ -142,7 +170,7 @@ public class VendorBean extends VendorAttr {
         District districtFirst = loadDistrict(province);
         Subdist subdistFirst = loadSubdist(districtFirst);
 
-        if (subdistFirst != null) {
+        if(subdistFirst != null) {
             setZipcode(subdistFirst.getZipcode());
         }
     }
@@ -157,7 +185,7 @@ public class VendorBean extends VendorAttr {
 
         Subdist subdistFirst = loadSubdist(district);
 
-        if (subdistFirst != null) {
+        if(subdistFirst != null) {
             setZipcode(subdistFirst.getZipcode());
         }
     }
@@ -170,7 +198,7 @@ public class VendorBean extends VendorAttr {
         MaFacadeRemote maFacade = EJBLookup.getMaFacade();
         Subdist subdist = maFacade.getSubdist(p_intSubdist_id);
 
-        if (subdist != null) {
+        if(subdist != null) {
             setZipcode(subdist.getZipcode());
         }
     }
@@ -180,7 +208,7 @@ public class VendorBean extends VendorAttr {
         List<Tax> lsAllTax = maFacade.getListTax();
 
         List lsTax = new ArrayList<SelectItem>();
-        for (int i = 0; i < lsAllTax.size(); i++) {
+        for(int i = 0; i < lsAllTax.size(); i++) {
             Tax tax = lsAllTax.get(i);
             SelectItem selectItem = new SelectItem(tax.getTaxId(), tax.getDescription());
 
@@ -195,7 +223,7 @@ public class VendorBean extends VendorAttr {
         List<Term> lsAllTerm = maFacade.getListTerm();
 
         List lsTerm = new ArrayList<SelectItem>();
-        for (int i = 0; i < lsAllTerm.size(); i++) {
+        for(int i = 0; i < lsAllTerm.size(); i++) {
             Term term = lsAllTerm.get(i);
             SelectItem selectItem = new SelectItem(term.getTermId(), term.getDescription());
 
@@ -210,7 +238,7 @@ public class VendorBean extends VendorAttr {
         List<Bank> lsAllTerm = poFacade.getListBank();
 
         List lsBank = new ArrayList<SelectItem>();
-        for (int i = 0; i < lsAllTerm.size(); i++) {
+        for(int i = 0; i < lsAllTerm.size(); i++) {
             Bank bank = lsAllTerm.get(i);
             SelectItem selectItem = new SelectItem(bank.getBankId(), bank.getDescription());
 
@@ -228,10 +256,10 @@ public class VendorBean extends VendorAttr {
         MaFacadeRemote maFacade = EJBLookup.getMaFacade();
         List<Country> lsAllCountry = maFacade.getListCountry();
 
-        for (int i = 0; i < lsAllCountry.size(); i++) {
+        for(int i = 0; i < lsAllCountry.size(); i++) {
             Country country = lsAllCountry.get(i);
 
-            if (countryFirst == null) {
+            if(countryFirst == null) {
                 countryFirst = country;
             }
 
@@ -247,7 +275,7 @@ public class VendorBean extends VendorAttr {
 
     private Province loadProvince(Country p_country) throws Exception {
         Integer intCountry_id = null;
-        if (p_country != null) {
+        if(p_country != null) {
             intCountry_id = p_country.getCountryId();
         }
         Province provinceFirst = null;
@@ -257,10 +285,10 @@ public class VendorBean extends VendorAttr {
         MaFacadeRemote maFacade = EJBLookup.getMaFacade();
         List<Province> lsProvinceInCountry = maFacade.getListProvince(intCountry_id);
 
-        for (int i = 0; i < lsProvinceInCountry.size(); i++) {
+        for(int i = 0; i < lsProvinceInCountry.size(); i++) {
             Province province = lsProvinceInCountry.get(i);
 
-            if (provinceFirst == null) {
+            if(provinceFirst == null) {
                 provinceFirst = province;
             }
 
@@ -276,7 +304,7 @@ public class VendorBean extends VendorAttr {
 
     private District loadDistrict(Province p_province) throws Exception {
         Integer intProvince_id = null;
-        if (p_province != null) {
+        if(p_province != null) {
             intProvince_id = p_province.getProvinceId();
         }
         District districtFirst = null;
@@ -286,10 +314,10 @@ public class VendorBean extends VendorAttr {
         MaFacadeRemote maFacade = EJBLookup.getMaFacade();
         List<District> lsDistrictInProvince = maFacade.getListDistrict(intProvince_id);
 
-        for (int i = 0; i < lsDistrictInProvince.size(); i++) {
+        for(int i = 0; i < lsDistrictInProvince.size(); i++) {
             District district = lsDistrictInProvince.get(i);
 
-            if (districtFirst == null) {
+            if(districtFirst == null) {
                 districtFirst = district;
             }
 
@@ -305,7 +333,7 @@ public class VendorBean extends VendorAttr {
 
     private Subdist loadSubdist(District p_district) throws Exception {
         Integer intDistrict_id = null;
-        if (p_district != null) {
+        if(p_district != null) {
             intDistrict_id = p_district.getDistrictId();
         }
         Subdist subdistFirst = null;
@@ -315,10 +343,10 @@ public class VendorBean extends VendorAttr {
         MaFacadeRemote maFacade = EJBLookup.getMaFacade();
         List<Subdist> lsAllSubdist = maFacade.getListSubdist(intDistrict_id);
 
-        for (int i = 0; i < lsAllSubdist.size(); i++) {
+        for(int i = 0; i < lsAllSubdist.size(); i++) {
             Subdist subdist = lsAllSubdist.get(i);
 
-            if (subdistFirst == null) {
+            if(subdistFirst == null) {
                 subdistFirst = subdist;
             }
 
@@ -360,7 +388,7 @@ public class VendorBean extends VendorAttr {
 
         Subdist subdistFirst = loadSubdist(districtFirst);
 
-        if (subdistFirst != null) {
+        if(subdistFirst != null) {
             setZipcode(subdistFirst.getZipcode());
         }
     }
@@ -393,7 +421,7 @@ public class VendorBean extends VendorAttr {
         setDisbSave(true);
         setDisbDel(true);
         setDisbVendor_id(false);
-        
+
         setMode(MODE_EDIT);
         setLsCountry(null);
         setLsProvince(null);
@@ -421,13 +449,12 @@ public class VendorBean extends VendorAttr {
             vendor.setTaxNo(getTax_no());
             vendor.setZipcode(getZipcode());
 
-
-            if ((getTax_id() != null) && (getTax_id().length() > 0)) {
+            if((getTax_id() != null) && (getTax_id().length() > 0)) {
                 Tax tax = new Tax(getTax_id());
                 vendor.setTax(tax);
             }
 
-            if ((getTerm_id() != null) && (getTerm_id().length() > 0)) {
+            if((getTerm_id() != null) && (getTerm_id().length() > 0)) {
                 Term term = new Term(getTerm_id());
                 vendor.setTerm(term);
             }
@@ -446,39 +473,40 @@ public class VendorBean extends VendorAttr {
 
             PoFacadeRemote poFacade = EJBLookup.getPoFacade();
 
-            if (getMode().equals(MODE_EDIT)) {
+            if(getMode().equals(MODE_EDIT)) {
                 poFacade.editVendor(vendor);
                 checkVendor_id(vendor.getVendId());
-                if (getKeyword().trim().length() > 0) {
+                if(getKeyword().trim().length() > 0) {
                     checkKeyword(getKeyword().trim());
                 }
                 message("Save Complete");
 
-            } else if (getMode().equals(MODE_NEW)) {
+            } else if(getMode().equals(MODE_NEW)) {
                 String strNewVendor_id = poFacade.createVendor(vendor);
                 checkVendor_id(strNewVendor_id);
-                if (getKeyword().trim().length() > 0) {
+                
+                if(getKeyword().trim().length() > 0) {
                     checkKeyword(getKeyword().trim());
                 }
-                message("Create Complete");
+                message("Save Complete");
 
             } else {
                 message("Unknown Operation Mode");
             }
-        } catch (Exception ex) {
+        } catch(Exception ex) {
             message(ex.getMessage());
         }
     }
 
     public void doDelete(ActionEvent e) throws Exception {
-        if (getVendor_id().length() == 7) {
+        if(getVendor_id().length() == 7) {
             Vendor vendor = new Vendor();
             vendor.setVendId(getVendor_id());
             PoFacadeRemote poFacade = EJBLookup.getPoFacade();
             poFacade.deleteVendor(vendor);
 
             clearEditScreen();
-            if (getKeyword().trim().length() > 0) {
+            if(getKeyword().trim().length() > 0) {
                 checkKeyword(getKeyword().trim());
             }
 

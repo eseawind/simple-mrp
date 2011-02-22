@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.List;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
+import org.sit.common.utils.DateUtil;
+import org.sit.common.utils.OperationResult;
 import simplemrp.entity.Item;
 import simplemrp.entity.Mps;
 import simplemrp.entity.Mps_stat;
@@ -36,11 +38,11 @@ public class MasterPlanScheduleBean extends MasterPlanScheduleAttr {
 
     private void init() {
         List<Mps_stat> lsS = pp.listMpsStat();
-        for (Mps_stat stat : lsS) {
+        for(Mps_stat stat : lsS) {
             super.getLsMpsStat().add(new SelectItem(stat.getStat(), stat.getDescription()));
         }
         List<Mps_type> lsT = pp.listMpsType();
-        for (Mps_type type : lsT) {
+        for(Mps_type type : lsT) {
             super.getLsMpsType().add(new SelectItem(type.getMpsType(), type.getDescription()));
         }
         super.setDsbNew(false);
@@ -62,7 +64,7 @@ public class MasterPlanScheduleBean extends MasterPlanScheduleAttr {
         try {
             Mps newMps = new Mps(super.getMpsId());
             Item mpsItem = ma.getItem(super.getItemId());
-            if (mpsItem == null) {
+            if(mpsItem == null) {
                 message("Item " + super.getItemId() + " not found.");
                 return;
             }
@@ -70,34 +72,35 @@ public class MasterPlanScheduleBean extends MasterPlanScheduleAttr {
             Mps_type type = new Mps_type(super.getMpsType());
             newMps.setMpstype(type);
             newMps.setRefId(super.getRefId());
-            newMps.setRefSeq(super.getRefSeqInt());
+            newMps.setRefSeq(super.getRefSeq());
             newMps.setDuedate(super.getDueDate());
             newMps.setQty(super.getQty());
             Mps_stat status = new Mps_stat(super.getMpsStat());
             newMps.setMpsstat(status);
-            if (MODE_EDIT.equals(getMode())) {
+            if(MODE_EDIT.equals(getMode())) {
                 newMps.setCuser(super.getcUser());
                 newMps.setCdate(super.getcDate());
                 newMps.setUuser(super.getSessionUserId());
                 newMps.setUdate(new Date());
                 pp.editMps(newMps);
-                message("save " + super.getMpsId() + " success");
+                
+                message("Save complete");
             }
-            
-            if (MODE_NEW.equals(getMode())) {
+
+            if(MODE_NEW.equals(getMode())) {
                 newMps.setCuser(super.getSessionUserId());
                 newMps.setCdate(new Date());
                 String id = pp.createMps(newMps);
                 super.setMpsId(id);
                 setMode(MODE_EDIT);
-                message("crate new mps success");
+                message("Save complete");
 
-            } 
+            }
             //reload mps
             Mps current = pp.getMps(super.getMpsId());
             fillPageValue(current);
-        } catch (Exception ex) {
-            message("save fail cause," + ex.getMessage());
+        } catch(Exception ex) {
+            message(ex.getMessage());
         }
 
 
@@ -105,34 +108,64 @@ public class MasterPlanScheduleBean extends MasterPlanScheduleAttr {
     }
 
     public void doDelete(ActionEvent e) {
-        log.info("delete");
-        pp.removeMps(super.getMpsId());
-        message("delete " + super.getMpsId() + " success.");
-        clear();
-        super.setDsbSave(true);
-        super.setDsbNew(false);
+        try {
+            log.info("delete");
+            pp.removeMps(super.getMpsId());
+            message("Delete complete");
+            clear();
+            super.setDsbSave(true);
+            super.setDsbNew(false);
+        } catch(Exception ex) {
+            log.error(ex.getMessage(), ex);
+            message(ex.getMessage());
+        }
+
     }
 
     public void doSearch(ActionEvent e) {
-        log.info("search input=" + super.getSearchDueDate());
-        List<Mps> results = new ArrayList<Mps>();
-        if (super.getSearchDueDate() == null) {
-            results = pp.listMps();
-        } else {
-            results = pp.searchMps(super.getSearchDueDate());
+        try {
+            Date dtCreateDate = getSearchCreateDate();
+
+            if(dtCreateDate != null) {
+                searchMPS(dtCreateDate);
+            }
+        } catch(Exception ex) {
+            message(ex.getMessage());
         }
-        super.setLsMps(results);
+
+    }
+
+    private void searchMPS(Date p_dtSearch) throws Exception {
+        try {
+            List<Mps> lsMPS = new ArrayList<Mps>();
+
+            if(p_dtSearch != null) {
+                lsMPS = pp.searchMps(p_dtSearch);
+            }
+
+            super.setLsMps(lsMPS);
+            super.setSearchCreateDate(p_dtSearch);
+
+        } catch(Exception ex) {
+            log.error(ex);
+            throw new Exception(ex.getMessage(), ex);
+        }
     }
 
     public void doEdit(ActionEvent e) {
-        super.setMode(MODE_EDIT);
-        super.setDsbDelete(false);
-        super.setDsbNew(false);
-        super.setDsbSave(false);
+        try {
+            super.setMode(MODE_EDIT);
+            super.setDsbDelete(false);
+            super.setDsbNew(false);
+            super.setDsbSave(false);
 
-        String selectedMpsId = FacesUtils.getRequestParameter("p_mps_id");
-        Mps current = pp.getMps(selectedMpsId);
-        fillPageValue(current);
+            String selectedMpsId = FacesUtils.getRequestParameter("p_mps_id");
+            Mps current = pp.getMps(selectedMpsId);
+            fillPageValue(current);
+        } catch(Exception ex) {
+            log.error(ex.getMessage(), ex);
+            message(ex.getMessage());
+        }
     }
 
     public void confirmPlan(ActionEvent e) {
@@ -165,12 +198,23 @@ public class MasterPlanScheduleBean extends MasterPlanScheduleAttr {
         super.setcDate(mps.getCdate());
         super.setuUser(mps.getUuser());
         super.setuDate(mps.getUdate());
+        super.setReleaser(mps.getReleaser());
     }
 
     public void doGenerateMPS(ActionEvent e) {
         try {
+            PpFacadeRemote ppFacade = EJBLookup.getPpFacade();
+            OperationResult result = ppFacade.generateMPS(getSessionUserId());
 
+            if(result.getComplete()) {
+                message(result.getMessage());
+                searchMPS(DateUtil.getDate());
+
+            } else {
+                message("Generate Fail");
+            }
         } catch(Exception ex) {
+            log.error(ex.getMessage(), ex);
             message(ex.getMessage());
         }
     }
