@@ -13,6 +13,12 @@ and open the template in the editor.
                 xmlns:h="http://java.sun.com/jsf/html">
     <ui:define name="programname">Job Order</ui:define>
     <ui:define name="content">
+        <script type="text/javascript">
+            function printJob(p_jobId) {
+                var url = "../../reporter?reportname=report/r_job&amp;p_jobId="+p_jobId;
+                popup(url, 630, 891);
+            }
+        </script>
         <h:form id="jobOrderFormId">
             <a4j:keepAlive beanName="jobOrderBean"></a4j:keepAlive>
             <h:panelGrid columns="2" columnClasses="left_panel,right_panel" width="100%">
@@ -51,6 +57,8 @@ and open the template in the editor.
                     <a4j:commandButton value="Save" actionListener="#{jobOrderBean.doSave}" disabled="#{jobOrderBean.disbSave}" reRender="editPanel"/>
                     <rich:spacer width="4"/>
                     <a4j:commandButton value="Delete" actionListener="#{jobOrderBean.doDelete}" disabled="#{jobOrderBean.disbDel}" reRender="editPanel"/>
+                    <rich:spacer width="4"/>
+                    <a4j:commandButton value="Print" onclick="printJob('#{jobOrderBean.jobId}')"/>
                     <rich:spacer width="4"/>
 
                     <h:panelGrid columns="2" columnClasses="alignTop,alignTop">

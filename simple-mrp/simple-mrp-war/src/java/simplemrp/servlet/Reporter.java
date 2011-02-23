@@ -6,7 +6,6 @@ package simplemrp.servlet;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.util.Enumeration;
 import java.util.Map;
@@ -71,6 +70,8 @@ public class Reporter extends HttpServlet {
                     mapParam.put(strParamName, strValue);
                 }
             }
+
+//            mapParam.put("poid", "P000001");
 
             File reportFile = new File(getServletContext().getRealPath(reportFileName + ".jasper"));
 
