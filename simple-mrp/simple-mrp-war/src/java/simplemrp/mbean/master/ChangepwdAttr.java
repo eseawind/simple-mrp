@@ -41,8 +41,8 @@ public class ChangepwdAttr extends AbstractManageBean {
         if (getSessionUserId().equals("admin")) {
             return true;
         } else {
-            //return false;
-            return true;
+            return false;
+
         }
     }
 
