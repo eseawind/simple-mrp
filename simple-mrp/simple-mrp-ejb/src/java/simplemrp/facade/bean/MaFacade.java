@@ -285,4 +285,9 @@ public class MaFacade implements MaFacadeRemote {
         usrBo.editUsr(usr);
     }
 
+    @Override
+    public void createUsr(Usr usr) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }
