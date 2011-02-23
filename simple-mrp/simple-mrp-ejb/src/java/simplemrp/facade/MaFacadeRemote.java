@@ -92,5 +92,6 @@ public interface MaFacadeRemote {
       //Usr manage
     public Usr getUsr(String usrId) throws Exception;
     public void editUsr(Usr usr) throws Exception;
+    public void createUsr(Usr usr) throws Exception;
    
 }
