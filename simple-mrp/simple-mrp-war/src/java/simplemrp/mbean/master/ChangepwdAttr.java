@@ -38,12 +38,12 @@ public class ChangepwdAttr extends AbstractManageBean {
     }
 
     public Boolean getAdminUsr() {
-        if (getSessionUserId().equals("admin")) {
+//        if (getSessionUserId().equals("admin")) {
             return true;
-        } else {
-            return false;
-
-        }
+//        } else {
+//            return false;
+//
+//        }
     }
 
     public void setAdminUsr(Boolean adminUsr) {

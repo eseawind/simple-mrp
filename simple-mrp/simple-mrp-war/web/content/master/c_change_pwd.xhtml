@@ -14,9 +14,11 @@
         <h:form>
                 <a4j:keepAlive beanName="changepwdBean"/>
                 <rich:panel id="editPanel">
-                    <a4j:commandButton value="Save" actionListener="#{changepwdBean.doSave}"/>
+                    <a4j:commandButton value="Save" actionListener="#{changepwdBean.doSave}"
+                                        reRender="editPanel,createPanel"/>
                     <rich:spacer width="4px"/>
-                    <a4j:commandButton value="Clear" actionListener="#{changepwdBean.doClear}"/>
+                    <a4j:commandButton value="Clear" actionListener="#{changepwdBean.doClear}"
+                                       reRender="editPanel,createPanel"/>
                     <h:panelGrid columns="2" width="400px">
                         <h:outputLabel>User ID</h:outputLabel>
                         <h:outputText value="#{changepwdBean.usrId}"></h:outputText>
@@ -37,7 +39,7 @@
                         <h:inputText value="#{changepwdBean.usrIdNew}"></h:inputText>
                         <h:outputLabel>User Name</h:outputLabel>
                         <h:inputText value="#{changepwdBean.usrNmeNew}"></h:inputText>
-                        <a4j:commandButton value="Create" actionListener="#{changepwdBean.doCreate}"/>
+                        <a4j:commandButton value="Create" actionListener="#{changepwdBean.doCreate}" reRender="editPanel,createPanel"/>
 
                     </h:panelGrid>
                 </rich:panel>

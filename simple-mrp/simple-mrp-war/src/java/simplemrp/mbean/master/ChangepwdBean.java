@@ -59,7 +59,7 @@ public class ChangepwdBean extends ChangepwdAttr {
         } else {
             Usr usr = new Usr(getUsrIdNew());
             usr.setUsr_name(getUsrNmeNew());
-            usr.setPwd("1234");
+            usr.setPwd(getUsrIdNew());
             usr.setApp_pr('N');
             usr.setRls_job('N');
             usr.setRls_mps('N');
