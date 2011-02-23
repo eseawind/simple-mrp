@@ -61,6 +61,12 @@ public class PoBean extends PoAttr {
             po_stat.setStat(getStat());
             po.setPostat(po_stat);
 
+            if(getVendId().length() > 0) {
+                Vendor vendor = new Vendor();
+                vendor.setVendId(getVendId());
+                po.setVendor(vendor);
+            }
+
             po.setUuser(getSessionUserId());
 
             PoFacadeRemote poFacade = EJBLookup.getPoFacade();
@@ -114,6 +120,15 @@ public class PoBean extends PoAttr {
                 setPoDate(po.getPoDate());
                 setPoId(po.getPoId());
                 setStat(po.getPostat().getStat());
+
+                if(po.getVendor() == null) {
+                    setVendId(null);
+                    setVendDesc(null);
+                } else {
+                    setVendId(po.getVendor().getVendId());
+                    setVendDesc(po.getVendor().getDescription());
+                }
+
                 setUuser(po.getUuser());
                 setCuser(po.getCuser());
                 setCdate(po.getCdate());
@@ -227,6 +242,9 @@ public class PoBean extends PoAttr {
         setNote(null);
         setPoDate(null);
         setStat(null);
+
+        setVendId(null);
+        setVendDesc(null);
         
         setUuser(null);
         setCuser(null);
@@ -258,6 +276,24 @@ public class PoBean extends PoAttr {
             loadPoitem(poitemPK.getPoId());
 
             message("Delete Comlete");
+        } catch(Exception ex) {
+            message(ex.getMessage());
+        }
+    }
+
+    public void doCheckVendId(ActionEvent e) {
+        try {
+            String strVendId = StringUtil.prefixString(getVendId().trim(), 7);
+            PoFacadeRemote poFacade = EJBLookup.getPoFacade();
+            Vendor vendor = poFacade.getVendor(strVendId);
+
+            if(vendor != null) {
+                setVendId(vendor.getVendId());
+                setVendDesc(vendor.getDescription());
+            } else {
+                setVendId(null);
+                setVendDesc(null);
+            }
         } catch(Exception ex) {
             message(ex.getMessage());
         }

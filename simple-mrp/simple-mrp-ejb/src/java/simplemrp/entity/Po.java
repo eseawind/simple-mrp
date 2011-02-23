@@ -58,6 +58,10 @@ public class Po implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Po_stat postat;
 
+    @JoinColumn(name = "VEND_ID", referencedColumnName = "VEND_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Vendor vendor;
+
     public Po() {
     }
 
@@ -135,6 +139,14 @@ public class Po implements Serializable {
 
     public void setPostat(Po_stat postat) {
         this.postat = postat;
+    }
+
+    public Vendor getVendor() {
+        return vendor;
+    }
+
+    public void setVendor(Vendor vendor) {
+        this.vendor = vendor;
     }
 
     @Override

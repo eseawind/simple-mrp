@@ -28,9 +28,9 @@ public class PoitemAttr extends AbstractManageBean {
     private Character stat;
     private Double qty;
     private Double qtyRcv;
+    private Double unitPrice;
     private Date dueDate;
-    private String vendId;
-    private String vendDesc;
+    
     private String vendItem;
     private String prId;
     private Integer prSeq;
@@ -194,20 +194,12 @@ public class PoitemAttr extends AbstractManageBean {
         this.uuser = uuser;
     }
 
-    public String getVendDesc() {
-        return vendDesc;
+    public Double getUnitPrice() {
+        return unitPrice;
     }
 
-    public void setVendDesc(String vendDesc) {
-        this.vendDesc = vendDesc;
-    }
-
-    public String getVendId() {
-        return vendId;
-    }
-
-    public void setVendId(String vendId) {
-        this.vendId = vendId;
+    public void setUnitPrice(Double unitPrice) {
+        this.unitPrice = unitPrice;
     }
 
     public String getVendItem() {

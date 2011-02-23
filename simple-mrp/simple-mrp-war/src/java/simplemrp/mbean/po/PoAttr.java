@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.faces.model.SelectItem;
-import simplemrp.entity.Co;
-import simplemrp.entity.Coitem;
 import simplemrp.entity.Po;
 import simplemrp.entity.Poitem;
 import simplemrp.mbean.AbstractManageBean;
@@ -27,6 +25,8 @@ public class PoAttr extends AbstractManageBean {
     private String poId;
     private Date poDate;
     private Character stat;
+    private String vendId;
+    private String vendDesc;
     private String note;
     private String cuser;
     private Date cdate;
@@ -97,6 +97,22 @@ public class PoAttr extends AbstractManageBean {
 
     public void setStat(Character stat) {
         this.stat = stat;
+    }
+
+    public String getVendDesc() {
+        return vendDesc;
+    }
+
+    public void setVendDesc(String vendDesc) {
+        this.vendDesc = vendDesc;
+    }
+
+    public String getVendId() {
+        return vendId;
+    }
+
+    public void setVendId(String vendId) {
+        this.vendId = vendId;
     }
 
     public Date getUdate() {

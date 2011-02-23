@@ -34,6 +34,10 @@ public class PoBo implements InfPoBo {
             for(int i = 0; i < lsPo.size(); i++) {
                 Po po = lsPo.get(i);
                 po.getPostat().toString();
+
+                if (po.getVendor() != null) {
+                    po.getVendor().toString();
+                }
             }
         } catch(Exception ex) {
             throw new Exception(ex.getCause().getMessage(), ex);
@@ -50,6 +54,10 @@ public class PoBo implements InfPoBo {
             po.getPostat().toString();
         }
 
+        if (po.getVendor() != null) {
+            po.getVendor().toString();
+        }
+
         return po;
     }
 
@@ -58,11 +66,15 @@ public class PoBo implements InfPoBo {
         try {
             Po po = findPo(p_po.getPoId());
 
-            p_po.setCdate(po.getCdate());
-            p_po.setCuser(po.getCuser());
-            p_po.setUdate(DateUtil.getDate());
+            po.setNote(p_po.getNote());
+            po.setPoDate(p_po.getPoDate());
+            po.setPostat(p_po.getPostat());
+            po.setVendor(p_po.getVendor());
 
-            poDao.edit(p_po);
+            po.setUdate(DateUtil.getDate());
+            po.setUuser(p_po.getUuser());
+
+            poDao.edit(po);
         } catch (Exception ex) {
             throw new Exception(ex.getMessage(), ex);
         }

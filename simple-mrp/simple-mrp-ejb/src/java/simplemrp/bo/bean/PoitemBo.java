@@ -39,10 +39,6 @@ public class PoitemBo implements InfPoitemBo {
                 poitem.getItem().toString();
             }
 
-            if(poitem.getVendor() != null) {
-               poitem.getVendor().toString();
-            }
-            
             if(poitem.getPritem() != null) {
                 poitem.getPritem().toString();
             }
@@ -58,9 +54,7 @@ public class PoitemBo implements InfPoitemBo {
         Poitem poitem = poitemDao.find(p_pkPoitem);
         poitem.getPostat().toString();
         poitem.getItem().toString();
-        if(poitem.getVendor() != null) {
-            poitem.getVendor().toString();
-        }
+        
 
         if(poitem.getPritem() != null) {
             poitem.getPritem().toString();
@@ -96,7 +90,7 @@ public class PoitemBo implements InfPoitemBo {
         poitem.setPostat(p_poitem.getPostat());
         poitem.setItem(p_poitem.getItem());
         poitem.setVendItem(p_poitem.getVendItem());
-        poitem.setVendor(p_poitem.getVendor());
+        poitem.setUnitPrice(p_poitem.getUnitPrice());
 
         poitem.setUdate(DateUtil.getDate());
         poitem.setUuser(poitem.getUuser());

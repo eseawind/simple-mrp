@@ -47,6 +47,10 @@
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    <servlet>
+        <servlet-name>reporter</servlet-name>
+        <servlet-class>simplemrp.servlet.Reporter</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.jsf</url-pattern>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>log4j-init</servlet-name>
         <url-pattern>/Log4jInit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>reporter</servlet-name>
+        <url-pattern>/reporter/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

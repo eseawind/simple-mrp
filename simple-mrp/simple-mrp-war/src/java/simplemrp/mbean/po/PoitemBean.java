@@ -9,12 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
-import org.sit.common.utils.StringUtil;
 import simplemrp.entity.Item;
 import simplemrp.entity.Po_stat;
 import simplemrp.entity.Poitem;
 import simplemrp.entity.PoitemPK;
-import simplemrp.entity.Vendor;
 import simplemrp.facade.MaFacadeRemote;
 import simplemrp.facade.PoFacadeRemote;
 import simplemrp.util.EJBLookup;
@@ -67,15 +65,8 @@ public class PoitemBean extends PoitemAttr {
                 setItemDesc(poitem.getItem().getDescription());
                 setQty(poitem.getQty());
                 setQtyRcv(poitem.getQtyRcv());
+                setUnitPrice(poitem.getUnitPrice());
                 setDueDate(poitem.getDueDate());
-
-                if(poitem.getVendor() == null) {
-                    setVendId(null);
-                    setVendDesc(null);
-                } else {
-                    setVendId(poitem.getVendor().getVendId());
-                    setVendDesc(poitem.getVendor().getDescription());
-                }
  
                 setVendItem(poitem.getVendItem());
                 setPrId(poitem.getPritem().getPritemPK().getPrId());
@@ -124,14 +115,9 @@ public class PoitemBean extends PoitemAttr {
             item.setItem(getItem());
             poitem.setItem(item);
 
-            if(getVendId().length() > 0) {
-                Vendor vendor = new Vendor();
-                vendor.setVendId(getVendId());
-                poitem.setVendor(vendor);
-            }
-
 
             poitem.setQty(getQty());
+            poitem.setUnitPrice(getUnitPrice());
 
             poitem.setUuser(getSessionUserId());
 
@@ -184,21 +170,5 @@ public class PoitemBean extends PoitemAttr {
         }
     }
 
-    public void doCheckVendId(ActionEvent e) {
-        try {
-            String strVendId = StringUtil.prefixString(getVendId().trim(), 7);
-            PoFacadeRemote poFacade = EJBLookup.getPoFacade();
-            Vendor vendor = poFacade.getVendor(strVendId);
-
-            if(vendor != null) {
-                setVendId(vendor.getVendId());
-                setVendDesc(vendor.getDescription());
-            } else {
-                setVendId(null);
-                setVendDesc(null);
-            }
-        } catch(Exception ex) {
-            message(ex.getMessage());
-        }
-    }
+    
 }

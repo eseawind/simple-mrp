@@ -1,7 +1,7 @@
 -- MySQL Administrator dump 1.4
 --
 -- ------------------------------------------------------
--- Server version	5.1.52-community
+-- Server version	5.1.32-community
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -1699,8 +1699,11 @@ CREATE TABLE `po` (
   `CDATE` date DEFAULT NULL,
   `UUSER` varchar(20) DEFAULT NULL,
   `UDATE` date DEFAULT NULL,
+  `VEND_ID` varchar(7) DEFAULT NULL,
   PRIMARY KEY (`PO_ID`),
   KEY `FK_PO_STAT` (`STAT`),
+  KEY `FK_PO_VENDOR` (`VEND_ID`),
+  CONSTRAINT `FK_PO_VENDOR` FOREIGN KEY (`VEND_ID`) REFERENCES `vendor` (`VEND_ID`),
   CONSTRAINT `FK_PO_STAT` FOREIGN KEY (`STAT`) REFERENCES `po_stat` (`STAT`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -1709,9 +1712,9 @@ CREATE TABLE `po` (
 --
 
 /*!40000 ALTER TABLE `po` DISABLE KEYS */;
-INSERT INTO `po` (`PO_ID`,`PO_DATE`,`STAT`,`NOTE`,`CUSER`,`CDATE`,`UUSER`,`UDATE`) VALUES 
- ('P000001','2011-02-05','O',NULL,'dummy_user','2011-02-05','dummy_user','2011-02-05'),
- ('P000002','2011-02-11','O','อนุมัติแล้ว','dummy_user','2011-02-11','dummy_user','2011-02-11');
+INSERT INTO `po` (`PO_ID`,`PO_DATE`,`STAT`,`NOTE`,`CUSER`,`CDATE`,`UUSER`,`UDATE`,`VEND_ID`) VALUES 
+ ('P000001','2011-02-05','O','','dummy_user','2011-02-05','dummy_user','2011-02-23','V000001'),
+ ('P000002','2011-02-11','O','อนุมัติแล้ว','dummy_user','2011-02-11','dummy_user','2011-02-11',NULL);
 /*!40000 ALTER TABLE `po` ENABLE KEYS */;
 
 
@@ -1759,7 +1762,6 @@ CREATE TABLE `poitem` (
   `CDATE` date DEFAULT NULL,
   `UUSER` varchar(20) DEFAULT NULL,
   `UDATE` date DEFAULT NULL,
-  `VEND_ID` varchar(7) DEFAULT NULL,
   PRIMARY KEY (`PO_ID`,`PO_SEQ`),
   KEY `FK_POITEM_STAT` (`STAT`),
   KEY `FK_POITEM_ITEM` (`ITEM`),
@@ -1775,10 +1777,10 @@ CREATE TABLE `poitem` (
 --
 
 /*!40000 ALTER TABLE `poitem` DISABLE KEYS */;
-INSERT INTO `poitem` (`PO_ID`,`PO_SEQ`,`ITEM`,`STAT`,`QTY`,`QTY_RCV`,`DUE_DATE`,`VEND_ITEM`,`PR_ID`,`PR_SEQ`,`NOTE`,`CUSER`,`CDATE`,`UUSER`,`UDATE`,`VEND_ID`) VALUES 
- ('P000001',1,'CHAIR-WOOD-001','O',2.00,NULL,NULL,NULL,'R000001',1,NULL,'dummy_user','2011-02-05','dummy_user','2011-02-05',NULL),
- ('P000001',2,'DINNER-DESK-001','O',4.00,NULL,NULL,NULL,'R000001',2,NULL,'dummy_user','2011-02-05','dummy_user','2011-02-05',NULL),
- ('P000002',1,'DINNER-DESK-001','O',13.00,NULL,'2011-02-11',NULL,'R000004',1,NULL,'dummy_user','2011-02-11','dummy_user','2011-02-11',NULL);
+INSERT INTO `poitem` (`PO_ID`,`PO_SEQ`,`ITEM`,`STAT`,`QTY`,`QTY_RCV`,`DUE_DATE`,`VEND_ITEM`,`PR_ID`,`PR_SEQ`,`NOTE`,`CUSER`,`CDATE`,`UUSER`,`UDATE`) VALUES 
+ ('P000001',1,'CHAIR-WOOD-001','O',2.00,NULL,NULL,NULL,'R000001',1,NULL,'dummy_user','2011-02-05','dummy_user','2011-02-05'),
+ ('P000001',2,'DINNER-DESK-001','O',4.00,NULL,NULL,NULL,'R000001',2,NULL,'dummy_user','2011-02-05','dummy_user','2011-02-05'),
+ ('P000002',1,'DINNER-DESK-001','O',13.00,NULL,'2011-02-11',NULL,'R000004',1,NULL,'dummy_user','2011-02-11','dummy_user','2011-02-11');
 /*!40000 ALTER TABLE `poitem` ENABLE KEYS */;
 
 

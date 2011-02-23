@@ -20,6 +20,10 @@
                 var url = "c_poitem.jsf?p_mode=NEW&amp;p_poId="+p_poId;
                 popup(url);
             }
+            function printPO(p_poId) {
+                var url = "../../reporter?reportname=report/r_po&amp;p_poId="+p_poId;
+                popup(url, 630, 891);
+            }
         </script>
         <h:form id="poFormId">
             <a4j:jsFunction name="doCheckPoId" actionListener="#{poBean.doCheckPoId}" reRender="editPanel"></a4j:jsFunction>
@@ -63,6 +67,9 @@
                     <a4j:commandButton value="Delete" actionListener="#{poBean.doDeletePo}" reRender="editPanel,searchPanel"
                                        disabled="#{poBean.disbDel}"/>
                     <rich:spacer width="4"/>
+                    <a4j:commandButton value="Print" onclick="printPO('#{poBean.poId}')"
+                                       disabled="#{poBean.disbDel}"/>
+                    <rich:spacer width="4"/>
                     <a4j:commandButton value="Clear" actionListener="#{poBean.doClear}" reRender="editPanel"/>
                     
                     <h:panelGrid columns="2" width="500px">
@@ -87,6 +94,18 @@
                         <h:selectOneMenu value="#{poBean.stat}" >
                             <f:selectItems value="#{poBean.lsPoStat}"/>
                         </h:selectOneMenu>
+
+                        <h:outputLabel value="Vendor ID"/>
+                        <h:inputText id="vendId" value="#{poBean.vendId}" size="7" maxlength="7">
+                            <a4j:support event="onkeyup" actionListener="#{poBean.doCheckVendId}"
+                                         reRender="vendId,vendDesc"
+                                         onsubmit="if(notEnter(event))return false"/>
+                            <a4j:support event="onchange" actionListener="#{poBean.doCheckVendId}"
+                                         reRender="vendId,vendDesc"/>
+                        </h:inputText>
+
+                        <h:outputLabel value="Vendor Name"/>
+                        <h:outputText id="vendDesc" value="#{poBean.vendDesc}"/>
 
                         <h:outputText value="Note"/>
                         <h:inputText value="#{poBean.note}" size="60" maxlength="100"/>

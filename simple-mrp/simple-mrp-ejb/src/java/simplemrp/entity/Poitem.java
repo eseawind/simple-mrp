@@ -56,11 +56,8 @@ public class Poitem implements Serializable {
     @JoinColumn(name = "STAT", referencedColumnName = "STAT")
     @ManyToOne(fetch = FetchType.LAZY)
     private Po_stat postat;
-
-    @JoinColumn(name = "VEND_ID", referencedColumnName = "VEND_ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Vendor vendor;
-
+    @Column(name = "UNIT_PRICE")
+    private Double unitPrice;
 
     @JoinColumns({
         @JoinColumn(name = "PR_ID", referencedColumnName = "PR_ID"),
@@ -165,6 +162,14 @@ public class Poitem implements Serializable {
         this.udate = udate;
     }
 
+    public Double getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(Double unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
     public Po_stat getPostat() {
         return postat;
     }
@@ -197,14 +202,6 @@ public class Poitem implements Serializable {
         this.item = item;
     }
 
-    public Vendor getVendor() {
-        return vendor;
-    }
-
-    public void setVendor(Vendor vendor) {
-        this.vendor = vendor;
-    }
-    
     @Override
     public int hashCode() {
         int hash = 0;
