@@ -17,6 +17,34 @@ public class ChangepwdAttr extends AbstractManageBean {
     private String pwdOld;
     private String pwdNew;
     private String pwdConfirm;
+    private String usrIdNew;
+    private String usrNmeNew;
+
+    public String getUsrNmeNew() {
+        return usrNmeNew;
+    }
+
+    public void setUsrNmeNew(String usrNmeNew) {
+        this.usrNmeNew = usrNmeNew;
+    }
+
+    private boolean Admin;
+
+    public String getUsrIdNew() {
+        return usrIdNew;
+    }
+
+    public void setUsrIdNew(String usrNew) {
+        this.usrIdNew = usrNew;
+    }
+
+    public boolean isAdmin() {
+        return Admin;
+    }
+
+    public void setAdmin(boolean Admin) {
+        this.Admin = Admin;
+    }
 
     public String getPwdConfirm() {
         return pwdConfirm;
