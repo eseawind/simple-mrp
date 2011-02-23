@@ -31,7 +31,7 @@
                         <h:inputText value="#{changepwdBean.pwdConfirm}"></h:inputText>
                     </h:panelGrid>
                 </rich:panel>
-                <rich:panel id="createPanel" rendered="#{changepwdBean.isAdmin}">
+                <rich:panel id="createPanel" rendered="#{changepwdBean.adminUsr}">
                     <h:panelGrid columns="2"  width="400px">
                         <h:outputLabel>User ID</h:outputLabel>
                         <h:inputText value="#{changepwdBean.usrIdNew}"></h:inputText>

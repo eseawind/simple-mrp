@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package simplemrp.mbean.master;
 
 import simplemrp.mbean.AbstractManageBean;
@@ -12,6 +11,7 @@ import simplemrp.mbean.AbstractManageBean;
  * @author Golf
  */
 public class ChangepwdAttr extends AbstractManageBean {
+
     private String usrId;
 //    private String usrName;
     private String pwdOld;
@@ -19,6 +19,7 @@ public class ChangepwdAttr extends AbstractManageBean {
     private String pwdConfirm;
     private String usrIdNew;
     private String usrNmeNew;
+    private Boolean adminUsr;
 
     public String getUsrNmeNew() {
         return usrNmeNew;
@@ -28,8 +29,6 @@ public class ChangepwdAttr extends AbstractManageBean {
         this.usrNmeNew = usrNmeNew;
     }
 
-    private boolean Admin;
-
     public String getUsrIdNew() {
         return usrIdNew;
     }
@@ -38,12 +37,17 @@ public class ChangepwdAttr extends AbstractManageBean {
         this.usrIdNew = usrNew;
     }
 
-    public boolean isAdmin() {
-        return Admin;
+    public Boolean getAdminUsr() {
+        if (getSessionUserId().equals("admin")) {
+            return true;
+        } else {
+            //return false;
+            return true;
+        }
     }
 
-    public void setAdmin(boolean Admin) {
-        this.Admin = Admin;
+    public void setAdminUsr(Boolean adminUsr) {
+        this.adminUsr = adminUsr;
     }
 
     public String getPwdConfirm() {
@@ -78,7 +82,6 @@ public class ChangepwdAttr extends AbstractManageBean {
     public void setUsrId(String usrId) {
         this.usrId = usrId;
     }
-
 //    public String getUsrName() {
 //        return usrName;
 //    }
@@ -86,6 +89,4 @@ public class ChangepwdAttr extends AbstractManageBean {
 //    public void setUsrName(String usrName) {
 //        this.usrName = usrName;
 //    }
-
-    
 }

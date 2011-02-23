@@ -34,15 +34,21 @@ public class ChangepwdBean extends ChangepwdAttr {
             usr.setPwd(getPwdNew());
             ma.editUsr(usr);
             message("Change Complete!!!");
+            setPwdOld("");
+            setPwdNew("");
+            setPwdConfirm("");
+            setUsrNmeNew("");
+            setUsrIdNew("");
 
         }
 
     }
 
     public void doClear(ActionEvent e) {
-        setPwdConfirm("");
+        setPwdOld("");
         setPwdNew("");
-        setUsrId("");
+        setPwdConfirm("");
+        setUsrNmeNew("");
         setUsrIdNew("");
     }
 
@@ -56,10 +62,19 @@ public class ChangepwdBean extends ChangepwdAttr {
             usr.setPwd("1234");
             usr.setApp_pr('N');
             usr.setRls_job('N');
-            ma.createUsr(usr);
-            message("Create Complete!!!");
+            usr.setRls_mps('N');
+            try {
+                ma.createUsr(usr);
+                message("Create Complete!!!");
+                setPwdOld("");
+                setPwdNew("");
+                setPwdConfirm("");
+                setUsrNmeNew("");
+                setUsrIdNew("");
+            } catch (Exception ex) {
+                message(ex.getMessage());
+            }
         }
 
     }
-
 }
