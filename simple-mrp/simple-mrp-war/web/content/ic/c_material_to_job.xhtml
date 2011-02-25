@@ -18,7 +18,7 @@ and open the template in the editor.
             <rich:messages></rich:messages>
             <a4j:keepAlive beanName="matlToJobBean"></a4j:keepAlive>
             <h:panelGrid columns="2" columnClasses="alignTop,alignTop" width="100%">
-                <rich:panel id="editPanel" header="Material To Job">
+                <rich:panel id="editPanel" styleClass="noborder">
                     <rich:spacer width="4"/>
                     <a4j:commandButton value="Save" actionListener="#{matlToJobBean.doSave}" reRender="editPanel"/>
                     <h:panelGrid columns="2">

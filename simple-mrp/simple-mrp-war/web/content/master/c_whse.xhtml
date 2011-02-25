@@ -11,10 +11,9 @@ and open the template in the editor.
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html">
-    <ui:define name="programname">Whse</ui:define>
+    <ui:define name="programname">Warehouse</ui:define>
    <ui:define name="content">
         <h:form>
-
             <a4j:keepAlive beanName="whseBean" />
 
             <h:panelGrid columns="2" columnClasses="left_panel,right_panel" width="100%">
@@ -62,7 +61,7 @@ and open the template in the editor.
 
                     <h:panelGrid columns="2" width="350px">
 
-                    <h:outputLabel value="Whse"/>
+                    <h:outputLabel value="Warehouse"/>
                         <h:inputText value="#{whseBean.whse}" size="7" maxlength="7" >
 
                         </h:inputText>

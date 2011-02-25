@@ -11,13 +11,13 @@ and open the template in the editor.
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html">
-    <ui:define name="programname">Forecast Demand</ui:define>
+    <ui:define name="programname">Item Demand Forecast</ui:define>
     <ui:define name="content">
         <h:form id="forecastDemandFormId">
             
             <a4j:keepAlive beanName="forecastDemandBean"></a4j:keepAlive>
             <h:panelGrid columns="2" columnClasses="left_panel,right_panel" width="100%">
-                <rich:panel id="addPanel">
+                <rich:panel id="addPanel" styleClass="noborder">
                     <a4j:commandButton value="Search" actionListener="#{forecastDemandBean.doSearch}" reRender="editPanel"/>
                     <rich:spacer width="4"/>
                     <h:panelGrid columns="2">
@@ -35,7 +35,7 @@ and open the template in the editor.
                         <rich:calendar value="#{forecastDemandBean.forecaseDate}" datePattern="#{constantBean.PATTREN_DATE}"></rich:calendar>
                     </h:panelGrid>
                 </rich:panel>
-                <rich:panel id="editPanel" header="Forecast Demand">
+                <rich:panel id="editPanel" styleClass="noborder">
                     
                     <rich:spacer width="4"/>
                     <rich:dataTable id="forecastItemTable" value="#{forecastDemandBean.lsForecast}" var="fcItem" rowKeyVar="rowNo">

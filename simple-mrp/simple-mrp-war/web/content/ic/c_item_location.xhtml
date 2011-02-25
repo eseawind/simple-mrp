@@ -18,7 +18,7 @@ and open the template in the editor.
             
             <a4j:keepAlive beanName="itemLocBean"></a4j:keepAlive>
             <h:panelGrid columns="2" columnClasses="alignTop,alignTop" width="100%">
-                <rich:panel id="editPanel" header="Item Location">
+                <rich:panel id="editPanel" styleClass="noborder">
                     <rich:spacer width="4"/>
                     <a4j:commandButton value="Search" actionListener="#{itemLocBean.doSearch}" reRender="editPanel"/>
                     <h:panelGrid columns="2">

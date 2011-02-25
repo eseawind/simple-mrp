@@ -17,7 +17,7 @@ and open the template in the editor.
             
             <a4j:keepAlive beanName="jobOrderRecvBean"></a4j:keepAlive>
             <h:panelGrid columns="2" columnClasses="left_panel,right_panel" width="100%">
-                <rich:panel id="searchPanel" header="Job Order Table">
+                <rich:panel id="searchPanel" styleClass="noborder">
 
                     <a4j:commandButton value="Search" actionListener="#{jobOrderRecvBean.doSearch}" reRender="searchPanel"/>
                     <rich:spacer width="4"/>
@@ -51,7 +51,7 @@ and open the template in the editor.
                         </rich:column>
                     </rich:dataTable>
                 </rich:panel>
-                <rich:panel id="editPanel" header="Job Order Receive">
+                <rich:panel id="editPanel" styleClass="noborder">
                    
                     <a4j:commandButton value="Save" actionListener="#{jobOrderRecvBean.doSave}" reRender="editPanel"/>
                     <rich:spacer width="4"/>
