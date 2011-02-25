@@ -12,47 +12,47 @@
     <ui:define name="programname">Change Password</ui:define>
     <ui:define name="content">
         <h:form>
-                <a4j:keepAlive beanName="changepwdBean"/>
-                <rich:panel id="editPanel">
-                    <a4j:commandButton value="Save" actionListener="#{changepwdBean.doSave}"
-                                        reRender="editPanel,createPanel"/>
+            <a4j:keepAlive beanName="changepwdBean"/>
+            <rich:panel id="editPanel">
+                <a4j:commandButton value="Save" actionListener="#{changepwdBean.doSave}"
+                                   reRender="editPanel,createPanel"/>
+                <rich:spacer width="4px"/>
+                <a4j:commandButton value="Clear" actionListener="#{changepwdBean.doClear}"
+                                   reRender="editPanel,createPanel"/>
+                <h:panelGrid columns="2" width="400px">
+                    <h:outputLabel>User ID</h:outputLabel>
+                    <h:outputText value="#{changepwdBean.usrId}"></h:outputText>
+
+                    <h:outputLabel>Old Password</h:outputLabel>
+                    <h:inputSecret value="#{changepwdBean.pwdOld}"></h:inputSecret>
+
+                    <h:outputLabel>New Password</h:outputLabel>
+                    <h:inputSecret value="#{changepwdBean.pwdNew}"></h:inputSecret>
+
+                    <h:outputLabel>Confirm Password</h:outputLabel>
+                    <h:inputSecret value="#{changepwdBean.pwdConfirm}"></h:inputSecret>
+                </h:panelGrid>
+            </rich:panel>
+            <rich:panel id="createPanel" rendered="#{changepwdBean.adminUsr}">
+                <h:panelGroup>
+                    <a4j:commandButton value="Create" actionListener="#{changepwdBean.doCreate}" reRender="editPanel,createPanel"/>
                     <rich:spacer width="4px"/>
-                    <a4j:commandButton value="Clear" actionListener="#{changepwdBean.doClear}"
-                                       reRender="editPanel,createPanel"/>
-                    <h:panelGrid columns="2" width="400px">
-                        <h:outputLabel>User ID</h:outputLabel>
-                        <h:outputText value="#{changepwdBean.usrId}"></h:outputText>
+                    <a4j:commandButton value="Delete" actionListener="#{changepwdBean.doDelete}" reRender="editPanel,createPanel"/>
+                </h:panelGroup>
 
-                        <h:outputLabel>Old Password</h:outputLabel>
-                        <h:inputText value="#{changepwdBean.pwdOld}"></h:inputText>
-
-                        <h:outputLabel>New Password</h:outputLabel>
-                        <h:inputText value="#{changepwdBean.pwdNew}"></h:inputText>
-
-                        <h:outputLabel>Confirm Password</h:outputLabel>
-                        <h:inputText value="#{changepwdBean.pwdConfirm}"></h:inputText>
-                    </h:panelGrid>
-                </rich:panel>
-                <rich:panel id="createPanel" rendered="#{changepwdBean.adminUsr}">
-                    <h:panelGrid columns="2"  width="400px">
-                        <h:outputLabel>User ID</h:outputLabel>
-                        <h:inputText value="#{changepwdBean.usrIdNew}"></h:inputText>
-                        <h:outputLabel>User Name</h:outputLabel>
-                        <h:inputText value="#{changepwdBean.usrNmeNew}"></h:inputText>
-                        <h:outputLabel value="Approve P/R"/>
-                        <h:selectBooleanCheckbox value="#{changepwdBean.app_pr}" />
-                        <h:outputLabel value="Release Job"/>
-                        <h:selectBooleanCheckbox value="#{changepwdBean.rls_job}" />
-                        <h:outputLabel value="Release MPS"/>
-                        <h:selectBooleanCheckbox value="#{changepwdBean.rls_mps}" />
-                        <rich:spacer width="4px"/>
-                        <h:panelGroup>
-                        <a4j:commandButton value="Create" actionListener="#{changepwdBean.doCreate}" reRender="editPanel,createPanel"/>
-                        <rich:spacer width="4px"/>
-                        <a4j:commandButton value="Delete" actionListener="#{changepwdBean.doDelete}" reRender="editPanel,createPanel"/>
-                        </h:panelGroup>
-                    </h:panelGrid>
-                </rich:panel>
+                <h:panelGrid columns="2"  width="400px">
+                    <h:outputLabel>User ID</h:outputLabel>
+                    <h:inputText value="#{changepwdBean.usrIdNew}"></h:inputText>
+                    <h:outputLabel>User Name</h:outputLabel>
+                    <h:inputText value="#{changepwdBean.usrNmeNew}"></h:inputText>
+                    <h:outputLabel value="Approve P/R"/>
+                    <h:selectBooleanCheckbox value="#{changepwdBean.app_pr}" />
+                    <h:outputLabel value="Release Job"/>
+                    <h:selectBooleanCheckbox value="#{changepwdBean.rls_job}" />
+                    <h:outputLabel value="Release MPS"/>
+                    <h:selectBooleanCheckbox value="#{changepwdBean.rls_mps}" />
+                </h:panelGrid>
+            </rich:panel>
         </h:form>
     </ui:define>
 </ui:composition>

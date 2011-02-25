@@ -27,13 +27,13 @@ public class ChangepwdBean extends ChangepwdAttr {
         Usr usr = ma.getUsr(getUsrId());
 
         if(!getPwdOld().equals(usr.getPwd())) {
-            message("Wrong password!!!");
+            message("Wrong password");
         } else if(!getPwdNew().equals(getPwdConfirm())) {
-            message("Confirm password not match!!!");
+            message("Confirm password not match");
         } else {
             usr.setPwd(getPwdNew());
             ma.editUsr(usr);
-            message("Change Complete!!!");
+            message("Change complete");
             setPwdOld("");
             setPwdNew("");
             setPwdConfirm("");
@@ -83,7 +83,7 @@ public class ChangepwdBean extends ChangepwdAttr {
 
             try {
                 ma.createUsr(usr);
-                message("Create Complete!!!");
+                message("Create complete");
                 setPwdOld(null);
                 setPwdNew(null);
                 setPwdConfirm(null);
