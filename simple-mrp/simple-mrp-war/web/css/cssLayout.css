@@ -147,6 +147,12 @@
 .alignCenter {
 	text-align: center;
 }
+.alignLeft {
+	text-align: left;
+}
+.alignRight {
+	text-align: right;
+}
 .left_panel {
     width: 30%;
     vertical-align: top;

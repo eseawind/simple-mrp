@@ -11,7 +11,7 @@ and open the template in the editor.
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html">
-    <ui:define name="programname">Uom</ui:define>
+    <ui:define name="programname">Unit of Measurement</ui:define>
    <ui:define name="content">
         <h:form>
 
@@ -20,9 +20,9 @@ and open the template in the editor.
             <h:panelGrid columns="2" columnClasses="left_panel,right_panel" width="100%">
                 <rich:panel id="searchPanel" styleClass="noborder">
                     <h:panelGrid columns="3">
-                        <h:outputLabel value="uom Name"/>
+                        <h:outputLabel value="UOM"/>
                         <h:inputText value="#{uomBean.keyword}">
-                            <a4j:support event="onkeyup" actionListener="#{uomBean}"
+                            <a4j:support event="onkeyup" actionListener="#{uomBean.doSearch}"
                                          reRender="uomTable"
                                          onsubmit="if(notEnter(event))return false"/>
                         </h:inputText>
@@ -31,7 +31,7 @@ and open the template in the editor.
                     <rich:dataTable id="uomTable" value="#{uomBean.lsUom}" var="item" width="400px">
                         <rich:column sortBy="#{item.uom}" styleClass="alignCenter">
                             <f:facet name="header">
-                                <h:outputText value="uom ID"/>
+                                <h:outputText value="UOM"/>
                             </f:facet>
                             <a4j:commandLink value="#{item.uom}" actionListener="#{uomBean.doSelect}" reRender="editPanel">
                                 <f:param name="p_uom" value="#{item.uom}"/>
@@ -40,7 +40,7 @@ and open the template in the editor.
 
                         <rich:column sortBy="#{item.description}">
                             <f:facet name="header">
-                                <h:outputText value="description"/>
+                                <h:outputText value="Description"/>
                             </f:facet>
                             <h:outputText value="#{item.description}"/>
                         </rich:column>
@@ -67,7 +67,7 @@ and open the template in the editor.
                         
                         </h:inputText>
 
-                        <h:outputLabel value="DESCRIPTION"/>
+                        <h:outputLabel value="Description"/>
                         <h:inputText value="#{uomBean.description}" size="50" maxlength="100"/>
 
 

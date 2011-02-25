@@ -393,6 +393,9 @@ public class CustomerBean extends CustomerAttr {
 
     public void doSave(ActionEvent e) throws Exception {
         try {
+            if(getName().trim().length() == 0) {
+                throw new Exception("Please enter customer name");
+            }
             Customer customer = new Customer();
             customer.setCustId(getCust_id());
             customer.setName(getName());

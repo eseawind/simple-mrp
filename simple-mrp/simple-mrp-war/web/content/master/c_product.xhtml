@@ -20,18 +20,18 @@ and open the template in the editor.
             <h:panelGrid columns="2" columnClasses="left_panel,right_panel" width="100%">
                 <rich:panel id="searchPanel" styleClass="noborder">
                     <h:panelGrid columns="3">
-                        <h:outputLabel value="product Name"/>
+                        <h:outputLabel value="Product ID"/>
                         <h:inputText value="#{productBean.keyword}">
-                            <a4j:support event="onkeyup" actionListener="#{productBean}"
+                            <a4j:support event="onkeyup" actionListener="#{productBean.doSearch}"
                                          reRender="productTable"
                                          onsubmit="if(notEnter(event))return false"/>
                         </h:inputText>
                         <a4j:commandButton value="Search" actionListener="#{productBean.doSearch}" reRender="productTable"/>
                     </h:panelGrid>
                     <rich:dataTable id="productTable" value="#{productBean.lsProduct}" var="item" width="400px">
-                        <rich:column sortBy="#{item.product}" styleClass="alignCenter">
+                        <rich:column sortBy="#{item.product}">
                             <f:facet name="header">
-                                <h:outputText value="product ID"/>
+                                <h:outputText value="Product ID"/>
                             </f:facet>
                             <a4j:commandLink value="#{item.product}" actionListener="#{productBean.doSelect}" reRender="editPanel">
                                 <f:param name="p_product" value="#{item.product}"/>
@@ -40,7 +40,7 @@ and open the template in the editor.
 
                         <rich:column sortBy="#{item.description}">
                             <f:facet name="header">
-                                <h:outputText value="description"/>
+                                <h:outputText value="Description"/>
                             </f:facet>
                             <h:outputText value="#{item.description}"/>
                         </rich:column>
@@ -62,12 +62,12 @@ and open the template in the editor.
 
                     <h:panelGrid columns="2" width="350px">
 
-                    <h:outputLabel value="PRODUCT"/>
+                    <h:outputLabel value="Product"/>
                         <h:inputText value="#{productBean.product}" size="7" maxlength="7" >
 
                         </h:inputText>
 
-                        <h:outputLabel value="DESCRIPTION"/>
+                        <h:outputLabel value="Description"/>
                         <h:inputText value="#{productBean.description}" size="50" maxlength="100"/>
 
 

@@ -22,8 +22,8 @@ and open the template in the editor.
                     <h:panelGrid columns="3">
                         <h:outputLabel value="Saleman Name"/>
                         <h:inputText value="#{salemanBean.keyword}">
-                            <a4j:support event="onkeyup" actionListener="#{salemanBean}"
-                                         reRender="SalemanTable"
+                            <a4j:support event="onkeyup" actionListener="#{salemanBean.doSearch}"
+                                         reRender="salemanTable"
                                          onsubmit="if(notEnter(event))return false"/>
                         </h:inputText>
                         <a4j:commandButton value="Search" actionListener="#{salemanBean.doSearch}" reRender="salemanTable"/>
