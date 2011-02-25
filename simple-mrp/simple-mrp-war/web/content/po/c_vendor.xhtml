@@ -92,7 +92,7 @@
                             <a4j:support event="onchange" reRender="subdist,zipcode" actionListener="#{vendorBean.doCheckDistrict}"/>
                         </h:selectOneMenu>
 
-                        <h:outputLabel value="Sub district"/>
+                        <h:outputLabel value="Subdistrict"/>
                         <h:selectOneMenu id="subdist" value="#{vendorBean.subdist_id}">
                             <f:selectItems value="#{vendorBean.lsSubdist}" />
                             <a4j:support event="onchange" reRender="zipcode" actionListener="#{vendorBean.doCheckSubdist}"/>
@@ -104,7 +104,7 @@
                         <h:inputText value="#{vendorBean.phone}" size="40" maxlength="70"/>
                         <h:outputLabel value="Fax"/>
                         <h:inputText value="#{vendorBean.fax}" size="40" maxlength="50"/>
-                        <h:outputLabel value="e-mail"/>
+                        <h:outputLabel value="E-Mail"/>
                         <h:inputText value="#{vendorBean.email}" size="40" maxlength="60"/>
 
                         <h:outputLabel value="Tax"/>

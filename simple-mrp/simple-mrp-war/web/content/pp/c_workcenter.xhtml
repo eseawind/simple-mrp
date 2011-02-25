@@ -31,7 +31,7 @@ and open the template in the editor.
                     <rich:dataTable id="workcenterTable" value="#{workcenterBean.lsWorkcenter}" var="item" width="400px">
                         <rich:column sortBy="#{item.wc}" styleClass="alignCenter">
                             <f:facet name="header">
-                                <h:outputText value="workcenter ID"/>
+                                <h:outputText value="Workcenter ID"/>
                             </f:facet>
                             <a4j:commandLink value="#{item.wc}" actionListener="#{workcenterBean.doSelect}" reRender="editPanel">
                                 <f:param name="p_workcenter" value="#{item.wc}"/>
@@ -40,7 +40,7 @@ and open the template in the editor.
 
                         <rich:column sortBy="#{item.description}">
                             <f:facet name="header">
-                                <h:outputText value="description"/>
+                                <h:outputText value="Description"/>
                             </f:facet>
                             <h:outputText value="#{item.description}"/>
                         </rich:column>
