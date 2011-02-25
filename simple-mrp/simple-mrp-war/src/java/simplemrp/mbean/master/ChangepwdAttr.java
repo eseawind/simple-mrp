@@ -19,6 +19,10 @@ public class ChangepwdAttr extends AbstractManageBean {
     private String pwdConfirm;
     private String usrIdNew;
     private String usrNmeNew;
+    private Boolean rls_job;
+    private Boolean rls_mps;
+    private Boolean app_pr;
+
     private Boolean adminUsr;
 
     public String getUsrNmeNew() {
@@ -82,6 +86,30 @@ public class ChangepwdAttr extends AbstractManageBean {
     public void setUsrId(String usrId) {
         this.usrId = usrId;
     }
+
+    public Boolean getApp_pr() {
+        return app_pr;
+    }
+
+    public void setApp_pr(Boolean app_pr) {
+        this.app_pr = app_pr;
+    }
+
+    public Boolean getRls_job() {
+        return rls_job;
+    }
+
+    public void setRls_job(Boolean rls_job) {
+        this.rls_job = rls_job;
+    }
+
+    public Boolean getRls_mps() {
+        return rls_mps;
+    }
+
+    public void setRls_mps(Boolean rls_mps) {
+        this.rls_mps = rls_mps;
+    }
 //    public String getUsrName() {
 //        return usrName;
 //    }
@@ -89,4 +117,6 @@ public class ChangepwdAttr extends AbstractManageBean {
 //    public void setUsrName(String usrName) {
 //        this.usrName = usrName;
 //    }
+
+    
 }

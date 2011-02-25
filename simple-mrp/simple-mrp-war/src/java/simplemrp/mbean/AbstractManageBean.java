@@ -23,6 +23,8 @@ public abstract class AbstractManageBean implements Serializable {
     }
 
     protected final String getSessionUserId() {
-        return "dummy_user";
+        LoginBean loginBean = (LoginBean)FacesUtils.getManagedBean("loginBean");
+        String strUsr_id = loginBean.getUsr_id();
+        return strUsr_id;
     }
 }

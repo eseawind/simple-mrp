@@ -286,6 +286,11 @@ public class MaFacade implements MaFacadeRemote {
     }
 
     @Override
+    public void deleteUsr(Usr usr) throws Exception {
+        usrBo.removeUsr(usr);
+    }
+
+    @Override
     public void createUsr(Usr usr) throws Exception {
         usrBo.createUsr(usr);
     }

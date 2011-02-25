@@ -26,9 +26,9 @@ public class ChangepwdBean extends ChangepwdAttr {
 
         Usr usr = ma.getUsr(getUsrId());
 
-        if (!getPwdOld().equals(usr.getPwd())) {
+        if(!getPwdOld().equals(usr.getPwd())) {
             message("Wrong password!!!");
-        } else if (!getPwdNew().equals(getPwdConfirm())) {
+        } else if(!getPwdNew().equals(getPwdConfirm())) {
             message("Confirm password not match!!!");
         } else {
             usr.setPwd(getPwdNew());
@@ -54,27 +54,65 @@ public class ChangepwdBean extends ChangepwdAttr {
 
     public void doCreate(ActionEvent e) throws Exception {
 
-        if (getUsrIdNew().trim().equals("") || getUsrNmeNew().trim().equals("")) {
-            message("Please fill TextBox!!!");
+        if(getUsrIdNew().trim().equals("")) {
+            message("Please enter new user ID");
+        } else if(getUsrNmeNew().trim().equals("")) {
+            message("Please enter new user name");
         } else {
             Usr usr = new Usr(getUsrIdNew());
             usr.setUsr_name(getUsrNmeNew());
             usr.setPwd(getUsrIdNew());
-            usr.setApp_pr('N');
-            usr.setRls_job('N');
-            usr.setRls_mps('N');
+
+            if(getApp_pr()) {
+                usr.setApp_pr('Y');
+            } else {
+                usr.setApp_pr('N');
+            }
+
+            if(getRls_job()) {
+                usr.setRls_job('Y');
+            } else {
+                usr.setRls_job('N');
+            }
+
+            if(getRls_mps()) {
+                usr.setRls_mps('Y');
+            } else {
+                usr.setRls_mps('N');
+            }
+
             try {
                 ma.createUsr(usr);
                 message("Create Complete!!!");
-                setPwdOld("");
-                setPwdNew("");
-                setPwdConfirm("");
-                setUsrNmeNew("");
-                setUsrIdNew("");
-            } catch (Exception ex) {
+                setPwdOld(null);
+                setPwdNew(null);
+                setPwdConfirm(null);
+                setUsrNmeNew(null);
+                setUsrIdNew(null);
+                setRls_job(null);
+                setRls_mps(null);
+                setApp_pr(null);
+
+            } catch(Exception ex) {
                 message(ex.getMessage());
             }
         }
+    }
 
+    public void doDelete(ActionEvent e) throws Exception {
+        try {
+            Usr usr = new Usr(getUsrIdNew().trim());
+            MaFacadeRemote maFacade = EJBLookup.getMaFacade();
+            maFacade.deleteUsr(usr);
+            message("Delete complete");
+            setUsrNmeNew(null);
+            setUsrIdNew(null);
+            setRls_job(null);
+            setRls_mps(null);
+            setApp_pr(null);
+
+        } catch(Exception ex) {
+            throw new Exception(ex.getMessage(), ex);
+        }
     }
 }

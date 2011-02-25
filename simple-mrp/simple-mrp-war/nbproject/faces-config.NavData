@@ -16,12 +16,13 @@
         <Node id="logout.jsp" x="650" y="900" zoom="true"/>
         <Node id="content/master/c_change_pwd.xhtml" x="900" y="750" zoom="true"/>
         <Node id="content/po/c_poitem.xhtml" x="1150" y="450" zoom="true"/>
-        <Node id="content/ic/c_item_location.xhtml" x="400" y="600" zoom="true"/>
         <Node id="content/pp/c_itemopr.xhtml" x="1400" y="300" zoom="true"/>
+        <Node id="content/ic/c_item_location.xhtml" x="400" y="600" zoom="true"/>
         <Node id="content/ic/c_job_receive.xhtml" x="650" y="600" zoom="true"/>
         <Node id="content/master/c_location.xhtml" x="1650" y="300" zoom="true"/>
         <Node id="templates/template_dialog.xhtml" x="150" y="900" zoom="true"/>
         <Node id="templates/template.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="login.xhtml" x="150" y="1200" zoom="true"/>
         <Node id="content/pp/c_master_plan_schedule.xhtml" x="1400" y="150" zoom="true"/>
         <Node id="content/pp/c_bom.xhtml" x="900" y="450" zoom="true"/>
         <Node id="menu/menu_items_full.html" x="400" y="750" zoom="true"/>

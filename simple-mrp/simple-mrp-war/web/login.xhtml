@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich">
+    <f:view contentType="text/html">
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+            <title>Simple MRP</title>
+            <link href="/css/default.css" rel="stylesheet" type="text/css"/>
+            <link href="/css/cssLayout.css" rel="stylesheet" type="text/css" />
+        </head>
+        <body>
+            <h:form id="loginForm">
+                <div style="position: absolute; left: 35%; top: 150px;">
+                    <rich:panel>
+                        <img src="images/business-logo.png"/>
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="User ID"></h:outputLabel>
+                            <h:inputText value="#{loginBean.usr_id}"></h:inputText>
+                            <h:outputLabel value="Password"></h:outputLabel>
+                            <h:inputSecret value="#{loginBean.pwd}"></h:inputSecret>
+                            <rich:spacer width="4px"/>
+                            <h:commandButton value="Login" actionListener="#{loginBean.doLogin}" ></h:commandButton>
+                        </h:panelGrid>
+                        <a4j:outputPanel ajaxRendered="true">
+                            <rich:modalPanel id="messagePanel" height="100" zindex="2000" resizeable="true" showWhenRendered="#{!empty facesContext.maximumSeverity}">
+                                <f:facet name="header">Message</f:facet>
+                                <f:facet name="controls">
+                                    <h:graphicImage value="images/close.png" style="cursor:pointer" onclick="Richfaces.hideModalPanel('messagePanel');" />
+                                </f:facet>
+                                <rich:messages></rich:messages>
+                            </rich:modalPanel>
+                        </a4j:outputPanel>
+                    </rich:panel>
+                </div>
+            </h:form>
+        </body>
+    </f:view>
+</html>

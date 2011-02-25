@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package simplemrp.facade;
 
 import java.util.Date;
@@ -36,8 +35,9 @@ import simplemrp.util.BindingName;
 public class PpFacadeRemoteTest {
 
     private static PpFacadeRemote ppFacade;
-      private static String jobId;
-      private static Job j=null;
+    private static String jobId;
+    private static Job j = null;
+
     public PpFacadeRemoteTest() throws NamingException {
         ppFacade = (PpFacadeRemote) ContextFactory.getContext().lookup(BindingName.PpFacadeRemote);
     }
@@ -58,27 +58,27 @@ public class PpFacadeRemoteTest {
     public void tearDown() {
     }
 
-     /**
+    /**
      * Test of createJob method, of class PpFacadeRemote.
      */
     @Test
     public void testCreateJob() {
         System.out.println("createJob");
-         j = new Job("autogenid");
-            j.setCdate(new Date());
-            j.setCuser("Developer");
-            j.setItem(new Item("CHAIR-WOOD-001"));
-            j.setJobdate(new Date());
-            j.setJoboprCollection(null);
-            j.setJobstat(new Job_stat('F'));
-            j.setNote("");
-            j.setQty(2);
-            j.setQtycomplete(2);
-            j.setReleaser("dummy_user");
-            j.setUdate(new Date());
-            j.setUuser("dummy_user");
-        jobId =ppFacade.createJob(j);
-        System.out.println("createJob ID="+jobId);
+        j = new Job();
+        j.setCdate(new Date());
+        j.setCuser("dummy_user");
+        j.setItem(new Item("CHAIR-WOOD-001"));
+        j.setJobdate(new Date());
+        j.setJoboprCollection(null);
+        j.setJobstat(new Job_stat('F'));
+        j.setNote("");
+        j.setQty(2);
+        j.setQtycomplete(2);
+        j.setReleaser("dummy_user");
+        j.setUdate(new Date());
+        j.setUuser("dummy_user");
+        jobId = ppFacade.createJob(j);
+        System.out.println("createJob ID=" + jobId);
         assertNotNull(jobId);
 
     }
@@ -89,11 +89,10 @@ public class PpFacadeRemoteTest {
     @Test
     public void testListJobStat() {
         System.out.println("listJobStat");
-        
-        
+
         List result = ppFacade.listJobStat();
         assertNotNull(result);
-        
+
     }
 
     /**
@@ -103,12 +102,10 @@ public class PpFacadeRemoteTest {
     public void testGetJob() {
         System.out.println("getJob");
         String inputJobId = this.jobId;
-        
-        
+
         Job result = ppFacade.getJob(inputJobId);
-        System.out.println("Job result="+result);
+        System.out.println("Job result=" + result);
         assertNotNull(result);
-        
     }
 
     /**
@@ -119,30 +116,26 @@ public class PpFacadeRemoteTest {
         System.out.println("searchJob");
         String searchJobKey = "";
         Date p_dtJobDate = null;
-        
+
         List expResult = null;
         List result = ppFacade.searchJob(searchJobKey, p_dtJobDate);
 
-       
-        if(result==null){
-         assertEquals(expResult, result);
+        if(result == null) {
+            assertEquals(expResult, result);
         } else {
-            System.out.println("SearchJob Result="+result);
+            System.out.println("SearchJob Result=" + result);
             assertNotNull(result);
         }
     }
 
-   
-
-   
     /**
      * Test of editJob method, of class PpFacadeRemote.
      */
     @Test
     public void testEditJob() throws Exception {
         System.out.println("editJob");
-         j.setJobId(jobId);
-       j.setJobstat(new Job_stat('R'));
+        j.setJobId(jobId);
+        j.setJobstat(new Job_stat('R'));
         ppFacade.editJob(j);
     }
 
@@ -153,29 +146,23 @@ public class PpFacadeRemoteTest {
     public void testFindByJobDate() {
         System.out.println("findByJobDate");
         Date p_jobDate = new Date();
-        
-        
+
         List result = ppFacade.findByJobDate(p_jobDate);
-        System.out.println("Result = "+result);
+        System.out.println("Result = " + result);
         assertNotNull(result);
-        
-        
     }
- /**
+
+    /**
      * Test of removeJob method, of class PpFacadeRemote.
      */
     @Test
     public void testRemoveJob() {
         System.out.println("removeJob");
 
-         ppFacade.removeJob(jobId);
+        ppFacade.removeJob(jobId);
         Job result = ppFacade.getJob(jobId);
-         assertEquals(null, result);
-
-
-
+        assertEquals(null, result);
     }
-    
 
     /**
      * Test of listForecast method, of class PpFacadeRemote.
@@ -183,11 +170,9 @@ public class PpFacadeRemoteTest {
     @Test
     public void testListForecast() {
         System.out.println("listForecast");
-        
-        
+
         List result = ppFacade.listForecast();
         assertNotNull(result);
-        
     }
 
     /**
@@ -197,18 +182,10 @@ public class PpFacadeRemoteTest {
     public void testSearchForecast() {
         System.out.println("searchForecast");
         Date forecaseDate = null;
-        
-        
+
         List result = ppFacade.searchForecast(forecaseDate);
         assertNotNull(result);
-        
     }
-
-   
-
-    
-
-    
 
     /**
      * Test of listMps method, of class PpFacadeRemote.
@@ -216,11 +193,9 @@ public class PpFacadeRemoteTest {
     @Test
     public void testListMps() {
         System.out.println("listMps");
-        
-        
+
         List result = ppFacade.listMps();
         assertNotNull(result);
-        
     }
 
     /**
@@ -230,18 +205,11 @@ public class PpFacadeRemoteTest {
     public void testSearchMps() {
         System.out.println("searchMps");
         Date dueDate = null;
-        
-        
+
         List result = ppFacade.searchMps(dueDate);
-        System.out.println("mps result="+result);
+        System.out.println("mps result=" + result);
         assertNotNull(result);
     }
-
-    
-
-    
-
-    
 
     /**
      * Test of listMpsStat method, of class PpFacadeRemote.
@@ -249,11 +217,9 @@ public class PpFacadeRemoteTest {
     @Test
     public void testListMpsStat() {
         System.out.println("listMpsStat");
-        
-        
+
         List result = ppFacade.listMpsStat();
         assertNotNull(result);
-        
     }
 
     /**
@@ -262,34 +228,10 @@ public class PpFacadeRemoteTest {
     @Test
     public void testListMpsType() {
         System.out.println("listMpsType");
-        
-        
+
         List result = ppFacade.listMpsType();
         assertNotNull(result);
-        
     }
-
-   
-
- 
-
- 
-
-
-
- 
-
- 
-
-
-
- 
-
-  
-
-   
-
-  
 
     /**
      * Test of getListWorkcenter method, of class PpFacadeRemote.
@@ -297,24 +239,8 @@ public class PpFacadeRemoteTest {
     @Test
     public void testGetListWorkcenter() throws Exception {
         System.out.println("getListWorkcenter");
-        
-        
+
         List result = ppFacade.getListWorkcenter();
         assertNotNull(result);
-        }
-
-   
-
-  
-
-  
-
-   
-
-   
-
-   
-
-    
-
+    }
 }
