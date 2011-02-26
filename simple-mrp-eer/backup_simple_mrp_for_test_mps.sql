@@ -1385,7 +1385,10 @@ CREATE TABLE `itemmatl` (
 INSERT INTO `itemmatl` (`ITEM`,`OPR`,`SEQ`,`MATL`,`QTY`,`CUSER`,`CDATE`,`UUSER`,`UDATE`) VALUES 
  ('CHAIR-WOOD-001',10,1,'LEG-ROUND-METAL',3.00,'dummy_user','2011-02-09','dummy_user','2011-02-09'),
  ('CHAIR-WOOD-001',10,2,'SCREW-ST-1INCH',20.00,'dummy_user','2011-02-09','dummy_user','2011-02-09'),
- ('CHAIR-WOOD-001',20,1,'TOP-WOOD-OAK',1.00,'dummy_user','2011-02-09','dummy_user','2011-02-09');
+ ('CHAIR-WOOD-001',20,1,'TOP-WOOD-OAK',1.00,'dummy_user','2011-02-09','dummy_user','2011-02-09'),
+ ('DINNER-DESK-001',10,1,'LEG-ROUND-METAL',4.00,'admin','2011-02-26','admin','2011-02-26'),
+ ('DINNER-DESK-001',10,2,'SCREW-ST-1INCH',20.00,'admin','2011-02-26','admin','2011-02-26'),
+ ('DINNER-DESK-001',20,1,'TOP-WOOD-OAK',1.00,'admin','2011-02-26','admin','2011-02-26');
 /*!40000 ALTER TABLE `itemmatl` ENABLE KEYS */;
 
 
@@ -1415,7 +1418,9 @@ CREATE TABLE `itemopr` (
 /*!40000 ALTER TABLE `itemopr` DISABLE KEYS */;
 INSERT INTO `itemopr` (`ITEM`,`OPR`,`WC`,`CUSER`,`CDATE`,`UUSER`,`UDATE`) VALUES 
  ('CHAIR-WOOD-001',10,'CUT-01','dummy_user','2011-02-07','dummy_user','2011-02-09'),
- ('CHAIR-WOOD-001',20,'ASMB-01','dummy_user','2011-02-09','dummy_user','2011-02-09');
+ ('CHAIR-WOOD-001',20,'ASMB-01','dummy_user','2011-02-09','dummy_user','2011-02-09'),
+ ('DINNER-DESK-001',10,'ASMB-01','admin','2011-02-26','admin','2011-02-26'),
+ ('DINNER-DESK-001',20,'CUT-01','admin','2011-02-26','admin','2011-02-26');
 /*!40000 ALTER TABLE `itemopr` ENABLE KEYS */;
 
 
@@ -1473,9 +1478,6 @@ CREATE TABLE `job` (
 --
 
 /*!40000 ALTER TABLE `job` DISABLE KEYS */;
-INSERT INTO `job` (`JOB_ID`,`ITEM`,`JOBDATE`,`QTY`,`QTYCOMPLETE`,`STAT`,`NOTE`,`Releaser`,`CUSER`,`CDATE`,`UUSER`,`UDATE`) VALUES 
- ('J000001','CHAIR-WOOD-001','2011-02-09',2,0,'R','','dummy_user','dummy_user','2011-02-09','dummy_user','2011-02-11'),
- ('J000002','DINNER-DESK-001','2011-02-28',8,NULL,'F',NULL,NULL,'dummy_user','2011-02-22','dummy_user','2011-02-22');
 /*!40000 ALTER TABLE `job` ENABLE KEYS */;
 
 
@@ -1531,10 +1533,6 @@ CREATE TABLE `jobmatl` (
 --
 
 /*!40000 ALTER TABLE `jobmatl` DISABLE KEYS */;
-INSERT INTO `jobmatl` (`JOB_ID`,`OPR`,`SEQ`,`MATL`,`QTY`,`CUSER`,`CDATE`,`UUSER`,`UDATE`,`QTY_REQ`,`QTY_SHIP`) VALUES 
- ('J000001',10,1,'LEG-ROUND-METAL',0.00,'dummy_user','2011-02-11','dummy_user','2011-02-11',6,NULL),
- ('J000001',10,2,'SCREW-ST-1INCH',0.00,'dummy_user','2011-02-11','dummy_user','2011-02-11',40,NULL),
- ('J000001',20,1,'TOP-WOOD-OAK',0.00,'dummy_user','2011-02-11','dummy_user','2011-02-11',2,NULL);
 /*!40000 ALTER TABLE `jobmatl` ENABLE KEYS */;
 
 
@@ -1566,9 +1564,6 @@ CREATE TABLE `jobopr` (
 --
 
 /*!40000 ALTER TABLE `jobopr` DISABLE KEYS */;
-INSERT INTO `jobopr` (`JOB_ID`,`OPR`,`WC`,`ITEM`,`CUSER`,`CDATE`,`UUSER`,`UDATE`) VALUES 
- ('J000001',10,'CUT-01','CHAIR-WOOD-001','dummy_user','2011-02-11','dummy_user','2011-02-11'),
- ('J000001',20,'ASMB-01','CHAIR-WOOD-001','dummy_user','2011-02-11','dummy_user','2011-02-11');
 /*!40000 ALTER TABLE `jobopr` ENABLE KEYS */;
 
 
