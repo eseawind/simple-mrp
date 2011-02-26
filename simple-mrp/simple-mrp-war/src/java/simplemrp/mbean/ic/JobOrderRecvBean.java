@@ -117,11 +117,12 @@ public class JobOrderRecvBean extends JobOrderRecvAttr {
         //clear data
         super.setOnHand(0.0);
         super.setMaxToBeComplte(0);
+        Integer qtyComplete = super.getQtyComplete()!=null?super.getQtyComplete():0;
         Itemloc itemloc = ic.findItemLocation(super.getSelectedWarehouse(), super.getSelectedLocation(), super.getItemId());
         if (itemloc != null) {
             log.debug("item on hand=" + itemloc.getOnhand());
             super.setOnHand(itemloc.getOnhand());
-            Integer diff = super.getQtyOrder() - super.getQtyComplete();
+            Integer diff = super.getQtyOrder() - qtyComplete;
             super.setMaxToBeComplte(diff);
         } else {
             super.setToBeComplete(0);

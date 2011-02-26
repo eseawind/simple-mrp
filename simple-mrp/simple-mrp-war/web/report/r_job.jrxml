@@ -6,7 +6,7 @@
 	<queryString>
 		<![CDATA[select j.job_id, j.item, j.qty, j.jobdate, j.note, j.releaser,
 o.opr, o.wc,
-m.seq, m.matl, m.qty as matl_qty,
+m.seq, m.matl, m.qty_req as matl_qty,
 i.description as item_description,
 i2.description as matl_description, i2.uom AS matl_uom
 from job j
