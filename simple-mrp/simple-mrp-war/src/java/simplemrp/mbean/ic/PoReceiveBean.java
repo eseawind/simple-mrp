@@ -73,6 +73,7 @@ public class PoReceiveBean extends PoReceiveAttr {
             doSearch(e);
             message("Save P/O ID=" + super.getSearchPo() + " Success.");
         } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
             message("Save P/O ID=" + super.getSearchPo() + " Fail. cause " + ex.getMessage());
         }
     }

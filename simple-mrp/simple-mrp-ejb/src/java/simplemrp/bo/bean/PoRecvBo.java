@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import org.sit.common.utils.DateUtil;
 import simplemrp.bo.InfPoRecvBo;
 import simplemrp.constant.IcConstant;
 import simplemrp.dao.InfItemlocDao;
@@ -65,6 +66,14 @@ public class PoRecvBo implements InfPoRecvBo {
                 if(to.getToBeRecv() != 0.0) { //skiped if to be ship = 0
                     ItemlocPK pk = new ItemlocPK(to.getWareHouseId(), to.getLocationId(), to.getItemId());
                     Itemloc loc = itemLocDao.find(pk);
+
+                    if(loc == null) {
+                        loc = new Itemloc(pk);
+                        loc.setOnhand(0.0);
+                        loc.setUuser(to.getCuser());
+                        loc.setUdate(DateUtil.getDate());
+                        itemLocDao.create(loc);
+                    }
                     //update item onhand quantity on item location
                     updateItemLocOnhand(loc, to);
 
@@ -82,9 +91,13 @@ public class PoRecvBo implements InfPoRecvBo {
     }
 
     private void updateItemLocOnhand(Itemloc loc, PoRecvItemTO to) {
-        Double currentOnhand = loc.getOnhand();
+        Double currentOnhand = new Double(0);
+        if(loc != null) {
+            currentOnhand = loc.getOnhand();
+        }
         Double afterShipped = currentOnhand + to.getToBeRecv();
         loc.setOnhand(afterShipped);
+
         itemLocDao.edit(loc);
     }
 

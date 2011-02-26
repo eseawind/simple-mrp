@@ -17,6 +17,7 @@ import simplemrp.facade.IcFacadeRemote;
 import simplemrp.mbean.AbstractManageBean;
 import simplemrp.util.BindingName;
 import simplemrp.util.EJBLookup;
+
 /**
  *
  * @author wisaruthkea
@@ -34,7 +35,7 @@ public class PoReceiveItemBean extends AbstractManageBean {
     private Double qtyOrder;
     private Double qtyReceived;
     private Double toBeReceive;
-    private Double maxToBeReceive=0.0;
+    private Double maxToBeReceive = 0.0;
     //resource
     private List<SelectItem> lsLocation;
 
@@ -47,8 +48,8 @@ public class PoReceiveItemBean extends AbstractManageBean {
         log.debug("docheckLocation lWhse =" + this.selectedWarehouse);
         getLsLocation().clear();
         Whse whse = ma.getWhse(this.selectedWarehouse);
-        if (whse != null) {
-            for (Loc loc : whse.getLocCollection()) {
+        if(whse != null) {
+            for(Loc loc : whse.getLocCollection()) {
                 SelectItem item = new SelectItem(loc.getLocPK().getLoc(), loc.getDescription());
                 getLsLocation().add(item);
             }
@@ -66,17 +67,12 @@ public class PoReceiveItemBean extends AbstractManageBean {
         this.onHand = 0.0;
         this.maxToBeReceive = 0.0;
         Itemloc itemloc = ic.findItemLocation(this.selectedWarehouse, this.selectedLocation, this.itemId);
-        if (itemloc != null) {
+        if(itemloc != null) {
             this.onHand = itemloc.getOnhand();
-            
-            if ((this.qtyOrder - this.qtyReceived) > this.onHand) {
-                this.maxToBeReceive = this.onHand;
-            } else {
-                this.setMaxToBeReceive(this.qtyOrder - this.qtyReceived);
-            }
-        } else {
-            this.toBeReceive = 0.0;
         }
+
+        this.toBeReceive = 0.0;
+        this.setMaxToBeReceive(this.qtyOrder - this.qtyReceived);
     }
 
     /**

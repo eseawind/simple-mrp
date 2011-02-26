@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package simplemrp.bo.bean;
 
 import java.util.ArrayList;
@@ -21,6 +20,7 @@ import simplemrp.entity.Po;
  */
 @Stateless
 public class PoBo implements InfPoBo {
+
     @EJB
     private InfPoDao poDao;
 
@@ -35,14 +35,14 @@ public class PoBo implements InfPoBo {
                 Po po = lsPo.get(i);
                 po.getPostat().toString();
 
-                if (po.getVendor() != null) {
+                if(po.getVendor() != null) {
                     po.getVendor().toString();
                 }
             }
         } catch(Exception ex) {
             throw new Exception(ex.getCause().getMessage(), ex);
         }
-        
+
 
         return lsPo;
     }
@@ -50,14 +50,14 @@ public class PoBo implements InfPoBo {
     @Override
     public Po findPo(String p_strPo_id) throws Exception {
         Po po = poDao.find(p_strPo_id);
-        if (po != null) {
+        if(po != null) {
             po.getPostat().toString();
-        }
 
-        if (po.getVendor() != null) {
-            po.getVendor().toString();
+            if(po.getVendor() != null) {
+                po.getVendor().toString();
+            }
         }
-
+        
         return po;
     }
 
@@ -75,7 +75,7 @@ public class PoBo implements InfPoBo {
             po.setUuser(p_po.getUuser());
 
             poDao.edit(po);
-        } catch (Exception ex) {
+        } catch(Exception ex) {
             throw new Exception(ex.getMessage(), ex);
         }
     }
@@ -99,5 +99,5 @@ public class PoBo implements InfPoBo {
         poDao.create(p_po);
 
         return p_po.getPoId();
-    } 
+    }
 }
