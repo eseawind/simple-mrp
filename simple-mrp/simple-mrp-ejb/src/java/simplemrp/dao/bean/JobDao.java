@@ -85,8 +85,9 @@ public class JobDao extends AbstractDao<Job> implements InfJobDao {
         Query q = em.createQuery(sql);
         String strLastJob = (String) q.getSingleResult();
         if(strLastJob == null) {
-            return strPrefix + "000000";
+            strLastJob = strPrefix + "000000";
         }
+
         strLastJob = strLastJob.replaceFirst(strPrefix, "");
 
         Integer intNext = new Integer(strLastJob).intValue() + 1;

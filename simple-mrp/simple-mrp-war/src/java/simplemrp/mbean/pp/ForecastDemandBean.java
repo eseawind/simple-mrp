@@ -55,10 +55,12 @@ public class ForecastDemandBean extends ForecastDemandAttr {
         }
     }
 
-    public void doDelete(ActionEvent e) {
+    public void doDelete(ActionEvent e) throws Exception {
         String selectedDelForcase = FacesUtils.getRequestParameter("del_forecase");
         log.debug("doDelete selectItemid=" + selectedDelForcase);
         ppFacadeRemote.removeForecase(selectedDelForcase);
+
+        search(super.getSearchForecaseDate());
     }
 
     public void doSearch(ActionEvent e) throws Exception {

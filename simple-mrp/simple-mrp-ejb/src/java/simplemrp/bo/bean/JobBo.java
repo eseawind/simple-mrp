@@ -45,7 +45,6 @@ public class JobBo implements InfJobBo {
     private InfItemoprBo itemoprBo;
     @EJB
     private InfItemmatlBo itemmatlBo;
-
     @EJB
     private InfJoboprBo joboprBo;
     @EJB
@@ -54,13 +53,13 @@ public class JobBo implements InfJobBo {
     @Override
     public Job getJob(String inputJobId) {
         Job j = jobDao.find(inputJobId);
-        if(j==null){
+        if(j == null) {
             return null;
         }
-        if(j.getItem()!=null){
+        if(j.getItem() != null) {
             j.getItem().toString();
         }
-        if(j.getJobstat()!=null){
+        if(j.getJobstat() != null) {
             j.getJobstat().toString();
         }
         return j;
@@ -128,14 +127,20 @@ public class JobBo implements InfJobBo {
             } else {
                 job.setJobstat(p_job.getJobstat());
             }
-            
+
             jobDao.edit(job);
 
             if(isReleaseJob) {
-                releaseJob(job.getJobId());
+                try {
+                    releaseJob(job.getJobId());
+                } catch(Exception ex) {
+                    job.setJobstat(new Job_stat(PpConstant.JOB_STAT_FIRM));
+                    throw ex;
+                }
             }
+
+
         } catch(Exception ex) {
-            ex.printStackTrace(System.out);
             throw new Exception(ex.getMessage(), ex);
         }
     }
@@ -147,7 +152,7 @@ public class JobBo implements InfJobBo {
             List<Itemopr> lsItemopr = itemoprBo.getItemoprByItem(job.getItem().getItem());
 
             if((lsItemopr != null) && (lsItemopr.size() > 0)) {
-                for(int idxItemopr=0; idxItemopr<lsItemopr.size(); idxItemopr++) {
+                for(int idxItemopr = 0; idxItemopr < lsItemopr.size(); idxItemopr++) {
                     Itemopr itemopr = lsItemopr.get(idxItemopr);
 
                     Jobopr jobopr = new Jobopr();
@@ -171,7 +176,7 @@ public class JobBo implements InfJobBo {
                     } else {
                         List<Itemmatl> lsItemmatl = itemmatlBo.getItemmatlByItemopr(itemopr.getItemoprPK().getItem(), itemopr.getItemoprPK().getOpr());
 
-                        for(int idxItemmatl=0; idxItemmatl<lsItemmatl.size(); idxItemmatl++) {
+                        for(int idxItemmatl = 0; idxItemmatl < lsItemmatl.size(); idxItemmatl++) {
                             Itemmatl itemmatl = lsItemmatl.get(idxItemmatl);
 
                             Jobmatl jobmatl = new Jobmatl();
@@ -200,7 +205,7 @@ public class JobBo implements InfJobBo {
                 throw new Exception("BOM is not define");
             }
         } catch(Exception ex) {
-            throw new Exception(ex.getCause().getMessage(), ex);
+            throw new Exception(ex.getMessage(), ex);
         }
     }
 }

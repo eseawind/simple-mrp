@@ -184,6 +184,7 @@ public class MpsBo implements InfMpsBo {
                 releasePlan(mps);
             }
         } catch(Exception ex) {
+
             throw new Exception(ex.getMessage(), ex);
         }
     }
