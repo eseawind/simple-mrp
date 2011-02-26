@@ -23,10 +23,10 @@ import simplemrp.entity.Itemloc;
 import simplemrp.entity.ItemlocPK;
 import simplemrp.entity.Stocktrans;
 import simplemrp.facade.IcFacadeRemote;
-import simplemrp.mbean.ic.to.CoOrderItemTO;
-import simplemrp.mbean.ic.to.JobRecvItemTO;
-import simplemrp.mbean.ic.to.MatlToJobItemTO;
-import simplemrp.mbean.ic.to.PoRecvItemTO;
+import simplemrp.to.CoOrderItemTO;
+import simplemrp.to.JobRecvItemTO;
+import simplemrp.to.MatlToJobItemTO;
+import simplemrp.to.PoRecvItemTO;
 import simplemrp.util.BindingName;
 
 /**
@@ -87,25 +87,40 @@ public class IcFacade implements IcFacadeRemote {
         return infItemLocationBo.findItemLocation(pk);
     }
 
+//    @Override
+//    public void saveCoShipping(String coId, Date tranDate, List<CoOrderItemTO> lsCoOrderItem) {
+//        infCoShipBo.saveCoShipping(coId,tranDate,lsCoOrderItem);
+//    }
+
     @Override
-    public void saveCoShipping(String coId, Date tranDate, List<CoOrderItemTO> lsCoOrderItem) {
-        infCoShipBo.saveCoShipping(coId,tranDate,lsCoOrderItem);
+    public void saveCoShipping_V2(String coId, Date tranDate, CoOrderItemTO[] arrCoOrderItem) throws Exception {
+        infCoShipBo.saveCoShipping_V2(coId, tranDate, arrCoOrderItem);
+    }
+
+//    @Override
+//    public void savePoReceive(String poId, Date tranDate, List<PoRecvItemTO> lsPoOrderItem) {
+//        infPoRecvBo.savePoRecv(poId,tranDate,lsPoOrderItem);
+//    }
+
+    @Override
+    public void savePoReceive_V2(String poId, Date tranDate, PoRecvItemTO[] arrPoOrderItem) throws Exception {
+        infPoRecvBo.savePoRecv_V2(poId,tranDate,arrPoOrderItem);
     }
 
     @Override
-    public void savePoReceive(String poId, Date tranDate, List<PoRecvItemTO> lsPoOrderItem) {
-        infPoRecvBo.savePoRecv(poId,tranDate,lsPoOrderItem);
-    }
-
-    @Override
-    public void saveJobReceive(String jobId, Date transDate,JobRecvItemTO jobRecvItem) {
+    public void saveJobReceive(String jobId, Date transDate,JobRecvItemTO jobRecvItem) throws Exception {
         infJobRecvBo.saveJobRecv(jobId,transDate,jobRecvItem);
     }
 
 
+//    @Override
+//    public void saveMatlToJob(String jobId, Date transDate, List<MatlToJobItemTO> lsTo) {
+//        infMatlToJobBo.saveMatlToJob(jobId,transDate,lsTo);
+//    }
+
     @Override
-    public void saveMatlToJob(String jobId, Date transDate, List<MatlToJobItemTO> lsTo) {
-        infMatlToJobBo.saveMatlToJob(jobId,transDate,lsTo);
+    public void saveMatlToJob_V2(String jobId,Date transDate, MatlToJobItemTO[] arrTo) throws Exception {
+        infMatlToJobBo.saveMatlToJob_V2(jobId,transDate, arrTo);
     }
 
 

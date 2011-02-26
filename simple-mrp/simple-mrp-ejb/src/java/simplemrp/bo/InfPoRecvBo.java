@@ -8,7 +8,7 @@ package simplemrp.bo;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
-import simplemrp.mbean.ic.to.PoRecvItemTO;
+import simplemrp.to.PoRecvItemTO;
 
 /**
  *
@@ -18,5 +18,6 @@ import simplemrp.mbean.ic.to.PoRecvItemTO;
 public interface InfPoRecvBo {
 
     public void savePoRecv(String poId, Date tranDate, List<PoRecvItemTO> lsPoOrderItem);
+    public void savePoRecv_V2(String poId, Date tranDate, PoRecvItemTO[] arrPoOrderItem) throws Exception;
 
 }

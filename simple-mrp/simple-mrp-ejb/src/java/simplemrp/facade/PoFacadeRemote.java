@@ -7,7 +7,6 @@ package simplemrp.facade;
 
 import java.util.Date;
 import java.util.List;
-import javax.ejb.Remote;
 import simplemrp.entity.Vendor;
 
 import javax.ejb.Remote;
@@ -20,6 +19,7 @@ import simplemrp.entity.Pr_stat;
 import simplemrp.entity.Pritem;
 import simplemrp.entity.PritemPK;
 import simplemrp.entity.Bank;
+import simplemrp.to.CoOrderItemTO;
 
 /**
  *
@@ -37,7 +37,7 @@ public interface PoFacadeRemote {
     public List<Bank> getListBank() throws Exception;
 
     //Po management
-    public List<Po> searchPo(Date p_dtPoDate) throws Exception;
+    public List<Po> searchPo(String p_strPoId, Date p_dtPoDate) throws Exception;
     public Po getPo(String strPo_id) throws Exception;
     public String createPo(Po p_po) throws Exception;
     public void editPo(Po p_po) throws Exception;
@@ -59,7 +59,7 @@ public interface PoFacadeRemote {
     public List<Pr_stat> getListPr_stat() throws Exception;
 
     //Pr management
-    public List<Pr> searchPr(String p_strRequester, Date p_dtReqDate) throws Exception;
+    public List<Pr> searchPr(String p_strPrId, String p_strRequester, Date p_dtReqDate) throws Exception;
     public Pr getPr(String strPr_id) throws Exception;
     public String createPr(Pr p_pr) throws Exception;
     public void editPr(Pr p_pr) throws Exception;

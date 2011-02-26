@@ -16,7 +16,7 @@ import simplemrp.entity.Whse;
 import simplemrp.facade.IcFacadeRemote;
 import simplemrp.facade.MaFacadeRemote;
 import simplemrp.facade.PpFacadeRemote;
-import simplemrp.mbean.ic.to.JobRecvItemTO;
+import simplemrp.to.JobRecvItemTO;
 import simplemrp.util.BindingName;
 import simplemrp.util.EJBLookup;
 import simplemrp.util.FacesUtils;
@@ -41,11 +41,10 @@ public class JobOrderRecvBean extends JobOrderRecvAttr {
     }
 
     public void doSearch(ActionEvent e) {
-
-        String searchJobId = super.getSearchJobId();
-        System.out.println("doSearch....job id=" + searchJobId);
+        String searchJobId = super.getSearchJobId().trim();
         List<Job> result = new ArrayList<Job>();
         if (searchJobId != null) {
+            setSearchJobId(searchJobId);
             result = ppFacadeRemote.searchJob(super.getSearchJobId(), null);
         }
         super.setLsJob(result);
@@ -53,21 +52,24 @@ public class JobOrderRecvBean extends JobOrderRecvAttr {
 
     public void doSelectJob(ActionEvent e) throws Exception {
         String selectedJobId = FacesUtils.getRequestParameter("p_job_id");
+        selectJob(selectedJobId);
+    }
+
+    private void selectJob(String p_strJobId) throws Exception {
         //reset page
         clearEditScreen();
         //get result
-        Job job = ppFacadeRemote.getJob(selectedJobId);
+        Job job = ppFacadeRemote.getJob(p_strJobId);
         this.fillPage(job);
 
         //init warehouse
         super.getLsWarehouse().clear(); //clear list
         List<Whse> results = ma.getListWhse();
+        
         for (Whse w : results) {
             SelectItem item = new SelectItem(w.getWhse(), w.getDescription());
             super.getLsWarehouse().add(item);
         }
-
-
     }
 
     public void doSave(ActionEvent e) {
@@ -84,7 +86,7 @@ public class JobOrderRecvBean extends JobOrderRecvAttr {
             this.fillPage(job);
             //Reload onhand
             this.doCheckLocation(e);
-            
+            selectJob(super.getJobId());
             message("Save Job ID '" + super.getJobId() + "' success.");
         } catch (Exception ex) {
             message("Save Job ID=" + super.getJobId() + " Fail " + ex.getMessage());

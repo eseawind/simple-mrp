@@ -33,13 +33,22 @@ public class PrDao extends AbstractDao<Pr> implements InfPrDao {
     }
 
     @Override
-    public List<Pr> findByRequesterReqDate(String p_strRequester, Date p_dtReqDate) {
+    public List<Pr> findByRequesterReqDate(String p_strPrId, String p_strRequester, Date p_dtReqDate) {
         ParamBinder pb = new ParamBinder();
         StringBuilder condition = new StringBuilder();
 
+        if((p_strPrId != null) && (p_strPrId.length() > 0)) {
+            condition.append("p.prId like :prId \n");
+            pb.put("prId", p_strPrId + "%");
+        }
+
         if((p_strRequester != null) && (p_strRequester.length() > 0)) {
-            condition.append("p.requester = :requester \n");
-            pb.put("requester", p_strRequester);
+            if(condition.length() > 0) {
+                condition.append(" and ");
+            }
+
+            condition.append("p.requester like :requester \n");
+            pb.put("requester", p_strRequester + "%");
         }
 
         if(p_dtReqDate != null) {

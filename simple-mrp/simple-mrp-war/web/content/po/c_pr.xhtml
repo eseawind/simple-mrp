@@ -29,7 +29,14 @@
                     <h:panelGrid columns="3">
                         <h:outputLabel value="Requester"/>
                         <h:inputText value="#{prBean.searchRequester}" size="7" maxlength="7">
-                            <a4j:support event="onkeyup" actionListener="#{prBean.doSearchPr}"
+                            <a4j:support event="onkeyup" actionListener="#{prBean.doSearchPR}"
+                                         reRender="searchPanel"
+                                         onsubmit="if(notEnter(event))return false"/>
+                        </h:inputText>
+                        <rich:spacer width="1"></rich:spacer>
+                        <h:outputLabel value="P/R"/>
+                        <h:inputText value="#{prBean.searchPrId}" size="7" maxlength="7">
+                            <a4j:support event="onkeyup" actionListener="#{prBean.doSearchPR}"
                                          reRender="searchPanel"
                                          onsubmit="if(notEnter(event))return false"/>
                         </h:inputText>

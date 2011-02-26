@@ -8,7 +8,7 @@ package simplemrp.bo;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
-import simplemrp.mbean.ic.to.MatlToJobItemTO;
+import simplemrp.to.MatlToJobItemTO;
 
 /**
  *
@@ -18,5 +18,6 @@ import simplemrp.mbean.ic.to.MatlToJobItemTO;
 public interface InfMatlToJobBo {
 
     public void saveMatlToJob(String jobId, Date transDate, List<MatlToJobItemTO> lsTo);
+    public void saveMatlToJob_V2(String jobId, Date transDate, MatlToJobItemTO[] arrTo) throws Exception;
 
 }

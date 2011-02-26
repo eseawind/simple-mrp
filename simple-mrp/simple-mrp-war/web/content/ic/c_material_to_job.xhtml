@@ -15,7 +15,6 @@ and open the template in the editor.
     <ui:define name="content">
 
         <h:form id="matlToJobFormId">
-            <rich:messages></rich:messages>
             <a4j:keepAlive beanName="matlToJobBean"></a4j:keepAlive>
             <h:panelGrid columns="2" columnClasses="alignTop,alignTop" width="100%">
                 <rich:panel id="editPanel" styleClass="noborder">
@@ -24,7 +23,11 @@ and open the template in the editor.
                     <h:panelGrid columns="2">
                         <h:outputLabel value="Job ID"/>
                         <h:panelGrid columns="2">
-                            <h:inputText value="#{matlToJobBean.jobId}"/>
+                            <h:inputText value="#{matlToJobBean.jobId}" size="7" maxlength="7">
+                                <a4j:support event="onkeyup" actionListener="#{matlToJobBean.doSearch}" reRender="editPanel"
+                                             onsubmit="if(notEnter(event))return false"/>
+                                <a4j:support event="onchange" actionListener="#{matlToJobBean.doSearch}" reRender="editPanel"/>
+                            </h:inputText>
                             <a4j:commandButton value="Search" actionListener="#{matlToJobBean.doSearch}" reRender="editPanel"/>
                         </h:panelGrid>
                         <h:outputText value="Item"/>
@@ -70,7 +73,7 @@ and open the template in the editor.
                                 <f:selectItems value="#{matlToJobBean.lsWarehouse}"/>
                                 <a4j:support event="onchange" reRender="matlToJobTable" actionListener="#{matlItem.doCheckWarehouse}"/>
                             </h:selectOneMenu>
-                            
+
                         </rich:column>
 
                         <rich:column>
@@ -78,11 +81,11 @@ and open the template in the editor.
                                 <h:outputText value="Location"/>
                             </f:facet>
                             <h:selectOneMenu value="#{matlItem.selectedLocation}">
-                                 <f:selectItem itemLabel="-SELECT-" itemValue="-1"></f:selectItem>
-                                 <f:selectItems value="#{matlItem.lsLocation}"/>
-                                 <a4j:support event="onchange" reRender="matlToJobTable" actionListener="#{matlItem.doCheckLocation}"/>
+                                <f:selectItem itemLabel="-SELECT-" itemValue="-1"></f:selectItem>
+                                <f:selectItems value="#{matlItem.lsLocation}"/>
+                                <a4j:support event="onchange" reRender="matlToJobTable" actionListener="#{matlItem.doCheckLocation}"/>
                             </h:selectOneMenu>
-                            
+
                         </rich:column>
                         <rich:column>
                             <f:facet name="header">
@@ -113,6 +116,5 @@ and open the template in the editor.
 
             </h:panelGrid>
         </h:form>
-
     </ui:define>
 </ui:composition>

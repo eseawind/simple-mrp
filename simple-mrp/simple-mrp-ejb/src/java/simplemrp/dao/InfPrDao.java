@@ -31,7 +31,7 @@ public interface InfPrDao {
 
     int count();
 
-    public List<Pr> findByRequesterReqDate(String p_strRequester, Date p_dtReqDate);
+    public List<Pr> findByRequesterReqDate(String p_strPrId, String p_strRequester, Date p_dtReqDate);
 
     public String getNextPr_id();
 

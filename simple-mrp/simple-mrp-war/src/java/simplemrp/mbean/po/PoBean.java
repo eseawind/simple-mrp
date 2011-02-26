@@ -77,8 +77,8 @@ public class PoBean extends PoAttr {
 
                 checkPoId(po.getPoId());
 
-                if(getSearchPoDate() != null) {
-                    searchPO(getSearchPoDate());
+                if((getSearchPoId().length() > 0) || (getSearchPoDate() != null)) {
+                    searchPO(getSearchPoId(), getSearchPoDate());
                 }
 
                 message("Save Complete");
@@ -88,8 +88,8 @@ public class PoBean extends PoAttr {
 
                 checkPoId(strNewPoId);
 
-                if(getSearchPoDate() != null) {
-                    searchPO(getSearchPoDate());
+                if((getSearchPoId().length() > 0) || (getSearchPoDate() != null)) {
+                    searchPO(getSearchPoId(), getSearchPoDate());
                 }
 
                 message("Create Complete");
@@ -170,14 +170,16 @@ public class PoBean extends PoAttr {
 
     public void doSearchPo(ActionEvent e) throws Exception {
         try {
+            String strSearchPoId = getSearchPoId();
             Date dtSearchPoDate = getSearchPoDate();
 
+            setSearchPoId(strSearchPoId);
             setSearchPoDate(dtSearchPoDate);
 
-            if(dtSearchPoDate == null) {
-                message("Please P/O Date");
+            if((strSearchPoId.length() == 0) && (dtSearchPoDate == null)) {
+                message("Please enter search condition");
             } else {
-                searchPO(dtSearchPoDate);
+                searchPO(strSearchPoId, dtSearchPoDate);
             }
         } catch(Exception ex) {
             message(ex.getMessage());
@@ -185,10 +187,10 @@ public class PoBean extends PoAttr {
         
     }
 
-    private void searchPO(Date p_dtPoDate) throws Exception {
-        if(p_dtPoDate != null) {
+    private void searchPO(String p_strPoId, Date p_dtPoDate) throws Exception {
+        if((p_strPoId.length() > 0) || (p_dtPoDate != null)) {
             PoFacadeRemote poFacade = EJBLookup.getPoFacade();
-            List<Po> lsPo = poFacade.searchPo(p_dtPoDate);
+            List<Po> lsPo = poFacade.searchPo(p_strPoId, p_dtPoDate);
 
             setLsPo(lsPo);
         }

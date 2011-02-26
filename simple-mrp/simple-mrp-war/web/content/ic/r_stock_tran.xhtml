@@ -9,12 +9,10 @@
                 xmlns:h="http://java.sun.com/jsf/html">
 
     <ui:define name="programname">Stock Transaction</ui:define>
-
     <ui:define name="content">
-       
-        
         <h:form id="stocktransFormId">
             <a4j:keepAlive beanName="stocktransBean"></a4j:keepAlive>
+
             <h:panelGrid columns="1" columnClasses="left_panel" width="100%">
                 <rich:panel id="searchPanel" styleClass="noborder">
                     <h:panelGrid columns="11">
@@ -30,7 +28,7 @@
                                        datePattern="#{constantBean.PATTREN_DATE}"
                                        popup="true"
                                        inputSize="10"/>
-                          <h:outputLabel value="Date To"/>
+                        <h:outputLabel value="Date To"/>
                         <rich:calendar value="#{stocktransBean.searchTransDateTo}"
                                        datePattern="#{constantBean.PATTREN_DATE}"
                                        popup="true"
@@ -38,88 +36,85 @@
                         <a4j:commandButton value="Search" actionListener="#{stocktransBean.doSearchStocktrans}" reRender="stocktransTable"/>
                     </h:panelGrid>
 
-                    <rich:dataTable id="stocktransTable" value="#{stocktransBean.lsStocktrans}" var="stocktrans" width="400px">
-
+                    <rich:dataTable id="stocktransTable" value="#{stocktransBean.lsStocktrans}" var="stocktrans" width="80%">
                         <rich:column sortBy="#{stocktrans.transId}">
                             <f:facet name="header">
-                                <h:outputText value="transId"/>
+                                <h:outputText value="Trans. ID"/>
                             </f:facet>
                             <h:outputText value="#{stocktrans.transId}"/>
                         </rich:column>
 
                         <rich:column sortBy="#{stocktrans.itemloc.itemlocPK.item}">
                             <f:facet name="header">
-                                <h:outputText value="item"/>
+                                <h:outputText value="Item"/>
                             </f:facet>
                             <h:outputText value="#{stocktrans.itemloc.itemlocPK.item}"/>
                         </rich:column>
 
                         <rich:column sortBy="#{stocktrans.itemloc.itemlocPK.whse}">
                             <f:facet name="header">
-                                <h:outputText value="whse"/>
+                                <h:outputText value="Whse"/>
                             </f:facet>
                             <h:outputText value="#{stocktrans.itemloc.itemlocPK.whse}"/>
                         </rich:column>
 
                         <rich:column sortBy="#{stocktrans.itemloc.itemlocPK.loc}">
                             <f:facet name="header">
-                                <h:outputText value="loc"/>
+                                <h:outputText value="Loc"/>
                             </f:facet>
                             <h:outputText value="#{stocktrans.itemloc.itemlocPK.loc}"/>
                         </rich:column>
 
                         <rich:column sortBy="#{stocktrans.transType}">
                             <f:facet name="header">
-                                <h:outputText value="transType"/>
+                                <h:outputText value="Trans. type"/>
                             </f:facet>
                             <h:outputText value="#{stocktrans.transType}"/>
                         </rich:column>
+
                         <rich:column sortBy="#{stocktrans.transDate}" styleClass="alignCenter">
                             <f:facet name="header">
-                                <h:outputText value="stocktrans Date"/>
+                                <h:outputText value="Trans. Date"/>
                             </f:facet>
                             <h:outputText value="#{stocktrans.transDate}">
                                 <f:convertDateTime pattern="#{constantBean.PATTREN_DATE}" timeZone="#{constantBean.TIMEZONE}"/>
                             </h:outputText>
                         </rich:column>
-                          <rich:column sortBy="#{stocktrans.cdate}" styleClass="alignCenter">
+                        <rich:column sortBy="#{stocktrans.cdate}" styleClass="alignCenter">
                             <f:facet name="header">
-                                <h:outputText value="cdate"/>
+                                <h:outputText value="Create date"/>
                             </f:facet>
                             <h:outputText value="#{stocktrans.cdate}">
                                 <f:convertDateTime pattern="#{constantBean.PATTREN_DATE}" timeZone="#{constantBean.TIMEZONE}"/>
                             </h:outputText>
                         </rich:column>
 
-                           <rich:column sortBy="#{stocktrans.refId}">
+                        <rich:column sortBy="#{stocktrans.refId}">
                             <f:facet name="header">
-                                <h:outputText value="refId"/>
+                                <h:outputText value="Ref."/>
                             </f:facet>
                             <h:outputText value="#{stocktrans.refId}"/>
                         </rich:column>
-                           <rich:column sortBy="#{stocktrans.refSeq}">
+                        <rich:column sortBy="#{stocktrans.refSeq}">
                             <f:facet name="header">
-                                <h:outputText value="refSeq"/>
+                                <h:outputText value="Ref. Seq"/>
                             </f:facet>
                             <h:outputText value="#{stocktrans.refSeq}"/>
                         </rich:column>
-                           <rich:column sortBy="#{stocktrans.qty}">
+                        <rich:column sortBy="#{stocktrans.qty}">
                             <f:facet name="header">
-                                <h:outputText value="qty"/>
+                                <h:outputText value="QTY"/>
                             </f:facet>
                             <h:outputText value="#{stocktrans.qty}"/>
                         </rich:column>
-                           <rich:column sortBy="#{stocktrans.cuser}">
+                        <rich:column sortBy="#{stocktrans.cuser}">
                             <f:facet name="header">
-                                <h:outputText value="cuser"/>
+                                <h:outputText value="User"/>
                             </f:facet>
                             <h:outputText value="#{stocktrans.cuser}"/>
                         </rich:column>
-                        
                     </rich:dataTable>
                 </rich:panel>
-
-
             </h:panelGrid>
         </h:form>
     </ui:define>

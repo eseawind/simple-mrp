@@ -25,11 +25,11 @@ public class PoBo implements InfPoBo {
     private InfPoDao poDao;
 
     @Override
-    public List<Po> searchPo(Date p_dtPoDate) throws Exception {
+    public List<Po> searchPo(String p_strPoId, Date p_dtPoDate) throws Exception {
         List<Po> lsPo = null;
 
         try {
-            lsPo = poDao.findByVendIdDate(p_dtPoDate);
+            lsPo = poDao.findByDate(p_strPoId, p_dtPoDate);
 
             for(int i = 0; i < lsPo.size(); i++) {
                 Po po = lsPo.get(i);

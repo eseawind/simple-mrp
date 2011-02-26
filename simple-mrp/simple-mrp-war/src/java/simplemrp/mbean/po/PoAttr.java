@@ -20,6 +20,7 @@ public class PoAttr extends AbstractManageBean {
 
     private String mode;
 
+    private String searchPoId;
     private Date searchPoDate;
     
     private String poId;
@@ -81,6 +82,14 @@ public class PoAttr extends AbstractManageBean {
 
     public void setPoId(String poId) {
         this.poId = poId;
+    }
+
+    public String getSearchPoId() {
+        return searchPoId;
+    }
+
+    public void setSearchPoId(String searchPoId) {
+        this.searchPoId = searchPoId;
     }
 
     public Date getSearchPoDate() {

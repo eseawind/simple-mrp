@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package simplemrp.mbean.ic.to;
+package simplemrp.to;
 
 import java.io.Serializable;
 

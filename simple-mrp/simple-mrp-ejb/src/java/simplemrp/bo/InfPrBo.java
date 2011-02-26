@@ -30,6 +30,6 @@ public interface InfPrBo {
     public Pr findPr(String p_strPr_id) throws Exception;
 
     
-    public List<Pr> searchPr(String p_strRequester, Date p_dtReqDate) throws Exception;
+    public List<Pr> searchPr(String p_strPrId, String p_strRequester, Date p_dtReqDate) throws Exception;
     
 }

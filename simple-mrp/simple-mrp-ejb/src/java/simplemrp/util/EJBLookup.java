@@ -13,6 +13,7 @@ import simplemrp.facade.IcFacadeRemote;
 import simplemrp.facade.MaFacadeRemote;
 import simplemrp.facade.PoFacadeRemote;
 import simplemrp.facade.PpFacadeRemote;
+import simplemrp.facade.TestFacadeRemote;
 import simplemrp.util.BindingName;
 
 /**
@@ -48,6 +49,13 @@ public class EJBLookup {
             e.printStackTrace();
         }
         return o;
+    }
+
+    public static TestFacadeRemote getTestFacade() throws Exception {
+        if (ctx == null) {
+            initContext();
+        }
+        return (TestFacadeRemote) ctx.lookup(BindingName.TestFacadeRemote);
     }
 
     public static CoFacadeRemote getCoFacade() throws Exception {

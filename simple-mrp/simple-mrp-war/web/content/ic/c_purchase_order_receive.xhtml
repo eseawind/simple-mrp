@@ -15,7 +15,7 @@ and open the template in the editor.
     <ui:define name="content">
         <f:view id="poRecvViewId">
             <h:form id="poRecvFormId">
-                
+
                 <a4j:keepAlive beanName="poRecvBean"></a4j:keepAlive>
                 <h:panelGrid columns="1" columnClasses="alignTop" width="100%">
                     <rich:panel id="editPanel" styleClass="noborder">
@@ -24,12 +24,18 @@ and open the template in the editor.
                         <a4j:commandButton value="Save" actionListener="#{poRecvBean.doSave}" reRender="editPanel"/>
 
                         <h:panelGrid columns="2">
-                            <h:outputLabel value="Purchase Order"/>
+                            <h:outputLabel value="P/O"/>
                             <h:panelGrid columns="2">
-                                <h:inputText value="#{poRecvBean.searchPo}"/>
-                            <a4j:commandButton value="Search" actionListener="#{poRecvBean.doSearch}" reRender="editPanel"/>
+                                <h:inputText value="#{poRecvBean.searchPo}" size="7" maxlength="7">
+                                    <a4j:support event="onkeyup" actionListener="#{poRecvBean.doSearch}"
+                                                 reRender="editPanel"
+                                                 onsubmit="if(notEnter(event))return false"/>
+                                    <a4j:support event="onchange" actionListener="#{poRecvBean.doSearch}"
+                                                 reRender="editPanel"/>
+                                </h:inputText>
+                                <a4j:commandButton value="Search" actionListener="#{poRecvBean.doSearch}" reRender="editPanel"/>
                             </h:panelGrid>
-                           
+
                             <h:outputText value="Transaction Date"/>
                             <rich:calendar value="#{poRecvBean.transactionDate}" datePattern="#{constantBean.PATTREN_DATE}"></rich:calendar>
                         </h:panelGrid>
@@ -78,11 +84,11 @@ and open the template in the editor.
                                 </f:facet>
                                 <h:outputText value="#{poitem.onHand}"/>
                             </rich:column>
-                             <rich:column>
+                            <rich:column>
                                 <f:facet name="header">
                                     <h:outputText value="Qty. Order"/>
                                 </f:facet>
-                                 <h:outputText value="#{poitem.qtyOrder}"/>
+                                <h:outputText value="#{poitem.qtyOrder}"/>
                             </rich:column>
                             <rich:column>
                                 <f:facet name="header">
@@ -95,7 +101,7 @@ and open the template in the editor.
                                     <h:outputText value="To Be Receive"/>
                                 </f:facet>
                                 <rich:inputNumberSpinner value="#{poitem.toBeReceive}" maxValue="#{poitem.maxToBeReceive}" step="0.5"/>
-                                
+
                             </rich:column>
                         </rich:dataTable>
                     </rich:panel>

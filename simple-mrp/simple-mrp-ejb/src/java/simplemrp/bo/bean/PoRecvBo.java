@@ -19,7 +19,7 @@ import simplemrp.entity.ItemlocPK;
 import simplemrp.entity.Poitem;
 import simplemrp.entity.PoitemPK;
 import simplemrp.entity.Stocktrans;
-import simplemrp.mbean.ic.to.PoRecvItemTO;
+import simplemrp.to.PoRecvItemTO;
 
 /**
  *
@@ -55,6 +55,32 @@ public class PoRecvBo implements InfPoRecvBo {
             }
         }
     }
+
+    @Override
+    public void savePoRecv_V2(String poId, Date tranDate, PoRecvItemTO[] arrPoOrderItem) throws Exception {
+        try {
+            for(int i = 0; i < arrPoOrderItem.length; i++) {
+                PoRecvItemTO to = arrPoOrderItem[i];
+                
+                if(to.getToBeRecv() != 0.0) { //skiped if to be ship = 0
+                    ItemlocPK pk = new ItemlocPK(to.getWareHouseId(), to.getLocationId(), to.getItemId());
+                    Itemloc loc = itemLocDao.find(pk);
+                    //update item onhand quantity on item location
+                    updateItemLocOnhand(loc, to);
+
+                    //create stock transaction
+                    createStockTransaction(poId, loc, to, tranDate);
+
+                    //update shipped quantity on coitem
+                    PoitemPK poitemPK = new PoitemPK(poId, to.getPoSeq());
+                    updateQtyReceived(poitemPK, to.getToBeRecv());
+                }
+            }
+        } catch(Exception ex) {
+            throw new Exception(ex.getMessage(), ex);
+        }
+    }
+
     private void updateItemLocOnhand(Itemloc loc, PoRecvItemTO to) {
         Double currentOnhand = loc.getOnhand();
         Double afterShipped = currentOnhand + to.getToBeRecv();

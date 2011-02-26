@@ -8,7 +8,7 @@ package simplemrp.bo;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
-import simplemrp.mbean.ic.to.CoOrderItemTO;
+import simplemrp.to.CoOrderItemTO;
 
 /**
  *
@@ -19,4 +19,6 @@ public interface InfCoShipBo {
     
 
     public void saveCoShipping(String coId, Date tranDate, List<CoOrderItemTO> lsCoOrderItem);
+
+    public void saveCoShipping_V2(String coId, Date tranDate, CoOrderItemTO[] arrCoOrderItem) throws Exception;
 }

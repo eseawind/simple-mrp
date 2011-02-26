@@ -20,6 +20,7 @@ import simplemrp.mbean.AbstractManageBean;
 public class PrAttr extends AbstractManageBean {
     private String mode;
 
+    private String searchPrId;
     private String searchRequester;
     private Date searchReqDate;
 
@@ -159,6 +160,14 @@ public class PrAttr extends AbstractManageBean {
 
     public void setRequester(String requester) {
         this.requester = requester;
+    }
+
+    public String getSearchPrId() {
+        return searchPrId;
+    }
+
+    public void setSearchPrId(String searchPrId) {
+        this.searchPrId = searchPrId;
     }
 
     public Date getSearchReqDate() {

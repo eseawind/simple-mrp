@@ -31,7 +31,7 @@ public interface InfPoDao {
 
     int count();
 
-    public List<Po> findByVendIdDate(Date p_dtPoDate);
+    public List<Po> findByDate(String p_strPoId, Date p_dtPoDate);
 
     public String getNextPo_id();
 }

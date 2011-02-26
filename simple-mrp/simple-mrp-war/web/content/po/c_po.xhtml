@@ -31,6 +31,12 @@
             <h:panelGrid columns="2" columnClasses="left_panel,right_panel" width="100%">
                 <rich:panel id="searchPanel" styleClass="noborder">
                     <h:panelGrid columns="3">
+                        <h:outputLabel value="P/O"/>
+                        <h:inputText value="#{poBean.searchPoId}" size="7" maxlength="7">
+                            <a4j:support event="onkeyup" actionListener="#{poBean.doSearchPo}" reRender="poTable"
+                                         onsubmit="if(notEnter(event))return false"/>
+                        </h:inputText>
+                        <rich:spacer width="4"/>
                         <h:outputLabel value="P/O Date"/>
                         <rich:calendar value="#{poBean.searchPoDate}"
                                        datePattern="#{constantBean.PATTREN_DATE}"

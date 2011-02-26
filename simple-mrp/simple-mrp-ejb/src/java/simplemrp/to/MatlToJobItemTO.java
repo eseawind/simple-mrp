@@ -3,13 +3,15 @@
  * and open the template in the editor.
  */
 
-package simplemrp.mbean.ic.to;
+package simplemrp.to;
+
+import java.io.Serializable;
 
 /**
  *
  * @author wisaruthkea
  */
-public class MatlToJobItemTO {
+public class MatlToJobItemTO implements Serializable {
     private Integer opr;
     private Integer seq;
     private String matlId;

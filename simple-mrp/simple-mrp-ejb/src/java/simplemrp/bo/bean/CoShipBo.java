@@ -19,7 +19,7 @@ import simplemrp.entity.CoitemPK;
 import simplemrp.entity.Itemloc;
 import simplemrp.entity.ItemlocPK;
 import simplemrp.entity.Stocktrans;
-import simplemrp.mbean.ic.to.CoOrderItemTO;
+import simplemrp.to.CoOrderItemTO;
 
 /**
  *
@@ -53,6 +53,33 @@ public class CoShipBo implements InfCoShipBo {
                 updateQtyShipped(coitemPK, to.getToBeShip());
             }
         }
+    }
+
+    @Override
+    public void saveCoShipping_V2(String coId, Date tranDate, CoOrderItemTO[] arrCoOrderItem) throws Exception {
+        try {
+            for(int i = 0; i < arrCoOrderItem.length; i++) {
+            CoOrderItemTO to = arrCoOrderItem[i];
+            
+            if (to.getToBeShip() != 0.0) {
+                //skiped if to be ship = 0
+                ItemlocPK pk = new ItemlocPK(to.getWareHouseId(), to.getLocationId(), to.getItemId());
+                Itemloc loc = itemLocDao.find(pk);
+                //update item onhand quantity on item location
+                updateItemLocOnhand(loc, to);
+
+                //create stock transaction
+                createStockTransaction(coId, loc, to, tranDate);
+
+                //update shipped quantity on coitem
+                CoitemPK coitemPK = new CoitemPK(coId, to.getCoSeq());
+                updateQtyShipped(coitemPK, to.getToBeShip());
+            }
+        }
+        } catch(Exception ex) {
+            throw new Exception(ex.getMessage(), ex);
+        }
+        
     }
 
     private void updateItemLocOnhand(Itemloc loc, CoOrderItemTO to) {

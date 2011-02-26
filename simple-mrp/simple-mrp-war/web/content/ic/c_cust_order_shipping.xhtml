@@ -15,19 +15,24 @@ and open the template in the editor.
     <ui:define name="content">
         <f:view id="coShipViewId">
             <h:form id="coShipFormId">
-                
                 <a4j:keepAlive beanName="coShipBean"></a4j:keepAlive>
+
                 <h:panelGrid columns="1" columnClasses="alignTop" width="100%">
                     <rich:panel id="editPanel" styleClass="noborder">
-
                         <rich:spacer width="4"/>
                         <a4j:commandButton value="Save" actionListener="#{coShipBean.doSave}" reRender="editPanel"/>
 
                         <h:panelGrid columns="2">
-                            <h:outputLabel value="Customer Order"/>
+                            <h:outputLabel value="C/O"/>
                             <h:panelGrid columns="2">
-                            <h:inputText value="#{coShipBean.searchCo}"/>
-                            <a4j:commandButton value="Search" actionListener="#{coShipBean.doSearch}" reRender="editPanel,coItemTable"/>
+                                <h:inputText value="#{coShipBean.searchCo}" size="7" maxlength="7">
+                                    <a4j:support event="onkeyup" actionListener="#{coShipBean.doSearch}"
+                                                 reRender="editPanel,coItemTable"
+                                                 onsubmit="if(notEnter(event))return false"/>
+                                    <a4j:support event="onchange" actionListener="#{coShipBean.doSearch}"
+                                                 reRender="editPanel,coItemTable"/>
+                                </h:inputText>
+                                <a4j:commandButton value="Search" actionListener="#{coShipBean.doSearch}" reRender="editPanel,coItemTable"/>
                             </h:panelGrid>
                             <h:outputText value="Customer"/>
                             <h:outputText value="#{coShipBean.cust}"/>
@@ -59,9 +64,7 @@ and open the template in the editor.
                                     </f:selectItems>
                                     <a4j:support event="onchange" reRender="selectLocation,elToBeShip,elOnHand" actionListener="#{coItem.doCheckWarehouse}"/>
                                 </h:selectOneMenu>
-                                
                             </rich:column>
-
                             <rich:column>
                                 <f:facet name="header">
                                     <h:outputText value="Location"/>
@@ -77,13 +80,13 @@ and open the template in the editor.
                                 <f:facet name="header">
                                     <h:outputText value="On Hand"/>
                                 </f:facet>
-                                 <h:outputText id="elOnHand" value="#{coItem.onHand}"/>
+                                <h:outputText id="elOnHand" value="#{coItem.onHand}"/>
                             </rich:column>
-                             <rich:column>
+                            <rich:column>
                                 <f:facet name="header">
                                     <h:outputText value="Qty. Order"/>
                                 </f:facet>
-                                 <h:outputText value="#{coItem.qtyOrder}"/>
+                                <h:outputText value="#{coItem.qtyOrder}"/>
                             </rich:column>
                             <rich:column>
                                 <f:facet name="header">
@@ -97,10 +100,8 @@ and open the template in the editor.
                                 </f:facet>
                                 <rich:inputNumberSpinner id="elToBeShip" step="0.5" maxValue="#{coItem.maxToBeShip}" value="#{coItem.toBeShip}"/>
                             </rich:column>
-                             
                         </rich:dataTable>
                     </rich:panel>
-
                 </h:panelGrid>
             </h:form>
         </f:view>

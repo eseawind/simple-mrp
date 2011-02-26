@@ -9,13 +9,14 @@ import java.util.Date;
 import java.util.List;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
+import org.sit.common.utils.StringUtil;
 import simplemrp.entity.Job;
 import simplemrp.entity.Jobmatl;
 import simplemrp.entity.Whse;
 import simplemrp.facade.IcFacadeRemote;
 import simplemrp.facade.MaFacadeRemote;
 import simplemrp.facade.PpFacadeRemote;
-import simplemrp.mbean.ic.to.MatlToJobItemTO;
+import simplemrp.to.MatlToJobItemTO;
 import simplemrp.util.BindingName;
 import simplemrp.util.EJBLookup;
 
@@ -37,7 +38,7 @@ public class MatlToJobBean extends MatlToJobAttr {
 
     private void init() throws Exception {
         List<Whse> results = ma.getListWhse();
-        for (Whse w : results) {
+        for(Whse w : results) {
             SelectItem item = new SelectItem(w.getWhse(), w.getDescription());
             super.getLsWarehouse().add(item);
         }
@@ -45,14 +46,14 @@ public class MatlToJobBean extends MatlToJobAttr {
     }
 
     public void doSave(ActionEvent e) {
-        log.info("save material to job id=" + super.getJobId());
-        if (super.getTransactionDate() == null) {
+//        log.info("save material to job id=" + super.getJobId());
+        if(super.getTransactionDate() == null) {
             message("please specify transaction date.");
             return;
         }
         List<MatlToJobItemTO> lsTo = new ArrayList<MatlToJobItemTO>();
         MatlToJobItemTO to = null;
-        for (MatlToJobItem mtj : super.getLsMatlToJobItem()) {
+        for(MatlToJobItem mtj : super.getLsMatlToJobItem()) {
             to = new MatlToJobItemTO();
             //TODO implement data
             to.setOpr(mtj.getOperation());
@@ -63,37 +64,54 @@ public class MatlToJobBean extends MatlToJobAttr {
             to.setToBeIssue(mtj.getToBeIssue());
             lsTo.add(to);
         }
+
+        MatlToJobItemTO[] arrMatlToJobItemTO = new MatlToJobItemTO[lsTo.size()];
+        for(int i = 0; i < lsTo.size(); i++) {
+            arrMatlToJobItemTO[i] = lsTo.get(i);
+        }
+
         try {
-            ic.saveMatlToJob(super.getJobId(), super.getTransactionDate(), lsTo);
+            ic.saveMatlToJob_V2(super.getJobId(), super.getTransactionDate(), arrMatlToJobItemTO);
             message("Save '" + super.getJobId() + "' success");
             //refresh page
             doSearch(e);
-        } catch (Exception ex) {
+        } catch(Exception ex) {
             message("Save '" + super.getJobId() + "' fail " + ex.getMessage());
         }
 
     }
 
-    public void doSearch(ActionEvent e) {
-        log.info("search jobid=" + super.getJobId());
-        Job job = pp.getJob(super.getJobId());
-        if (job != null) {
-            List<Jobmatl> jobMatlList = pp.getJobMatlByJobId(super.getJobId());
-            log.debug("jobMatlList=" + jobMatlList);
-            fillPage(job, jobMatlList);
-        } else {
-            message("Job ID '" + super.getJobId() + "' not found.");
+    public void doSearch(ActionEvent e) throws Exception {
+//        log.debug("Search Job " + StringUtil.prefixString(super.getJobId(), 7));
+        try {
+            Job job = pp.getJob(StringUtil.prefixString(super.getJobId(), 7));
+
+            if(job != null) {
+                List<Jobmatl> jobMatlList = pp.getJobMatlByJobId(job.getJobId());
+                fillPage(job, jobMatlList);
+
+            } else {
+                message("Job ID '" + super.getJobId() + "' not found.");
+                setJobId(null);
+                setJobItemDesc(null);
+                setJobItemId(null);
+                setQty(null);
+            }
+        } catch(Throwable ex) {
+            throw new Exception(ex.getMessage(), ex);
         }
     }
 
     private void fillPage(Job job, List<Jobmatl> ls) {
         super.getLsMatlToJobItem().clear();
+
+        super.setJobId(job.getJobId());
         super.setJobItemId(job.getItem().getItem());
         super.setJobItemDesc(job.getItem().getDescription());
         super.setQty(job.getQty());
         super.setTransactionDate(new Date());
         MatlToJobItem item = null;
-        for (Jobmatl matl : ls) {
+        for(Jobmatl matl : ls) {
             item = new MatlToJobItem();
             item.setOperation(matl.getJobmatlPK().getOpr());
             item.setSequence(matl.getJobmatlPK().getSeq());

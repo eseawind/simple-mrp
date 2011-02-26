@@ -43,8 +43,8 @@ public class PrBo implements InfPrBo {
     private InfPoitemBo poitemBo;
 
     @Override
-    public List<Pr> searchPr(String p_strRequester, Date p_dtReqDate) throws Exception {
-        List<Pr> lsPr = prDao.findByRequesterReqDate(p_strRequester, p_dtReqDate);
+    public List<Pr> searchPr(String p_strPrId, String p_strRequester, Date p_dtReqDate) throws Exception {
+        List<Pr> lsPr = prDao.findByRequesterReqDate(p_strPrId, p_strRequester, p_dtReqDate);
 
         for(int i = 0; i < lsPr.size(); i++) {
             Pr pr = lsPr.get(i);

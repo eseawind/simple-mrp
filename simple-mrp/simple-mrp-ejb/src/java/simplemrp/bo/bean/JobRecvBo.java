@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package simplemrp.bo.bean;
 
 import java.util.Date;
@@ -22,8 +21,8 @@ import simplemrp.entity.Job;
 import simplemrp.entity.Poitem;
 import simplemrp.entity.PoitemPK;
 import simplemrp.entity.Stocktrans;
-import simplemrp.mbean.ic.to.JobRecvItemTO;
-import simplemrp.mbean.ic.to.PoRecvItemTO;
+import simplemrp.to.JobRecvItemTO;
+import simplemrp.to.PoRecvItemTO;
 
 /**
  *
@@ -31,20 +30,18 @@ import simplemrp.mbean.ic.to.PoRecvItemTO;
  */
 @Stateless
 public class JobRecvBo implements InfJobRecvBo {
+
     @EJB
     InfStocktransDao stockTranDao;
-
     @EJB
     InfItemlocDao itemLocDao;
-
     @EJB
     InfJobDao jobDao;
 
     @Override
-    public void saveJobRecv(String jobId, Date tranDate, JobRecvItemTO to) {
-        System.out.println("Save poId="+jobId+" trandate="+tranDate+" job="+to.toString());
-
-            if (to.getToBeRecv() != 0.0) { //skiped if to be ship = 0
+    public void saveJobRecv(String jobId, Date tranDate, JobRecvItemTO to) throws Exception {
+        try {
+            if(to.getToBeRecv() != 0.0) { //skiped if to be ship = 0
                 ItemlocPK pk = new ItemlocPK(to.getWareHouseId(), to.getLocationId(), to.getItemId());
                 Itemloc loc = itemLocDao.find(pk);
                 //update item onhand quantity on item location
@@ -54,11 +51,14 @@ public class JobRecvBo implements InfJobRecvBo {
                 createStockTransaction(jobId, loc, to, tranDate);
 
                 //update receive quantity on jobitem
-              
+
                 updateQtyReceived(jobId, to.getToBeRecv());
             }
-
+        } catch(Exception ex) {
+            throw new Exception(ex.getMessage(), ex);
+        }
     }
+
     private void updateItemLocOnhand(Itemloc loc, JobRecvItemTO to) {
         Double currentOnhand = loc.getOnhand();
         Double afterShipped = currentOnhand + to.getToBeRecv();
@@ -82,14 +82,11 @@ public class JobRecvBo implements InfJobRecvBo {
 
     private void updateQtyReceived(String jobId, Integer qtyToBeRecv) {
         Job job = jobDao.find(jobId);
-        
-        Integer currentCompleted = job.getQtycomplete()==null?0:job.getQtycomplete();
+
+        Integer currentCompleted = job.getQtycomplete() == null ? 0 : job.getQtycomplete();
         Integer afterPlusShip = currentCompleted + qtyToBeRecv;
         job.setQtycomplete(afterPlusShip);
 
         jobDao.edit(job);
     }
-
-
-
 }

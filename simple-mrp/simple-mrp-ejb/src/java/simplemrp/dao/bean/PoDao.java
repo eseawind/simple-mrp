@@ -35,14 +35,35 @@ public class PoDao extends AbstractDao<Po> implements InfPoDao {
     }
 
     @Override
-    public List<Po> findByVendIdDate(Date p_dtPoDate) {
+    public List<Po> findByDate(String p_strPoId, Date p_dtPoDate) {
+        ParamBinder pb = new ParamBinder();
+
+        StringBuilder condition = new StringBuilder();
+
+        if((p_strPoId != null) && (p_strPoId.length() > 0)) {
+            condition.append(" p.poId LIKE :poId ");
+            pb.put("poId", p_strPoId + "%");
+        }
+
+        if(p_dtPoDate != null) {
+            if(condition.length() > 0) {
+                condition.append(" AND ");
+            }
+            condition.append(" p.poDate = :poDate ");
+            pb.put("poDate", p_dtPoDate);
+        }
+
         StringBuilder sql = new StringBuilder();
-        sql.append("select distinct p \n");
-        sql.append("from Po as p \n");
-        sql.append("where p.poDate = :poDate \n");
+        sql.append("SELECT distinct p ");
+        sql.append("FROM Po AS p ");
+        sql.append("WHERE ").append(condition);
+
+//        System.out.println(sql.toString());
         
         Query q = em.createQuery(sql.toString());
-        q.setParameter("poDate", p_dtPoDate);
+        q = pb.bind(q);
+
+//        System.out.println(q.toString());
 
         return q.getResultList();
     }

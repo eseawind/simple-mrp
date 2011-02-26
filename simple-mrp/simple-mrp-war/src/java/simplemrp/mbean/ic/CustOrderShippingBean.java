@@ -8,12 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
+import org.sit.common.utils.StringUtil;
 import simplemrp.entity.Co;
 import simplemrp.entity.Coitem;
 import simplemrp.entity.Whse;
 import simplemrp.facade.IcFacadeRemote;
 import simplemrp.facade.MaFacadeRemote;
-import simplemrp.mbean.ic.to.CoOrderItemTO;
+import simplemrp.to.CoOrderItemTO;
 import simplemrp.util.BindingName;
 import simplemrp.util.EJBLookup;
 
@@ -58,12 +59,20 @@ public class CustOrderShippingBean extends CustOrderShippingAttr {
             to.setToBeShip(item.getToBeShip());
             lsTo.add(to);
         }
+
+        CoOrderItemTO[] arrCoOrderItemTO = new CoOrderItemTO[lsTo.size()];
+        for(int i = 0; i < lsTo.size(); i++) {
+            arrCoOrderItemTO[i] = lsTo.get(i);
+        }
+
         try {
-            ic.saveCoShipping(super.getSearchCo(), super.getTransactionDate(), lsTo);
+//            ic.saveCoShipping(super.getSearchCo(), super.getTransactionDate(), lsTo);
+            ic.saveCoShipping_V2(super.getSearchCo(), super.getTransactionDate(), arrCoOrderItemTO);
             doSearch(e);
-            message("Save CO ID=" + super.getSearchCo() + " Success.");
+            message("Save C/O ID=" + super.getSearchCo() + " Success.");
         } catch (Exception ex) {
-            message("Save CO ID=" + super.getSearchCo() + " Fail. cause " + ex.getMessage());
+            log.error(ex.getMessage(), ex);
+            message("Save C/O ID=" + super.getSearchCo() + " Fail. cause " + ex.getMessage());
         }
 
     }
@@ -72,10 +81,13 @@ public class CustOrderShippingBean extends CustOrderShippingAttr {
         log.info("Search CO Shipping input=" + super.getSearchCo());
         clear();
         try {
-            Co results = ic.findCo(super.getSearchCo());
+            Co results = ic.findCo(StringUtil.prefixString(super.getSearchCo(), 7));
             if (results == null) {
+                setSearchCo(null);
                 message("CO id=" + super.getSearchCo() + " not found.");
                 return;
+            } else {
+                setSearchCo(results.getCoId());
             }
             fillValue(results);
         } catch (Exception ex) {

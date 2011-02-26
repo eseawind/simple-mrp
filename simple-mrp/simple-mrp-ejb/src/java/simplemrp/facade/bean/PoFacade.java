@@ -29,6 +29,7 @@ import simplemrp.entity.Pr;
 import simplemrp.entity.Pr_stat;
 import simplemrp.entity.Pritem;
 import simplemrp.entity.PritemPK;
+import simplemrp.to.CoOrderItemTO;
 
 /**
  *
@@ -87,8 +88,8 @@ public class PoFacade implements PoFacadeRemote {
     }
 
     @Override
-    public List<Po> searchPo(Date p_dtPoDate) throws Exception {
-        return poBo.searchPo(p_dtPoDate);
+    public List<Po> searchPo(String p_strPoId, Date p_dtPoDate) throws Exception {
+        return poBo.searchPo(p_strPoId, p_dtPoDate);
     }
 
     @Override
@@ -147,8 +148,8 @@ public class PoFacade implements PoFacadeRemote {
     }
 
     @Override
-    public List<Pr> searchPr(String p_strRequester, Date p_dtReqDate) throws Exception {
-        return prBo.searchPr(p_strRequester, p_dtReqDate);
+    public List<Pr> searchPr(String p_strPrId, String p_strRequester, Date p_dtReqDate) throws Exception {
+        return prBo.searchPr(p_strPrId, p_strRequester, p_dtReqDate);
     }
 
     @Override

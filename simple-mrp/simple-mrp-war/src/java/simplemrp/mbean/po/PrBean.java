@@ -75,8 +75,8 @@ public class PrBean extends PrAttr {
 
                 checkPrId(pr.getPrId());
 
-                if((getSearchRequester().trim().length() > 0) || (getSearchReqDate() != null)) {
-                    searchPr(getSearchRequester().trim(), getSearchReqDate());
+                if((getSearchPrId().trim().length() > 0) || (getSearchRequester().trim().length() > 0) || (getSearchReqDate() != null)) {
+                    searchPr(getSearchPrId().trim(), getSearchRequester().trim(), getSearchReqDate());
                 }
 
                 message("Save Complete");
@@ -86,8 +86,8 @@ public class PrBean extends PrAttr {
 
                 checkPrId(strNewPrId);
 
-                if((getSearchRequester().trim().length() > 0) || (getSearchReqDate() != null)) {
-                    searchPr(getSearchRequester().trim(), getSearchReqDate());
+                if((getSearchPrId().trim().length() > 0) || (getSearchRequester().trim().length() > 0) || (getSearchReqDate() != null)) {
+                    searchPr(getSearchPrId().trim(), getSearchRequester().trim(), getSearchReqDate());
                 }
 
                 message("Create Complete");
@@ -165,22 +165,25 @@ public class PrBean extends PrAttr {
     }
 
     public void doSearchPR(ActionEvent e) throws Exception {
+        String strSearchPrId= getSearchPrId().trim();
         String strSearchRequester= getSearchRequester().trim();
         Date dtSearchReqDate = getSearchReqDate();
 
+        setSearchPrId(strSearchPrId);
         setSearchRequester(strSearchRequester);
+        setSearchReqDate(dtSearchReqDate);
 
-        if((getSearchRequester().trim().length() == 0) && (getSearchReqDate() == null)) {
+        if((strSearchPrId.length() == 0) && (strSearchRequester.length() == 0) && (dtSearchReqDate == null)) {
             message("Please Enter Search Condition");
         } else {
-            searchPr(strSearchRequester, dtSearchReqDate);
+            searchPr(strSearchPrId, strSearchRequester, dtSearchReqDate);
         }
     }
 
-    private void searchPr(String p_strRequester, Date p_dtReqDate) throws Exception {
-        if((p_strRequester.length() > 0) || (p_dtReqDate != null)) {
+    private void searchPr(String p_strPrId, String p_strRequester, Date p_dtReqDate) throws Exception {
+        if((p_strPrId.length() > 0) || (p_strRequester.length() > 0) || (p_dtReqDate != null)) {
             PoFacadeRemote poFacade = EJBLookup.getPoFacade();
-            List<Pr> lsPr = poFacade.searchPr(p_strRequester, p_dtReqDate);
+            List<Pr> lsPr = poFacade.searchPr(p_strPrId, p_strRequester, p_dtReqDate);
 
             setLsPr(lsPr);
         }

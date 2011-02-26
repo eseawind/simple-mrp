@@ -50,7 +50,7 @@ public class LoginBean extends AbstractManageBean {
             Usr usr = maFacade.getUsr(strUsr);
 
             if(usr == null) {
-                message("User not found");
+                message("Unknown user");
             } else if((usr != null) && (!usr.getPwd().equals(getPwd()))) {
                 message("Wrong password");
             } else if((usr != null) && (usr.getPwd().equals(getPwd()))) {

@@ -13,12 +13,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import simplemrp.entity.Co;
-import simplemrp.entity.Itemloc;
-import simplemrp.mbean.ic.to.CoOrderItemTO;
-import simplemrp.mbean.ic.to.JobRecvItemTO;
-import simplemrp.mbean.ic.to.MatlToJobItemTO;
-import simplemrp.mbean.ic.to.PoRecvItemTO;
+import simplemrp.to.JobRecvItemTO;
+import simplemrp.to.MatlToJobItemTO;
+import simplemrp.to.PoRecvItemTO;
 import simplemrp.test.ContextFactory;
 import simplemrp.util.BindingName;
 
@@ -75,13 +72,13 @@ public class IcFacadeRemoteTest {
      * Test of savePoReceive method, of class IcFacadeRemote.
      */
     //@Test
-    public void testSavePoReceive() {
+    public void testSavePoReceive() throws Exception {
         System.out.println("savePoReceive");
         String poId = "";
         Date tranDate = null;
         List<PoRecvItemTO> lsPoOrderItem = null;
         
-        icFacade.savePoReceive(poId, tranDate, lsPoOrderItem);
+        icFacade.savePoReceive_V2(poId, tranDate, new PoRecvItemTO[0]);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -90,7 +87,7 @@ public class IcFacadeRemoteTest {
      * Test of saveJobReceive method, of class IcFacadeRemote.
      */
     //@Test
-    public void testSaveJobReceive() {
+    public void testSaveJobReceive() throws Exception {
         System.out.println("saveJobReceive");
         String jobId = "";
         Date transDate = null;
@@ -105,13 +102,13 @@ public class IcFacadeRemoteTest {
      * Test of saveMatlToJob method, of class IcFacadeRemote.
      */
     //@Test
-    public void testSaveMatlToJob() {
+    public void testSaveMatlToJob() throws Exception {
         System.out.println("saveMatlToJob");
         String jobId = "";
         Date transDate = null;
         List<MatlToJobItemTO> lsTo = null;
         
-        icFacade.saveMatlToJob(jobId, transDate, lsTo);
+        icFacade.saveMatlToJob_V2(jobId, transDate, new MatlToJobItemTO[0]);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

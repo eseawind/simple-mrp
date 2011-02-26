@@ -13,15 +13,18 @@ and open the template in the editor.
     <f:view contentType="text/html">
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
             <title>Simple MRP</title>
             <link href="/css/default.css" rel="stylesheet" type="text/css"/>
             <link href="/css/cssLayout.css" rel="stylesheet" type="text/css" />
+
+            <a4j:loadScript src="resource:///org/richfaces/renderkit/html/scripts/jquery/jquery.js" />
         </head>
         <body>
             <h:form id="loginForm">
                 <div style="position: absolute; left: 35%; top: 150px;">
-                    <rich:panel>
-                        <img src="images/business-logo.png"/>
+                    <rich:panel id="loginPanel">
+                        <img alt="" src="images/business-logo.png"></img>
                         <h:panelGrid columns="2">
                             <h:outputLabel value="User ID"></h:outputLabel>
                             <h:inputText value="#{loginBean.usr_id}"></h:inputText>

@@ -9,13 +9,14 @@ import java.util.Date;
 import java.util.List;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
+import org.sit.common.utils.StringUtil;
 import simplemrp.entity.Po;
 import simplemrp.entity.Poitem;
 import simplemrp.entity.Whse;
 import simplemrp.facade.IcFacadeRemote;
 import simplemrp.facade.MaFacadeRemote;
 import simplemrp.facade.PoFacadeRemote;
-import simplemrp.mbean.ic.to.PoRecvItemTO;
+import simplemrp.to.PoRecvItemTO;
 import simplemrp.util.BindingName;
 import simplemrp.util.EJBLookup;
 
@@ -60,12 +61,17 @@ public class PoReceiveBean extends PoReceiveAttr {
             to.setToBeRecv(item.getToBeReceive());
             lsTo.add(to);
         }
+
+        PoRecvItemTO[] arrPoRecvItemTO = new PoRecvItemTO[lsTo.size()];
+        for(int i = 0; i < lsTo.size(); i++) {
+            arrPoRecvItemTO[i] = lsTo.get(i);
+        }
         try {
-            ic.savePoReceive(super.getSearchPo(), super.getTransactionDate(), lsTo);
+            ic.savePoReceive_V2(super.getSearchPo(), super.getTransactionDate(), arrPoRecvItemTO);
             doSearch(e);
-            message("Save CO ID=" + super.getSearchPo() + " Success.");
+            message("Save P/O ID=" + super.getSearchPo() + " Success.");
         } catch (Exception ex) {
-            message("Save CO ID=" + super.getSearchPo() + " Fail. cause " + ex.getMessage());
+            message("Save P/O ID=" + super.getSearchPo() + " Fail. cause " + ex.getMessage());
         }
     }
 
@@ -74,10 +80,13 @@ public class PoReceiveBean extends PoReceiveAttr {
         super.getLsPoReceiveItemBean().clear();
         super.setTransactionDate(new Date());
         try {
-            Po result = poFacade.getPo(super.getSearchPo());
+            Po result = poFacade.getPo(StringUtil.prefixString(super.getSearchPo(), 7));
             if (result == null) {
                 message("P/O ID=" + super.getSearchPo() + " not found.");
+                setSearchPo(null);
                 return;
+            } else {
+                setSearchPo(result.getPoId());
             }
             List<Poitem> ls = poFacade.getPoitemByPo(result.getPoId());
             result.setPoitemCollection(ls);
