@@ -25,7 +25,13 @@ and open the template in the editor.
                 <rich:panel id="searchPanel" styleClass="noborder">
                     <h:panelGrid columns="3">
                         <h:outputLabel value="Job ID"/>
-                        <h:inputText value="#{jobOrderBean.searchJobId}"/>
+                        <h:inputText value="#{jobOrderBean.searchJobId}" size="7" maxlength="7">
+                            <a4j:support event="onkeyup" actionListener="#{jobOrderBean.doSearch}"
+                                         reRender="searchPanel"
+                                         onsubmit="if(notEnter(event))return false"/>
+                            <a4j:support event="onchange" actionListener="#{jobOrderBean.doSearch}"
+                                         reRender="searchPanel"/>
+                        </h:inputText>
                         <rich:spacer width="4px"/>
 
                         <h:outputLabel value="Job Date"/>

@@ -43,7 +43,7 @@ public class JobOrderRecvBean extends JobOrderRecvAttr {
     public void doSearch(ActionEvent e) {
         String searchJobId = super.getSearchJobId().trim();
         List<Job> result = new ArrayList<Job>();
-        if (searchJobId != null) {
+        if (searchJobId.length() > 0) {
             setSearchJobId(searchJobId);
             result = ppFacadeRemote.searchJob(super.getSearchJobId(), null);
         }
