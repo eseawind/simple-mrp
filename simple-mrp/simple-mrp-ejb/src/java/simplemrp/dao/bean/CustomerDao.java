@@ -45,6 +45,10 @@ public class CustomerDao extends AbstractDao<Customer> implements InfCustomerDao
         Query q = em.createQuery(sql);
         String strLastCust_id = (String)q.getSingleResult();
 
+        if((strLastCust_id == null) || (strLastCust_id.length() == 0)) {
+            strLastCust_id = "0000000";
+        }
+
         Integer intNext = new Integer(strLastCust_id).intValue() + 1;
 
         String strNextCust_id = "0000000" + intNext;

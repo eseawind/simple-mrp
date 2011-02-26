@@ -57,6 +57,7 @@ public class CustOrderShippingBean extends CustOrderShippingAttr {
             to.setWareHouseId(item.getSelectedWarehouse());
             to.setLocationId(item.getSelectedLocation());
             to.setToBeShip(item.getToBeShip());
+            to.setCuser(getSessionUserId());
             lsTo.add(to);
         }
 

@@ -100,6 +100,8 @@ public class MatlToJobBo implements InfMatlToJobBo {
         e.setRefSeq(to.getOpr());
         e.setQty(to.getToBeIssue());
         e.setCdate(new Date());
+        e.setCuser(to.getCuser());
+        
         stockTranDao.edit(e);
     }
 

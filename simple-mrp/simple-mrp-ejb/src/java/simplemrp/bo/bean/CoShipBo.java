@@ -100,6 +100,8 @@ public class CoShipBo implements InfCoShipBo {
         e.setRefSeq(to.getCoSeq());
         e.setQty(to.getToBeShip());
         e.setCdate(new Date());
+        e.setCuser(to.getCuser());
+        
         stockTranDao.edit(e);
     }
 

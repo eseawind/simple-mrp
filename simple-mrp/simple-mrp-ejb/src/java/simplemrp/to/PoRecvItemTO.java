@@ -12,6 +12,7 @@ import java.io.Serializable;
  * @author wisaruthkea
  */
 public class PoRecvItemTO implements Serializable {
+    private String cuser;
     private Integer poSeq;
     private String itemId;
     private String wareHouseId;
@@ -87,4 +88,14 @@ public class PoRecvItemTO implements Serializable {
     public void setToBeRecv(Double toBeRecv) {
         this.toBeRecv = toBeRecv;
     }
+
+    public String getCuser() {
+        return cuser;
+    }
+
+    public void setCuser(String cuser) {
+        this.cuser = cuser;
+    }
+
+    
 }

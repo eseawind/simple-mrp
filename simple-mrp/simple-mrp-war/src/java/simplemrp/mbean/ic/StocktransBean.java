@@ -25,9 +25,9 @@ public class StocktransBean extends StocktransAttr {
         Date dtSearchTransDateFrom = getSearchTransDateFrom();
         Date dtSearchTransDateTo = getSearchTransDateTo();
 
-        log.info(strSearchTransItem);
-        log.info(dtSearchTransDateFrom.toString());
-        log.info(dtSearchTransDateTo.toString());
+//        log.info(strSearchTransItem);
+//        log.info(dtSearchTransDateFrom);
+//        log.info(dtSearchTransDateTo);
 
         setSearchTransItem(strSearchTransItem);
 

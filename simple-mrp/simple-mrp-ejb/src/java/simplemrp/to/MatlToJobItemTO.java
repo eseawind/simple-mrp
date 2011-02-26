@@ -12,6 +12,7 @@ import java.io.Serializable;
  * @author wisaruthkea
  */
 public class MatlToJobItemTO implements Serializable {
+    private String cuser;
     private Integer opr;
     private Integer seq;
     private String matlId;
@@ -102,4 +103,14 @@ public class MatlToJobItemTO implements Serializable {
     public void setSeq(Integer seq) {
         this.seq = seq;
     }
+
+    public String getCuser() {
+        return cuser;
+    }
+
+    public void setCuser(String cuser) {
+        this.cuser = cuser;
+    }
+
+
 }

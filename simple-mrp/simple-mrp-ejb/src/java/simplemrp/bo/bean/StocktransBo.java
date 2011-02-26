@@ -26,6 +26,7 @@ public class StocktransBo implements InfStocktransBo {
      @Override
     public List<Stocktrans> searchStocktrans(String p_strTransItem, Date p_dtTransDatedFrom, Date p_dtTransDateTo)  {
         List<Stocktrans> lsStocktrans = stocktransDao.findByItemTransDate( p_strTransItem,  p_dtTransDatedFrom,  p_dtTransDateTo);
+
          for (int i = 0; i < lsStocktrans.size(); i++) {
              Stocktrans stocktrans = lsStocktrans.get(i);
              stocktrans.getItemloc().toString();

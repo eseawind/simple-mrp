@@ -62,6 +62,8 @@ public class MatlToJobBean extends MatlToJobAttr {
             to.setWareHouseId(mtj.getSelectedWarehouse());
             to.setLocationId(mtj.getSelectedLocation());
             to.setToBeIssue(mtj.getToBeIssue());
+            to.setCuser(getSessionUserId());
+            
             lsTo.add(to);
         }
 

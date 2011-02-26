@@ -12,6 +12,7 @@ import java.io.Serializable;
  * @author wisaruthkea
  */
 public class JobRecvItemTO implements Serializable {
+    private String cuser;
     private String itemId;
     private String wareHouseId;
     private String locationId;
@@ -71,6 +72,14 @@ public class JobRecvItemTO implements Serializable {
      */
     public void setToBeRecv(Integer toBeRecv) {
         this.toBeRecv = toBeRecv;
+    }
+
+    public String getCuser() {
+        return cuser;
+    }
+
+    public void setCuser(String cuser) {
+        this.cuser = cuser;
     }
 
 

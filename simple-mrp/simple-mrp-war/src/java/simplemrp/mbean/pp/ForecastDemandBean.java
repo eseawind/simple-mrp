@@ -5,6 +5,7 @@
 package simplemrp.mbean.pp;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.faces.event.ActionEvent;
 import simplemrp.entity.Forecast;
@@ -47,6 +48,8 @@ public class ForecastDemandBean extends ForecastDemandAttr {
             fc.setQty(super.getQty());
             fc.setFcstdate(super.getForecaseDate());
             ppFacadeRemote.createForecase(fc);
+            message("Add complete");
+            search(fc.getFcstdate());
         } catch (Exception ex) {
             message(ex.getMessage());
         }
@@ -58,12 +61,15 @@ public class ForecastDemandBean extends ForecastDemandAttr {
         ppFacadeRemote.removeForecase(selectedDelForcase);
     }
 
-    public void doSearch(ActionEvent e) {
-        log.debug("doSearch searchForecaseDate=" + super.getSearchForecaseDate());
+    public void doSearch(ActionEvent e) throws Exception {
+        search(super.getSearchForecaseDate());
+    }
+
+    private void search(Date p_dtForecast) throws Exception {
         List<Forecast> results = new ArrayList<Forecast>();
         try {
-            if (super.getSearchForecaseDate() != null) {
-                results = ppFacadeRemote.searchForecast(super.getSearchForecaseDate());
+            if (p_dtForecast != null) {
+                results = ppFacadeRemote.searchForecast(p_dtForecast);
             } else {
                 results = ppFacadeRemote.listForecast();
                 //System.out.println("result="+results);

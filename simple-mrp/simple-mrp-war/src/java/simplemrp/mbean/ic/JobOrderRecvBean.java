@@ -79,6 +79,7 @@ public class JobOrderRecvBean extends JobOrderRecvAttr {
         to.setWareHouseId(super.getSelectedWarehouse());
         to.setLocationId(super.getSelectedLocation());
         to.setToBeRecv(super.getToBeComplete());
+        to.setCuser(getSessionUserId());
         try {
             ic.saveJobReceive(super.getJobId(), super.getTransactionDate(), to);
             //Reload job Data

@@ -59,6 +59,8 @@ public class PoReceiveBean extends PoReceiveAttr {
             to.setWareHouseId(item.getSelectedWarehouse());
             to.setLocationId(item.getSelectedLocation());
             to.setToBeRecv(item.getToBeReceive());
+            to.setCuser(getSessionUserId());
+            
             lsTo.add(to);
         }
 

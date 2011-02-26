@@ -22,28 +22,39 @@ and open the template in the editor.
         </head>
         <body>
             <h:form id="loginForm">
-                <div style="position: absolute; left: 35%; top: 150px;">
-                    <rich:panel id="loginPanel">
-                        <img alt="" src="images/business-logo.png"></img>
-                        <h:panelGrid columns="2">
-                            <h:outputLabel value="User ID"></h:outputLabel>
-                            <h:inputText value="#{loginBean.usr_id}"></h:inputText>
-                            <h:outputLabel value="Password"></h:outputLabel>
-                            <h:inputSecret value="#{loginBean.pwd}"></h:inputSecret>
-                            <rich:spacer width="4px"/>
-                            <h:commandButton value="Login" actionListener="#{loginBean.doLogin}" ></h:commandButton>
-                        </h:panelGrid>
-                        <a4j:outputPanel ajaxRendered="true">
-                            <rich:modalPanel id="messagePanel" height="100" zindex="2000" resizeable="true" showWhenRendered="#{!empty facesContext.maximumSeverity}">
-                                <f:facet name="header">Message</f:facet>
-                                <f:facet name="controls">
-                                    <h:graphicImage value="images/close.png" style="cursor:pointer" onclick="Richfaces.hideModalPanel('messagePanel');" />
-                                </f:facet>
-                                <rich:messages></rich:messages>
-                            </rich:modalPanel>
-                        </a4j:outputPanel>
-                    </rich:panel>
-                </div>
+                <table width="100%" border="0">
+                    <col width="30%"></col>
+                    <col></col>
+                    <col width="30%"></col>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td  align="center">
+                            <div style="position: relative; top: 150px;">
+                                <rich:panel id="loginPanel">
+                                    <img alt="" src="images/business-logo.png"></img>
+                                    <h:panelGrid columns="2">
+                                        <h:outputLabel value="User"></h:outputLabel>
+                                        <h:inputText value="#{loginBean.usr_id}"></h:inputText>
+                                        <h:outputLabel value="Password"></h:outputLabel>
+                                        <h:inputSecret value="#{loginBean.pwd}"></h:inputSecret>
+                                        <rich:spacer width="4px"/>
+                                        <h:commandButton value="Login" actionListener="#{loginBean.doLogin}" ></h:commandButton>
+                                    </h:panelGrid>
+                                    <a4j:outputPanel ajaxRendered="true">
+                                        <rich:modalPanel id="messagePanel" height="100" zindex="2000" resizeable="true" showWhenRendered="#{!empty facesContext.maximumSeverity}">
+                                            <f:facet name="header">Message</f:facet>
+                                            <f:facet name="controls">
+                                                <h:graphicImage value="images/close.png" style="cursor:pointer" onclick="Richfaces.hideModalPanel('messagePanel');" />
+                                            </f:facet>
+                                            <rich:messages></rich:messages>
+                                        </rich:modalPanel>
+                                    </a4j:outputPanel>
+                                </rich:panel>
+                            </div>
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </table>
             </h:form>
         </body>
     </f:view>

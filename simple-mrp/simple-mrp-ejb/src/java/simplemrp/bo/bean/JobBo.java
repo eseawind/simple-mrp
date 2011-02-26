@@ -135,7 +135,8 @@ public class JobBo implements InfJobBo {
                 releaseJob(job.getJobId());
             }
         } catch(Exception ex) {
-            throw new Exception(ex.getCause().getMessage(), ex);
+            ex.printStackTrace(System.out);
+            throw new Exception(ex.getMessage(), ex);
         }
     }
 

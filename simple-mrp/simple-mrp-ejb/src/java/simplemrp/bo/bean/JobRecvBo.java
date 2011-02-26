@@ -77,6 +77,8 @@ public class JobRecvBo implements InfJobRecvBo {
         e.setRefSeq(0);
         e.setQty(to.getToBeRecv());
         e.setCdate(new Date());
+        e.setCuser(to.getCuser());
+        
         stockTranDao.edit(e);
     }
 

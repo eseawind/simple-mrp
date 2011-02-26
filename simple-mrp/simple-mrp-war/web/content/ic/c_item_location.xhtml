@@ -37,7 +37,7 @@ and open the template in the editor.
                     </h:panelGrid>
                     <br></br>
                     
-                    <rich:dataTable id="itemLocTable" value="#{itemLocBean.lsItemLoc}" var="itemLoc" rowKeyVar="rowkey">
+                    <rich:dataTable id="itemLocTable" value="#{itemLocBean.lsItemLoc}" var="itemLoc" rowKeyVar="rowkey" width="800px">
                         <f:facet name="caption">
                             <h:outputText value="Item Location Warehouse '#{itemLocBean.searchWarehouse}'" />
                         </f:facet>
@@ -49,7 +49,13 @@ and open the template in the editor.
                         </rich:column>
                         <rich:column >
                             <f:facet name="header">
-                                <h:outputText value="Item Desc."/>
+                                <h:outputText value="Item"/>
+                            </f:facet>
+                            <h:outputText value="#{itemLoc.item1.item}"/>
+                        </rich:column>
+                        <rich:column >
+                            <f:facet name="header">
+                                <h:outputText value="Description"/>
                             </f:facet>
                             <h:outputText value="#{itemLoc.item1.description}"/>
                         </rich:column>

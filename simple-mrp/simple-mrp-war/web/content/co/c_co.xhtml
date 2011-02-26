@@ -121,6 +121,8 @@
                             <a4j:support event="onkeyup" actionListener="#{coBean.doCheckSlsman}"
                                          reRender="slsman"
                                          onsubmit="if(notEnter(event))return false"/>
+                            <a4j:support event="onchange" actionListener="#{coBean.doCheckSlsman}"
+                                         reRender="slsman"/>
                         </h:inputText>
                         <h:outputText value="Tax"/>
                         <h:selectOneMenu value="#{coBean.tax}">

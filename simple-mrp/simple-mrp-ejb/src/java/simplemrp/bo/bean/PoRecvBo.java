@@ -99,6 +99,8 @@ public class PoRecvBo implements InfPoRecvBo {
         e.setRefSeq(to.getPoSeq());
         e.setQty(to.getToBeRecv());
         e.setCdate(new Date());
+        e.setCuser(to.getCuser());
+        
         stockTranDao.edit(e);
     }
 

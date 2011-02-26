@@ -60,6 +60,22 @@ public class CoBean extends CoAttr {
 
     public void doSaveCo(ActionEvent e) throws Exception {
         try {
+            if(getCustId().trim().length() == 0) {
+                throw new Exception("Please enter customer ID");
+            }
+
+            if(getOrderdate() == null) {
+                throw new Exception("Please enter orderdate");
+            }
+
+            if(getDuedate() == null) {
+                throw new Exception("Please enter duedate");
+            }
+
+            if(getSlsman().trim().length() == 0) {
+                throw new Exception("Please enter saleman");
+            }
+
             Co co = new Co();
             co.setCoId(getCoId());
             co.setCustPo(getCustPo());
@@ -192,7 +208,8 @@ public class CoBean extends CoAttr {
     }
 
     public void doCheckSlsman(ActionEvent e) throws Exception {
-        checkSlsman(getSlsman().trim().toUpperCase());
+        checkSlsman(StringUtil.prefixString(getSlsman().trim(), 7));
+        
     }
 
     private void checkSlsman(String p_strSlsman) {
@@ -216,7 +233,7 @@ public class CoBean extends CoAttr {
             CoFacadeRemote coFacade = EJBLookup.getCoFacade();
             Co co = new Co();
             co.setCoId(getCoId());
-            
+
             coFacade.deleteCo(co);
 
             clearEditScreen();
@@ -366,6 +383,11 @@ public class CoBean extends CoAttr {
             coFacade.deleteCoitem(coitem);
 
             loadCoitem(coitemPK.getCoId());
+
+            if(getSearchCustId().trim().length() > 0) {
+                searchCO(getSearchCustId().trim());
+            }
+
 
             message("Delete Comlete");
         } catch(Exception ex) {

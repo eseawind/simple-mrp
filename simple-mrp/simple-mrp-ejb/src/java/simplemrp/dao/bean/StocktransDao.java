@@ -59,7 +59,7 @@ public class StocktransDao extends AbstractDao<Stocktrans> implements InfStocktr
                 condition.append(" and ");
             }
 
-            condition.append("st.trans_date > :trans_dateFrom \n");
+            condition.append("st.transDate > :trans_dateFrom \n");
             pb.put("trans_dateFrom", p_dtTransDateFrom);
         }
 
@@ -68,7 +68,7 @@ public class StocktransDao extends AbstractDao<Stocktrans> implements InfStocktr
                 condition.append(" and ");
             }
 
-            condition.append("st.trans_date < :trans_dateTo \n");
+            condition.append("st.transDate < :trans_dateTo \n");
             pb.put("trans_dateTo", p_dtTransDateTo);
         }
         StringBuilder sql = new StringBuilder();
