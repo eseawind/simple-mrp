@@ -37,25 +37,25 @@ public class PoRecvBo implements InfPoRecvBo {
     @EJB
     InfPoitemDao poItemDao;
 
-    @Override
-    public void savePoRecv(String poId, Date tranDate, List<PoRecvItemTO> lsPoOrderItem) {
-        System.out.println("Save poId="+poId+" trandate="+tranDate+" list="+lsPoOrderItem);
-        for(PoRecvItemTO to:lsPoOrderItem){
-            if (to.getToBeRecv() != 0.0) { //skiped if to be ship = 0
-                ItemlocPK pk = new ItemlocPK(to.getWareHouseId(), to.getLocationId(), to.getItemId());
-                Itemloc loc = itemLocDao.find(pk);
-                //update item onhand quantity on item location
-                updateItemLocOnhand(loc, to);
-
-                //create stock transaction
-                createStockTransaction(poId, loc, to, tranDate);
-
-                //update shipped quantity on coitem
-                PoitemPK poitemPK = new PoitemPK(poId, to.getPoSeq());
-                updateQtyReceived(poitemPK, to.getToBeRecv());
-            }
-        }
-    }
+//    @Override
+//    public void savePoRecv(String poId, Date tranDate, List<PoRecvItemTO> lsPoOrderItem) {
+//        System.out.println("Save poId="+poId+" trandate="+tranDate+" list="+lsPoOrderItem);
+//        for(PoRecvItemTO to:lsPoOrderItem){
+//            if (to.getToBeRecv() != 0.0) { //skiped if to be ship = 0
+//                ItemlocPK pk = new ItemlocPK(to.getWareHouseId(), to.getLocationId(), to.getItemId());
+//                Itemloc loc = itemLocDao.find(pk);
+//                //update item onhand quantity on item location
+//                updateItemLocOnhand(loc, to);
+//
+//                //create stock transaction
+//                createStockTransaction(poId, loc, to, tranDate);
+//
+//                //update shipped quantity on coitem
+//                PoitemPK poitemPK = new PoitemPK(poId, to.getPoSeq());
+//                updateQtyReceived(poitemPK, to.getToBeRecv());
+//            }
+//        }
+//    }
 
     @Override
     public void savePoRecv_V2(String poId, Date tranDate, PoRecvItemTO[] arrPoOrderItem) throws Exception {
@@ -90,13 +90,17 @@ public class PoRecvBo implements InfPoRecvBo {
         }
     }
 
-    private void updateItemLocOnhand(Itemloc loc, PoRecvItemTO to) {
+    private void updateItemLocOnhand(Itemloc loc, PoRecvItemTO to) throws Exception {
         Double currentOnhand = new Double(0);
         if(loc != null) {
             currentOnhand = loc.getOnhand();
         }
         Double afterShipped = currentOnhand + to.getToBeRecv();
         loc.setOnhand(afterShipped);
+
+        if((loc.getOnhand() != null) && (loc.getOnhand().doubleValue() < 0)) {
+            throw new Exception("Onhand less than zero");
+        }
 
         itemLocDao.edit(loc);
     }

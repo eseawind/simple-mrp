@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import org.sit.common.utils.DateUtil;
 import simplemrp.bo.InfJobRecvBo;
 import simplemrp.bo.InfPoRecvBo;
 import simplemrp.constant.IcConstant;
@@ -44,6 +45,13 @@ public class JobRecvBo implements InfJobRecvBo {
             if(to.getToBeRecv() != 0.0) { //skiped if to be ship = 0
                 ItemlocPK pk = new ItemlocPK(to.getWareHouseId(), to.getLocationId(), to.getItemId());
                 Itemloc loc = itemLocDao.find(pk);
+                if(loc == null) {
+                    loc = new Itemloc(pk);
+                    loc.setOnhand(0.0);
+                    loc.setUuser(to.getCuser());
+                    loc.setUdate(DateUtil.getDate());
+                    itemLocDao.create(loc);
+                }
                 //update item onhand quantity on item location
                 updateItemLocOnhand(loc, to);
 
@@ -59,10 +67,15 @@ public class JobRecvBo implements InfJobRecvBo {
         }
     }
 
-    private void updateItemLocOnhand(Itemloc loc, JobRecvItemTO to) {
+    private void updateItemLocOnhand(Itemloc loc, JobRecvItemTO to) throws Exception {
         Double currentOnhand = loc.getOnhand();
         Double afterShipped = currentOnhand + to.getToBeRecv();
         loc.setOnhand(afterShipped);
+
+        if((loc.getOnhand() != null) && (loc.getOnhand().doubleValue() < 0)) {
+            throw new Exception("Onhand less than zero");
+        }
+
         itemLocDao.edit(loc);
     }
 
@@ -78,7 +91,7 @@ public class JobRecvBo implements InfJobRecvBo {
         e.setQty(to.getToBeRecv());
         e.setCdate(new Date());
         e.setCuser(to.getCuser());
-        
+
         stockTranDao.edit(e);
     }
 

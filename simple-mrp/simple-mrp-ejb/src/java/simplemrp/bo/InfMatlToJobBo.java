@@ -17,7 +17,7 @@ import simplemrp.to.MatlToJobItemTO;
 @Local
 public interface InfMatlToJobBo {
 
-    public void saveMatlToJob(String jobId, Date transDate, List<MatlToJobItemTO> lsTo);
+//    public void saveMatlToJob(String jobId, Date transDate, List<MatlToJobItemTO> lsTo);
     public void saveMatlToJob_V2(String jobId, Date transDate, MatlToJobItemTO[] arrTo) throws Exception;
 
 }

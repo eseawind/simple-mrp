@@ -30,7 +30,7 @@ and open the template in the editor.
                         <h:outputLabel value="Item"/>
                         <h:inputText value="#{forecastDemandBean.itemId}"/>
                         <h:outputLabel value="Quantity"/>
-                        <rich:inputNumberSpinner value="#{forecastDemandBean.qty}"/>
+                        <rich:inputNumberSpinner value="#{forecastDemandBean.qty}" maxValue="99999"/>
                         <h:outputLabel value="Forecast Date"/>
                         <rich:calendar value="#{forecastDemandBean.forecaseDate}" datePattern="#{constantBean.PATTREN_DATE}"></rich:calendar>
                     </h:panelGrid>

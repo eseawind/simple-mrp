@@ -36,26 +36,26 @@ public class MatlToJobBo implements InfMatlToJobBo {
     InfJobmatlDao jobMatlDao;
 
 
-    @Override
-    public void saveMatlToJob(String jobId, Date transDate, List<MatlToJobItemTO> lsTo) {
-       System.out.println("saveMatlToJob jobId="+jobId+" trans="+transDate+" list="+lsTo);
-            for (MatlToJobItemTO to : lsTo) {
-            if (to.getToBeIssue() != 0.0) { //skiped if to be ship = 0
-                ItemlocPK pk = new ItemlocPK(to.getWareHouseId(), to.getLocationId(), to.getMatlId());
-                Itemloc loc = itemLocDao.find(pk);
-                System.out.println("find itemloc="+pk.toString()+" results="+loc);
-                //update item onhand quantity on item location
-                updateItemLocOnhand(loc, to);
-
-                //create stock transaction
-                createStockTransaction(jobId, loc, to, transDate);
-
-                //update issued quantity on jobMatl
-                JobmatlPK jobmatlPK = new JobmatlPK(jobId, to.getOpr(),to.getSeq());
-                updateQtyIssued(jobmatlPK, to.getToBeIssue());
-            }
-        }
-    }
+//    @Override
+//    public void saveMatlToJob(String jobId, Date transDate, List<MatlToJobItemTO> lsTo) {
+//       System.out.println("saveMatlToJob jobId="+jobId+" trans="+transDate+" list="+lsTo);
+//            for (MatlToJobItemTO to : lsTo) {
+//            if (to.getToBeIssue() != 0.0) { //skiped if to be ship = 0
+//                ItemlocPK pk = new ItemlocPK(to.getWareHouseId(), to.getLocationId(), to.getMatlId());
+//                Itemloc loc = itemLocDao.find(pk);
+//                System.out.println("find itemloc="+pk.toString()+" results="+loc);
+//                //update item onhand quantity on item location
+//                updateItemLocOnhand(loc, to);
+//
+//                //create stock transaction
+//                createStockTransaction(jobId, loc, to, transDate);
+//
+//                //update issued quantity on jobMatl
+//                JobmatlPK jobmatlPK = new JobmatlPK(jobId, to.getOpr(),to.getSeq());
+//                updateQtyIssued(jobmatlPK, to.getToBeIssue());
+//            }
+//        }
+//    }
 
     @Override
     public void saveMatlToJob_V2(String jobId, Date transDate, MatlToJobItemTO[] arrTo) throws Exception {
@@ -82,10 +82,15 @@ public class MatlToJobBo implements InfMatlToJobBo {
         }
     }
 
-     private void updateItemLocOnhand(Itemloc loc, MatlToJobItemTO to) {
+     private void updateItemLocOnhand(Itemloc loc, MatlToJobItemTO to) throws Exception {
         Double currentOnhand = loc.getOnhand();
         Double afterIssued = currentOnhand - to.getToBeIssue();
         loc.setOnhand(afterIssued);
+
+        if((loc.getOnhand() != null) && (loc.getOnhand().doubleValue() < 0)) {
+            throw new Exception("Onhand less than zero");
+        }
+        
         itemLocDao.edit(loc);
     }
 

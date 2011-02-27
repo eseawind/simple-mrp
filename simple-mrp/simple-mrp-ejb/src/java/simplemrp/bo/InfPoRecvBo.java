@@ -17,7 +17,7 @@ import simplemrp.to.PoRecvItemTO;
 @Local
 public interface InfPoRecvBo {
 
-    public void savePoRecv(String poId, Date tranDate, List<PoRecvItemTO> lsPoOrderItem);
+//    public void savePoRecv(String poId, Date tranDate, List<PoRecvItemTO> lsPoOrderItem);
     public void savePoRecv_V2(String poId, Date tranDate, PoRecvItemTO[] arrPoOrderItem) throws Exception;
 
 }

@@ -35,25 +35,25 @@ public class CoShipBo implements InfCoShipBo {
     @EJB
     InfCoitemDao coItemDao;
 
-    @Override
-    public void saveCoShipping(String coId, Date tranDate, List<CoOrderItemTO> lsCoOrderItem) {
-        System.out.println("Save coid=" + coId + " trandate=" + tranDate + " list=" + lsCoOrderItem);
-        for (CoOrderItemTO to : lsCoOrderItem) {
-            if (to.getToBeShip() != 0.0) { //skiped if to be ship = 0
-                ItemlocPK pk = new ItemlocPK(to.getWareHouseId(), to.getLocationId(), to.getItemId());
-                Itemloc loc = itemLocDao.find(pk);
-                //update item onhand quantity on item location
-                updateItemLocOnhand(loc, to);
-
-                //create stock transaction
-                createStockTransaction(coId, loc, to, tranDate);
-
-                //update shipped quantity on coitem
-                CoitemPK coitemPK = new CoitemPK(coId, to.getCoSeq());
-                updateQtyShipped(coitemPK, to.getToBeShip());
-            }
-        }
-    }
+//    @Override
+//    public void saveCoShipping(String coId, Date tranDate, List<CoOrderItemTO> lsCoOrderItem) throws Exception {
+//        System.out.println("Save coid=" + coId + " trandate=" + tranDate + " list=" + lsCoOrderItem);
+//        for (CoOrderItemTO to : lsCoOrderItem) {
+//            if (to.getToBeShip() != 0.0) { //skiped if to be ship = 0
+//                ItemlocPK pk = new ItemlocPK(to.getWareHouseId(), to.getLocationId(), to.getItemId());
+//                Itemloc loc = itemLocDao.find(pk);
+//                //update item onhand quantity on item location
+//                updateItemLocOnhand(loc, to);
+//
+//                //create stock transaction
+//                createStockTransaction(coId, loc, to, tranDate);
+//
+//                //update shipped quantity on coitem
+//                CoitemPK coitemPK = new CoitemPK(coId, to.getCoSeq());
+//                updateQtyShipped(coitemPK, to.getToBeShip());
+//            }
+//        }
+//    }
 
     @Override
     public void saveCoShipping_V2(String coId, Date tranDate, CoOrderItemTO[] arrCoOrderItem) throws Exception {
@@ -82,10 +82,13 @@ public class CoShipBo implements InfCoShipBo {
         
     }
 
-    private void updateItemLocOnhand(Itemloc loc, CoOrderItemTO to) {
+    private void updateItemLocOnhand(Itemloc loc, CoOrderItemTO to) throws Exception {
         Double currentOnhand = loc.getOnhand();
         Double afterShipped = currentOnhand - to.getToBeShip();
         loc.setOnhand(afterShipped);
+        if((loc.getOnhand() != null) && (loc.getOnhand().doubleValue() < 0)) {
+            throw new Exception("Onhand less than zero");
+        }
         itemLocDao.edit(loc);
     }
 
